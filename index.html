@@ -2,11 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
 
   <title>AchadosTube | Links Oficiais e Ofertas Selecionadas</title>
   <meta
@@ -15,21 +11,30 @@
   />
   <meta
     name="keywords"
-    content="achadostube, links oficiais, ofertas selecionadas, shopee, conteúdos, canais oficiais"
+    content="achadostube, links oficiais, ofertas selecionadas, conteúdos, canais oficiais, página oficial, links organizados"
   />
+  <meta name="author" content="AchadosTube" />
   <meta name="theme-color" content="#08111f" />
   <meta name="color-scheme" content="dark" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="format-detection" content="telephone=no, email=no, address=no" />
   <meta
     name="robots"
     content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
   />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="format-detection" content="telephone=no, email=no, address=no" />
-  <meta name="author" content="AchadosTube" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="bingbot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 
   <link rel="canonical" href="https://www.achadostube.com.br/" />
-  <link rel="icon" href="https://www.achadostube.com.br/favicon.ico" />
+  <link rel="icon" href="https://www.achadostube.com.br/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="https://www.achadostube.com.br/assets/logo-512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://analytics.tiktok.com" crossorigin />
+  <link rel="dns-prefetch" href="//analytics.tiktok.com" />
+  <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/og-image.jpg" />
+  <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/logo-512.png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AchadosTube" />
@@ -53,18 +58,21 @@
 
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self' https: data: blob:;
-             img-src 'self' https: data: blob:;
-             font-src 'self' https: data:;
-             style-src 'self' https: 'unsafe-inline';
-             script-src 'self' https: 'unsafe-inline';
-             connect-src 'self' https:;
-             frame-src https:;"
+    content="
+      default-src 'self';
+      base-uri 'self';
+      object-src 'none';
+      frame-ancestors 'self';
+      img-src 'self' https: data: blob:;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
+      script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://analytics.tiktok.com;
+      connect-src 'self' https://analytics.tiktok.com https://business-api.tiktok.com https://*.tiktok.com;
+      frame-src https:;
+      form-action 'self' https://wa.me https://api.whatsapp.com;
+      upgrade-insecure-requests
+    "
   />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
   <script>
     window.APP_CONFIG = {
@@ -162,6 +170,8 @@
       enableExitIntentToast: true,
       enableFaqSection: true,
       enableUtmPropagation: true,
+      enableSoftEngagement: true,
+
       tiktokPixelId: ""
     };
   </script>
@@ -175,9 +185,48 @@
   <script type="application/ld+json" id="structured-data-main">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AchadosTube",
-    "url": "https://www.achadostube.com.br/"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.achadostube.com.br/#organization",
+        "name": "AchadosTube",
+        "legalName": "AchadosTube Digital",
+        "url": "https://www.achadostube.com.br/",
+        "logo": "https://www.achadostube.com.br/assets/logo-512.png",
+        "email": "contato@achadostube.com.br",
+        "telephone": "+55 51 99999-9999",
+        "description": "Canal digital com links oficiais, conteúdos recomendados e atendimento online.",
+        "sameAs": [
+          "https://instagram.com/achadostube",
+          "https://www.tiktok.com/@achadostube",
+          "https://youtube.com/@achadostube"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Porto Alegre",
+          "addressRegion": "RS",
+          "addressCountry": "BR"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.achadostube.com.br/#website",
+        "url": "https://www.achadostube.com.br/",
+        "name": "AchadosTube",
+        "description": "Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile.",
+        "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.achadostube.com.br/#webpage",
+        "url": "https://www.achadostube.com.br/",
+        "name": "AchadosTube | Links Oficiais e Ofertas Selecionadas",
+        "description": "Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile.",
+        "isPartOf": { "@id": "https://www.achadostube.com.br/#website" },
+        "about": { "@id": "https://www.achadostube.com.br/#organization" },
+        "primaryImageOfPage": "https://www.achadostube.com.br/assets/og-image.jpg"
+      }
+    ]
   }
   </script>
 
@@ -185,7 +234,32 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": []
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Como acessar os links principais?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Basta usar os botões desta página para abrir os links e conteúdos em destaque do AchadosTube."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Esta página reúne canais oficiais?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. Esta página centraliza os principais acessos e canais oficiais do AchadosTube."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso entrar em contato por aqui?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. Você pode usar o botão de WhatsApp para falar pelo canal oficial disponível nesta página."
+        }
+      }
+    ]
   }
   </script>
 
@@ -206,11 +280,12 @@
       --shadow-dark: 0 24px 70px rgba(0, 0, 0, 0.42);
       --shadow-accent: 0 18px 44px rgba(56,189,248,0.16);
       --shadow-soft: 0 10px 26px rgba(2,6,23,0.25);
+      --radius-xl: 2rem;
+      --radius-2xl: 2.35rem;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       min-height: 100vh;
@@ -251,6 +326,7 @@
       background: linear-gradient(90deg, #22d3ee, #38bdf8);
       box-shadow: 0 0 18px rgba(56,189,248,.35);
       transition: width .08s linear;
+      transform-origin: left center;
     }
 
     .glass-card {
@@ -264,7 +340,7 @@
     .hero-shell {
       position: relative;
       overflow: hidden;
-      border-radius: 2.35rem;
+      border-radius: var(--radius-2xl);
       isolation: isolate;
     }
 
@@ -319,6 +395,7 @@
       color: #bae6fd;
       font-size: .75rem;
       font-weight: 800;
+      text-align: center;
     }
 
     .live-dot {
@@ -359,7 +436,7 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease, color .22s ease;
     }
 
     .mini-chip {
@@ -535,6 +612,10 @@
       filter: saturate(1.03);
     }
 
+    .cta-button:active {
+      transform: scale(0.985);
+    }
+
     .cta-button::after {
       content: "";
       position: absolute;
@@ -635,7 +716,7 @@
   </style>
 </head>
 <body class="min-h-[100dvh] flex flex-col items-center">
-  <div class="bg-noise"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
 
   <noscript>
     <div style="padding:12px 16px;background:#0f172a;color:#fff;text-align:center;font-family:Arial,sans-serif;">
@@ -688,7 +769,7 @@
           <div class="group inline-block rotate-3 cursor-pointer overflow-hidden rounded-[2.3rem] border border-white/15 bg-slate-900/80 p-1 shadow-2xl transition-transform duration-500 hover:rotate-0">
             <img
               id="brandLogo"
-              src=""
+              src="https://www.achadostube.com.br/assets/logo-512.png"
               alt="Logotipo da marca"
               fetchpriority="high"
               decoding="async"
@@ -724,7 +805,7 @@
       <div class="mt-6">
         <a
           id="primaryLinkHero"
-          href="#"
+          href="https://www.achadostube.com.br/oferta-principal"
           target="_blank"
           rel="noopener noreferrer nofollow"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -742,7 +823,7 @@
       <div class="mt-4 grid grid-cols-3 gap-2.5" role="navigation" aria-label="Atalhos rápidos">
         <a
           id="quickPrimaryLink"
-          href="#"
+          href="https://www.achadostube.com.br/oferta-principal"
           target="_blank"
           rel="noopener noreferrer nofollow"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -757,7 +838,7 @@
 
         <a
           id="quickWhatsappLink"
-          href="#"
+          href="https://wa.me/5551999999999?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20oficial%20do%20AchadosTube."
           target="_blank"
           rel="noopener noreferrer nofollow"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -772,7 +853,7 @@
 
         <a
           id="quickStoreLink"
-          href="#"
+          href="https://www.achadostube.com.br/loja"
           target="_blank"
           rel="noopener noreferrer nofollow"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -836,7 +917,7 @@
     <nav class="reveal mt-5 w-full space-y-4" aria-label="Links principais">
       <a
         id="primaryLink"
-        href="#"
+        href="https://www.achadostube.com.br/oferta-principal"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -870,7 +951,7 @@
 
       <a
         id="secondaryLink"
-        href="#"
+        href="https://www.achadostube.com.br/conteudo"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -892,7 +973,7 @@
 
       <a
         id="whatsappLink"
-        href="#"
+        href="https://wa.me/5551999999999?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20oficial%20do%20AchadosTube."
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -914,7 +995,7 @@
 
       <a
         id="storeLink"
-        href="#"
+        href="https://www.achadostube.com.br/loja"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1014,7 +1095,7 @@
     <div class="reveal mt-8 flex w-full items-center justify-center space-x-4" aria-label="Redes sociais">
       <a
         id="instagramLink"
-        href="#"
+        href="https://instagram.com/achadostube"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1028,7 +1109,7 @@
 
       <a
         id="tiktokLink"
-        href="#"
+        href="https://www.tiktok.com/@achadostube"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1042,7 +1123,7 @@
 
       <a
         id="youtubeLink"
-        href="#"
+        href="https://youtube.com/@achadostube"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1090,7 +1171,7 @@
     <div class="floating-cta mt-4 w-full">
       <a
         id="stickyPrimaryLink"
-        href="#"
+        href="https://www.achadostube.com.br/oferta-principal"
         target="_blank"
         rel="noopener noreferrer nofollow"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1120,7 +1201,6 @@
       </button>
 
       <h2 id="modal-title" class="mb-6 text-2xl font-bold text-white">Título</h2>
-
       <div id="modal-content" class="custom-scrollbar max-h-[55vh] overflow-y-auto pr-2 text-sm leading-relaxed text-slate-400"></div>
 
       <button id="confirmModalButton" type="button" class="mt-8 w-full rounded-2xl bg-sky-600 py-4 font-bold text-white shadow-lg transition-all hover:bg-sky-500 active:scale-95">
@@ -1132,9 +1212,14 @@
   <script>
     (function (w, d, t) {
       w.TiktokAnalyticsObject = t;
-      var ttq = (w[t] = w[t] || []);
+      var ttq = w[t] = w[t] || [];
 
-      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+      if (ttq.__initialized) return;
+      ttq.__initialized = true;
+
+      ttq.methods = [
+        "page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"
+      ];
 
       ttq.setAndDefer = function (target, method) {
         target[method] = function () {
@@ -1147,11 +1232,11 @@
       }
 
       ttq.load = function (pixelId, options) {
-        if (!pixelId || pixelId === "YOUR_TIKTOK_PIXEL_ID") return;
+        if (!pixelId || typeof pixelId !== "string" || pixelId.trim().length < 5) return;
 
         var scriptUrl = "https://analytics.tiktok.com/i18n/pixel/events.js";
         ttq._i = ttq._i || {};
-        ttq._i[pixelId] = [];
+        ttq._i[pixelId] = ttq._i[pixelId] || [];
         ttq._i[pixelId]._u = scriptUrl;
         ttq._t = ttq._t || {};
         ttq._t[pixelId] = +new Date();
@@ -1163,6 +1248,7 @@
         script.async = true;
         script.src = scriptUrl + "?sdkid=" + encodeURIComponent(pixelId) + "&lib=" + t;
 
+        script.onerror = function () {};
         var firstScript = d.getElementsByTagName("script")[0];
         if (firstScript && firstScript.parentNode) {
           firstScript.parentNode.insertBefore(script, firstScript);
@@ -1172,8 +1258,8 @@
       };
 
       var pixelId = (w.APP_CONFIG && w.APP_CONFIG.tiktokPixelId) || "";
-      if (pixelId && pixelId !== "YOUR_TIKTOK_PIXEL_ID") {
-        ttq.load(pixelId);
+      if (pixelId && pixelId.trim().length >= 5) {
+        ttq.load(pixelId.trim());
         if (typeof ttq.page === "function") ttq.page();
       }
     })(window, document, "ttq");
@@ -1183,7 +1269,7 @@
     (() => {
       "use strict";
 
-      const config = window.APP_CONFIG || {};
+      const config = Object.freeze(window.APP_CONFIG || {});
       const fallbackCanonical = "https://www.achadostube.com.br/";
       const fallbackWhatsApp = "https://wa.me/5551999999999?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20oficial%20do%20AchadosTube.";
 
@@ -1211,9 +1297,11 @@
       let lastFocusedElement = null;
       let exitTracked = false;
       let engaged = false;
+      let tracked10 = false;
       let tracked25 = false;
       let tracked60 = false;
       let primaryTagInterval = null;
+      let progressFrame = null;
 
       const rotatingPrimaryTags = [
         "acesso oficial",
@@ -1228,7 +1316,7 @@
           paragraphs: [
             "Sua privacidade é tratada com seriedade.",
             "Esta página pode registrar eventos de navegação e interação para análise de desempenho e melhoria da experiência.",
-            "Informações enviadas por mensagem e parâmetros de campanha podem ser usadas para mensuração e atendimento.",
+            "Informações enviadas por mensagem e parâmetros de campanha podem ser usados para mensuração e atendimento.",
             "Se desejar mais informações, utilize os canais oficiais da marca."
           ]
         },
@@ -1253,8 +1341,8 @@
       function isSafeHttpUrl(value) {
         if (typeof value !== "string" || !value.trim()) return false;
         try {
-          const url = new URL(value, window.location.origin);
-          return url.protocol === "http:" || url.protocol === "https:";
+          const url = new URL(value);
+          return url.protocol === "https:";
         } catch {
           return false;
         }
@@ -1263,10 +1351,11 @@
       function isSafeWhatsAppUrl(value) {
         if (typeof value !== "string" || !value.trim()) return false;
         try {
-          const url = new URL(value, window.location.origin);
+          const url = new URL(value);
           return url.protocol === "https:" && (
             url.hostname === "wa.me" ||
             url.hostname === "api.whatsapp.com" ||
+            url.hostname === "www.whatsapp.com" ||
             url.hostname.endsWith(".whatsapp.com")
           );
         } catch {
@@ -1289,7 +1378,9 @@
 
       function setMetaContent(selector, value) {
         const el = document.querySelector(selector);
-        if (el && typeof value === "string") el.setAttribute("content", value);
+        if (el && typeof value === "string" && value.trim()) {
+          el.setAttribute("content", value.trim());
+        }
       }
 
       function appendCampaignParams(urlString) {
@@ -1305,7 +1396,7 @@
 
           allowedParams.forEach((param) => {
             const value = sourceUrl.searchParams.get(param);
-            if (value && !targetUrl.searchParams.has(param)) {
+            if (value && value.length < 200 && !targetUrl.searchParams.has(param)) {
               targetUrl.searchParams.set(param, value);
             }
           });
@@ -1325,10 +1416,10 @@
         else if (isSafeHttpUrl(fallback)) finalValue = fallback;
 
         finalValue = appendCampaignParams(finalValue);
-        el.href = finalValue;
+        el.setAttribute("href", finalValue);
 
         if (el.target === "_blank") {
-          el.rel = "noopener noreferrer nofollow";
+          el.setAttribute("rel", "noopener noreferrer nofollow");
         }
       }
 
@@ -1340,9 +1431,9 @@
         if (isSafeWhatsAppUrl(value)) finalValue = value;
         else if (isSafeWhatsAppUrl(fallback)) finalValue = fallback;
 
-        el.href = finalValue;
+        el.setAttribute("href", finalValue);
         if (el.target === "_blank") {
-          el.rel = "noopener noreferrer nofollow";
+          el.setAttribute("rel", "noopener noreferrer nofollow");
         }
       }
 
@@ -1350,8 +1441,11 @@
         const el = getElement(id);
         if (!el) return;
 
-        const finalValue = isSafeImageUrl(value) ? value : (isSafeImageUrl(fallback) ? fallback : "");
-        if (finalValue) el.src = finalValue;
+        const finalValue = isSafeImageUrl(value)
+          ? value
+          : (isSafeImageUrl(fallback) ? fallback : "");
+
+        if (finalValue) el.setAttribute("src", finalValue);
       }
 
       function showToast(message) {
@@ -1360,7 +1454,7 @@
         toast.classList.add("show");
 
         clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
+        toastTimeout = window.setTimeout(() => {
           toast.classList.remove("show");
         }, 2600);
       }
@@ -1403,7 +1497,14 @@
 
       function updateStructuredData() {
         const canonicalUrl = isSafeHttpUrl(config.canonicalUrl) ? config.canonicalUrl : fallbackCanonical;
-        const logoValue = isSafeImageUrl(config.logoUrl) ? config.logoUrl : (isSafeImageUrl(config.logoFallback) ? config.logoFallback : "");
+        const logoValue = isSafeImageUrl(config.logoUrl)
+          ? config.logoUrl
+          : (isSafeImageUrl(config.logoFallback) ? config.logoFallback : "");
+        const sameAs = [
+          isSafeHttpUrl(config.instagramLink) ? config.instagramLink : null,
+          isSafeHttpUrl(config.tiktokLink) ? config.tiktokLink : null,
+          isSafeHttpUrl(config.youtubeLink) ? config.youtubeLink : null
+        ].filter(Boolean);
 
         const mainLd = {
           "@context": "https://schema.org",
@@ -1418,11 +1519,7 @@
               email: safeText(config.companyEmail, "contato@achadostube.com.br"),
               telephone: safeText(config.companyPhone, "+55 51 99999-9999"),
               description: safeText(config.companyShortBio, ""),
-              sameAs: [
-                isSafeHttpUrl(config.instagramLink) ? config.instagramLink : null,
-                isSafeHttpUrl(config.tiktokLink) ? config.tiktokLink : null,
-                isSafeHttpUrl(config.youtubeLink) ? config.youtubeLink : null
-              ].filter(Boolean),
+              sameAs,
               address: {
                 "@type": "PostalAddress",
                 addressLocality: safeText(config.companyCity, "Porto Alegre"),
@@ -1451,26 +1548,29 @@
           ]
         };
 
+        const faqItems = [
+          {
+            q: safeText(config.faq1Question, ""),
+            a: safeText(config.faq1Answer, "")
+          },
+          {
+            q: safeText(config.faq2Question, ""),
+            a: safeText(config.faq2Answer, "")
+          },
+          {
+            q: safeText(config.faq3Question, ""),
+            a: safeText(config.faq3Answer, "")
+          }
+        ].filter(item => item.q && item.a);
+
         const faqLd = {
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: [
-            {
-              "@type": "Question",
-              name: safeText(config.faq1Question, ""),
-              acceptedAnswer: { "@type": "Answer", text: safeText(config.faq1Answer, "") }
-            },
-            {
-              "@type": "Question",
-              name: safeText(config.faq2Question, ""),
-              acceptedAnswer: { "@type": "Answer", text: safeText(config.faq2Answer, "") }
-            },
-            {
-              "@type": "Question",
-              name: safeText(config.faq3Question, ""),
-              acceptedAnswer: { "@type": "Answer", text: safeText(config.faq3Answer, "") }
-            }
-          ]
+          mainEntity: faqItems.map(item => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a }
+          }))
         };
 
         const mainScript = getElement("structured-data-main");
@@ -1557,7 +1657,10 @@
         if (brandLogo) {
           brandLogo.alt = `Logotipo de ${safeText(config.companyName, "AchadosTube")}`;
           brandLogo.addEventListener("error", () => {
-            if (isSafeImageUrl(config.logoFallback)) brandLogo.src = config.logoFallback;
+            brandLogo.onerror = null;
+            if (isSafeImageUrl(config.logoFallback)) {
+              brandLogo.src = config.logoFallback;
+            }
           }, { once: true });
         }
 
@@ -1585,16 +1688,18 @@
 
       function getFocusableElements(container) {
         if (!container) return [];
-        return Array.from(container.querySelectorAll(focusableSelector)).filter(
-          (el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true"
-        );
+        return Array.from(container.querySelectorAll(focusableSelector)).filter((el) => {
+          if (el.hasAttribute("disabled")) return false;
+          if (el.getAttribute("aria-hidden") === "true") return false;
+          return true;
+        });
       }
 
       function openModal(type) {
         const entry = modalContentMap[type];
         if (!entry || !modalOverlay || !modalTitle || !modalContent) return;
 
-        lastFocusedElement = document.activeElement;
+        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         modalTitle.textContent = entry.title;
         modalContent.innerHTML = entry.paragraphs.map((text) => `<p class="mb-3">${text}</p>`).join("");
 
@@ -1603,7 +1708,7 @@
         modalOverlay.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
 
-        setTimeout(() => {
+        window.setTimeout(() => {
           if (closeModalButton) closeModalButton.focus();
         }, 10);
 
@@ -1684,6 +1789,7 @@
         textarea.style.opacity = "0";
         textarea.style.pointerEvents = "none";
         document.body.appendChild(textarea);
+        textarea.focus();
         textarea.select();
 
         let success = false;
@@ -1701,10 +1807,11 @@
         if (!shareButton) return;
 
         shareButton.addEventListener("click", async () => {
+          const shareUrl = isSafeHttpUrl(config.canonicalUrl) ? config.canonicalUrl : window.location.href;
           const shareData = {
             title: safeText(config.pageTitle, document.title),
             text: safeText(config.shareText, safeText(config.pageDescription, document.title)),
-            url: isSafeHttpUrl(config.canonicalUrl) ? config.canonicalUrl : window.location.href
+            url: shareUrl
           };
 
           try {
@@ -1713,7 +1820,12 @@
               showToast("Página compartilhada com sucesso.");
             } else {
               const copied = await copyTextToClipboard(shareData.url);
-              showToast(copied ? "Link copiado com sucesso." : "Não foi possível copiar o link.");
+              if (copied) {
+                showToast("Link copiado com sucesso.");
+              } else {
+                window.open(shareData.url, "_blank", "noopener,noreferrer");
+                showToast("Abrindo link para compartilhamento.");
+              }
             }
 
             trackEvent("Share", {
@@ -1739,6 +1851,14 @@
         progressBar.style.width = `${progress}%`;
       }
 
+      function requestProgressUpdate() {
+        if (progressFrame) return;
+        progressFrame = window.requestAnimationFrame(() => {
+          updateProgressBar();
+          progressFrame = null;
+        });
+      }
+
       function bindTracking() {
         document.querySelectorAll("[data-track]").forEach((el) => {
           el.addEventListener("click", () => {
@@ -1754,12 +1874,18 @@
         });
 
         const onScroll = () => {
-          updateProgressBar();
+          requestProgressUpdate();
 
           const scrollable = document.documentElement.scrollHeight - window.innerHeight;
           if (scrollable <= 0) return;
 
           const progress = (window.scrollY / scrollable) * 100;
+
+          if (!tracked10 && progress >= 10) {
+            tracked10 = true;
+            trackEvent("Scroll", { percent: 10 });
+            markEngaged();
+          }
 
           if (!tracked25 && progress >= 25) {
             tracked25 = true;
@@ -1770,8 +1896,6 @@
             tracked60 = true;
             trackEvent("Scroll", { percent: 60 });
           }
-
-          if (progress > 8) markEngaged();
         };
 
         window.addEventListener("scroll", onScroll, { passive: true });
@@ -1780,6 +1904,12 @@
         ["click", "touchstart", "keydown"].forEach((evt) => {
           window.addEventListener(evt, markEngaged, { passive: true, once: true });
         });
+
+        if (config.enableSoftEngagement) {
+          window.setTimeout(() => {
+            markEngaged();
+          }, 1500);
+        }
       }
 
       function bindExitIntent() {
@@ -1807,7 +1937,7 @@
         let index = 0;
         if (primaryTagInterval) clearInterval(primaryTagInterval);
 
-        primaryTagInterval = setInterval(() => {
+        primaryTagInterval = window.setInterval(() => {
           index = (index + 1) % rotatingPrimaryTags.length;
           el.textContent = rotatingPrimaryTags[index];
         }, 2800);
@@ -1836,11 +1966,18 @@
 
       function initFaqIcons() {
         document.querySelectorAll(".faq-item").forEach((item) => {
+          const summary = item.querySelector("summary");
+          const icon = item.querySelector("i");
+          if (summary) summary.setAttribute("aria-expanded", item.open ? "true" : "false");
+
           item.addEventListener("toggle", () => {
-            const icon = item.querySelector("i");
-            if (!icon) return;
-            icon.classList.toggle("fa-plus", !item.open);
-            icon.classList.toggle("fa-minus", item.open);
+            if (icon) {
+              icon.classList.toggle("fa-plus", !item.open);
+              icon.classList.toggle("fa-minus", item.open);
+            }
+            if (summary) {
+              summary.setAttribute("aria-expanded", item.open ? "true" : "false");
+            }
           });
         });
       }
