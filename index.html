@@ -41,28 +41,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/og-image.jpg" />
+  <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/og-image-achadostube.png" />
   <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/logo-512.png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AchadosTube" />
   <meta property="og:locale" content="pt_BR" />
-  <meta property="og:title" content="AchadosTube | Links Oficiais e Ofertas Selecionadas" />
+  <meta property="og:title" content="AchadosTube | Ofertas Selecionadas do Momento" />
   <meta
     property="og:description"
-    content="Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile."
+    content="Acesse os links oficiais, seleções e conteúdos em destaque do AchadosTube."
   />
   <meta property="og:url" content="https://www.achadostube.com.br/" />
-  <meta property="og:image" content="https://www.achadostube.com.br/assets/og-image.jpg" />
-  <meta property="og:image:alt" content="Página oficial AchadosTube com links e ofertas selecionadas" />
+  <meta property="og:image" content="https://www.achadostube.com.br/assets/og-image-achadostube.png" />
+  <meta property="og:image:secure_url" content="https://www.achadostube.com.br/assets/og-image-achadostube.png" />
+  <meta property="og:image:width" content="1536" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="AchadosTube - Ofertas Selecionadas do Momento" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AchadosTube | Links Oficiais e Ofertas Selecionadas" />
+  <meta name="twitter:title" content="AchadosTube | Ofertas Selecionadas do Momento" />
   <meta
     name="twitter:description"
-    content="Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile."
+    content="Acesse links oficiais e ofertas em destaque do AchadosTube."
   />
-  <meta name="twitter:image" content="https://www.achadostube.com.br/assets/og-image.jpg" />
+  <meta name="twitter:image" content="https://www.achadostube.com.br/assets/og-image-achadostube.png" />
 
   <meta
     http-equiv="Content-Security-Policy"
@@ -109,8 +112,8 @@
       tiktokLink: "https://www.tiktok.com/@achadostube",
       youtubeLink: "https://youtube.com/@achadostube",
 
-      ogImage: "https://www.achadostube.com.br/assets/og-image.jpg",
-      ogImageAlt: "Página oficial AchadosTube",
+      ogImage: "https://www.achadostube.com.br/assets/og-image-achadostube.png",
+      ogImageAlt: "AchadosTube - Ofertas Selecionadas do Momento",
       logoUrl: "https://www.achadostube.com.br/assets/logo-512.png",
       logoFallback: "https://via.placeholder.com/512x512/0ea5e9/ffffff?text=AchadosTube",
       faviconUrl: "https://www.achadostube.com.br/favicon.ico",
@@ -281,7 +284,7 @@
         "description": "Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile.",
         "isPartOf": { "@id": "https://www.achadostube.com.br/#website" },
         "about": { "@id": "https://www.achadostube.com.br/#organization" },
-        "primaryImageOfPage": "https://www.achadostube.com.br/assets/og-image.jpg"
+        "primaryImageOfPage": "https://www.achadostube.com.br/assets/og-image-achadostube.png"
       }
     ]
   }
@@ -1937,15 +1940,16 @@
         setHTMLLang(config.locale);
 
         setMetaContent('meta[name="description"]', pageDescription);
-        setMetaContent('meta[property="og:title"]', pageTitle);
-        setMetaContent('meta[property="og:description"]', pageDescription);
+        setMetaContent('meta[property="og:title"]', "AchadosTube | Ofertas Selecionadas do Momento");
+        setMetaContent('meta[property="og:description"]', "Acesse os links oficiais, seleções e conteúdos em destaque do AchadosTube.");
         setMetaContent('meta[property="og:url"]', canonicalUrl);
         setMetaContent('meta[property="og:image"]', ogImage);
+        setMetaContent('meta[property="og:image:secure_url"]', ogImage);
         setMetaContent('meta[property="og:image:alt"]', safeText(config.ogImageAlt, "Imagem principal da página"));
         setMetaContent('meta[property="og:site_name"]', safeText(config.siteName, "AchadosTube"));
         setMetaContent('meta[property="og:locale"]', safeText(config.locale, "pt_BR"));
-        setMetaContent('meta[name="twitter:title"]', pageTitle);
-        setMetaContent('meta[name="twitter:description"]', pageDescription);
+        setMetaContent('meta[name="twitter:title"]', "AchadosTube | Ofertas Selecionadas do Momento");
+        setMetaContent('meta[name="twitter:description"]', "Acesse links oficiais e ofertas em destaque do AchadosTube.");
         setMetaContent('meta[name="twitter:image"]', ogImage);
 
         const canonical = document.querySelector('link[rel="canonical"]');
