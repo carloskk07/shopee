@@ -8,6 +8,7 @@
   />
 
   <title>AchadosTube | Links Oficiais e Ofertas Selecionadas</title>
+
   <meta
     name="description"
     content="Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile."
@@ -40,8 +41,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="preconnect" href="https://analytics.tiktok.com" crossorigin />
-  <link rel="dns-prefetch" href="//analytics.tiktok.com" />
   <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/og-image.jpg" />
   <link rel="preload" as="image" href="https://www.achadostube.com.br/assets/logo-512.png" />
 
@@ -77,7 +76,7 @@
       font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
       script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://analytics.tiktok.com;
       connect-src 'self' https://analytics.tiktok.com https://business-api.tiktok.com https://*.tiktok.com;
-      frame-src https:;
+      frame-src 'none';
       form-action 'self' https://wa.me https://api.whatsapp.com;
       upgrade-insecure-requests
     "
@@ -93,13 +92,13 @@
         "Acesse os links oficiais, ofertas selecionadas, conteúdos recomendados e canais do AchadosTube em uma página rápida, segura e organizada para mobile.",
       canonicalUrl: "https://www.achadostube.com.br/",
       siteName: "AchadosTube",
-      locale: "pt_BR",
+      locale: "pt-BR",
 
       heroTitle: "Os links oficiais do AchadosTube em um só lugar.",
       heroSubtitle:
-        "Acesse ofertas selecionadas, conteúdos recomendados e canais oficiais com uma navegação rápida, clara e segura.",
-      heroStatusText: "links atualizados • acesso rápido • navegação segura",
-      heroMicroText: "Conteúdos, ofertas e canais organizados para facilitar seu acesso.",
+        "Acesse seleções, conteúdos e canais oficiais em uma navegação rápida, clara e organizada para mobile.",
+      heroStatusText: "links atualizados • curadoria visual • navegação rápida",
+      heroMicroText: "Tudo reunido para facilitar seu acesso aos destaques do momento.",
 
       primaryLink: "https://www.achadostube.com.br/oferta-principal",
       secondaryLink: "https://www.achadostube.com.br/conteudo",
@@ -120,15 +119,14 @@
       primaryTitle: "Ver ofertas selecionadas",
       primaryTag: "acesso oficial",
       primaryDescription:
-        "Abra o principal link em destaque com navegação rápida, clara e segura.",
+        "Abra o principal destaque em uma experiência simples, direta e confiável.",
       stickyCtaText: "Ver ofertas selecionadas",
 
       secondaryTitle: "Explorar conteúdos",
       secondaryDescription:
         "Veja outros links, materiais e recomendações organizadas.",
       whatsappTitle: "Falar no WhatsApp",
-      whatsappDescription:
-        "Entre em contato pelo canal oficial.",
+      whatsappDescription: "Entre em contato pelo canal oficial.",
       storeTitle: "Abrir links e ofertas",
       storeDescription:
         "Acesse novidades, recomendações e opções disponíveis.",
@@ -146,10 +144,51 @@
         "Chegue diretamente aos links principais sem precisar procurar.",
       card2Title: "Curadoria organizada",
       card2Text:
-        "Os conteúdos e ofertas ficam reunidos de forma simples e clara.",
+        "Os conteúdos e destaques ficam reunidos de forma simples e clara.",
       card3Title: "Navegação confiável",
       card3Text:
         "Visual limpo, estrutura consistente e acesso seguro aos canais oficiais.",
+
+      productsSectionTitle: "Seleções do momento",
+      productsSectionText:
+        "Produtos em destaque por utilidade, apelo visual e bom custo-benefício.",
+      productsSectionNote:
+        "Curadoria independente com foco em praticidade, estética e interesse do público.",
+      productsCtaText: "Ver seleção →",
+      products: [
+        {
+          title: "Mini aspirador portátil",
+          description: "Limpeza rápida para carro, mesa e cantos da casa.",
+          badge: "Tendência",
+          extra: "Compacto • útil • prático",
+          image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1200&auto=format&fit=crop",
+          link: "https://www.achadostube.com.br/produto-1"
+        },
+        {
+          title: "Lâmpada LED com sensor",
+          description: "Acende automaticamente em ambientes escuros.",
+          badge: "Achado útil",
+          extra: "Instalação simples",
+          image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
+          link: "https://www.achadostube.com.br/produto-2"
+        },
+        {
+          title: "Organizador multiuso",
+          description: "Mais ordem e praticidade no dia a dia.",
+          badge: "Boa escolha",
+          extra: "Casa • escritório • rotina",
+          image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop",
+          link: "https://www.achadostube.com.br/produto-3"
+        },
+        {
+          title: "Suporte articulado",
+          description: "Mais conforto para assistir, ler ou gravar conteúdo.",
+          badge: "Destaque",
+          extra: "Versátil e funcional",
+          image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+          link: "https://www.achadostube.com.br/produto-4"
+        }
+      ],
 
       faq1Question: "Como acessar os links principais?",
       faq1Answer:
@@ -174,12 +213,21 @@
         "Canal digital com links oficiais, conteúdos recomendados e atendimento online.",
 
       shareText: "Veja os links oficiais e ofertas selecionadas do AchadosTube.",
+
       enableTopProgressBar: true,
       enableDynamicPrimaryTag: true,
       enableExitIntentToast: true,
       enableFaqSection: true,
+      enableProductsSection: true,
       enableUtmPropagation: true,
       enableSoftEngagement: true,
+      enableShareButton: true,
+      enableFooterDisclaimers: true,
+      enableReducedTrackingIfNoPixel: true,
+
+      topProgressHeight: 3,
+      maxProductsToShow: 8,
+      shareFallbackOpenInNewTab: true,
 
       tiktokPixelId: ""
     };
@@ -282,19 +330,20 @@
       --card-2: rgba(11, 18, 31, 0.88);
       --text: #f8fafc;
       --muted: #94a3b8;
-      --border: rgba(255,255,255,0.08);
-      --line: rgba(255,255,255,0.05);
       --accent: #38bdf8;
       --accent-2: #22d3ee;
-      --shadow-dark: 0 24px 70px rgba(0, 0, 0, 0.42);
-      --shadow-accent: 0 18px 44px rgba(56,189,248,0.16);
-      --shadow-soft: 0 10px 26px rgba(2,6,23,0.25);
-      --radius-xl: 2rem;
+      --success: #10b981;
+      --border: rgba(255,255,255,.08);
+      --shadow-dark: 0 24px 70px rgba(0,0,0,.42);
+      --shadow-accent: 0 18px 44px rgba(56,189,248,.16);
+      --shadow-soft: 0 10px 26px rgba(2,6,23,.25);
       --radius-2xl: 2.35rem;
+      --focus-ring: 0 0 0 2px rgba(56, 189, 248, .55);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -302,9 +351,9 @@
       color: var(--text);
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 50% -18%, rgba(56,189,248,0.12), transparent 30%),
-        radial-gradient(circle at 100% 0%, rgba(34,211,238,0.08), transparent 24%),
-        radial-gradient(circle at 0% 100%, rgba(14,165,233,0.06), transparent 24%),
+        radial-gradient(circle at 50% -18%, rgba(56,189,248,.12), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(34,211,238,.08), transparent 24%),
+        radial-gradient(circle at 0% 100%, rgba(14,165,233,.06), transparent 24%),
         linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -313,9 +362,14 @@
     img { display: block; max-width: 100%; height: auto; }
     a, button { -webkit-tap-highlight-color: transparent; }
 
-    .is-hidden {
-      display: none !important;
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
     }
+
+    .is-hidden { display: none !important; }
 
     .bg-noise {
       position: fixed;
@@ -335,16 +389,15 @@
       inset: 0 auto auto 0;
       width: 0%;
       height: 3px;
-      z-index: 80;
+      z-index: 90;
       background: linear-gradient(90deg, #22d3ee, #38bdf8);
       box-shadow: 0 0 18px rgba(56,189,248,.35);
       transition: width .08s linear;
-      transform-origin: left center;
     }
 
     .glass-card {
       background: linear-gradient(180deg, var(--card), var(--card-2));
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,.08);
       box-shadow: var(--shadow-dark);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
@@ -373,13 +426,14 @@
     .hero-shell::after {
       content: "";
       position: absolute;
-      inset: auto -8% -24% auto;
+      right: -60px;
+      bottom: -60px;
       width: 220px;
       height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(56,189,248,.14), transparent 70%);
-      filter: blur(10px);
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56,189,248,.15), transparent 68%);
       pointer-events: none;
+      filter: blur(14px);
     }
 
     .brand-badge {
@@ -474,7 +528,9 @@
     .cta-button:hover,
     .cta-button:focus-visible,
     .share-btn:hover,
-    .share-btn:focus-visible {
+    .share-btn:focus-visible,
+    .product-card:hover,
+    .product-card:focus-visible {
       transform: translateY(-2px);
       outline: none;
     }
@@ -580,9 +636,7 @@
       cursor: pointer;
     }
 
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
+    .faq-item summary::-webkit-details-marker { display: none; }
 
     .share-btn {
       box-shadow: 0 6px 24px rgba(56,189,248,.20);
@@ -625,9 +679,7 @@
       filter: saturate(1.03);
     }
 
-    .cta-button:active {
-      transform: scale(0.985);
-    }
+    .cta-button:active { transform: scale(.985); }
 
     .cta-button::after {
       content: "";
@@ -646,6 +698,96 @@
       0% { left: -45%; }
       18% { left: 120%; }
       100% { left: 120%; }
+    }
+
+    .products-scroll {
+      display: flex;
+      gap: .85rem;
+      overflow-x: auto;
+      padding-bottom: .4rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .product-card {
+      min-width: 216px;
+      max-width: 216px;
+      scroll-snap-align: start;
+      border-radius: 1.45rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+      text-decoration: none;
+      padding: .82rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -30px -35px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56,189,248,.14), transparent 70%);
+      pointer-events: none;
+      filter: blur(6px);
+    }
+
+    .product-card:hover,
+    .product-card:focus-visible {
+      border-color: rgba(56,189,248,.35);
+      box-shadow: 0 14px 30px rgba(56,189,248,.10);
+    }
+
+    .product-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: rgba(255,255,255,.04);
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: rgba(255,255,255,.04);
+      transition: transform .45s ease;
+    }
+
+    .product-card:hover .product-image,
+    .product-card:focus-visible .product-image {
+      transform: scale(1.03);
+    }
+
+    .product-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .34rem .58rem;
+      border-radius: 999px;
+      background: rgba(56,189,248,.10);
+      border: 1px solid rgba(56,189,248,.16);
+      color: #bae6fd;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .product-extra {
+      font-size: .68rem;
+      color: #94a3b8;
+      margin-top: .45rem;
+      line-height: 1.45;
+    }
+
+    .product-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      margin-top: .8rem;
     }
 
     .toast {
@@ -685,9 +827,23 @@
       transform: translateY(0);
     }
 
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius: 8px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(56,189,248,.35); border-radius: 8px; }
+    .custom-scrollbar::-webkit-scrollbar,
+    .products-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track,
+    .products-scroll::-webkit-scrollbar-track {
+      background: rgba(255,255,255,.05);
+      border-radius: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb,
+    .products-scroll::-webkit-scrollbar-thumb {
+      background: rgba(56,189,248,.35);
+      border-radius: 8px;
+    }
 
     .disclaimer-text {
       font-size: .72rem;
@@ -719,12 +875,22 @@
 
     @media (max-width: 420px) {
       .proof-grid { grid-template-columns: 1fr; }
+      .product-card {
+        min-width: 188px;
+        max-width: 188px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -773,7 +939,7 @@
       <div class="mt-1 flex items-center justify-center">
         <div class="status-pill">
           <span class="live-dot" aria-hidden="true"></span>
-          <span id="heroStatusText">links atualizados • acesso rápido • navegação segura</span>
+          <span id="heroStatusText">links atualizados • curadoria visual • navegação rápida</span>
         </div>
       </div>
 
@@ -784,6 +950,8 @@
               id="brandLogo"
               src="https://www.achadostube.com.br/assets/logo-512.png"
               alt="Logotipo da marca"
+              width="112"
+              height="112"
               fetchpriority="high"
               decoding="async"
               loading="eager"
@@ -807,11 +975,11 @@
         </p>
 
         <p id="heroSubtitle" class="mx-auto mt-3 max-w-[320px] text-sm leading-relaxed text-slate-400">
-          Acesse ofertas selecionadas, conteúdos recomendados e canais oficiais com uma navegação rápida, clara e segura.
+          Acesse seleções, conteúdos e canais oficiais em uma navegação rápida, clara e organizada para mobile.
         </p>
 
         <div id="heroMicroText" class="mt-4 text-center text-xs font-medium text-slate-400">
-          Conteúdos, ofertas e canais organizados para facilitar seu acesso.
+          Tudo reunido para facilitar seu acesso aos destaques do momento.
         </div>
       </header>
 
@@ -842,7 +1010,7 @@
           referrerpolicy="strict-origin-when-cross-origin"
           data-track="quick_primary"
           data-label="atalho_ofertas"
-          class="mini-chip justify-center focus-visible:ring-2 focus-visible:ring-sky-400/60"
+          class="mini-chip justify-center"
           aria-label="Abrir ofertas selecionadas"
         >
           <i class="fas fa-star text-sky-300" aria-hidden="true"></i>
@@ -857,7 +1025,7 @@
           referrerpolicy="strict-origin-when-cross-origin"
           data-track="quick_whatsapp"
           data-label="atalho_whatsapp"
-          class="mini-chip justify-center focus-visible:ring-2 focus-visible:ring-emerald-400/60"
+          class="mini-chip justify-center"
           aria-label="Abrir WhatsApp"
         >
           <i class="fab fa-whatsapp text-emerald-400" aria-hidden="true"></i>
@@ -872,7 +1040,7 @@
           referrerpolicy="strict-origin-when-cross-origin"
           data-track="quick_store"
           data-label="atalho_links"
-          class="mini-chip justify-center focus-visible:ring-2 focus-visible:ring-sky-400/60"
+          class="mini-chip justify-center"
           aria-label="Abrir links e ofertas"
         >
           <i class="fas fa-link text-sky-300" aria-hidden="true"></i>
@@ -895,6 +1063,24 @@
           <strong>Oficial</strong>
           <span>canais</span>
         </div>
+      </div>
+    </section>
+
+    <section id="productsSection" class="reveal mt-5 w-full">
+      <div class="glass-card rounded-[2rem] p-5">
+        <div class="mb-4">
+          <h2 id="productsSectionTitle" class="text-base font-extrabold text-white">
+            Seleções do momento
+          </h2>
+          <p id="productsSectionText" class="mt-2 text-sm leading-relaxed text-slate-400">
+            Produtos em destaque por utilidade, apelo visual e bom custo-benefício.
+          </p>
+          <p id="productsSectionNote" class="mt-2 text-[11px] leading-relaxed text-slate-500">
+            Curadoria independente com foco em praticidade, estética e interesse do público.
+          </p>
+        </div>
+
+        <div id="productsContainer" class="products-scroll" aria-label="Carrossel de produtos"></div>
       </div>
     </section>
 
@@ -934,9 +1120,9 @@
         target="_blank"
         rel="noopener"
         referrerpolicy="strict-origin-when-cross-origin"
-        data-track="primary_cta"
+        data-track="main_primary_cta"
         data-label="ofertas_selecionadas"
-        class="link-item featured-link group flex w-full items-center justify-between rounded-[2rem] p-5 focus-visible:ring-2 focus-visible:ring-sky-400/60"
+        class="link-item featured-link group flex w-full items-center justify-between rounded-[2rem] p-5"
       >
         <div class="featured-pulse"></div>
 
@@ -952,7 +1138,7 @@
               acesso oficial
             </span>
             <span id="primaryDescription" class="mt-2 block max-w-[220px] text-xs leading-relaxed text-slate-300/90">
-              Abra o principal link em destaque com navegação rápida, clara e segura.
+              Abra o principal destaque em uma experiência simples, direta e confiável.
             </span>
           </div>
         </div>
@@ -970,7 +1156,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
         data-track="secondary_cta"
         data-label="conteudos"
-        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5 focus-visible:ring-2 focus-visible:ring-sky-400/60"
+        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5"
       >
         <div class="flex items-center space-x-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
@@ -992,7 +1178,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
         data-track="whatsapp_cta"
         data-label="whatsapp"
-        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5 focus-visible:ring-2 focus-visible:ring-emerald-400/60"
+        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5"
       >
         <div class="flex items-center space-x-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
@@ -1014,7 +1200,7 @@
         referrerpolicy="strict-origin-when-cross-origin"
         data-track="store_cta"
         data-label="links_e_ofertas"
-        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5 focus-visible:ring-2 focus-visible:ring-sky-400/60"
+        class="link-item glass-card group flex w-full items-center justify-between rounded-[2rem] p-5"
       >
         <div class="flex items-center space-x-4">
           <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
@@ -1050,7 +1236,7 @@
               <span id="card2Title">Curadoria organizada</span>
             </div>
             <p id="card2Text" class="text-sm leading-relaxed text-slate-400">
-              Os conteúdos e ofertas ficam reunidos de forma simples e clara.
+              Os conteúdos e destaques ficam reunidos de forma simples e clara.
             </p>
           </div>
 
@@ -1073,32 +1259,38 @@
 
         <div class="space-y-3">
           <details class="faq-item">
-            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white">
+            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white" aria-expanded="false" aria-controls="faq-answer-1">
               <span id="faq1QuestionText">Como acessar os links principais?</span>
               <i class="fas fa-plus text-slate-400" aria-hidden="true"></i>
             </summary>
-            <div id="faq1AnswerText" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
-              Basta usar os botões desta página para abrir os links e conteúdos em destaque do AchadosTube.
+            <div id="faq-answer-1" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
+              <div id="faq1AnswerText">
+                Basta usar os botões desta página para abrir os links e conteúdos em destaque do AchadosTube.
+              </div>
             </div>
           </details>
 
           <details class="faq-item">
-            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white">
+            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white" aria-expanded="false" aria-controls="faq-answer-2">
               <span id="faq2QuestionText">Esta página reúne canais oficiais?</span>
               <i class="fas fa-plus text-slate-400" aria-hidden="true"></i>
             </summary>
-            <div id="faq2AnswerText" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
-              Sim. Esta página centraliza os principais acessos e canais oficiais do AchadosTube.
+            <div id="faq-answer-2" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
+              <div id="faq2AnswerText">
+                Sim. Esta página centraliza os principais acessos e canais oficiais do AchadosTube.
+              </div>
             </div>
           </details>
 
           <details class="faq-item">
-            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white">
+            <summary class="flex items-center justify-between gap-4 px-4 py-4 text-sm font-bold text-white" aria-expanded="false" aria-controls="faq-answer-3">
               <span id="faq3QuestionText">Posso entrar em contato por aqui?</span>
               <i class="fas fa-plus text-slate-400" aria-hidden="true"></i>
             </summary>
-            <div id="faq3AnswerText" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
-              Sim. Você pode usar o botão de WhatsApp para falar pelo canal oficial disponível nesta página.
+            <div id="faq-answer-3" class="px-4 pb-4 text-sm leading-relaxed text-slate-400">
+              <div id="faq3AnswerText">
+                Sim. Você pode usar o botão de WhatsApp para falar pelo canal oficial disponível nesta página.
+              </div>
             </div>
           </details>
         </div>
@@ -1165,7 +1357,7 @@
           </button>
         </div>
 
-        <div class="disclaimer-text mx-auto mt-5 max-w-[360px] px-2">
+        <div id="footerDisclaimerBlock" class="disclaimer-text mx-auto mt-5 max-w-[360px] px-2">
           <p class="mb-3 italic opacity-90">
             Este site não faz parte do TikTok ou da ByteDance Ltd. e não é endossado por essas empresas.
           </p>
@@ -1188,7 +1380,7 @@
         target="_blank"
         rel="noopener"
         referrerpolicy="strict-origin-when-cross-origin"
-        data-track="sticky_cta"
+        data-track="sticky_primary_cta"
         data-label="barra_fixa"
         class="cta-button flex min-h-[58px] w-full items-center justify-center rounded-[1.5rem] text-[1rem]"
       >
@@ -1300,16 +1492,21 @@
         "www.achadostube.com.br"
       ]);
 
-      const toast = document.getElementById("toast");
-      const shareButton = document.getElementById("shareButton");
-      const modalOverlay = document.getElementById("modal-overlay");
-      const modalTitle = document.getElementById("modal-title");
-      const modalContent = document.getElementById("modal-content");
-      const closeModalButton = document.getElementById("closeModalButton");
-      const confirmModalButton = document.getElementById("confirmModalButton");
-      const brandLogo = document.getElementById("brandLogo");
-      const progressBar = document.getElementById("topProgressBar");
-      const faqSection = document.getElementById("faqSection");
+      const dom = {
+        toast: document.getElementById("toast"),
+        shareButton: document.getElementById("shareButton"),
+        modalOverlay: document.getElementById("modal-overlay"),
+        modalTitle: document.getElementById("modal-title"),
+        modalContent: document.getElementById("modal-content"),
+        closeModalButton: document.getElementById("closeModalButton"),
+        confirmModalButton: document.getElementById("confirmModalButton"),
+        brandLogo: document.getElementById("brandLogo"),
+        progressBar: document.getElementById("topProgressBar"),
+        faqSection: document.getElementById("faqSection"),
+        productsSection: document.getElementById("productsSection"),
+        productsContainer: document.getElementById("productsContainer"),
+        footerDisclaimerBlock: document.getElementById("footerDisclaimerBlock")
+      };
 
       let toastTimeout = null;
       let lastFocusedElement = null;
@@ -1324,8 +1521,8 @@
       const rotatingPrimaryTags = [
         "acesso oficial",
         "links organizados",
-        "conteúdo em destaque",
-        "seleções atuais"
+        "seleções atuais",
+        "conteúdo em destaque"
       ];
 
       const modalContentMap = {
@@ -1354,6 +1551,21 @@
 
       function safeText(value, fallback = "") {
         return typeof value === "string" && value.trim() ? value.trim() : fallback;
+      }
+
+      function safeArray(value) {
+        return Array.isArray(value) ? value : [];
+      }
+
+      function setHTMLLang(value) {
+        document.documentElement.setAttribute("lang", safeText(value, "pt-BR"));
+      }
+
+      function setMetaContent(selector, value) {
+        const el = document.querySelector(selector);
+        if (el && typeof value === "string" && value.trim()) {
+          el.setAttribute("content", value.trim());
+        }
       }
 
       function isSafeHttpUrl(value) {
@@ -1399,6 +1611,11 @@
         return document.getElementById(id);
       }
 
+      function setText(id, value, fallback = "") {
+        const el = getElement(id);
+        if (el) el.textContent = safeText(value, fallback);
+      }
+
       function hideElement(el) {
         if (!el) return;
         el.classList.add("is-hidden");
@@ -1406,16 +1623,10 @@
         if (el.hasAttribute("href")) el.removeAttribute("href");
       }
 
-      function setText(id, value, fallback = "") {
-        const el = getElement(id);
-        if (el) el.textContent = safeText(value, fallback);
-      }
-
-      function setMetaContent(selector, value) {
-        const el = document.querySelector(selector);
-        if (el && typeof value === "string" && value.trim()) {
-          el.setAttribute("content", value.trim());
-        }
+      function showElement(el) {
+        if (!el) return;
+        el.classList.remove("is-hidden");
+        el.removeAttribute("aria-hidden");
       }
 
       function appendCampaignParams(urlString) {
@@ -1470,8 +1681,7 @@
         finalValue = appendCampaignParams(finalValue);
         el.setAttribute("href", finalValue);
         setLinkRel(el, finalValue);
-        el.removeAttribute("aria-hidden");
-        el.classList.remove("is-hidden");
+        showElement(el);
         return true;
       }
 
@@ -1492,8 +1702,7 @@
         if (el.target === "_blank") {
           el.setAttribute("rel", "noopener noreferrer nofollow");
         }
-        el.removeAttribute("aria-hidden");
-        el.classList.remove("is-hidden");
+        showElement(el);
         return true;
       }
 
@@ -1508,18 +1717,23 @@
         if (finalValue) el.setAttribute("src", finalValue);
       }
 
+      function hasPixel() {
+        return typeof config.tiktokPixelId === "string" && config.tiktokPixelId.trim().length >= 5;
+      }
+
       function showToast(message) {
-        if (!toast) return;
-        toast.textContent = safeText(message, "Ação concluída.");
-        toast.classList.add("show");
+        if (!dom.toast) return;
+        dom.toast.textContent = safeText(message, "Ação concluída.");
+        dom.toast.classList.add("show");
 
         clearTimeout(toastTimeout);
         toastTimeout = window.setTimeout(() => {
-          toast.classList.remove("show");
+          dom.toast.classList.remove("show");
         }, 2600);
       }
 
       function trackEvent(eventName, payload = {}) {
+        if (config.enableReducedTrackingIfNoPixel && !hasPixel()) return;
         try {
           if (window.ttq && typeof window.ttq.track === "function") {
             window.ttq.track(eventName, payload);
@@ -1560,6 +1774,7 @@
         const logoValue = isSafeImageUrl(config.logoUrl)
           ? config.logoUrl
           : (isSafeImageUrl(config.logoFallback) ? config.logoFallback : "");
+
         const sameAs = [
           isSafeHttpUrl(config.instagramLink) ? config.instagramLink : null,
           isSafeHttpUrl(config.tiktokLink) ? config.tiktokLink : null,
@@ -1609,18 +1824,9 @@
         };
 
         const faqItems = [
-          {
-            q: safeText(config.faq1Question, ""),
-            a: safeText(config.faq1Answer, "")
-          },
-          {
-            q: safeText(config.faq2Question, ""),
-            a: safeText(config.faq2Answer, "")
-          },
-          {
-            q: safeText(config.faq3Question, ""),
-            a: safeText(config.faq3Answer, "")
-          }
+          { q: safeText(config.faq1Question, ""), a: safeText(config.faq1Answer, "") },
+          { q: safeText(config.faq2Question, ""), a: safeText(config.faq2Answer, "") },
+          { q: safeText(config.faq3Question, ""), a: safeText(config.faq3Answer, "") }
         ].filter(item => item.q && item.a);
 
         const faqLd = {
@@ -1640,16 +1846,95 @@
         if (faqScript) faqScript.textContent = JSON.stringify(faqLd, null, 2);
       }
 
+      function createProductCard(product, index) {
+        if (!product || !isSafeHttpUrl(product.link) || !isSafeImageUrl(product.image)) return null;
+
+        const card = document.createElement("a");
+        card.href = appendCampaignParams(product.link);
+        card.target = "_blank";
+        card.rel = isInternalUrl(product.link) ? "noopener" : "noopener noreferrer nofollow";
+        card.referrerPolicy = "strict-origin-when-cross-origin";
+        card.className = "product-card";
+        card.setAttribute("data-track", "product_card_click");
+        card.setAttribute("data-label", safeText(product.title, `produto_${index + 1}`));
+        card.setAttribute("aria-label", `Abrir ${safeText(product.title, "produto")}`);
+
+        const badge = safeText(product.badge, "");
+        const title = safeText(product.title, "");
+        const description = safeText(product.description, "");
+        const extra = safeText(product.extra, "");
+        const ctaText = safeText(config.productsCtaText, "Ver seleção →");
+
+        card.innerHTML = `
+          <div class="product-image-wrap">
+            <img
+              src="${product.image}"
+              alt="${title}"
+              loading="lazy"
+              decoding="async"
+              width="216"
+              height="216"
+              class="product-image"
+            />
+          </div>
+          <div class="mt-3">
+            ${badge ? `<div class="product-badge"><i class="fas fa-bolt" aria-hidden="true"></i><span>${badge}</span></div>` : ""}
+            <div class="mt-2 text-sm font-extrabold leading-tight text-white">${title}</div>
+            <div class="mt-2 text-[12px] leading-relaxed text-slate-400">${description}</div>
+            ${extra ? `<div class="product-extra">${extra}</div>` : ""}
+            <div class="product-divider"></div>
+            <div class="mt-3 text-xs font-bold text-sky-300">${ctaText}</div>
+          </div>
+        `;
+
+        return card;
+      }
+
+      function renderProducts() {
+        if (!dom.productsSection || !dom.productsContainer) return;
+
+        const enabled = !!config.enableProductsSection;
+        const products = safeArray(config.products).slice(0, Number(config.maxProductsToShow) || 8);
+
+        if (!enabled || !products.length) {
+          dom.productsSection.style.display = "none";
+          return;
+        }
+
+        setText("productsSectionTitle", safeText(config.productsSectionTitle, "Seleções do momento"));
+        setText("productsSectionText", safeText(config.productsSectionText, ""));
+        setText("productsSectionNote", safeText(config.productsSectionNote, ""));
+
+        dom.productsContainer.innerHTML = "";
+
+        const validCards = products
+          .map((product, index) => createProductCard(product, index))
+          .filter(Boolean);
+
+        if (!validCards.length) {
+          dom.productsSection.style.display = "none";
+          return;
+        }
+
+        validCards.forEach(card => dom.productsContainer.appendChild(card));
+      }
+
       function applyConfig() {
         const pageTitle = safeText(config.pageTitle, "Página oficial");
-        const pageDescription = safeText(config.pageDescription, "Acesse os links oficiais em uma experiência rápida e segura.");
+        const pageDescription = safeText(
+          config.pageDescription,
+          "Acesse os links oficiais em uma experiência rápida e segura."
+        );
         const canonicalUrl = isSafeHttpUrl(config.canonicalUrl) ? config.canonicalUrl : fallbackCanonical;
         const ogImage = isSafeImageUrl(config.ogImage) ? config.ogImage : "";
-        const logoUrl = isSafeImageUrl(config.logoUrl) ? config.logoUrl : (isSafeImageUrl(config.logoFallback) ? config.logoFallback : "");
+        const logoUrl = isSafeImageUrl(config.logoUrl)
+          ? config.logoUrl
+          : (isSafeImageUrl(config.logoFallback) ? config.logoFallback : "");
         const faviconUrl = isSafeImageUrl(config.faviconUrl) ? config.faviconUrl : "";
         const appleTouchIcon = isSafeImageUrl(config.appleTouchIcon) ? config.appleTouchIcon : logoUrl;
 
         document.title = pageTitle;
+        setHTMLLang(config.locale);
 
         setMetaContent('meta[name="description"]', pageDescription);
         setMetaContent('meta[property="og:title"]', pageTitle);
@@ -1713,13 +1998,12 @@
         setText("companyEmail", `Contato: ${safeText(config.companyEmail, "contato@achadostube.com.br")}`);
         setText("companyAddress", `Localização: ${safeText(config.companyAddress, "Brasil")}`);
 
-        setSafeImage("brandLogo", logoUrl, config.logoFallback);
-        if (brandLogo) {
-          brandLogo.alt = `Logotipo de ${safeText(config.companyName, "AchadosTube")}`;
-          brandLogo.addEventListener("error", () => {
-            brandLogo.onerror = null;
+        if (dom.brandLogo) {
+          setSafeImage("brandLogo", logoUrl, config.logoFallback);
+          dom.brandLogo.alt = `Logotipo de ${safeText(config.companyName, "AchadosTube")}`;
+          dom.brandLogo.addEventListener("error", () => {
             if (isSafeImageUrl(config.logoFallback)) {
-              brandLogo.src = config.logoFallback;
+              dom.brandLogo.src = config.logoFallback;
             }
           }, { once: true });
         }
@@ -1739,9 +2023,24 @@
         setSafeHref("tiktokLink", config.tiktokLink, "", { hideIfInvalid: true });
         setSafeHref("youtubeLink", config.youtubeLink, "", { hideIfInvalid: true });
 
-        if (progressBar) progressBar.style.display = config.enableTopProgressBar ? "block" : "none";
-        if (faqSection) faqSection.style.display = config.enableFaqSection ? "" : "none";
+        if (dom.progressBar) {
+          dom.progressBar.style.display = config.enableTopProgressBar ? "block" : "none";
+          dom.progressBar.style.height = `${Number(config.topProgressHeight) || 3}px`;
+        }
 
+        if (dom.faqSection) {
+          dom.faqSection.style.display = config.enableFaqSection ? "" : "none";
+        }
+
+        if (dom.shareButton) {
+          dom.shareButton.style.display = config.enableShareButton ? "" : "none";
+        }
+
+        if (dom.footerDisclaimerBlock) {
+          dom.footerDisclaimerBlock.style.display = config.enableFooterDisclaimers ? "" : "none";
+        }
+
+        renderProducts();
         buildCompanyParagraphs();
         updateStructuredData();
       }
@@ -1751,7 +2050,7 @@
         return Array.from(container.querySelectorAll(focusableSelector)).filter((el) => {
           if (el.hasAttribute("disabled")) return false;
           if (el.getAttribute("aria-hidden") === "true") return false;
-          return true;
+          return el.offsetParent !== null || el === document.activeElement;
         });
       }
 
@@ -1769,21 +2068,21 @@
 
       function openModal(type) {
         const entry = modalContentMap[type];
-        if (!entry || !modalOverlay || !modalTitle || !modalContent) return;
+        if (!entry || !dom.modalOverlay || !dom.modalTitle || !dom.modalContent) return;
 
         lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-        modalTitle.textContent = entry.title;
+        dom.modalTitle.textContent = entry.title;
 
-        clearNode(modalContent);
-        entry.paragraphs.forEach((text) => appendParagraph(modalContent, text));
+        clearNode(dom.modalContent);
+        entry.paragraphs.forEach((text) => appendParagraph(dom.modalContent, text));
 
-        modalOverlay.classList.remove("hidden");
-        modalOverlay.classList.add("flex");
-        modalOverlay.setAttribute("aria-hidden", "false");
+        dom.modalOverlay.classList.remove("hidden");
+        dom.modalOverlay.classList.add("flex");
+        dom.modalOverlay.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
 
         window.setTimeout(() => {
-          if (closeModalButton) closeModalButton.focus();
+          if (dom.closeModalButton) dom.closeModalButton.focus();
         }, 10);
 
         trackEvent("ClickButton", {
@@ -1793,11 +2092,11 @@
       }
 
       function closeModal() {
-        if (!modalOverlay) return;
+        if (!dom.modalOverlay) return;
 
-        modalOverlay.classList.add("hidden");
-        modalOverlay.classList.remove("flex");
-        modalOverlay.setAttribute("aria-hidden", "true");
+        dom.modalOverlay.classList.add("hidden");
+        dom.modalOverlay.classList.remove("flex");
+        dom.modalOverlay.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
 
         if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
@@ -1806,10 +2105,10 @@
       }
 
       function handleModalFocusTrap(event) {
-        if (!modalOverlay || modalOverlay.classList.contains("hidden")) return;
+        if (!dom.modalOverlay || dom.modalOverlay.classList.contains("hidden")) return;
         if (event.key !== "Tab") return;
 
-        const focusable = getFocusableElements(modalOverlay);
+        const focusable = getFocusableElements(dom.modalOverlay);
         if (!focusable.length) return;
 
         const first = focusable[0];
@@ -1832,17 +2131,17 @@
           });
         });
 
-        if (closeModalButton) closeModalButton.addEventListener("click", closeModal);
-        if (confirmModalButton) confirmModalButton.addEventListener("click", closeModal);
+        if (dom.closeModalButton) dom.closeModalButton.addEventListener("click", closeModal);
+        if (dom.confirmModalButton) dom.confirmModalButton.addEventListener("click", closeModal);
 
-        if (modalOverlay) {
-          modalOverlay.addEventListener("click", (event) => {
-            if (event.target === modalOverlay) closeModal();
+        if (dom.modalOverlay) {
+          dom.modalOverlay.addEventListener("click", (event) => {
+            if (event.target === dom.modalOverlay) closeModal();
           });
         }
 
         document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && modalOverlay && !modalOverlay.classList.contains("hidden")) {
+          if (event.key === "Escape" && dom.modalOverlay && !dom.modalOverlay.classList.contains("hidden")) {
             closeModal();
           }
         });
@@ -1878,9 +2177,9 @@
       }
 
       function bindShareButton() {
-        if (!shareButton) return;
+        if (!dom.shareButton) return;
 
-        shareButton.addEventListener("click", async () => {
+        dom.shareButton.addEventListener("click", async () => {
           const shareUrl = isSafeHttpUrl(config.canonicalUrl) ? config.canonicalUrl : window.location.href;
           const shareData = {
             title: safeText(config.pageTitle, document.title),
@@ -1896,9 +2195,11 @@
               const copied = await copyTextToClipboard(shareData.url);
               if (copied) {
                 showToast("Link copiado com sucesso.");
-              } else {
+              } else if (config.shareFallbackOpenInNewTab) {
                 window.open(shareData.url, "_blank", "noopener,noreferrer");
                 showToast("Abrindo link para compartilhamento.");
+              } else {
+                showToast("Não foi possível compartilhar agora.");
               }
             }
 
@@ -1913,16 +2214,16 @@
       }
 
       function updateProgressBar() {
-        if (!progressBar || !config.enableTopProgressBar) return;
+        if (!dom.progressBar || !config.enableTopProgressBar) return;
 
         const scrollable = document.documentElement.scrollHeight - window.innerHeight;
         if (scrollable <= 0) {
-          progressBar.style.width = "0%";
+          dom.progressBar.style.width = "0%";
           return;
         }
 
         const progress = Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100));
-        progressBar.style.width = `${progress}%`;
+        dom.progressBar.style.width = `${progress}%`;
       }
 
       function requestProgressUpdate() {
@@ -1934,17 +2235,31 @@
       }
 
       function bindTracking() {
-        document.querySelectorAll("[data-track]").forEach((el) => {
-          el.addEventListener("click", () => {
-            const label = safeText(el.getAttribute("data-label"), "clique");
-            const trackName = safeText(el.getAttribute("data-track"), "click");
-            markEngaged();
+        document.addEventListener("click", (event) => {
+          const clickable = event.target.closest("[data-track]");
+          if (!clickable) return;
 
-            trackEvent("ClickButton", {
-              button_name: trackName,
-              content_name: label
-            });
+          const label = safeText(clickable.getAttribute("data-label"), "clique");
+          const trackName = safeText(clickable.getAttribute("data-track"), "click");
+          markEngaged();
+
+          trackEvent("ClickButton", {
+            button_name: trackName,
+            content_name: label
           });
+
+          if (trackName === "hero_primary_cta") {
+            trackEvent("InitiateCheckout", { content_name: label, area: "hero" });
+          }
+          if (trackName === "sticky_primary_cta") {
+            trackEvent("InitiateCheckout", { content_name: label, area: "sticky" });
+          }
+          if (trackName === "product_card_click") {
+            trackEvent("ViewContent", { content_name: label, content_type: "product_card" });
+          }
+          if (trackName === "whatsapp_cta" || trackName === "quick_whatsapp") {
+            trackEvent("Contact", { content_name: label, method: "whatsapp" });
+          }
         });
 
         const onScroll = () => {
@@ -1994,10 +2309,11 @@
           if (event.clientY > 10) return;
 
           exitTracked = true;
-          showToast("Antes de sair, veja os links em destaque.");
+          showToast("Antes de sair, veja os destaques em seleção.");
 
           trackEvent("InitiateCheckout", {
-            content_name: safeText(config.primaryTitle, "Links em destaque")
+            content_name: safeText(config.primaryTitle, "Links em destaque"),
+            area: "exit_intent"
           });
         });
       }
@@ -2042,6 +2358,7 @@
         document.querySelectorAll(".faq-item").forEach((item) => {
           const summary = item.querySelector("summary");
           const icon = item.querySelector("i");
+
           if (summary) summary.setAttribute("aria-expanded", item.open ? "true" : "false");
 
           item.addEventListener("toggle", () => {
