@@ -75,7 +75,7 @@
       heroTitle: "Alguns desses achados estão chamando atenção agora 👇",
       heroSubtitle:
         "Reunimos opções interessantes para você acessar rápido, comparar melhor e decidir com mais clareza.",
-      heroStatusText: "seleções atualizadas • acesso simples • sem complicação",
+      heroStatusText: "links atualizados • acesso rápido",
       heroMicroText: "Tudo organizado para facilitar sua escolha.",
       rotatingHeroHints: [
         "👇 Tem mais opções abaixo",
@@ -403,6 +403,8 @@
     }
 
     .hero-shell {
+      padding-top: 18px;
+      padding-bottom: 18px;
       position: relative;
       overflow: hidden;
       border-radius: var(--radius-2xl);
@@ -453,46 +455,76 @@
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: .55rem;
-      padding: .72rem 1rem;
+      justify-content: center;
+      padding: 10px 18px;
+      max-width: 320px;
+      min-height: 44px;
       border-radius: 999px;
-      background: rgba(56,189,248,.08);
-      border: 1px solid rgba(56,189,248,.14);
-      color: #bae6fd;
-      font-size: .75rem;
-      font-weight: 800;
+      background: linear-gradient(180deg, rgba(56,189,248,.10), rgba(56,189,248,.05));
+      border: 1px solid rgba(125,211,252,.18);
+      color: #d7f2ff;
+      font-size: 13px;
+      font-weight: 700;
       text-align: center;
+      line-height: 1.3;
+      margin: 0 auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 10px 30px rgba(56,189,248,.08),
+        0 0 0 1px rgba(255,255,255,.015);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+      animation: premiumGlow 4.2s ease-in-out infinite;
     }
 
-    .live-dot {
-      width: .55rem;
-      height: .55rem;
-      border-radius: 50%;
-      background: #22d3ee;
-      box-shadow: 0 0 0 0 rgba(34,211,238,.6);
-      animation: pulse 1.8s infinite;
-      flex-shrink: 0;
+    .status-pill::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+      transform: translateX(-140%);
+      animation: pillShine 5.5s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(34,211,238,.55); }
-      70% { box-shadow: 0 0 0 10px rgba(34,211,238,0); }
-      100% { box-shadow: 0 0 0 0 rgba(34,211,238,0); }
+    @keyframes premiumGlow {
+      0%, 100% {
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.06),
+          0 10px 30px rgba(56,189,248,.08),
+          0 0 0 1px rgba(255,255,255,.015);
+      }
+      50% {
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.08),
+          0 12px 34px rgba(56,189,248,.14),
+          0 0 18px rgba(56,189,248,.10);
+      }
+    }
+
+    @keyframes pillShine {
+      0% { transform: translateX(-140%); }
+      18% { transform: translateX(140%); }
+      100% { transform: translateX(140%); }
     }
 
     .avatar-wrap {
+      margin-bottom: 6px;
       position: relative;
       display: inline-block;
     }
 
     .avatar-wrap::after {
+      inset: -10px;
+      background: radial-gradient(circle, rgba(56,189,248,.14), transparent 70%);
+      filter: blur(10px);
       content: "";
       position: absolute;
-      inset: -12px;
       z-index: -1;
       border-radius: 2.7rem;
-      background: radial-gradient(circle, rgba(56,189,248,.18), transparent 68%);
-      filter: blur(12px);
     }
 
     .mini-chip,
@@ -532,7 +564,9 @@
     .product-card:hover,
     .product-card:focus-visible,
     .trust-item:hover,
-    .trust-item:focus-visible {
+    .trust-item:focus-visible,
+    .feed-card:hover,
+    .feed-card:focus-visible {
       transform: translateY(-2px);
       outline: none;
     }
@@ -705,6 +739,36 @@
       0% { transform: scale(1); }
       50% { transform: scale(1.02); }
       100% { transform: scale(1); }
+    }
+
+    .feed-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border-radius: 1.2rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      transition: .25s ease;
+    }
+
+    .feed-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56,189,248,.35);
+    }
+
+    .feed-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e2e8f0;
+      max-width: 70%;
+    }
+
+    .feed-cta {
+      font-size: 12px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-decoration: none;
     }
 
     .products-scroll {
@@ -895,13 +959,12 @@
 
       <div class="mt-1 flex items-center justify-center">
         <div class="status-pill">
-          <span class="live-dot" aria-hidden="true"></span>
-          <span id="heroStatusText">seleções atualizadas • acesso simples • sem complicação</span>
+          <span id="heroStatusText">links atualizados • acesso rápido</span>
         </div>
       </div>
 
       <header class="mt-5 text-center">
-        <div class="avatar-wrap mb-4">
+        <div class="avatar-wrap mb-3">
           <div class="group inline-block rotate-3 cursor-pointer overflow-hidden rounded-[2.3rem] border border-white/15 bg-slate-900/80 p-1 shadow-2xl transition-transform duration-500 hover:rotate-0">
             <img
               id="brandLogo"
@@ -920,15 +983,15 @@
           </div>
         </div>
 
-        <h1 id="brandHandle" class="mb-3 bg-gradient-to-r from-white via-sky-100 to-cyan-200 bg-clip-text text-[2rem] font-extrabold leading-[1.05] tracking-tight text-transparent">
+        <h1 id="brandHandle" class="mb-2 max-w-[300px] mx-auto bg-gradient-to-r from-white via-sky-100 to-cyan-200 bg-clip-text text-[1.9rem] font-extrabold leading-tight tracking-tight text-transparent">
           @achadostube
         </h1>
 
-        <p id="heroTitle" class="mx-auto max-w-[330px] text-[1.14rem] font-extrabold leading-relaxed text-slate-100">
+        <p id="heroTitle" class="max-w-[280px] mx-auto text-center text-[1.05rem] font-extrabold leading-snug text-slate-100">
           Alguns desses achados estão chamando atenção agora 👇
         </p>
 
-        <p id="heroSubtitle" class="mx-auto mt-3 max-w-[320px] text-sm leading-relaxed text-slate-400">
+        <p id="heroSubtitle" class="max-w-[270px] mx-auto text-center mt-2 text-[0.85rem] leading-relaxed opacity-90 text-slate-400">
           Reunimos opções interessantes para você acessar rápido, comparar melhor e decidir com mais clareza.
         </p>
 
@@ -1007,6 +1070,29 @@
           <p id="productsSectionNote" class="mt-2 text-[11px] leading-relaxed text-slate-500">Navegue com calma e veja o que combina melhor com você.</p>
         </div>
         <div id="productsContainer" class="products-scroll" aria-label="Carrossel de produtos"></div>
+      </div>
+    </section>
+
+    <section class="reveal mt-5 w-full">
+      <div class="glass-card rounded-[2rem] p-4">
+        <h2 class="mb-3 text-sm font-extrabold text-white">Explorar agora</h2>
+
+        <div class="space-y-3">
+          <div class="feed-card">
+            <div class="feed-title">🔥 Esse aqui está chamando atenção</div>
+            <a href="https://www.achadostube.com.br/produto-1" target="_blank" rel="noopener" class="feed-cta">Ver agora</a>
+          </div>
+
+          <div class="feed-card">
+            <div class="feed-title">👀 Vale a pena ver esse</div>
+            <a href="https://www.achadostube.com.br/produto-2" target="_blank" rel="noopener" class="feed-cta">Abrir</a>
+          </div>
+
+          <div class="feed-card">
+            <div class="feed-title">💡 Achado interessante</div>
+            <a href="https://www.achadostube.com.br/produto-3" target="_blank" rel="noopener" class="feed-cta">Ver detalhes</a>
+          </div>
+        </div>
       </div>
     </section>
 
