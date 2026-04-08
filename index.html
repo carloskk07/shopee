@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="light dark">
 
   <title>AchadosTube | Compare antes de comprar</title>
-  <meta name="description" content="Compare preços, avaliações e características de produtos em poucos segundos. Informação clara e objetiva para decidir melhor antes de abrir a oferta.">
+  <meta name="description" content="Compare preços atualizados agora. Veja o que mais está sendo comprado antes de abrir a oferta.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0f172a">
   <link rel="canonical" href="https://achadostube.com.br/editorial-2026">
@@ -21,7 +21,7 @@
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="AchadosTube">
   <meta property="og:title" content="AchadosTube | Compare antes de comprar">
-  <meta property="og:description" content="Compare preços, avaliações e características de produtos em poucos segundos.">
+  <meta property="og:description" content="Compare preços atualizados agora. Veja o que mais está sendo comprado antes de abrir a oferta.">
   <meta property="og:url" content="https://achadostube.com.br/editorial-2026">
   <meta property="og:image" content="https://achadostube.com.br/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -30,7 +30,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AchadosTube | Compare antes de comprar">
-  <meta name="twitter:description" content="Compare preços, avaliações e características de produtos em poucos segundos.">
+  <meta name="twitter:description" content="Compare preços atualizados agora. Veja o que mais está sendo comprado antes de abrir a oferta.">
   <meta name="twitter:image" content="https://achadostube.com.br/assets/og-image.jpg">
 
   <script type="application/ld+json" id="structured-data">
@@ -46,7 +46,7 @@
           "@type": "WebPage",
           "name": "AchadosTube | Compare antes de comprar",
           "url": "https://achadostube.com.br/editorial-2026",
-          "description": "Compare preços, avaliações e características de produtos em poucos segundos."
+          "description": "Compare preços atualizados agora. Veja o que mais está sendo comprado antes de abrir a oferta."
         },
         {
           "@type": "Organization",
@@ -63,9 +63,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="dns-prefetch" href="//images.unsplash.com">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=70" fetchpriority="high">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=80" fetchpriority="high">
 
   <style>
+    /* ===== VARIÁVEIS E RESET ===== */
     :root {
       --bg-body: #f8fafc;
       --bg-card: #ffffff;
@@ -86,6 +87,7 @@
       --line-strong: #cbd5e1;
       --ok: #065f46;
       --danger: #b91c1c;
+      --live-purchase: #16a34a;
       --shadow-soft: 0 6px 20px rgba(15, 23, 42, .05);
       --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, .05), 0 4px 6px -2px rgba(0, 0, 0, .02);
       --shadow-strong: 0 20px 40px -12px rgba(15, 23, 42, .18);
@@ -114,6 +116,7 @@
         --ink-soft: #94a3b8;
         --line: #334155;
         --line-strong: #475569;
+        --live-purchase: #22c55e;
         --shadow-soft: 0 10px 24px rgba(0, 0, 0, .28);
         --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, .35), 0 4px 6px -2px rgba(0, 0, 0, .25);
         --shadow-strong: 0 20px 40px -12px rgba(0, 0, 0, .55);
@@ -156,8 +159,14 @@
       text-underline-offset: 2px;
     }
 
-    a:focus-visible,
-    button:focus-visible {
+    :focus {
+      outline: 2px solid #1d4ed8;
+      outline-offset: 2px;
+    }
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+    :focus-visible {
       outline: var(--focus-outline);
       outline-offset: 3px;
     }
@@ -258,8 +267,9 @@
       color: inherit;
     }
 
-    .site-logo b {
+    .site-logo strong {
       color: var(--brand-accent);
+      font-weight: 900;
     }
 
     .site-logo:hover {
@@ -391,6 +401,19 @@
       box-shadow: var(--shadow-soft);
     }
 
+    .top-product-highlight {
+      background: var(--brand-blue);
+      color: white;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      margin: 20px 0 8px;
+      font-weight: 800;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: var(--shadow-strong);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
     .trust-strip {
       display: flex;
       flex-wrap: wrap;
@@ -432,6 +455,7 @@
     .item-card.featured {
       border: 1px solid rgba(37,99,235,.28);
       box-shadow: var(--shadow-featured);
+      transform: scale(1.02);
     }
 
     .item-card.featured .btn-cta {
@@ -440,7 +464,7 @@
     }
 
     .item-card.is-active {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.02);
       box-shadow: var(--shadow-strong);
       border-color: var(--line-strong);
     }
@@ -497,6 +521,18 @@
       padding: 4px 10px;
       border-radius: 999px;
       margin-bottom: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .top-choice-badge {
+      background: var(--brand-accent);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      display: inline-block;
       box-shadow: var(--shadow-soft);
     }
 
@@ -622,6 +658,20 @@
       text-align: center;
     }
 
+    .friction-free {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 6px;
+      color: var(--ink-soft);
+    }
+
+    .live-purchase-badge {
+      font-size: 12px;
+      color: var(--live-purchase);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
     .btn-cta,
     .floating-cta-link {
       display: inline-flex;
@@ -646,6 +696,22 @@
     .floating-cta-link:hover {
       background: linear-gradient(180deg, #0f172a, #1e293b);
       transform: translateY(-1px);
+    }
+
+    .btn-cta.is-disabled,
+    #floating-cta-link.is-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+      box-shadow: none;
+      background: var(--ink-soft);
+    }
+
+    .btn-cta.is-disabled:hover,
+    #floating-cta-link.is-disabled:hover {
+      transform: none;
+      background: var(--ink-soft);
     }
 
     .spinner {
@@ -912,6 +978,7 @@
       color: var(--brand-blue);
     }
 
+    /* Responsivo */
     @media (max-width: 560px) {
       .header-inner {
         flex-direction: column;
@@ -980,8 +1047,8 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="AchadosTube - Página inicial">ACHADOS <b>TUBE</b></a>
-      <div class="live-status" aria-live="polite">
+      <a href="/" class="site-logo" aria-label="AchadosTube - Página inicial">ACHADOS <strong>TUBE</strong></a>
+      <div class="live-status">
         <span class="live-dot" aria-hidden="true"></span>
         Dados atualizados hoje: <span id="current-date">--/--</span>
       </div>
@@ -993,32 +1060,56 @@
     <p class="inline-notice" id="inline-notice" role="status" aria-live="polite"></p>
 
     <section class="hero" aria-labelledby="page-title">
-      <span class="category-label">Análise editorial independente</span>
+      <span class="category-label">Comparação rápida de ofertas</span>
 
-      <h1 id="page-title">Veja o que muda entre as opções antes de abrir a oferta.</h1>
-
-      <div class="hero-cta">
-        <a href="#product-0-card" class="hero-btn">
-          🔥 Ver opção mais acessada neste momento
-        </a>
-      </div>
-
-      <div class="scroll-hint">↓ Veja as opções logo abaixo</div>
-
-      <p class="hero-intro">
-        Resumo direto com preço e principais pontos de cada item.
+      <h1 id="page-title">Os produtos mais comprados hoje (com preço atualizado agora)</h1>
+      
+      <p style="font-size:14px; color:var(--ink-soft); margin-top:6px;">
+        Algumas dessas ofertas aparecem com desconto por poucas horas.
       </p>
 
-      <div class="trust-data">
-        📊 Baseado no que mais aparece nas avaliações reais.
+      <div class="hero-cta">
+        <a href="#product-0-card" class="hero-btn" aria-label="Ver o que está compensando hoje">
+          <span aria-hidden="true">🔥</span> Ver o que está compensando hoje
+        </a>
+      </div>
+      
+      <div style="text-align:center; font-size:12px; margin-top:6px; color:var(--ink-soft);">
+        ✔ Sem cadastro • ✔ Sem compromisso
+      </div>
+      
+      <div style="text-align:center; font-size:13px; margin-top:8px; color:var(--ink-soft);">
+        ↓ Comparação rápida em menos de 2 minutos
+      </div>
+      
+      <div class="micro-live" style="margin-top: 8px; font-weight: 600; color: var(--danger);">
+        ⚠️ Alguns itens esgotam rápido
       </div>
 
+      <div class="top-product-highlight" id="top-product-highlight">
+        <span aria-hidden="true">🔥</span> Mais acessado neste momento: <span id="top-product-name">Fone TWS i12</span>
+      </div>
+
+      <div class="trust-data" style="margin-bottom: 8px;">
+        <span aria-hidden="true">📊</span> + de 120 acessos nas últimas horas
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">↓ Veja os detalhes de cada opção</div>
+
+      <p class="hero-intro">
+        Selecionamos os itens mais acessados agora para facilitar sua escolha sem perder tempo comparando dezenas de opções.
+      </p>
+
       <div class="trust-strip trust-strip-top" aria-label="Sinais de confiança">
-        <span class="trust-pill"><b id="trust-date-label">Atualizado hoje</b></span>
-        <span class="trust-pill"><b id="reading-time-text">Leitura rápida em cerca de 2 min</b></span>
-        <span class="trust-pill"><b id="social-proof">Baseado no que mais está sendo acessado agora</b></span>
+        <span class="trust-pill"><strong id="trust-date-label">Atualizado hoje</strong></span>
+        <span class="trust-pill"><strong id="reading-time-text">Leitura rápida em cerca de 2 min</strong></span>
+        <span class="trust-pill"><strong id="social-proof">Baseado no que mais está sendo acessado agora</strong></span>
       </div>
     </section>
+
+    <p style="font-size:14px; color:var(--ink-sub); margin-bottom:20px;">
+      Evite cair em produto ruim — veja primeiro o que realmente está valendo a pena hoje.
+    </p>
 
     <section class="items-grid" aria-label="Produtos em destaque" id="products-grid"></section>
 
@@ -1031,7 +1122,7 @@
 
       <div class="author-card" style="justify-content: center; text-align: center;">
         <div class="author-meta" style="width: 100%; text-align: center;">
-          <span style="font-size: 14px; color: var(--ink-sub);">📋 Baseado no que compradores mais comentam nas avaliações.</span>
+          <span style="font-size: 14px; color: var(--ink-sub);"><span aria-hidden="true">📋</span> Baseado no que compradores mais comentam nas avaliações.</span>
         </div>
       </div>
     </div>
@@ -1045,13 +1136,13 @@
 
   <footer class="site-footer">
     <div class="affiliate-notice">
-      <strong>🔗 Aviso de Afiliado:</strong> Podemos receber comissões por compras realizadas através dos links recomendados. Isso não aumenta o preço para você e nos ajuda a manter o conteúdo independente.
+      <strong><span aria-hidden="true">🔗</span> Aviso de Afiliado:</strong> Podemos receber comissões por compras realizadas através dos links recomendados. Isso não aumenta o preço para você e nos ajuda a manter o conteúdo independente.
     </div>
 
     <div class="footer-links">
-      <button class="footer-btn" type="button" data-modal="privacidade">Política de Privacidade</button>
-      <button class="footer-btn" type="button" data-modal="termos">Termos de Uso</button>
-      <button class="footer-btn" type="button" data-modal="contato">Contato</button>
+      <button class="footer-btn" type="button" data-modal="privacidade" aria-expanded="false">Política de Privacidade</button>
+      <button class="footer-btn" type="button" data-modal="termos" aria-expanded="false">Termos de Uso</button>
+      <button class="footer-btn" type="button" data-modal="contato" aria-expanded="false">Contato</button>
     </div>
 
     <div class="copyright">
@@ -1061,7 +1152,7 @@
   </footer>
 
   <div id="modal-overlay" class="modal-overlay" aria-hidden="true">
-    <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
       <div class="modal-header">
         <h3 id="modal-title">Título</h3>
         <button class="modal-close" id="modal-close-btn" type="button" aria-label="Fechar modal">&times;</button>
@@ -1072,59 +1163,90 @@
 
   <aside class="floating-cta" id="floating-cta" aria-label="Acesso rápido ao item em destaque">
     <div class="floating-cta-copy">
-      <span class="floating-cta-kicker">🔥 Mais acessado neste momento</span>
-      <span class="floating-cta-title" id="floating-cta-title">Veja o item mais relevante</span>
+      <span class="floating-cta-kicker"><span aria-hidden="true">🔥</span> Mais acessado neste momento</span>
+      <span class="floating-cta-title" id="floating-cta-title">Carregando...</span>
     </div>
     <a class="floating-cta-link" id="floating-cta-link" href="#" rel="nofollow sponsored noopener noreferrer external" referrerpolicy="strict-origin-when-cross-origin" aria-label="Abrir oferta do item em foco" title="Abrir na loja oficial em nova aba">
-      <span class="btn-label">VER PREÇO AGORA</span>
+      <span class="btn-label">VER OFERTA AGORA</span>
       <span class="spinner" aria-hidden="true"></span>
     </a>
   </aside>
 
   <noscript>
+    <style>
+      .items-grid { display: grid; gap: 28px; margin-top: 30px; }
+      .item-card { border: 1px solid #ccc; border-radius: 24px; padding: 28px; background: #fff; }
+      .item-media { position: relative; aspect-ratio: 16/9; background: #f1f5f9; margin-bottom: 20px; border-radius: 16px; overflow: hidden; }
+      .item-media img { width: 100%; height: 100%; object-fit: cover; }
+      .rank-badge { background: #0f172a; color: white; padding: 8px 14px; border-radius: 12px; font-weight: bold; position: absolute; top: 16px; left: 16px; }
+      .btn-cta { display: block; background: #0f172a; color: white; padding: 16px; text-align: center; border-radius: 16px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+      .old-price { text-decoration: line-through; color: #475569; }
+      .new-price { font-size: 2.5rem; font-weight: 900; }
+      .verify-row { color: #065f46; font-weight: bold; margin: 12px 0; }
+      .top-choice-badge { background: #ee4d2d; color: white; padding: 6px 14px; border-radius: 999px; display: inline-block; margin-bottom: 12px; }
+      .friction-free { font-size: 12px; text-align: center; margin-top: 6px; color: #64748b; }
+      .live-purchase-badge { font-size: 12px; color: #16a34a; font-weight: 700; margin-bottom: 8px; }
+    </style>
     <div style="max-width:760px;margin:20px auto;padding:14px 16px;background:#fef9c3;color:#854d0e;border-radius:12px;border:1px solid #fde68a;">
-      ⚠️ Para melhor experiência, ative o JavaScript. Os links abaixo ainda funcionam.
+      <span aria-hidden="true">⚠️</span> Para melhor experiência, ative o JavaScript. Os links abaixo ainda funcionam.
     </div>
 
     <div class="items-grid">
       <div class="item-card featured">
+        <div class="item-media">
+          <span class="rank-badge">#1 Mais clicado</span>
+          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=80" alt="Fone de ouvido Bluetooth sem fio modelo TWS preto com estojo de carregamento" loading="eager">
+        </div>
         <div class="item-content">
-          <div class="rank-badge">#1 Mais clicado</div>
+          <div class="top-choice-badge">🔥 Mais vendido hoje</div>
+          <div class="live-purchase-badge">🔥 + de 23 compras hoje</div>
           <h2 class="item-title">Fone Noise-Cancelling TWS i12 - Black Edition</h2>
+          <div class="verify-row">✓ Qualidade de som verificada</div>
           <div class="price-container">
             <span class="old-price">De R$ 65,00</span>
             <span class="new-price">R$ 18,90</span>
           </div>
           <div class="pre-cta-note">Veja fotos reais, avaliações e disponibilidade atual agora.</div>
-          <a class="btn-cta" href="https://s.shopee.com.br/AAD27TgNOR?utm_source=editorial&utm_campaign=achadostube" target="_blank" rel="nofollow sponsored" title="Abrir na loja oficial em nova aba">VER PREÇO AGORA</a>
+          <a class="btn-cta" href="https://s.shopee.com.br/AAD27TgNOR?utm_source=editorial&utm_campaign=editorial_2026" target="_blank" rel="nofollow sponsored noopener">VER OFERTA AGORA</a>
+          <div class="friction-free">✔ Sem cadastro • ✔ Sem compromisso</div>
           <div class="redirect-note">Você será redirecionado para a loja oficial</div>
         </div>
       </div>
 
       <div class="item-card">
+        <div class="item-media">
+          <span class="rank-badge">#2 Melhor custo</span>
+          <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Mini processador elétrico portátil USB sobre bancada de cozinha com vegetais" loading="lazy">
+        </div>
         <div class="item-content">
-          <div class="rank-badge">#2 Melhor custo</div>
           <h2 class="item-title">Mini Processador Pro High-Power USB</h2>
+          <div class="verify-row">✓ Lâminas de aço inoxidável</div>
           <div class="price-container">
             <span class="old-price">De R$ 52,00</span>
             <span class="new-price">R$ 25,50</span>
           </div>
           <div class="pre-cta-note">Veja fotos reais, avaliações e disponibilidade atual agora.</div>
-          <a class="btn-cta" href="https://s.shopee.com.br/1gEU0B93Ut?utm_source=editorial&utm_campaign=achadostube" target="_blank" rel="nofollow sponsored" title="Abrir na loja oficial em nova aba">VER PREÇO AGORA</a>
+          <a class="btn-cta" href="https://s.shopee.com.br/1gEU0B93Ut?utm_source=editorial&utm_campaign=editorial_2026" target="_blank" rel="nofollow sponsored noopener">VER OFERTA AGORA</a>
+          <div class="friction-free">✔ Sem cadastro • ✔ Sem compromisso</div>
           <div class="redirect-note">Você será redirecionado para a loja oficial</div>
         </div>
       </div>
 
       <div class="item-card">
+        <div class="item-media">
+          <span class="rank-badge">#3 Mais procurado</span>
+          <img src="https://images.unsplash.com/photo-1533230832481-9c1737f90e54?auto=format&fit=crop&w=1200&q=80" alt="Umidificador ultrassônico moderno emitindo névoa fina em ambiente interno claro" loading="lazy">
+        </div>
         <div class="item-content">
-          <div class="rank-badge">#3 Mais procurado</div>
           <h2 class="item-title">Umidificador Ultrassônico Air-Elite Premium</h2>
+          <div class="verify-row">✓ Tecnologia anti-ruído</div>
           <div class="price-container">
             <span class="old-price">De R$ 89,00</span>
             <span class="new-price">R$ 34,90</span>
           </div>
           <div class="pre-cta-note">Veja fotos reais, avaliações e disponibilidade atual agora.</div>
-          <a class="btn-cta" href="https://s.shopee.com.br/16G1La8yH?utm_source=editorial&utm_campaign=achadostube" target="_blank" rel="nofollow sponsored" title="Abrir na loja oficial em nova aba">VER PREÇO AGORA</a>
+          <a class="btn-cta" href="https://s.shopee.com.br/16G1La8yH?utm_source=editorial&utm_campaign=editorial_2026" target="_blank" rel="nofollow sponsored noopener">VER OFERTA AGORA</a>
+          <div class="friction-free">✔ Sem cadastro • ✔ Sem compromisso</div>
           <div class="redirect-note">Você será redirecionado para a loja oficial</div>
         </div>
       </div>
@@ -1135,16 +1257,23 @@
     (function() {
       'use strict';
 
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+
       if (window.__ACHADOSTUBE_VISUAL_REFINED__) return;
       window.__ACHADOSTUBE_VISUAL_REFINED__ = true;
 
+      // ===== CONFIGURAÇÃO =====
       const CONFIG = {
         products: [
           {
             rankBadge: "#1 Mais clicado",
             featured: true,
-            microLive: "Entre os mais acessados neste momento",
-            image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=70",
+            topChoice: true,
+            livePurchaseCount: 23,
+            microLive: "🔥 + de 80 acessos nas últimas horas",
+            image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1200&q=80",
             imageAlt: "Fone de ouvido Bluetooth sem fio modelo TWS preto com estojo de carregamento",
             title: "Fone Noise-Cancelling TWS i12 - Black Edition",
             verifyText: "Qualidade de som verificada",
@@ -1158,19 +1287,20 @@
             newPrice: "R$ 18,90",
             saving: "Comparado com valores recentes do mesmo item",
             priceNote: "Preço sujeito a atualização no destino.",
-            engagementNote: "Pode mudar rapidamente conforme a procura.",
-            ctaLabel: "VER PREÇO AGORA",
+            engagementNote: "Pode mudar rapidamente conforme a procura",
+            ctaLabel: "VER OFERTA AGORA",
             preCtaNote: "Veja fotos reais, avaliações e disponibilidade atual agora.",
             redirectNote: "Você será redirecionado para a loja oficial",
             productName: "Fone TWS i12",
             productId: "tws-i12-black",
-            url: "https://s.shopee.com.br/AAD27TgNOR?utm_source=tiktok&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
+            url: "https://s.shopee.com.br/AAD27TgNOR?utm_source=editorial&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
           },
           {
             rankBadge: "#2 Melhor custo",
             featured: false,
+            topChoice: false,
             microLive: "",
-            image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=70",
+            image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
             imageAlt: "Mini processador elétrico portátil USB sobre bancada de cozinha com vegetais",
             title: "Mini Processador Pro High-Power USB",
             verifyText: "Lâminas de aço inoxidável",
@@ -1184,19 +1314,20 @@
             newPrice: "R$ 25,50",
             saving: "Comparado com valores recentes do mesmo item",
             priceNote: "Preço sujeito a atualização.",
-            engagementNote: "Pode mudar rapidamente conforme a procura.",
-            ctaLabel: "VER PREÇO AGORA",
+            engagementNote: "Pode mudar rapidamente conforme a procura",
+            ctaLabel: "VER OFERTA AGORA",
             preCtaNote: "Veja fotos reais, avaliações e disponibilidade atual agora.",
             redirectNote: "Você será redirecionado para a loja oficial",
             productName: "Mini Processador USB",
             productId: "mini-processador-usb",
-            url: "https://s.shopee.com.br/1gEU0B93Ut?utm_source=tiktok&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
+            url: "https://s.shopee.com.br/1gEU0B93Ut?utm_source=editorial&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
           },
           {
             rankBadge: "#3 Mais procurado",
             featured: false,
+            topChoice: false,
             microLive: "",
-            image: "https://images.unsplash.com/photo-1533230832481-9c1737f90e54?auto=format&fit=crop&w=1200&q=70",
+            image: "https://images.unsplash.com/photo-1533230832481-9c1737f90e54?auto=format&fit=crop&w=1200&q=80",
             imageAlt: "Umidificador ultrassônico moderno emitindo névoa fina em ambiente interno claro",
             title: "Umidificador Ultrassônico Air-Elite Premium",
             verifyText: "Tecnologia anti-ruído",
@@ -1210,17 +1341,18 @@
             newPrice: "R$ 34,90",
             saving: "Comparado com valores recentes do mesmo item",
             priceNote: "Preço sujeito a atualização.",
-            engagementNote: "Pode mudar rapidamente conforme a procura.",
-            ctaLabel: "VER PREÇO AGORA",
+            engagementNote: "Pode mudar rapidamente conforme a procura",
+            ctaLabel: "VER OFERTA AGORA",
             preCtaNote: "Veja fotos reais, avaliações e disponibilidade atual agora.",
             redirectNote: "Você será redirecionado para a loja oficial",
             productName: "Umidificador Air-Elite",
             productId: "umidificador-air-elite",
-            url: "https://s.shopee.com.br/16G1La8yH?utm_source=tiktok&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
+            url: "https://s.shopee.com.br/16G1La8yH?utm_source=editorial&utm_campaign=__CAMPAIGN_NAME__&subid={{ad_id}}-{{campaign_id}}-{{adset_id}}"
           }
         ]
       };
 
+      // ===== FUNÇÕES AUXILIARES =====
       function escapeHtml(str) {
         if (!str) return '';
         return String(str)
@@ -1233,10 +1365,12 @@
 
       function resolveUrl(url) {
         if (!url || typeof url !== 'string') return '#';
-        let resolved = url.replace(/\{\{ad_id\}\}/g, '0')
-                          .replace(/\{\{campaign_id\}\}/g, 'editorial')
-                          .replace(/\{\{adset_id\}\}/g, 'default')
-                          .replace(/__CAMPAIGN_NAME__/g, 'editorial_2026');
+        let resolved = url
+          .replace(/{{ad_id}}/g, '0')
+          .replace(/{{campaign_id}}/g, 'editorial')
+          .replace(/{{adset_id}}/g, 'default')
+          .replace(/__CAMPAIGN_NAME__/g, 'editorial_2026');
+        
         if (/\{\{.*?\}\}/.test(resolved) || /__.*?__/.test(resolved)) return '#';
         if (!/^https?:\/\//i.test(resolved)) return '#';
         return resolved;
@@ -1244,23 +1378,32 @@
 
       function updateProductSchema() {
         const schemaScript = document.getElementById('structured-data');
-        if (!schemaScript) return;
+        if (!schemaScript || !CONFIG.products.length) return;
 
         try {
           const existingSchema = JSON.parse(schemaScript.textContent);
-          const productSchemas = CONFIG.products.map(prod => ({
-            "@type": "Product",
-            "name": prod.title,
-            "image": prod.image,
-            "description": prod.review.substring(0, 180),
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "BRL",
-              "price": parseFloat(prod.newPrice.replace('R$', '').replace(',', '.').trim()),
-              "availability": "https://schema.org/InStock",
-              "url": resolveUrl(prod.url)
-            }
-          }));
+          const productSchemas = CONFIG.products.map(prod => {
+            let price = 0;
+            try {
+              const cleaned = prod.newPrice.replace(/[^\d,.-]/g, '').replace(',', '.');
+              price = parseFloat(cleaned);
+            } catch (e) {}
+            
+            return {
+              "@type": "Product",
+              "name": prod.title,
+              "sku": prod.productId,
+              "image": prod.image,
+              "description": prod.review.substring(0, 180),
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "BRL",
+                "price": isNaN(price) ? 0 : price,
+                "availability": "https://schema.org/InStock",
+                "url": resolveUrl(prod.url)
+              }
+            };
+          });
 
           const fullGraph = [...existingSchema["@graph"], ...productSchemas];
           const finalSchema = { "@context": "https://schema.org", "@graph": fullGraph };
@@ -1270,19 +1413,23 @@
         }
       }
 
+      // ===== RENDERIZAÇÃO DOS CARDS =====
       const productsGrid = document.getElementById('products-grid');
-
       if (productsGrid && CONFIG.products.length) {
-        const scarcityMessage = "📦 Alguns itens esgotam rápido conforme a demanda.";
+        const scarcityMessage = "⏳ Estoque varia ao longo do dia";
 
         const cardsHtml = CONFIG.products.map((prod, idx) => {
           const safeUrl = resolveUrl(prod.url);
-          const disabledAttr = safeUrl === '#'
-            ? 'aria-disabled="true" class="btn-cta is-disabled"'
-            : 'class="btn-cta"';
+          const isDisabled = safeUrl === '#';
+          const btnClass = isDisabled ? 'btn-cta is-disabled' : 'btn-cta';
+          const disabledAttr = isDisabled ? 'aria-disabled="true"' : '';
 
           const featuredClass = prod.featured ? 'item-card featured' : 'item-card';
           const microLiveHtml = prod.microLive ? `<div class="micro-live">${escapeHtml(prod.microLive)}</div>` : '';
+          const topChoiceBadge = prod.topChoice ? '<div class="top-choice-badge"><span aria-hidden="true">🔥</span> Mais vendido hoje</div>' : '';
+          const livePurchaseBadge = (prod.livePurchaseCount && prod.featured) 
+            ? `<div class="live-purchase-badge"><span aria-hidden="true">🔥</span> + de ${prod.livePurchaseCount} compras hoje</div>` 
+            : '';
 
           return `
             <article class="${featuredClass}" id="product-${idx}-card">
@@ -1298,7 +1445,9 @@
                 >
               </div>
               <div class="item-content">
-                <div class="saving-badge">📊 ${escapeHtml(prod.saving)}</div>
+                ${topChoiceBadge}
+                ${livePurchaseBadge}
+                <div class="saving-badge"><span aria-hidden="true">📊</span> ${escapeHtml(prod.saving)}</div>
                 <h2 class="item-title">${escapeHtml(prod.title)}</h2>
                 <div class="verify-row">✓ ${escapeHtml(prod.verifyText)}</div>
                 <div class="editorial-review">${escapeHtml(prod.review)}</div>
@@ -1319,18 +1468,20 @@
                 <div class="scarcity-line">${scarcityMessage}</div>
                 ${microLiveHtml}
                 <div class="pre-cta-note">${escapeHtml(prod.preCtaNote)}</div>
-                <a ${disabledAttr}
+                <a class="${btnClass}"
                   href="#"
                   data-url="${escapeHtml(safeUrl)}"
                   data-product="${escapeHtml(prod.productName)}"
                   data-product-id="${escapeHtml(prod.productId)}"
                   data-default-label="${escapeHtml(prod.ctaLabel)}"
+                  ${disabledAttr}
                   target="_blank"
                   rel="nofollow sponsored noopener noreferrer external"
                   title="Abrir na loja oficial em nova aba">
                   <span class="btn-label">${escapeHtml(prod.ctaLabel)}</span>
                   <span class="spinner" aria-hidden="true"></span>
                 </a>
+                <div class="friction-free">✔ Sem cadastro • ✔ Sem compromisso</div>
                 <div class="redirect-note">${escapeHtml(prod.redirectNote)}</div>
               </div>
             </article>
@@ -1341,6 +1492,7 @@
         updateProductSchema();
       }
 
+      // ===== ATUALIZAÇÃO DE DATA =====
       const today = new Date();
       const day = String(today.getDate()).padStart(2, '0');
       const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -1353,6 +1505,11 @@
       const trustDate = document.getElementById('trust-date-label');
       if (trustDate) trustDate.textContent = `Atualizado em ${fullDate}`;
 
+      const topProductNameSpan = document.getElementById('top-product-name');
+      if (topProductNameSpan && CONFIG.products[0]) {
+        topProductNameSpan.textContent = CONFIG.products[0].title;
+      }
+
       if (typeof window.ttq !== 'undefined' && window.ttq.track) {
         window.ttq.track('ViewContent', {
           content_name: 'Editorial AchadosTube - Ranking',
@@ -1362,6 +1519,7 @@
         });
       }
 
+      // ===== PROGRESS BAR =====
       const progressBar = document.getElementById('reading-progress-bar');
       window.addEventListener('scroll', () => {
         if (!progressBar) return;
@@ -1371,6 +1529,24 @@
         progressBar.style.width = scrolled + '%';
       }, { passive: true });
 
+      // ===== SCROLL AUTOMÁTICO SUAVE =====
+      let autoScrollTriggered = false;
+      let autoScrollTimeout = setTimeout(() => {
+        if (!autoScrollTriggered && window.scrollY < 50) {
+          window.scrollTo({ top: 200, behavior: 'smooth' });
+          autoScrollTriggered = true;
+        }
+      }, 800);
+      
+      window.addEventListener('scroll', function cancelAutoScroll() {
+        if (!autoScrollTriggered && window.scrollY > 10) {
+          clearTimeout(autoScrollTimeout);
+          autoScrollTriggered = true;
+          window.removeEventListener('scroll', cancelAutoScroll);
+        }
+      }, { passive: true });
+
+      // ===== CARD ATIVO E CTA FLUTUANTE =====
       let activeCard = null;
       const floatingCta = document.getElementById('floating-cta');
       const floatingTitle = document.getElementById('floating-cta-title');
@@ -1385,15 +1561,31 @@
 
         if (floatingTitle && floatingLink && activeCard) {
           const titleElem = activeCard.querySelector('.item-title');
+          const priceElem = activeCard.querySelector('.new-price');
           const btn = activeCard.querySelector('.btn-cta');
 
-          if (titleElem) floatingTitle.textContent = titleElem.textContent;
+          const titleText = titleElem ? titleElem.textContent : 'Veja o item mais relevante';
+          const priceText = priceElem ? priceElem.textContent : '';
+          
+          floatingTitle.textContent = priceText ? `${titleText} — ${priceText}` : titleText;
 
           if (btn) {
             floatingLink.href = btn.href;
             floatingLink.dataset.url = btn.dataset.url || '';
             floatingLink.dataset.product = btn.dataset.product || '';
             floatingLink.dataset.productId = btn.dataset.productId || '';
+            floatingLink.dataset.defaultLabel = btn.dataset.defaultLabel || 'VER OFERTA AGORA';
+            
+            const labelSpan = floatingLink.querySelector('.btn-label');
+            if (labelSpan) labelSpan.textContent = floatingLink.dataset.defaultLabel;
+
+            if (btn.classList.contains('is-disabled')) {
+              floatingLink.classList.add('is-disabled');
+              floatingLink.setAttribute('aria-disabled', 'true');
+            } else {
+              floatingLink.classList.remove('is-disabled');
+              floatingLink.removeAttribute('aria-disabled');
+            }
           }
         }
       }
@@ -1414,25 +1606,30 @@
       let floatingVisible = false;
       window.addEventListener('scroll', () => {
         if (!floatingCta) return;
-
-        if (window.scrollY > 520 && !floatingVisible) {
+        const shouldBeVisible = window.scrollY > 400;
+        if (shouldBeVisible && !floatingVisible) {
           floatingCta.classList.add('is-visible');
           floatingVisible = true;
-        } else if (window.scrollY <= 520 && floatingVisible) {
+        } else if (!shouldBeVisible && floatingVisible) {
           floatingCta.classList.remove('is-visible');
           floatingVisible = false;
         }
       }, { passive: true });
 
+      // ===== GERENCIAMENTO DE CLIQUES NOS CTAs =====
       let redirectLock = false;
+      let noticeTimeout = null;
 
       function showNotice(message) {
         const notice = document.getElementById('inline-notice');
         if (!notice) return;
+        
+        if (noticeTimeout) clearTimeout(noticeTimeout);
         notice.textContent = message;
         notice.classList.add('is-visible', 'is-info');
-        setTimeout(() => {
+        noticeTimeout = setTimeout(() => {
           notice.classList.remove('is-visible');
+          noticeTimeout = null;
         }, 4000);
       }
 
@@ -1442,7 +1639,7 @@
 
         e.preventDefault();
 
-        if (btn.getAttribute('aria-disabled') === 'true') {
+        if (btn.getAttribute('aria-disabled') === 'true' || btn.classList.contains('is-disabled')) {
           showNotice('Link temporariamente indisponível. Tente novamente mais tarde.');
           return;
         }
@@ -1468,37 +1665,35 @@
           });
         }
 
-        const clickable = btn.id === 'floating-cta-link'
-          ? btn
-          : btn.closest('.btn-cta');
-
-        const labelSpan = clickable ? clickable.querySelector('.btn-label') : null;
-
-        if (clickable) clickable.classList.add('is-loading');
-        if (labelSpan) labelSpan.textContent = 'REDIRECIONANDO...';
+        const labelSpan = btn.querySelector('.btn-label');
+        const originalLabel = btn.dataset.defaultLabel || 'VER OFERTA AGORA';
+        if (labelSpan) labelSpan.textContent = 'Abrindo oferta segura...';
+        btn.classList.add('is-loading');
 
         setTimeout(() => {
-          window.open(url, '_blank', 'noopener');
-          if (clickable) clickable.classList.remove('is-loading');
-          if (labelSpan) labelSpan.textContent = clickable.dataset.defaultLabel || 'VER PREÇO AGORA';
-          redirectLock = false;
+          try {
+            window.open(url, '_blank', 'noopener');
+          } catch (e) {
+            showNotice('Não foi possível abrir o link. Verifique seu bloqueador de pop-ups.');
+          } finally {
+            btn.classList.remove('is-loading');
+            if (labelSpan) labelSpan.textContent = originalLabel;
+            redirectLock = false;
+          }
         }, 260);
       }
 
       document.addEventListener('click', handleCtaClick);
 
+      // ===== MODAL ACESSÍVEL COM TRAP FOCUS =====
       const modalOverlay = document.getElementById('modal-overlay');
       const modalTitle = document.getElementById('modal-title');
       const modalBody = document.getElementById('modal-body');
       const closeModalBtn = document.getElementById('modal-close-btn');
-
-      function closeModal() {
-        if (modalOverlay) {
-          modalOverlay.classList.remove('active');
-          modalOverlay.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      }
+      const footerBtns = document.querySelectorAll('.footer-btn');
+      
+      let lastFocusedElement = null;
+      let modalActive = false;
 
       const modalContents = {
         privacidade: {
@@ -1515,16 +1710,70 @@
         }
       };
 
-      document.querySelectorAll('.footer-btn').forEach(btn => {
+      function handleModalKeyDown(e) {
+        if (!modalActive) return;
+        if (e.key !== 'Tab') return;
+        
+        const modalContainer = modalOverlay.querySelector('.modal-container');
+        const focusableElements = modalContainer.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+        
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      }
+
+      document.addEventListener('keydown', handleModalKeyDown);
+
+      function openModal(type) {
+        if (!modalContents[type]) return;
+        
+        lastFocusedElement = document.activeElement;
+        
+        modalTitle.textContent = modalContents[type].title;
+        modalBody.innerHTML = modalContents[type].content;
+        modalOverlay.classList.add('active');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        modalActive = true;
+
+        footerBtns.forEach(btn => {
+          const modalType = btn.getAttribute('data-modal');
+          btn.setAttribute('aria-expanded', modalType === type ? 'true' : 'false');
+        });
+        
+        if (closeModalBtn) closeModalBtn.focus();
+      }
+
+      function closeModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove('active');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        modalActive = false;
+
+        footerBtns.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+          lastFocusedElement.focus();
+        }
+      }
+
+      footerBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           const type = btn.getAttribute('data-modal');
-          if (type && modalContents[type]) {
-            modalTitle.textContent = modalContents[type].title;
-            modalBody.innerHTML = modalContents[type].content;
-            modalOverlay.classList.add('active');
-            modalOverlay.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-          }
+          if (type) openModal(type);
         });
       });
 
@@ -1539,11 +1788,12 @@
       }
 
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+        if (e.key === 'Escape' && modalActive) {
           closeModal();
         }
       });
 
+      // ===== FALLBACK PARA IMAGENS QUEBRADAS =====
       document.querySelectorAll('.item-media img').forEach(img => {
         if (img.complete) {
           img.classList.add('is-loaded');
@@ -1558,7 +1808,7 @@
         });
       });
 
-      console.log('✅ AchadosTube - versão visual refinada carregada.');
+      console.log('✅ AchadosTube - versão final corrigida.');
     })();
   </script>
 </body>
