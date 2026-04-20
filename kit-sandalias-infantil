@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- META TAGS -->
+    <meta name="description" content="Kit 2 Pares Sandálias Infantil Stitch e Minnie Mouse • Super confortáveis • De R$ 79,90 por apenas R$ 39,99 • Frete Grátis">
+    <meta name="keywords" content="sandália infantil, sandália stitch, sandália minnie mouse, kit sandália infantil, sandália infantil shopee, sandália infantil barata">
+    <meta name="robots" content="index, follow">
+  
+    <!-- Open Graph -->
+    <meta property="og:title" content="Kit 2 Pares Sandálias Infantil Stitch e Minnie Mouse • Apenas R$ 39,99">
+    <meta property="og:description" content="2 pares de sandálias super fofas e confortáveis com temas Stitch e Minnie Mouse. De R$ 79,90 por apenas R$ 39,99. Frete Grátis e 12x sem juros.">
+    <meta property="og:image" content="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m954tenhlqnt3f@resize_w450_nl.webp">
+    <meta property="og:url" content="https://achadostube.com.br">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://achadostube.com.br">
+
+    <!-- GOOGLE ANALYTICS 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK72PVREEJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DK72PVREEJ');
+    </script>
+
+    <!-- TIKTOK PIXEL -->
+    <script>
+        !function (w, d, t) {
+            w.TiktokAnalyticsObject = t;
+            var ttq = w[t] = w[t] || [];
+            ttq.methods = ["page","track","identify","instances","debug","on","once","off","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent"];
+            ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; };
+            for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+            ttq.instances = [];
+            ttq.load = function (t, e) {
+                var n = d.getElementsByTagName("script")[0],
+                    o = d.createElement("script");
+                o.async = !0;
+                o.src = "https://analytics.tiktok.com/i18n/pixel/sdk.js";
+                n.parentNode.insertBefore(o, n);
+            };
+            ttq.load('D78O6VJC77U8CCU0EA0G');
+            ttq.page();
+        }(window, document, 'ttq');
+    </script>
+
+    <!-- SCHEMA.ORG -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Kit 2 Pares Sandálias Infantil Stitch e Minnie Mouse",
+        "image": "https://down-br.img.susercontent.com/file/br-11134207-7r98o-m954tenhlqnt3f@resize_w450_nl.webp",
+        "description": "Kit com 2 pares de sandálias infantis confortáveis com temas Stitch e Minnie Mouse. De R$ 79,90 por apenas R$ 39,99.",
+        "brand": { "@type": "Brand", "name": "Shopee" },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://s.shopee.com.br/7Kt6RkhRF1",
+            "priceCurrency": "BRL",
+            "price": 39.99,
+            "priceValidUntil": "2026-12-31",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition"
+        }
+    }
+    </script>
+
+    <title>Kit 2 Pares Sandálias Infantil Stitch e Minnie Mouse • Apenas R$ 39,99</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+        
+        :root { --primary: #f59e0b; }
+        
+        * { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        
+        .cta-pulse { animation: ctaPulse 2s infinite; }
+        @keyframes ctaPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .livePulse { animation: livePulse 2s infinite; }
+        @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* CORES EXATAMENTE IGUAIS À VERSÃO ANTERIOR */
+        .hero-bg { 
+            background: linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%); 
+        }
+        
+        /* OTIMIZAÇÃO DA THUMB DO VÍDEO (mantendo estilo anterior) */
+        #video-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+        #video-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .play-button {
+            animation: playPulse 2s infinite;
+            font-size: 5rem;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+        }
+        @keyframes playPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .video-text {
+            text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shoe-prints text-3xl text-amber-500"></i>
+                    <span class="font-bold text-2xl text-violet-700">AchadosTube</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8 text-lg">
+                    <a href="#beneficios" class="hover:text-amber-500 font-medium">Benefícios</a>
+                    <a href="#video" class="hover:text-amber-500 font-medium">Vídeo</a>
+                    <a href="#prova" class="hover:text-amber-500 font-medium">Prova Social</a>
+                    <a href="#garantia" class="hover:text-amber-500 font-medium">Garantia</a>
+                </div>
+                <a href="https://s.shopee.com.br/7Kt6RkhRF1" target="_blank" rel="noopener noreferrer" 
+                   class="buy-button px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-2xl font-semibold flex items-center gap-2 text-lg"
+                   data-location="navbar">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    VER MAIS...
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO (CORES EXATAMENTE IGUAIS À VERSÃO ANTERIOR) -->
+    <section class="hero-bg text-white pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-2 rounded-3xl text-sm font-medium">
+                    <i class="fa-solid fa-fire text-amber-300"></i>
+                    OFERTA RELÂMPAGO • ÚLTIMAS UNIDADES
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl font-black leading-none tracking-[-2px]">
+                    KIT 2 PARES SANDÁLIAS<br>INFANTIL STITCH &amp; MINNIE MOUSE
+                </h1>
+                
+                <div class="flex items-baseline gap-4">
+                    <div class="text-4xl line-through opacity-75">R$ 79,90</div>
+                    <div class="text-7xl font-black text-amber-300">R$ 39,99</div>
+                </div>
+                
+                <div class="text-2xl font-semibold text-white/90">
+                    Economia de <span class="text-amber-300 font-black">R$ 39,91</span><br>
+                    <span class="text-lg">12x de R$ 3,33 sem juros</span>
+                </div>
+
+                <a href="https://s.shopee.com.br/7Kt6RkhRF1" target="_blank" rel="noopener noreferrer" 
+                   class="buy-button block w-fit px-10 py-5 bg-white text-violet-700 hover:bg-amber-300 hover:text-white rounded-3xl text-2xl font-bold flex items-center gap-4 cta-pulse"
+                   data-location="hero">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                    VER MAIS MODELOS...
+                </a>
+
+                <div class="flex items-center gap-6 text-sm">
+                    <div class="flex items-center"><i class="fa-solid fa-truck text-xl mr-2"></i> Frete Grátis</div>
+                    <div class="flex items-center"><i class="fa-solid fa-shield-halved text-xl mr-2"></i> Garantia Shopee</div>
+                    <div class="flex items-center"><i class="fa-solid fa-clock text-xl mr-2"></i> Entrega Rápida</div>
+                </div>
+            </div>
+
+            <!-- FLOAT IMAGE -->
+            <div class="flex justify-center">
+                <a href="https://s.shopee.com.br/7Kt6RkhRF1" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="float bg-white rounded-3xl p-6 shadow-2xl max-w-[380px] w-full relative">
+                        <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m954tenhlqnt3f@resize_w450_nl.webp" 
+                             alt="Kit 2 Pares Sandálias Infantil Stitch e Minnie Mouse"
+                             class="rounded-3xl w-full shadow-xl" 
+                             loading="eager" fetchpriority="high" decoding="sync" width="450" height="450">
+                        <div class="absolute -top-4 -right-4 bg-amber-500 text-white text-xs font-bold px-4 py-1 rounded-2xl shadow-lg flex items-center gap-1">
+                            <i class="fa-solid fa-fire"></i> 50% OFF
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- URGENCY BAR -->
+    <div class="bg-red-600 text-white py-3 text-center font-bold flex items-center justify-center gap-3 text-lg">
+        <i class="fa-solid fa-fire-flame-curved livePulse"></i>
+        <span id="live-counter" class="font-mono">347 pessoas</span> estão vendo esta oferta agora
+        <span class="mx-3">•</span>
+        Estoque restante: <span id="stock-counter" class="font-mono text-amber-300">18</span> unidades
+    </div>
+
+    <!-- BENEFÍCIOS -->
+    <section id="beneficios" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-10">Por que os pais estão amando este kit?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow text-center">
+                    <i class="fa-solid fa-heart text-5xl text-pink-500 mb-4"></i>
+                    <h3 class="font-bold text-2xl mb-2">Estilo Disney</h3>
+                    <p class="text-gray-600">Stitch e Minnie Mouse – os personagens favoritos das crianças!</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow text-center">
+                    <i class="fa-solid fa-shoe-prints text-5xl text-amber-500 mb-4"></i>
+                    <h3 class="font-bold text-2xl mb-2">Super Confortáveis</h3>
+                    <p class="text-gray-600">Palmilha macia, antiderrapante e flexível para o dia todo.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow text-center">
+                    <i class="fa-solid fa-medal text-5xl text-emerald-500 mb-4"></i>
+                    <h3 class="font-bold text-2xl mb-2">Durabilidade</h3>
+                    <p class="text-gray-600">Material de alta qualidade que resiste às brincadeiras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO - THUMB OTIMIZADA (cores mantidas) -->
+    <section id="video" class="py-12 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-8">Veja o kit na prática</h2>
+            
+            <div id="video-wrapper" class="aspect-video bg-black rounded-3xl overflow-hidden relative cursor-pointer" onclick="playVideo()">
+                <div id="video-overlay" class="absolute inset-0 flex flex-col items-center justify-center z-10">
+                    <i class="fa-solid fa-circle-play play-button text-white mb-6"></i>
+                    <div class="video-text text-center">
+                        <p class="text-4xl md:text-5xl font-black tracking-[-1px] text-white mb-2">ASSISTA AGORA</p>
+                        <p class="text-2xl md:text-3xl font-semibold text-amber-300">Kit Stitch &amp; Minnie Mouse</p>
+                        <p class="text-xl text-white/90 mt-2">Conforto + Estilo por apenas R$ 39,99</p>
+                    </div>
+                </div>
+                
+                <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m954tenhlqnt3f@resize_w450_nl.webp" 
+                     alt="Vídeo do Kit Sandálias Stitch e Minnie Mouse"
+                     class="absolute inset-0 w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- PROVA SOCIAL -->
+    <section id="prova" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-10">O que os pais estão dizendo</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl shadow">"Meu filho não tira mais! A Minnie é a favorita dele e é super confortável."</div>
+                <div class="bg-white p-6 rounded-3xl shadow">"Melhor compra da Shopee! Meu filho usa o dia todo e ainda está novinho."</div>
+                <div class="bg-white p-6 rounded-3xl shadow">"Chegou rápido e a qualidade é incrível. Recomendo para todas as mães!"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GARANTIA -->
+    <section id="garantia" class="py-12 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <i class="fa-solid fa-shield-halved text-7xl text-emerald-500 mb-4"></i>
+            <h2 class="text-4xl font-bold mb-4">Garantia Total de Satisfação</h2>
+            <p class="text-xl max-w-md mx-auto">Se não amar, devolvemos seu dinheiro em até 30 dias. Compra 100% segura pela Shopee.</p>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <div class="bg-gradient-to-r from-violet-600 to-amber-500 py-12 text-white text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-5xl font-black mb-4">Não perca essa oferta!</h2>
+            <div class="text-6xl font-black mb-6">R$ 39,99</div>
+            <a href="https://s.shopee.com.br/7Kt6RkhRF1" target="_blank" rel="noopener noreferrer" 
+               class="buy-button inline-flex items-center justify-center px-12 py-6 bg-white text-violet-700 rounded-3xl text-3xl font-bold mx-auto cta-pulse"
+               data-location="final-cta">
+                VER OUTROS MODELOS...
+            </a>
+            <p class="mt-6 text-lg">12x sem juros • Frete Grátis • Estoque limitado</p>
+        </div>
+    </div>
+
+    <!-- STICKY MOBILE CTA -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-2xl z-[9999] md:hidden">
+        <a href="https://s.shopee.com.br/7Kt6RkhRF1" target="_blank" rel="noopener noreferrer" 
+           class="buy-button flex items-center justify-center gap-4 py-4 text-2xl font-bold bg-amber-500 text-white mx-4 my-3 rounded-3xl"
+           data-location="sticky-mobile">
+            <i class="fa-solid fa-cart-shopping"></i>
+            VER MAIS MODELOS...
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-12 text-center">
+        <p class="text-sm opacity-75">© AchadosTube • Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        function initTailwind() {
+            return tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {
+                        fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Poppins', 'sans-serif'] }
+                    }
+                }
+            };
+        }
+
+        function startLiveCounter() {
+            let count = 347;
+            setInterval(() => {
+                count += Math.floor(Math.random() * 8) + 3;
+                document.getElementById('live-counter').textContent = count + ' pessoas';
+            }, 4500);
+        }
+
+        function startStockCounter() {
+            let stock = 18;
+            const interval = setInterval(() => {
+                if (stock > 3) stock--;
+                document.getElementById('stock-counter').textContent = stock;
+                if (stock <= 5) {
+                    document.getElementById('stock-counter').classList.add('text-red-500', 'animate-pulse');
+                }
+            }, 8000);
+        }
+
+        function playVideo() {
+            const wrapper = document.getElementById('video-wrapper');
+            if (!wrapper) return;
+            wrapper.innerHTML = `
+                <video class="w-full h-full" controls autoplay muted playsinline loop preload="none" poster="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m954tenhlqnt3f@resize_w450_nl.webp">
+                    <source src="https://down-bs-br.vod.susercontent.com/api/v4/11110103/mms/br-11110103-6kfkr-lt3xi49av7leea.16000051710941582.mp4" type="video/mp4">
+                    Seu navegador não suporta o vídeo.
+                </video>`;
+        }
+
+        function fireViewContent() {
+            if (typeof ttq !== 'undefined') {
+                ttq.track('ViewContent', {
+                    value: 39.99,
+                    currency: 'BRL',
+                    content_id: 'sandalias-stitch-minnie',
+                    content_type: 'product'
+                });
+            }
+        }
+
+        function trackBuyClick(location) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'purchase', { value: 39.99, currency: 'BRL' });
+            }
+            if (typeof ttq !== 'undefined') {
+                ttq.track('AddToCart', { value: 39.99, currency: 'BRL', content_id: 'sandalias-stitch-minnie' });
+                ttq.track('Purchase', { value: 39.99, currency: 'BRL', content_id: 'sandalias-stitch-minnie', quantity: 1 });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTailwind();
+            startLiveCounter();
+            startStockCounter();
+            fireViewContent();
+
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const location = button.getAttribute('data-location') || 'unknown';
+                    trackBuyClick(location);
+                });
+            });
+
+            console.log('%c✅ Landing Page V13.3 - Thumb do vídeo OTIMIZADA + CORES EXATAMENTE IGUAIS À VERSÃO ANTERIOR', 'color:#f59e0b; font-weight:bold');
+        });
+    </script>
+</body>
+</html>
