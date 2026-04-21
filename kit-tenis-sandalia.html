@@ -18,6 +18,11 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://achadostube.com.br">
 
+    <!-- Preloads (performance) -->
+    <link rel="preload" href="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m8yy2m40hoop76@resize_w450_nl.webp" as="image">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preconnect" href="https://analytics.tiktok.com">
+
     <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK72PVREEJ"></script>
     <script>
@@ -96,34 +101,22 @@
         .honeypot { position: absolute !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; width: 1px !important; height: 1px !important; z-index: -9999 !important; }
 
         #debug-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.92);
-            color: #0f0;
-            font-family: monospace;
-            font-size: 12px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            z-index: 99999;
-            min-width: 280px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: none;
-            border: 1px solid #0f0;
-            backdrop-filter: blur(10px);
+            position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.92); color: #0f0; font-family: monospace; font-size: 12px;
+            padding: 12px 16px; border-radius: 12px; z-index: 99999; min-width: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none; border: 1px solid #0f0; backdrop-filter: blur(10px);
         }
     </style>
 </head>
 <body class="font-sans antialiased">
 
-    <!-- HONEYPOTS (estáticos + dinâmico) -->
+    <!-- HONEYPOTS -->
     <input type="text" name="nome" id="hp_name" class="honeypot" tabindex="-1" autocomplete="off">
     <input type="email" name="email" id="hp_email" class="honeypot" tabindex="-1" autocomplete="off">
     <input type="tel" name="telefone" id="hp_phone" class="honeypot" tabindex="-1" autocomplete="off">
 
     <!-- DEBUG PANEL -->
     <div id="debug-panel">
-        <strong>ANTI-FRAUDE V14.5</strong><br>
+        <strong>ANTI-FRAUDE V15.0</strong><br>
         Score: <span id="debug-score">0</span>/100 | Status: <span id="debug-status">PENDENTE</span><br>
         Fingerprint: <span id="debug-fp"></span><br>
         Tempo: <span id="debug-time">0s</span> | Mouse: <span id="debug-mouse">0</span> | Touch: <span id="debug-touch">Não</span><br>
@@ -153,7 +146,7 @@
                    data-location="navbar">
                     <i class="fa-solid fa-cart-shopping mr-2"></i> VER OUTROS MODELOS...
                 </a>
-                <button id="mobile-menu-btn" class="lg:hidden w-12 h-12 flex items-center justify-center text-3xl text-gray-700">
+                <button id="mobile-menu-btn" class="lg:hidden w-12 h-12 flex items-center justify-center text-3xl text-gray-700" aria-label="Abrir menu">
                     <i id="hamburger-icon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -204,11 +197,7 @@
                         <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-m8yy2m40hoop76@resize_w450_nl.webp"
                              alt="Kit 3 Pares Tênis Infantil Escolar + Sandália Confortável"
                              class="rounded-3xl w-full shadow-xl"
-                             loading="eager"
-                             fetchpriority="high"
-                             decoding="sync"
-                             width="450"
-                             height="450">
+                             loading="eager" fetchpriority="high" decoding="sync" width="450" height="450">
                         <div class="absolute -top-4 -right-4 bg-red-500 text-white text-xs md:text-sm font-bold px-6 py-3 rounded-3xl shadow-2xl flex items-center">
                             <i class="fa-solid fa-fire mr-2"></i>ÚLTIMAS 27 UNIDADES
                         </div>
@@ -346,11 +335,11 @@
 
     <!-- FOOTER -->
     <footer class="bg-gray-900 text-white/60 py-12 text-center text-xs">
-        Landing Page Elite <strong>V14.5 – Anti-Fraude Ultra Reforçado</strong> – achadostube.com.br
+        Landing Page Elite <strong>V15.0 – Produção Final</strong> – achadostube.com.br
     </footer>
 
     <script>
-        // ====================== ANTI-FRAUDE V14.5 – ULTRA REFORÇADO ======================
+        // ====================== V15.0 – PRODUÇÃO FINAL ======================
         let humanScore = 0;
         let visitStartTime = Date.now();
         let buyClickCount = 0;
@@ -363,16 +352,19 @@
         let ga4EventCount = 0;
         let lastMouseX = 0, lastMouseY = 0;
         let straightLineCount = 0;
+        let keyPressed = false;
 
         const honeypots = ['hp_name', 'hp_email', 'hp_phone'];
 
-        function createDynamicHoneypot() {
-            const dynamic = document.createElement('input');
-            dynamic.type = 'text';
-            dynamic.name = 'dynamic_' + Math.random().toString(36).substring(7);
-            dynamic.className = 'honeypot';
-            dynamic.tabIndex = -1;
-            document.body.appendChild(dynamic);
+        function createDynamicHoneypots() {
+            for (let i = 0; i < 2; i++) {
+                const dynamic = document.createElement('input');
+                dynamic.type = 'text';
+                dynamic.name = 'dyn_' + Math.random().toString(36).substring(7);
+                dynamic.className = 'honeypot';
+                dynamic.tabIndex = -1;
+                document.body.appendChild(dynamic);
+            }
         }
 
         function getCanvasFingerprint() {
@@ -391,7 +383,8 @@
         }
 
         function generateFingerprint() {
-            fingerprint = btoa(getCanvasFingerprint() + navigator.userAgent).slice(0, 60);
+            const hardware = `${screen.width}x${screen.height}|${screen.colorDepth}|${navigator.deviceMemory || 'unknown'}|${'ontouchstart' in window}`;
+            fingerprint = btoa(getCanvasFingerprint() + navigator.userAgent + hardware).slice(0, 70);
             return fingerprint;
         }
 
@@ -400,35 +393,29 @@
                 const field = document.getElementById(id);
                 if (field && field.value.trim() !== '') return true;
             }
-            const dynamic = document.querySelector('input[name^="dynamic_"]');
-            if (dynamic && dynamic.value.trim() !== '') return true;
-
+            const dynamics = document.querySelectorAll('input[name^="dyn_"]');
+            for (let field of dynamics) {
+                if (field.value.trim() !== '') return true;
+            }
             const ua = navigator.userAgent.toLowerCase();
             if (/headless|bot|crawler|spider|selenium|puppeteer|phantomjs|playwright/.test(ua)) return true;
             if (navigator.webdriver === true) return true;
             if (window.screen.width < 300 || window.screen.height < 300) return true;
             if (window.outerWidth === 0 || window.outerHeight === 0) return true;
-
             return false;
         }
 
         function updateHumanScore() {
             if (isValidHuman) return;
-
             if (mouseMoved) humanScore += 18;
             if (touchDetected) humanScore += 25;
             if (scrolled) humanScore += 22;
             if (Date.now() - visitStartTime > 5000) humanScore += 25;
             if (mouseMoves > 15) humanScore += 15;
-
-            // Mouse trajectory check
-            if (Math.abs(lastMouseX - event?.clientX || 0) < 3 && Math.abs(lastMouseY - event?.clientY || 0) < 3) straightLineCount++;
-            else straightLineCount = 0;
-            if (straightLineCount > 30) humanScore = Math.max(0, humanScore - 20);
-
+            if (keyPressed) humanScore += 20;
+            if (straightLineCount > 30) humanScore = Math.max(0, humanScore - 25);
             humanScore = Math.min(Math.max(humanScore, 0), 100);
-
-            if (humanScore >= 75 && !isValidHuman) {
+            if (humanScore >= 78 && !isValidHuman) {
                 isValidHuman = true;
                 fireViewContent();
                 sendGA4Event('human_validated', { score: Math.round(humanScore) });
@@ -507,11 +494,20 @@
             }, 12000);
         }
 
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const icon = document.getElementById('hamburger-icon');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+            // Aqui você pode adicionar um menu dropdown se quiser no futuro
+            console.log('%cMenu mobile toggled', 'color:#00d4c4');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            createDynamicHoneypot();
+            createDynamicHoneypots();
             generateFingerprint();
 
-            // Comportamento anti-fraude
+            // Mouse, touch, scroll, keyboard
             document.addEventListener('mousemove', (e) => {
                 mouseMoved = true;
                 mouseMoves++;
@@ -521,14 +517,16 @@
                 lastMouseY = e.clientY;
                 updateHumanScore();
             });
+
             document.addEventListener('touchstart', () => { touchDetected = true; updateHumanScore(); }, {once: true});
+            document.addEventListener('keydown', () => { keyPressed = true; updateHumanScore(); }, {once: true});
             window.addEventListener('scroll', () => { scrolled = true; updateHumanScore(); }, {once: true, passive: true});
 
             // Tab visibility
             let hiddenTime = 0;
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) hiddenTime = Date.now();
-                else if (Date.now() - hiddenTime > 8000) humanScore = Math.max(0, humanScore - 15);
+                else if (Date.now() - hiddenTime > 8000) humanScore = Math.max(0, humanScore - 20);
             });
 
             // Contadores
@@ -536,7 +534,7 @@
             startLiveCounter();
             startStockCounter();
 
-            // Botões de compra
+            // Buy buttons
             document.querySelectorAll('.buy-button').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const location = btn.getAttribute('data-location') || 'unknown';
@@ -545,12 +543,17 @@
                 });
             });
 
-            // Debug panel
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+
+            // Debug panel (somente em produção com ?debug=true)
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('debug') === 'true') {
                 const panel = document.getElementById('debug-panel');
                 panel.style.display = 'block';
                 setInterval(() => {
+                    const botProb = isBotDetected() ? 95 : Math.max(0, 100 - humanScore);
                     document.getElementById('debug-score').textContent = Math.round(humanScore);
                     document.getElementById('debug-status').innerHTML = isValidHuman ? '✅ HUMANO' : '⏳ PENDENTE';
                     document.getElementById('debug-fp').textContent = fingerprint || 'gerando...';
@@ -558,10 +561,10 @@
                     document.getElementById('debug-mouse').textContent = mouseMoves;
                     document.getElementById('debug-touch').textContent = touchDetected ? 'Sim' : 'Não';
                     document.getElementById('debug-ga4').textContent = ga4EventCount;
-                }, 800);
+                }, 600);
             }
 
-            console.log('%c✅ V14.5 – Anti-Fraude Ultra Reforçado + GA4 + TikTok ATIVADO', 'color:#00d4c4; font-weight:bold');
+            console.log('%c✅ V15.0 – Versão de Produção Final pronta para lançamento', 'color:#00d4c4; font-weight:bold');
         });
     </script>
 </body>
