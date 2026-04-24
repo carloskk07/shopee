@@ -120,12 +120,43 @@
       min-width:0;
     }
 
-    .reader-logo{
+    .logo{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
+      color:#141008;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      box-shadow:0 10px 20px rgba(216,167,63,.25);
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+
+    .logo-mark-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
       display:block;
-      width:auto;
-      height:52px;
-      max-width:min(100%, 336px);
-      object-fit:contain;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:1.18rem;
+      font-weight:800;
+      letter-spacing:-0.03em;
+    }
+
+    .title .gold{
+      color:var(--gold-2);
+    }
+
+    .title .sub{
+      font-size:.86rem;
+      color:var(--muted);
+      margin-top:2px;
     }
 
     .toolbar{
@@ -166,7 +197,9 @@
       box-shadow:0 10px 22px rgba(216,167,63,.22);
     }
 
-    .btn-primary:hover{filter:brightness(1.04)}
+    .btn-primary:hover{
+      filter:brightness(1.04);
+    }
 
     .btn-whatsapp{
       background:linear-gradient(180deg,var(--wa),var(--wa-2));
@@ -420,12 +453,25 @@
       min-width:0;
     }
 
-    .footer-logo{
+    .footer-mark{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
+      color:#141008;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+
+    .footer-mark-img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
       display:block;
-      width:auto;
-      height:42px;
-      max-width:min(100%, 260px);
-      object-fit:contain;
     }
 
     .footer-links{
@@ -475,14 +521,12 @@
       .pdf-container{
         min-height:72vh;
       }
-
-      .reader-logo{
-        height:44px;
-        max-width:260px;
-      }
     }
 
     @media (max-width:560px){
+      .title h1{font-size:1.05rem}
+      .title .sub{font-size:.8rem}
+
       .pdf-toolbar{
         align-items:flex-start;
       }
@@ -492,16 +536,6 @@
         padding:0 14px;
         font-size:.9rem;
       }
-
-      .reader-logo{
-        height:38px;
-        max-width:220px;
-      }
-
-      .footer-logo{
-        height:36px;
-        max-width:220px;
-      }
     }
   </style>
 </head>
@@ -509,16 +543,23 @@
   <header class="reader-header">
     <div class="container header-inner">
       <div class="logo-area">
-        <img
-          class="reader-logo"
-          src="/imagens/logo-am-horizontal.png"
-          alt="O Cansaço Invisível por Arthur Magnus"
-          width="336"
-          height="72"
-          loading="eager"
-          decoding="async"
-          onerror="this.style.display='none';"
-        />
+        <div class="logo" aria-label="Arthur Magnus">
+          <img
+            class="logo-mark-img"
+            src="/imagens/logo-am-monograma.png"
+            alt="AM"
+            width="40"
+            height="40"
+            loading="eager"
+            decoding="async"
+            onerror="this.style.display='none'; this.parentNode.textContent='AM';"
+          />
+        </div>
+
+        <div class="title">
+          <h1>O Cansaço <span class="gold">Invisível</span></h1>
+          <div class="sub">por Arthur Magnus</div>
+        </div>
       </div>
 
       <div class="toolbar">
@@ -604,16 +645,22 @@
   <footer class="reader-footer">
     <div class="container footer-inner">
       <div class="footer-left">
-        <img
-          class="footer-logo"
-          src="/imagens/logo-am-horizontal.png"
-          alt="O Cansaço Invisível por Arthur Magnus"
-          width="336"
-          height="72"
-          loading="lazy"
-          decoding="async"
-          onerror="this.style.display='none';"
-        />
+        <div class="footer-mark">
+          <img
+            class="footer-mark-img"
+            src="/imagens/logo-am-monograma.png"
+            alt="AM"
+            width="38"
+            height="38"
+            loading="lazy"
+            decoding="async"
+            onerror="this.style.display='none'; this.parentNode.textContent='AM';"
+          />
+        </div>
+        <div>
+          <div>Arthur Magnus • Freedom Book</div>
+          <div style="font-size:.9rem;">Projeto editorial independente</div>
+        </div>
       </div>
 
       <div class="footer-links">
