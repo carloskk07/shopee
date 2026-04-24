@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>O Cansaço Invisível — Leia online</title>
+  <meta name="description" content="Leia gratuitamente o e-book O Cansaço Invisível. Para quem vive cansado, com a mente cheia e sem conseguir desligar.">
+  <meta name="theme-color" content="#0b0b0f">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="Arthur Magnus">
+  <link rel="canonical" href="https://achadostube.com.br/leitor">
+
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="O Cansaço Invisível — Leia online">
+  <meta property="og:description" content="Leia gratuitamente o e-book para quem vive cansado e com a mente cheia.">
+  <meta property="og:url" content="https://achadostube.com.br/leitor">
+  <meta property="og:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png">
+  <meta property="og:image:alt" content="O Cansaço Invisível — leia online">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="O Cansaço Invisível — Leia online">
+  <meta name="twitter:description" content="Leia gratuitamente o e-book para quem vive cansado e com a mente cheia.">
+  <meta name="twitter:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK72PVREEJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-DK72PVREEJ");
+  </script>
+
+  <!-- TikTok Pixel -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+      ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+      ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+      ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+      ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load("D78O6VJC77U8CCU0EA0G");
+      ttq.page();
+    }(window, document, "ttq");
+  </script>
+
+  <style>
+    :root{
+      --bg:#050609;
+      --panel:#0d1016;
+      --panel-2:#121821;
+      --text:#f5f1e8;
+      --muted:#bdb5a6;
+      --gold:#d8a73f;
+      --gold-2:#f0c768;
+      --line:rgba(240,199,104,.14);
+      --line-2:rgba(240,199,104,.22);
+      --shadow:0 24px 70px rgba(0,0,0,.42);
+      --radius:22px;
+      --wa:#25D366;
+      --wa-2:#128C7E;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      background:
+        radial-gradient(circle at 14% 12%, rgba(216,167,63,.10), transparent 24%),
+        radial-gradient(circle at 84% 16%, rgba(216,167,63,.07), transparent 18%),
+        linear-gradient(180deg,#040507 0%,#090b10 100%);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      line-height:1.5;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    button{font:inherit}
+
+    .container{
+      width:min(95%, 1380px);
+      margin:0 auto;
+    }
+
+    .reader-header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(18px);
+      background:rgba(7,8,11,.84);
+      border-bottom:1px solid var(--line);
+    }
+
+    .header-inner{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:12px 0;
+      flex-wrap:wrap;
+    }
+
+    .logo-area{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .logo{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
+      color:#141008;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      box-shadow:0 10px 20px rgba(216,167,63,.25);
+      flex:0 0 auto;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:1.18rem;
+      font-weight:800;
+      letter-spacing:-0.03em;
+    }
+
+    .title .gold{
+      color:var(--gold-2);
+    }
+
+    .title .sub{
+      font-size:.86rem;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:46px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      font-size:.95rem;
+      cursor:pointer;
+      transition:transform .2s ease, border-color .2s ease, background .2s ease;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--line-2);
+      background:rgba(255,255,255,.05);
+    }
+
+    .btn-primary{
+      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
+      color:#18120a;
+      border:none;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(216,167,63,.22);
+    }
+
+    .btn-primary:hover{
+      filter:brightness(1.04);
+    }
+
+    .btn-whatsapp{
+      background:linear-gradient(180deg,var(--wa),var(--wa-2));
+      color:#fff;
+      border:none;
+      box-shadow:0 10px 22px rgba(18,140,126,.22);
+    }
+
+    .reader-main{
+      flex:1;
+      width:min(95%, 1380px);
+      margin:24px auto 34px;
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .sidebar{
+      display:grid;
+      gap:18px;
+      position:sticky;
+      top:102px;
+    }
+
+    .panel{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)),
+        linear-gradient(180deg, rgba(240,199,104,.03), rgba(240,199,104,.01));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .panel-pad{
+      padding:18px;
+    }
+
+    .panel-label{
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.74rem;
+      color:var(--gold-2);
+      margin-bottom:10px;
+      font-weight:800;
+    }
+
+    .side-copy h3{
+      margin:0 0 8px;
+      font-size:1.08rem;
+      letter-spacing:-.03em;
+    }
+
+    .side-copy p{
+      margin:0;
+      color:var(--muted);
+      font-size:.94rem;
+    }
+
+    .side-list{
+      list-style:none;
+      padding:0;
+      margin:12px 0 0;
+      display:grid;
+      gap:10px;
+    }
+
+    .side-list li{
+      display:flex;
+      gap:10px;
+      color:var(--muted);
+      font-size:.94rem;
+      align-items:flex-start;
+    }
+
+    .side-list li b{
+      color:var(--gold-2);
+      font-weight:800;
+    }
+
+    .viewer-stack{
+      display:grid;
+      gap:18px;
+    }
+
+    .reader-summary{
+      padding:18px;
+      display:grid;
+      gap:10px;
+    }
+
+    .reader-summary h2{
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:-.03em;
+    }
+
+    .reader-summary p{
+      margin:0;
+      color:var(--muted);
+      max-width:860px;
+    }
+
+    .reader-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:2px;
+    }
+
+    .reader-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.025);
+      color:#ddd4c5;
+      font-size:.88rem;
+      font-weight:700;
+    }
+
+    .pdf-shell{
+      background:#090b0f;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .pdf-toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      flex-wrap:wrap;
+    }
+
+    .pdf-toolbar .left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#ddd4c5;
+      font-size:.93rem;
+      font-weight:700;
+    }
+
+    .pdf-toolbar .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--gold-2);
+      box-shadow:0 0 10px rgba(240,199,104,.35);
+    }
+
+    .pdf-container{
+      width:100%;
+      aspect-ratio:1 / 1.34;
+      min-height:78vh;
+      background:#000;
+    }
+
+    .pdf-container iframe{
+      width:100%;
+      height:100%;
+      border:none;
+    }
+
+    .bottom-cta{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      align-items:center;
+      padding:20px;
+    }
+
+    .bottom-cta h3{
+      margin:0 0 8px;
+      font-size:1.24rem;
+      letter-spacing:-.03em;
+    }
+
+    .bottom-cta p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .bottom-actions{
+      display:grid;
+      gap:10px;
+    }
+
+    .share-row{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .share-label{
+      color:var(--muted);
+      font-size:.94rem;
+    }
+
+    .share-buttons{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .share-btn{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      font-size:1.18rem;
+      transition:.2s ease;
+    }
+
+    .share-btn:hover{
+      background:var(--gold-2);
+      color:#0b0b0f;
+      transform:translateY(-1px);
+    }
+
+    .reader-footer{
+      border-top:1px solid var(--line);
+      padding:26px 0 34px;
+      color:var(--muted);
+    }
+
+    .footer-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .footer-mark{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
+      color:#141008;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      color:var(--gold-2);
+    }
+
+    @media (max-width:1100px){
+      .reader-main{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        position:static;
+        order:2;
+        grid-template-columns:1fr 1fr;
+      }
+
+      .bottom-cta{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:760px){
+      .header-inner{
+        align-items:stretch;
+      }
+
+      .toolbar{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .toolbar .btn{
+        flex:1 1 auto;
+      }
+
+      .sidebar{
+        grid-template-columns:1fr;
+      }
+
+      .pdf-container{
+        min-height:72vh;
+      }
+    }
+
+    @media (max-width:560px){
+      .title h1{
+        font-size:1.05rem;
+      }
+
+      .title .sub{
+        font-size:.8rem;
+      }
+
+      .pdf-toolbar{
+        align-items:flex-start;
+      }
+
+      .toolbar .btn{
+        min-height:44px;
+        padding:0 14px;
+        font-size:.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="reader-header">
+    <div class="container header-inner">
+      <div class="logo-area">
+        <div class="logo" aria-label="Arthur Magnus">AM</div>
+        <div class="title">
+          <h1>O Cansaço <span class="gold">Invisível</span></h1>
+          <div class="sub">por Arthur Magnus</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn" id="fullscreenBtn" type="button" aria-label="Ativar tela cheia">⛶</button>
+        <button class="btn" id="shareBtn" type="button" aria-label="Compartilhar este e-book">↗</button>
+        <a class="btn btn-primary" id="downloadBtn" href="#" download aria-label="Baixar PDF">⬇️ Baixar PDF</a>
+        <a class="btn btn-whatsapp" id="whatsappChannelBtn" href="#" target="_blank" rel="noopener noreferrer">📱 Canal WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="reader-main">
+    <aside class="sidebar">
+      <div class="panel">
+        <div class="panel-pad side-copy">
+          <div class="panel-label">Antes de continuar</div>
+          <h3>Talvez isso explique o peso que você vem sentindo</h3>
+          <p>Este e-book foi feito para quem continua funcionando por fora, mas por dentro já sente que algo está pesado demais.</p>
+          <ul class="side-list">
+            <li><b>•</b><span>mente que não desliga</span></li>
+            <li><b>•</b><span>cansaço que não passa só com descanso</span></li>
+            <li><b>•</b><span>sensação de peso constante no dia a dia</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-pad side-copy">
+          <div class="panel-label">Leitura rápida</div>
+          <h3>Leia no seu ritmo</h3>
+          <p>Você pode continuar agora, baixar o PDF para depois ou compartilhar com alguém que talvez também esteja precisando disso.</p>
+        </div>
+      </div>
+    </aside>
+
+    <section class="viewer-stack">
+      <div class="panel reader-summary">
+        <h2>Leia gratuitamente o e-book O Cansaço Invisível</h2>
+        <p>Uma leitura para quem vive cansado, com a mente cheia e sem conseguir desligar. Às vezes, o mais difícil nem é o cansaço em si. É não conseguir explicar por que tudo parece tão pesado.</p>
+        <div class="reader-meta">
+          <span class="reader-badge">Acesso gratuito</span>
+          <span class="reader-badge">Download disponível</span>
+          <span class="reader-badge">Leia no seu ritmo</span>
+        </div>
+      </div>
+
+      <div class="pdf-shell">
+        <div class="pdf-toolbar">
+          <div class="left">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Leitor online</span>
+          </div>
+
+          <div class="share-row" style="margin-top:0;">
+            <span class="share-label">Compartilhe:</span>
+            <div class="share-buttons">
+              <a href="#" class="share-btn" id="shareWhatsApp" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar no WhatsApp">📱</a>
+              <a href="#" class="share-btn" id="shareFacebook" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar no Facebook">f</a>
+              <a href="#" class="share-btn" id="shareTelegram" target="_blank" rel="noopener noreferrer" aria-label="Compartilhar no Telegram">✈️</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pdf-container">
+          <iframe id="pdfViewer" src="https://achadostube.com.br/ebook/o_cansaco_invisivel.pdf#view=FitH" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="panel bottom-cta">
+        <div>
+          <h3>Se a leitura fez sentido, guarde ou compartilhe</h3>
+          <p>Baixe o PDF para reler depois ou envie este material para alguém que também esteja tentando entender por que anda tão cansado.</p>
+        </div>
+
+        <div class="bottom-actions">
+          <a class="btn btn-primary" id="bottomDownloadBtn" href="#" download>⬇️ Baixar PDF</a>
+          <a class="btn btn-whatsapp" id="bottomWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer">📱 Entrar no canal do WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="reader-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-mark">AM</div>
+        <div>
+          <div>Arthur Magnus • Freedom Book</div>
+          <div style="font-size:.9rem;">Projeto editorial independente</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      "use strict";
+
+      const PDF_URL = "https://achadostube.com.br/ebook/o_cansaco_invisivel.pdf";
+      const PAGE_URL = "https://achadostube.com.br/leitor";
+      const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb84nsQHgZWYKx7syI2O";
+
+      const downloadBtn = document.getElementById("downloadBtn");
+      const bottomDownloadBtn = document.getElementById("bottomDownloadBtn");
+      const whatsappBtn = document.getElementById("whatsappChannelBtn");
+      const bottomWhatsAppBtn = document.getElementById("bottomWhatsAppBtn");
+
+      if (whatsappBtn) whatsappBtn.href = WHATSAPP_CHANNEL;
+      if (bottomWhatsAppBtn) bottomWhatsAppBtn.href = WHATSAPP_CHANNEL;
+
+      function trackDownload(location) {
+        if (typeof ttq !== "undefined") {
+          ttq.track("Download", {
+            content_name: "O Cansaço Invisível",
+            content_type: "ebook",
+            location: location
+          });
+        }
+        if (typeof gtag !== "undefined") {
+          gtag("event", "download", {
+            event_category: "E-book",
+            event_label: location
+          });
+        }
+      }
+
+      async function forceDownload(url, location) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Falha na rede");
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = blobUrl;
+          a.download = "O_Cansaco_Invisivel.pdf";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          URL.revokeObjectURL(blobUrl);
+          trackDownload(location);
+        } catch (error) {
+          window.open(url, "_blank");
+          trackDownload(location);
+        }
+      }
+
+      if (downloadBtn) {
+        downloadBtn.addEventListener("click", function(e) {
+          e.preventDefault();
+          forceDownload(PDF_URL, "header_download");
+        });
+      }
+
+      if (bottomDownloadBtn) {
+        bottomDownloadBtn.addEventListener("click", function(e) {
+          e.preventDefault();
+          forceDownload(PDF_URL, "bottom_download");
+        });
+      }
+
+      function trackWhatsApp(location) {
+        if (typeof ttq !== "undefined") {
+          ttq.track("Contact", {
+            content_name: "WhatsApp Channel",
+            location: location
+          });
+        }
+        if (typeof gtag !== "undefined") {
+          gtag("event", "click_whatsapp", {
+            event_category: "Engagement",
+            event_label: location
+          });
+        }
+      }
+
+      [whatsappBtn, bottomWhatsAppBtn].forEach((btn, index) => {
+        if (!btn) return;
+        btn.addEventListener("click", function() {
+          trackWhatsApp(index === 0 ? "header_whatsapp" : "bottom_whatsapp");
+        });
+      });
+
+      const encodedUrl = encodeURIComponent(PAGE_URL);
+      const shareTitle = encodeURIComponent("Leia grátis: O Cansaço Invisível — para quem vive cansado e com a mente cheia.");
+
+      const shareWA = document.getElementById("shareWhatsApp");
+      const shareFB = document.getElementById("shareFacebook");
+      const shareTG = document.getElementById("shareTelegram");
+
+      if (shareWA) shareWA.href = `https://api.whatsapp.com/send?text=${shareTitle}%20${encodedUrl}`;
+      if (shareFB) shareFB.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+      if (shareTG) shareTG.href = `https://t.me/share/url?url=${encodedUrl}&text=${shareTitle}`;
+
+      function trackShare(platform) {
+        if (typeof ttq !== "undefined") {
+          ttq.track("Share", {
+            content_name: "O Cansaço Invisível",
+            platform: platform
+          });
+        }
+        if (typeof gtag !== "undefined") {
+          gtag("event", "share", {
+            event_category: "Social",
+            event_label: platform
+          });
+        }
+      }
+
+      [["shareWhatsApp","WhatsApp"],["shareFacebook","Facebook"],["shareTelegram","Telegram"]].forEach(([id, platform]) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener("click", function() {
+          trackShare(platform);
+        });
+      });
+
+      const shareBtn = document.getElementById("shareBtn");
+      if (shareBtn) {
+        shareBtn.addEventListener("click", async function() {
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: "O Cansaço Invisível",
+                text: "Leia grátis este e-book para quem vive cansado e com a mente cheia.",
+                url: PAGE_URL
+              });
+            } catch (err) {}
+          } else {
+            try {
+              await navigator.clipboard.writeText(PAGE_URL);
+              alert("Link copiado!");
+            } catch (e) {
+              prompt("Copie o link:", PAGE_URL);
+            }
+          }
+        });
+      }
+
+      const fullscreenBtn = document.getElementById("fullscreenBtn");
+      if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", function() {
+          const iframe = document.getElementById("pdfViewer");
+          const requestFullscreen = iframe.requestFullscreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
+          if (requestFullscreen) requestFullscreen.call(iframe);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
