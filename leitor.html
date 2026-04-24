@@ -31,7 +31,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK72PVREEJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -40,7 +39,6 @@
     gtag("config", "G-DK72PVREEJ");
   </script>
 
-  <!-- TikTok Pixel -->
   <script>
     !function (w, d, t) {
       w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
@@ -120,34 +118,12 @@
       min-width:0;
     }
 
-    .logo{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
-      color:#141008;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      box-shadow:0 10px 20px rgba(216,167,63,.25);
-      flex:0 0 auto;
-    }
-
-    .title h1{
-      margin:0;
-      font-size:1.18rem;
-      font-weight:800;
-      letter-spacing:-0.03em;
-    }
-
-    .title .gold{
-      color:var(--gold-2);
-    }
-
-    .title .sub{
-      font-size:.86rem;
-      color:var(--muted);
-      margin-top:2px;
+    .reader-logo{
+      display:block;
+      width:auto;
+      height:52px;
+      max-width:min(100%, 336px);
+      object-fit:contain;
     }
 
     .toolbar{
@@ -446,16 +422,12 @@
       min-width:0;
     }
 
-    .footer-mark{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      background:linear-gradient(180deg,#f3cf7c 0%, #dfad4a 55%, #b37c1f 100%);
-      color:#141008;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      flex:0 0 auto;
+    .footer-logo{
+      display:block;
+      width:auto;
+      height:42px;
+      max-width:min(100%, 260px);
+      object-fit:contain;
     }
 
     .footer-links{
@@ -505,17 +477,14 @@
       .pdf-container{
         min-height:72vh;
       }
+
+      .reader-logo{
+        height:44px;
+        max-width:260px;
+      }
     }
 
     @media (max-width:560px){
-      .title h1{
-        font-size:1.05rem;
-      }
-
-      .title .sub{
-        font-size:.8rem;
-      }
-
       .pdf-toolbar{
         align-items:flex-start;
       }
@@ -525,6 +494,16 @@
         padding:0 14px;
         font-size:.9rem;
       }
+
+      .reader-logo{
+        height:38px;
+        max-width:220px;
+      }
+
+      .footer-logo{
+        height:36px;
+        max-width:220px;
+      }
     }
   </style>
 </head>
@@ -532,11 +511,16 @@
   <header class="reader-header">
     <div class="container header-inner">
       <div class="logo-area">
-        <div class="logo" aria-label="Arthur Magnus">AM</div>
-        <div class="title">
-          <h1>O Cansaço <span class="gold">Invisível</span></h1>
-          <div class="sub">por Arthur Magnus</div>
-        </div>
+        <img
+          class="reader-logo"
+          src="/imagens/logo-am-horizontal.png"
+          alt="O Cansaço Invisível por Arthur Magnus"
+          width="336"
+          height="72"
+          loading="eager"
+          decoding="async"
+          onerror="this.style.display='none';"
+        />
       </div>
 
       <div class="toolbar">
@@ -622,11 +606,16 @@
   <footer class="reader-footer">
     <div class="container footer-inner">
       <div class="footer-left">
-        <div class="footer-mark">AM</div>
-        <div>
-          <div>Arthur Magnus • Freedom Book</div>
-          <div style="font-size:.9rem;">Projeto editorial independente</div>
-        </div>
+        <img
+          class="footer-logo"
+          src="/imagens/logo-am-horizontal.png"
+          alt="O Cansaço Invisível por Arthur Magnus"
+          width="336"
+          height="72"
+          loading="lazy"
+          decoding="async"
+          onerror="this.style.display='none';"
+        />
       </div>
 
       <div class="footer-links">
