@@ -9,20 +9,21 @@
   <meta name="theme-color" content="#0b0b0f">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="author" content="Arthur Magnus">
-  <link rel="canonical" href="https://achadostube.com.br/leitor">
+  <link rel="canonical" href="https://achadostube.com.br/leitor.html">
 
   <meta property="og:locale" content="pt_BR">
   <meta property="og:type" content="website">
   <meta property="og:title" content="O Cansaço Invisível — Leia online">
   <meta property="og:description" content="Leia gratuitamente o e-book para quem vive cansado e com a mente cheia.">
-  <meta property="og:url" content="https://achadostube.com.br/leitor">
-  <meta property="og:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png">
+  <meta property="og:url" content="https://achadostube.com.br/leitor.html">
+  <meta property="og:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png?v=2">
+  <meta property="og:image:secure_url" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png?v=2">
   <meta property="og:image:alt" content="O Cansaço Invisível — leia online">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="O Cansaço Invisível — Leia online">
   <meta name="twitter:description" content="Leia gratuitamente o e-book para quem vive cansado e com a mente cheia.">
-  <meta name="twitter:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png">
+  <meta name="twitter:image" content="https://achadostube.com.br/og/o-cansaco-invisivel-og.png?v=2">
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/imagens/apple-touch-icon.png">
@@ -698,7 +699,7 @@
         </div>
 
         <div class="pdf-container">
-          <iframe id="pdfViewer" src="https://achadostube.com.br/ebook/o_cansaco_invisivel.pdf#view=FitH" allowfullscreen loading="lazy"></iframe>
+          <iframe id="pdfViewer" src="/ebook/o_cansaco_invisivel.pdf#view=FitH" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
 
@@ -760,8 +761,8 @@
     (function() {
       "use strict";
 
-      const PDF_URL = "https://achadostube.com.br/ebook/o_cansaco_invisivel.pdf";
-      const PAGE_URL = "https://achadostube.com.br/leitor";
+      const PDF_URL = "/ebook/o_cansaco_invisivel.pdf";
+      const PAGE_URL = "https://achadostube.com.br/leitor.html";
       const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb84nsQHgZWYKx7syI2O";
 
       const legalContent = {
@@ -824,8 +825,8 @@
       const whatsappBtn = document.getElementById("whatsappChannelBtn");
       const bottomWhatsAppBtn = document.getElementById("bottomWhatsAppBtn");
 
-      if (whatsappBtn) whatsappBtn.href = WHATSAPP_CHANNEL;
-      if (bottomWhatsAppBtn) bottomWhatsAppBtn.href = WHATSAPP_CHANNEL;
+      whatsappBtn.href = WHATSAPP_CHANNEL;
+      bottomWhatsAppBtn.href = WHATSAPP_CHANNEL;
 
       function trackDownload(location) {
         if (typeof ttq !== "undefined") {
@@ -865,19 +866,15 @@
         }
       }
 
-      if (downloadBtn) {
-        downloadBtn.addEventListener("click", function(e) {
-          e.preventDefault();
-          forceDownload(PDF_URL, "header_download");
-        });
-      }
+      downloadBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        forceDownload(PDF_URL, "header_download");
+      });
 
-      if (bottomDownloadBtn) {
-        bottomDownloadBtn.addEventListener("click", function(e) {
-          e.preventDefault();
-          forceDownload(PDF_URL, "bottom_download");
-        });
-      }
+      bottomDownloadBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        forceDownload(PDF_URL, "bottom_download");
+      });
 
       function trackWhatsApp(location) {
         if (typeof ttq !== "undefined") {
@@ -895,7 +892,6 @@
       }
 
       [whatsappBtn, bottomWhatsAppBtn].forEach((btn, index) => {
-        if (!btn) return;
         btn.addEventListener("click", function() {
           trackWhatsApp(index === 0 ? "header_whatsapp" : "bottom_whatsapp");
         });
@@ -908,9 +904,9 @@
       const shareFB = document.getElementById("shareFacebook");
       const shareTG = document.getElementById("shareTelegram");
 
-      if (shareWA) shareWA.href = `https://api.whatsapp.com/send?text=${shareTitle}%20${encodedUrl}`;
-      if (shareFB) shareFB.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-      if (shareTG) shareTG.href = `https://t.me/share/url?url=${encodedUrl}&text=${shareTitle}`;
+      shareWA.href = `https://api.whatsapp.com/send?text=${shareTitle}%20${encodedUrl}`;
+      shareFB.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+      shareTG.href = `https://t.me/share/url?url=${encodedUrl}&text=${shareTitle}`;
 
       function trackShare(platform) {
         if (typeof ttq !== "undefined") {
@@ -929,42 +925,37 @@
 
       [["shareWhatsApp","WhatsApp"],["shareFacebook","Facebook"],["shareTelegram","Telegram"]].forEach(([id, platform]) => {
         const btn = document.getElementById(id);
-        if (!btn) return;
         btn.addEventListener("click", function() {
           trackShare(platform);
         });
       });
 
       const shareBtn = document.getElementById("shareBtn");
-      if (shareBtn) {
-        shareBtn.addEventListener("click", async function() {
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: "O Cansaço Invisível",
-                text: "Leia grátis este e-book para quem vive cansado e com a mente cheia.",
-                url: PAGE_URL
-              });
-            } catch (err) {}
-          } else {
-            try {
-              await navigator.clipboard.writeText(PAGE_URL);
-              alert("Link copiado!");
-            } catch (e) {
-              prompt("Copie o link:", PAGE_URL);
-            }
+      shareBtn.addEventListener("click", async function() {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "O Cansaço Invisível",
+              text: "Leia grátis este e-book para quem vive cansado e com a mente cheia.",
+              url: PAGE_URL
+            });
+          } catch (err) {}
+        } else {
+          try {
+            await navigator.clipboard.writeText(PAGE_URL);
+            alert("Link copiado!");
+          } catch (e) {
+            prompt("Copie o link:", PAGE_URL);
           }
-        });
-      }
+        }
+      });
 
       const fullscreenBtn = document.getElementById("fullscreenBtn");
-      if (fullscreenBtn) {
-        fullscreenBtn.addEventListener("click", function() {
-          const iframe = document.getElementById("pdfViewer");
-          const requestFullscreen = iframe.requestFullscreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
-          if (requestFullscreen) requestFullscreen.call(iframe);
-        });
-      }
+      fullscreenBtn.addEventListener("click", function() {
+        const iframe = document.getElementById("pdfViewer");
+        const requestFullscreen = iframe.requestFullscreen || iframe.webkitRequestFullscreen || iframe.msRequestFullscreen;
+        if (requestFullscreen) requestFullscreen.call(iframe);
+      });
 
       const modal = document.getElementById("legalModal");
       const modalTitle = document.getElementById("legalModalTitle");
