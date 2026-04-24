@@ -70,14 +70,8 @@
     "@context": "https://schema.org",
     "@type": "Book",
     "name": "O Cansaço Invisível",
-    "author": {
-      "@type": "Person",
-      "name": "Arthur Magnus"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Freedom Book"
-    },
+    "author": { "@type": "Person", "name": "Arthur Magnus" },
+    "publisher": { "@type": "Organization", "name": "Freedom Book" },
     "image": "https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",
     "description": "E-book gratuito para quem vive cansado, com a mente cheia e sem conseguir desligar.",
     "inLanguage": "pt-BR",
@@ -138,15 +132,8 @@
       z-index:1;
     }
 
-    .section{
-      padding:64px 0;
-      scroll-margin-top:96px;
-    }
-
-    .grid{
-      display:grid;
-      gap:18px;
-    }
+    .section{padding:64px 0;scroll-margin-top:96px}
+    .grid{display:grid;gap:18px}
 
     .nav{
       position:sticky;
@@ -182,14 +169,8 @@
       border-radius:50%;
     }
 
-    .brand-mark{
-      width:36px;
-      height:36px;
-    }
-
-    .brand .gold{
-      color:var(--gold-2);
-    }
+    .brand-mark{width:36px;height:36px}
+    .brand .gold{color:var(--gold-2)}
 
     .nav-links{
       display:flex;
@@ -200,9 +181,7 @@
       font-weight:600;
     }
 
-    .nav-links a:hover{
-      color:#fff1cb;
-    }
+    .nav-links a:hover{color:#fff1cb}
 
     .nav-panel{
       display:none;
@@ -348,9 +327,7 @@
       box-shadow:0 12px 28px rgba(18,140,126,.24);
     }
 
-    .hero{
-      padding:28px 0 36px;
-    }
+    .hero{padding:28px 0 36px}
 
     .hero-shell{
       border-radius:30px;
@@ -517,9 +494,7 @@
       margin:0 auto;
     }
 
-    .content-intro{
-      padding:24px;
-    }
+    .content-intro{padding:24px}
 
     .content-intro h3{
       margin:0 0 12px;
@@ -534,9 +509,7 @@
       color:var(--muted);
     }
 
-    .mini-content{
-      padding:24px;
-    }
+    .mini-content{padding:24px}
 
     .bullet-list{
       list-style:none;
@@ -554,13 +527,8 @@
       border-bottom:1px solid rgba(240,199,104,.08);
     }
 
-    .bullet-list li:last-child{
-      border-bottom:none;
-    }
-
-    .bullet-list b{
-      color:var(--text);
-    }
+    .bullet-list li:last-child{border-bottom:none}
+    .bullet-list b{color:var(--text)}
 
     .whatsapp-invite{
       max-width:1040px;
@@ -591,10 +559,7 @@
       color:var(--muted);
     }
 
-    .invite-actions{
-      display:grid;
-      gap:10px;
-    }
+    .invite-actions{display:grid;gap:10px}
 
     .faq-wrap{
       max-width:840px;
@@ -642,9 +607,7 @@
       transition:grid-template-rows .24s ease;
     }
 
-    .faq-answer > div{
-      overflow:hidden;
-    }
+    .faq-answer > div{overflow:hidden}
 
     .faq-answer p{
       margin:0;
@@ -656,9 +619,7 @@
       grid-template-rows:1fr;
     }
 
-    .final-cta{
-      padding:24px;
-    }
+    .final-cta{padding:24px}
 
     .final-wrap{
       display:grid;
@@ -681,10 +642,7 @@
       max-width:540px;
     }
 
-    .final-actions{
-      display:grid;
-      gap:10px;
-    }
+    .final-actions{display:grid;gap:10px}
 
     .footer{
       padding:24px 0 34px;
@@ -711,13 +669,8 @@
       flex-wrap:wrap;
     }
 
-    .footer-links a{
-      color:#bfb7a7;
-    }
-
-    .footer-links a:hover{
-      color:#fff2cf;
-    }
+    .footer-links a{color:#bfb7a7}
+    .footer-links a:hover{color:#fff2cf}
 
     .footer-brand{
       display:flex;
@@ -760,9 +713,7 @@
       border-top:1px solid rgba(240,199,104,.12);
     }
 
-    .sticky-mobile .btn{
-      width:100%;
-    }
+    .sticky-mobile .btn{width:100%}
 
     .reveal{
       opacity:0;
@@ -793,22 +744,15 @@
     }
 
     @media (max-width:840px){
-      body{
-        padding-bottom:var(--sticky-mobile-h);
-      }
+      body{padding-bottom:var(--sticky-mobile-h)}
 
       .nav-links,
       .nav-inner > .btn{
         display:none;
       }
 
-      .section{
-        padding:54px 0;
-      }
-
-      .hero{
-        padding:22px 0 28px;
-      }
+      .section{padding:54px 0}
+      .hero{padding:22px 0 28px}
 
       .benefit-grid,
       .mini-benefits,
@@ -833,37 +777,22 @@
         justify-content:center;
       }
 
-      .sticky-mobile{
-        display:block;
-      }
-
-      .floating-cta{
-        display:none;
-      }
+      .sticky-mobile{display:block}
+      .floating-cta{display:none}
 
       .menu-toggle{
         display:inline-grid;
         place-items:center;
       }
 
-      .nav.open .nav-panel{
-        display:flex;
-      }
+      .nav.open .nav-panel{display:flex}
 
-      .brand{
-        font-size:1.04rem;
-      }
-
-      .brand-mark{
-        width:30px;
-        height:30px;
-      }
+      .brand{font-size:1.04rem}
+      .brand-mark{width:30px;height:30px}
     }
 
     @media (prefers-reduced-motion: reduce){
-      html{
-        scroll-behavior:auto;
-      }
+      html{scroll-behavior:auto}
 
       .reveal,
       .faq-answer,
