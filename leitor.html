@@ -57,7 +57,6 @@
     :root{
       --bg:#050609;
       --panel:#0d1016;
-      --panel-2:#121821;
       --text:#f5f1e8;
       --muted:#bdb5a6;
       --gold:#d8a73f;
@@ -84,6 +83,8 @@
       display:flex;
       flex-direction:column;
     }
+
+    body.legal-lock{overflow:hidden}
 
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
@@ -149,9 +150,7 @@
       letter-spacing:-0.03em;
     }
 
-    .title .gold{
-      color:var(--gold-2);
-    }
+    .title .gold{color:var(--gold-2)}
 
     .title .sub{
       font-size:.86rem;
@@ -197,9 +196,7 @@
       box-shadow:0 10px 22px rgba(216,167,63,.22);
     }
 
-    .btn-primary:hover{
-      filter:brightness(1.04);
-    }
+    .btn-primary:hover{filter:brightness(1.04)}
 
     .btn-whatsapp{
       background:linear-gradient(180deg,var(--wa),var(--wa-2));
@@ -390,10 +387,7 @@
       color:var(--muted);
     }
 
-    .bottom-actions{
-      display:grid;
-      gap:10px;
-    }
+    .bottom-actions{display:grid;gap:10px}
 
     .share-row{
       display:flex;
@@ -480,62 +474,142 @@
       flex-wrap:wrap;
     }
 
-    .footer-links a{
-      color:var(--gold-2);
+    .footer-links a{color:var(--gold-2)}
+
+    .legal-modal{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
     }
 
-    @media (max-width:1100px){
-      .reader-main{
-        grid-template-columns:1fr;
-      }
+    .legal-modal.open{display:block}
 
+    .legal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      backdrop-filter:blur(8px);
+    }
+
+    .legal-dialog{
+      position:relative;
+      width:min(92vw, 760px);
+      max-height:min(86vh, 900px);
+      margin:6vh auto 0;
+      border-radius:24px;
+      border:1px solid rgba(240,199,104,.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+        linear-gradient(180deg, rgba(240,199,104,.04), rgba(240,199,104,.01));
+      box-shadow:0 28px 90px rgba(0,0,0,.45);
+      overflow:hidden;
+      color:var(--text);
+    }
+
+    .legal-head{
+      padding:22px 24px 14px;
+      border-bottom:1px solid rgba(240,199,104,.12);
+    }
+
+    .legal-kicker{
+      color:var(--gold-2);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.76rem;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .legal-head h2{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:1.7rem;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+
+    .legal-body{
+      padding:22px 24px 26px;
+      overflow:auto;
+      max-height:calc(86vh - 110px);
+      color:var(--muted);
+      line-height:1.75;
+      font-size:.97rem;
+    }
+
+    .legal-body h3{
+      color:var(--text);
+      margin:0 0 10px;
+      font-size:1.03rem;
+    }
+
+    .legal-body p{margin:0 0 14px}
+    .legal-body ul{margin:0 0 16px 18px;padding:0}
+    .legal-body li{margin:0 0 8px}
+
+    .legal-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid rgba(240,199,104,.16);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-size:1.4rem;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .legal-close:hover{background:rgba(255,255,255,.08)}
+
+    @media (max-width:1100px){
+      .reader-main{grid-template-columns:1fr}
       .sidebar{
         position:static;
         order:2;
         grid-template-columns:1fr 1fr;
       }
-
-      .bottom-cta{
-        grid-template-columns:1fr;
-      }
+      .bottom-cta{grid-template-columns:1fr}
     }
 
     @media (max-width:760px){
-      .header-inner{
-        align-items:stretch;
-      }
-
+      .header-inner{align-items:stretch}
       .toolbar{
         width:100%;
         justify-content:flex-start;
       }
-
-      .toolbar .btn{
-        flex:1 1 auto;
-      }
-
-      .sidebar{
-        grid-template-columns:1fr;
-      }
-
-      .pdf-container{
-        min-height:72vh;
-      }
+      .toolbar .btn{flex:1 1 auto}
+      .sidebar{grid-template-columns:1fr}
+      .pdf-container{min-height:72vh}
     }
 
     @media (max-width:560px){
       .title h1{font-size:1.05rem}
       .title .sub{font-size:.8rem}
-
-      .pdf-toolbar{
-        align-items:flex-start;
-      }
-
+      .pdf-toolbar{align-items:flex-start}
       .toolbar .btn{
         min-height:44px;
         padding:0 14px;
         font-size:.9rem;
       }
+
+      .legal-dialog{
+        width:min(94vw, 760px);
+        margin:4vh auto 0;
+        max-height:90vh;
+        border-radius:20px;
+      }
+
+      .legal-head{padding:20px 18px 12px}
+      .legal-body{
+        padding:18px 18px 22px;
+        max-height:calc(90vh - 100px);
+        font-size:.95rem;
+      }
+      .legal-head h2{font-size:1.4rem}
     }
   </style>
 </head>
@@ -664,11 +738,23 @@
       </div>
 
       <div class="footer-links">
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos</a>
+        <a href="#privacy" data-legal-open="privacy">Política de Privacidade</a>
+        <a href="#terms" data-legal-open="terms">Termos de Uso</a>
       </div>
     </div>
   </footer>
+
+  <div class="legal-modal" id="legalModal" aria-hidden="true">
+    <div class="legal-backdrop" data-legal-close></div>
+    <div class="legal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalContent">
+      <button class="legal-close" type="button" aria-label="Fechar" data-legal-close>×</button>
+      <div class="legal-head">
+        <div class="legal-kicker">Informações legais</div>
+        <h2 id="legalModalTitle">Política de Privacidade</h2>
+      </div>
+      <div class="legal-body" id="legalModalContent"></div>
+    </div>
+  </div>
 
   <script>
     (function() {
@@ -677,6 +763,61 @@
       const PDF_URL = "https://achadostube.com.br/ebook/o_cansaco_invisivel.pdf";
       const PAGE_URL = "https://achadostube.com.br/leitor";
       const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb84nsQHgZWYKx7syI2O";
+
+      const legalContent = {
+        privacy: {
+          title: "Política de Privacidade",
+          html: `
+            <h3>1. Coleta de informações</h3>
+            <p>Esta página pode registrar informações técnicas básicas de navegação, como páginas visitadas, cliques, dispositivo, navegador e origem de tráfego, com a finalidade de melhorar a experiência do usuário e compreender o desempenho do conteúdo.</p>
+            <h3>2. Tecnologias de medição</h3>
+            <p>Podemos utilizar ferramentas de análise e mensuração, incluindo pixels e scripts estatísticos, para entender interações com a página, leituras, downloads e acessos.</p>
+            <h3>3. Cookies e identificadores</h3>
+            <p>O site pode utilizar cookies e tecnologias semelhantes para funcionamento, medição de desempenho, personalização básica de experiência e análise de acesso.</p>
+            <h3>4. Compartilhamento de dados</h3>
+            <p>Não vendemos dados pessoais. Informações técnicas podem ser processadas por plataformas de hospedagem, análise, mensuração e entrega de conteúdo, conforme as políticas desses serviços.</p>
+            <h3>5. Finalidade de uso</h3>
+            <ul>
+              <li>melhorar a navegação e usabilidade do site;</li>
+              <li>medir acessos, downloads e interações;</li>
+              <li>entender desempenho de páginas e conteúdos;</li>
+              <li>aprimorar materiais e experiência do usuário.</li>
+            </ul>
+            <h3>6. Links externos</h3>
+            <p>Esta página pode conter links para plataformas externas. Ao acessar serviços de terceiros, o usuário passa a estar sujeito às políticas dessas plataformas.</p>
+            <h3>7. Atualizações</h3>
+            <p>Esta política pode ser ajustada a qualquer momento para refletir melhorias técnicas, operacionais ou legais.</p>
+          `
+        },
+        terms: {
+          title: "Termos de Uso",
+          html: `
+            <h3>1. Aceitação</h3>
+            <p>Ao acessar esta página e utilizar os materiais disponibilizados, você concorda com estes termos de uso.</p>
+            <h3>2. Finalidade do conteúdo</h3>
+            <p>O material disponibilizado tem caráter informativo, educativo e de leitura pessoal. Ele não substitui orientação profissional individualizada em áreas médicas, psicológicas, jurídicas ou financeiras.</p>
+            <h3>3. Uso permitido</h3>
+            <ul>
+              <li>ler o conteúdo para uso pessoal;</li>
+              <li>baixar o material quando essa opção estiver disponível;</li>
+              <li>compartilhar o link da página de forma legítima e não enganosa.</li>
+            </ul>
+            <h3>4. Uso não permitido</h3>
+            <ul>
+              <li>revender o material sem autorização;</li>
+              <li>remover autoria ou identificação do conteúdo;</li>
+              <li>republicar integralmente o material como se fosse próprio;</li>
+              <li>utilizar esta página para fins ilícitos, abusivos ou fraudulentos.</li>
+            </ul>
+            <h3>5. Propriedade intelectual</h3>
+            <p>Os textos, identidade visual, organização do conteúdo e materiais disponibilizados permanecem protegidos pelos direitos aplicáveis.</p>
+            <h3>6. Disponibilidade</h3>
+            <p>Podemos alterar, atualizar, suspender ou remover páginas, arquivos, botões, links e materiais a qualquer momento, sem aviso prévio.</p>
+            <h3>7. Limitação de responsabilidade</h3>
+            <p>O uso do site e dos materiais ocorre por conta e risco do usuário. Não garantimos disponibilidade contínua ou ausência total de falhas.</p>
+          `
+        }
+      };
 
       const downloadBtn = document.getElementById("downloadBtn");
       const bottomDownloadBtn = document.getElementById("bottomDownloadBtn");
@@ -824,6 +965,46 @@
           if (requestFullscreen) requestFullscreen.call(iframe);
         });
       }
+
+      const modal = document.getElementById("legalModal");
+      const modalTitle = document.getElementById("legalModalTitle");
+      const modalContent = document.getElementById("legalModalContent");
+      const openers = document.querySelectorAll("[data-legal-open]");
+      const closers = document.querySelectorAll("[data-legal-close]");
+
+      function openLegalModal(type) {
+        const data = legalContent[type];
+        if (!data) return;
+        modalTitle.textContent = data.title;
+        modalContent.innerHTML = data.html;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("legal-lock");
+      }
+
+      function closeLegalModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("legal-lock");
+      }
+
+      openers.forEach((el) => {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          const type = this.getAttribute("data-legal-open");
+          openLegalModal(type);
+        });
+      });
+
+      closers.forEach((el) => {
+        el.addEventListener("click", closeLegalModal);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) {
+          closeLegalModal();
+        }
+      });
     })();
   </script>
 </body>
