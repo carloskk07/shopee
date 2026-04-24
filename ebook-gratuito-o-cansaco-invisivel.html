@@ -32,12 +32,6 @@
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/imagens/apple-touch-icon.png" />
-  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-    <rect width="64" height="64" rx="14" fill="%230b0b0f"/>
-    <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-      font-family="Georgia, serif" font-size="24" font-weight="700" fill="%23f0c768">AM</text>
-  </svg>' />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -89,14 +83,12 @@
     :root{
       --bg:#040507;
       --panel:#0c1016;
-      --panel-2:#121821;
       --text:#f5f1e8;
       --muted:#bdb5a6;
       --muted-2:#ddd4c5;
       --gold:#d8a73f;
       --gold-2:#f0c768;
       --line:rgba(240,199,104,.14);
-      --line-2:rgba(240,199,104,.24);
       --shadow:0 28px 80px rgba(0,0,0,.48);
       --shadow-soft:0 14px 34px rgba(0,0,0,.26);
       --radius:24px;
@@ -120,6 +112,8 @@
       line-height:1.5;
       overflow-x:hidden;
     }
+
+    body.legal-lock{overflow:hidden}
 
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%;height:auto}
@@ -163,8 +157,7 @@
       letter-spacing:-.03em;
     }
 
-    .brand-mark,
-    .footer-brand img{
+    .brand-mark,.footer-brand img{
       object-fit:contain;
       border-radius:50%;
     }
@@ -308,10 +301,7 @@
       white-space:nowrap;
     }
 
-    .btn:hover{
-      transform:translateY(-2px);
-      filter:saturate(1.03);
-    }
+    .btn:hover{transform:translateY(-2px);filter:saturate(1.03)}
 
     .btn.secondary{
       background:transparent;
@@ -504,10 +494,7 @@
       letter-spacing:-.04em;
     }
 
-    .content-intro p{
-      margin:0;
-      color:var(--muted);
-    }
+    .content-intro p{margin:0;color:var(--muted)}
 
     .mini-content{padding:24px}
 
@@ -554,11 +541,7 @@
       letter-spacing:-.03em;
     }
 
-    .whatsapp-invite p{
-      margin:0;
-      color:var(--muted);
-    }
-
+    .whatsapp-invite p{margin:0;color:var(--muted)}
     .invite-actions{display:grid;gap:10px}
 
     .faq-wrap{
@@ -597,9 +580,7 @@
       flex:0 0 auto;
     }
 
-    .faq-item.open .faq-question span:last-child{
-      transform:rotate(45deg);
-    }
+    .faq-item.open .faq-question span:last-child{transform:rotate(45deg)}
 
     .faq-answer{
       display:grid;
@@ -615,9 +596,7 @@
       color:var(--muted);
     }
 
-    .faq-item.open .faq-answer{
-      grid-template-rows:1fr;
-    }
+    .faq-item.open .faq-answer{grid-template-rows:1fr}
 
     .final-cta{padding:24px}
 
@@ -679,10 +658,7 @@
       font-weight:800;
     }
 
-    .footer-brand img{
-      width:42px;
-      height:42px;
-    }
+    .footer-brand img{width:42px;height:42px}
 
     .company-box{
       font-size:.9rem;
@@ -721,90 +697,142 @@
       transition:opacity .6s ease, transform .6s ease;
     }
 
-    .reveal.visible{
-      opacity:1;
-      transform:none;
+    .reveal.visible{opacity:1;transform:none}
+
+    .legal-modal{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
     }
 
+    .legal-modal.open{display:block}
+
+    .legal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      backdrop-filter:blur(8px);
+    }
+
+    .legal-dialog{
+      position:relative;
+      width:min(92vw, 760px);
+      max-height:min(86vh, 900px);
+      margin:6vh auto 0;
+      border-radius:24px;
+      border:1px solid rgba(240,199,104,.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)),
+        linear-gradient(180deg, rgba(240,199,104,.04), rgba(240,199,104,.01));
+      box-shadow:0 28px 90px rgba(0,0,0,.45);
+      overflow:hidden;
+      color:var(--text);
+    }
+
+    .legal-head{
+      padding:22px 24px 14px;
+      border-bottom:1px solid rgba(240,199,104,.12);
+    }
+
+    .legal-kicker{
+      color:var(--gold-2);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.76rem;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .legal-head h2{
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:1.7rem;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+
+    .legal-body{
+      padding:22px 24px 26px;
+      overflow:auto;
+      max-height:calc(86vh - 110px);
+      color:var(--muted);
+      line-height:1.75;
+      font-size:.97rem;
+    }
+
+    .legal-body h3{
+      color:var(--text);
+      margin:0 0 10px;
+      font-size:1.03rem;
+    }
+
+    .legal-body p{margin:0 0 14px}
+    .legal-body ul{margin:0 0 16px 18px;padding:0}
+    .legal-body li{margin:0 0 8px}
+
+    .legal-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid rgba(240,199,104,.16);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-size:1.4rem;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .legal-close:hover{background:rgba(255,255,255,.08)}
+
     @media (max-width:1100px){
-      .hero-wrap,
-      .content-wrap,
-      .final-wrap{
-        grid-template-columns:1fr;
-      }
-
-      .benefit-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .cover-side{
-        min-height:auto;
-        padding:8px 0;
-      }
+      .hero-wrap,.content-wrap,.final-wrap{grid-template-columns:1fr}
+      .benefit-grid{grid-template-columns:repeat(2,1fr)}
+      .cover-side{min-height:auto;padding:8px 0}
     }
 
     @media (max-width:840px){
       body{padding-bottom:var(--sticky-mobile-h)}
-
-      .nav-links,
-      .nav-inner > .btn{
-        display:none;
-      }
-
+      .nav-links,.nav-inner > .btn{display:none}
       .section{padding:54px 0}
       .hero{padding:22px 0 28px}
-
-      .benefit-grid,
-      .mini-benefits,
-      .whatsapp-inner{
-        grid-template-columns:1fr;
-      }
-
-      .trust-row{
-        grid-template-columns:1fr;
-        justify-content:stretch;
-      }
-
-      .trust-row span{
-        border-right:none;
-        padding-right:0;
-      }
-
-      .hero-cta-wrap .btn,
-      .invite-actions .btn,
-      .final-actions .btn{
-        width:100%;
-        justify-content:center;
-      }
-
+      .benefit-grid,.mini-benefits,.whatsapp-inner{grid-template-columns:1fr}
+      .trust-row{grid-template-columns:1fr;justify-content:stretch}
+      .trust-row span{border-right:none;padding-right:0}
+      .hero-cta-wrap .btn,.invite-actions .btn,.final-actions .btn{width:100%;justify-content:center}
       .sticky-mobile{display:block}
       .floating-cta{display:none}
-
-      .menu-toggle{
-        display:inline-grid;
-        place-items:center;
-      }
-
+      .menu-toggle{display:inline-grid;place-items:center}
       .nav.open .nav-panel{display:flex}
-
       .brand{font-size:1.04rem}
       .brand-mark{width:30px;height:30px}
     }
 
+    @media (max-width:560px){
+      .legal-dialog{
+        width:min(94vw, 760px);
+        margin:4vh auto 0;
+        max-height:90vh;
+        border-radius:20px;
+      }
+
+      .legal-head{padding:20px 18px 12px}
+      .legal-body{
+        padding:18px 18px 22px;
+        max-height:calc(90vh - 100px);
+        font-size:.95rem;
+      }
+
+      .legal-head h2{font-size:1.4rem}
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-
-      .reveal,
-      .faq-answer,
-      .faq-question span:last-child,
-      .btn{
-        transition:none !important;
-      }
-
-      .reveal{
-        opacity:1;
-        transform:none;
-      }
+      .reveal,.faq-answer,.faq-question span:last-child,.btn{transition:none !important}
+      .reveal{opacity:1;transform:none}
     }
   </style>
 </head>
@@ -956,9 +984,9 @@
           </div>
 
           <div class="footer-links">
-            <a id="privacyLink" href="#">Política de privacidade</a>
-            <a id="termsLink" href="#">Termos</a>
-            <a id="contactLink" href="#">Contato</a>
+            <a href="#privacy" id="privacyLink" data-legal-open="privacy">Política de Privacidade</a>
+            <a href="#terms" id="termsLink" data-legal-open="terms">Termos de Uso</a>
+            <a id="contactLink" href="mailto:contato@achadostube.com.br">Contato</a>
           </div>
         </div>
 
@@ -976,6 +1004,18 @@
 
   <div class="sticky-mobile">
     <a href="#" class="btn" id="stickyMobileDownloadBtn">Ler grátis</a>
+  </div>
+
+  <div class="legal-modal" id="legalModal" aria-hidden="true">
+    <div class="legal-backdrop" data-legal-close></div>
+    <div class="legal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalContent">
+      <button class="legal-close" type="button" aria-label="Fechar" data-legal-close>×</button>
+      <div class="legal-head">
+        <div class="legal-kicker">Informações legais</div>
+        <h2 id="legalModalTitle">Política de Privacidade</h2>
+      </div>
+      <div class="legal-body" id="legalModalContent"></div>
+    </div>
   </div>
 
   <script>
@@ -1041,14 +1081,62 @@
           { q: "Este e-book é realmente gratuito?", a: "Sim. A proposta desta página é liberar o material gratuitamente." },
           { q: "O acesso é imediato?", a: "Sim. Ao clicar no botão principal, você é direcionado para a leitura online." }
         ],
-        companyName: "Freedom Book",
-        companyDocument: "Projeto editorial independente",
-        companyAddress: "Brasil",
-        supportEmail: "contato@achadostube.com.br",
-        privacyUrl: "#",
-        termsUrl: "#",
-        contactUrl: "#",
         footerNote: "Acesso imediato • Sem cadastro obrigatório"
+      };
+
+      const legalContent = {
+        privacy: {
+          title: "Política de Privacidade",
+          html: `
+            <h3>1. Coleta de informações</h3>
+            <p>Esta página pode registrar informações técnicas básicas de navegação, como páginas visitadas, cliques, dispositivo, navegador e origem de tráfego, com a finalidade de melhorar a experiência do usuário e compreender o desempenho do conteúdo.</p>
+            <h3>2. Tecnologias de medição</h3>
+            <p>Podemos utilizar ferramentas de análise e mensuração, incluindo pixels e scripts estatísticos, para entender interações com a página, leituras, downloads e acessos.</p>
+            <h3>3. Cookies e identificadores</h3>
+            <p>O site pode utilizar cookies e tecnologias semelhantes para funcionamento, medição de desempenho, personalização básica de experiência e análise de acesso.</p>
+            <h3>4. Compartilhamento de dados</h3>
+            <p>Não vendemos dados pessoais. Informações técnicas podem ser processadas por plataformas de hospedagem, análise, mensuração e entrega de conteúdo, conforme as políticas desses serviços.</p>
+            <h3>5. Finalidade de uso</h3>
+            <ul>
+              <li>melhorar a navegação e usabilidade do site;</li>
+              <li>medir acessos, downloads e interações;</li>
+              <li>entender desempenho de páginas e conteúdos;</li>
+              <li>aprimorar materiais e experiência do usuário.</li>
+            </ul>
+            <h3>6. Links externos</h3>
+            <p>Esta página pode conter links para plataformas externas. Ao acessar serviços de terceiros, o usuário passa a estar sujeito às políticas dessas plataformas.</p>
+            <h3>7. Atualizações</h3>
+            <p>Esta política pode ser ajustada a qualquer momento para refletir melhorias técnicas, operacionais ou legais.</p>
+          `
+        },
+        terms: {
+          title: "Termos de Uso",
+          html: `
+            <h3>1. Aceitação</h3>
+            <p>Ao acessar esta página e utilizar os materiais disponibilizados, você concorda com estes termos de uso.</p>
+            <h3>2. Finalidade do conteúdo</h3>
+            <p>O material disponibilizado tem caráter informativo, educativo e de leitura pessoal. Ele não substitui orientação profissional individualizada em áreas médicas, psicológicas, jurídicas ou financeiras.</p>
+            <h3>3. Uso permitido</h3>
+            <ul>
+              <li>ler o conteúdo para uso pessoal;</li>
+              <li>baixar o material quando essa opção estiver disponível;</li>
+              <li>compartilhar o link da página de forma legítima e não enganosa.</li>
+            </ul>
+            <h3>4. Uso não permitido</h3>
+            <ul>
+              <li>revender o material sem autorização;</li>
+              <li>remover autoria ou identificação do conteúdo;</li>
+              <li>republicar integralmente o material como se fosse próprio;</li>
+              <li>utilizar esta página para fins ilícitos, abusivos ou fraudulentos.</li>
+            </ul>
+            <h3>5. Propriedade intelectual</h3>
+            <p>Os textos, identidade visual, organização do conteúdo e materiais disponibilizados permanecem protegidos pelos direitos aplicáveis.</p>
+            <h3>6. Disponibilidade</h3>
+            <p>Podemos alterar, atualizar, suspender ou remover páginas, arquivos, botões, links e materiais a qualquer momento, sem aviso prévio.</p>
+            <h3>7. Limitação de responsabilidade</h3>
+            <p>O uso do site e dos materiais ocorre por conta e risco do usuário. Não garantimos disponibilidade contínua ou ausência total de falhas.</p>
+          `
+        }
       };
 
       function safeText(v,f){return typeof v==="string"?v:f||"";}
@@ -1090,12 +1178,12 @@
       setText("whatsappInviteText",safeText(cfg.whatsappInviteText));
       setText("footerNoteInline",safeText(cfg.footerNote));
 
-      setImage("ebookCoverImage",cfg.ebookCoverUrl,"Capa do e-book "+safeText(cfg.ebookTitle));
+      setImage("ebookCoverImage",cfg.ebookCoverUrl,"Capa do e-book "+safeText(cfg.heroTitle));
       setImage("brandMark",cfg.monogramLogoUrl,"AM");
       setImage("footerMark",cfg.monogramLogoUrl,"AM");
 
       const trustRow=document.getElementById("trustRow");
-      if(trustRow&&Array.isArray(cfg.trustItems)){
+      if(trustRow){
         trustRow.textContent="";
         cfg.trustItems.forEach(item=>{
           const span=createEl("span");
@@ -1106,7 +1194,7 @@
       }
 
       const miniBenefits=document.getElementById("miniBenefits");
-      if(miniBenefits&&Array.isArray(cfg.benefitCards)){
+      if(miniBenefits){
         miniBenefits.textContent="";
         cfg.benefitCards.slice(0,2).forEach(item=>{
           const card=createEl("div","mini-item");
@@ -1119,7 +1207,7 @@
       }
 
       const benefitGrid=document.getElementById("benefitGrid");
-      if(benefitGrid&&Array.isArray(cfg.benefitCards)){
+      if(benefitGrid){
         benefitGrid.textContent="";
         cfg.benefitCards.forEach(item=>{
           const article=createEl("article","card benefit-card reveal");
@@ -1135,7 +1223,7 @@
       }
 
       const bulletList=document.getElementById("bulletList");
-      if(bulletList&&Array.isArray(cfg.bullets)){
+      if(bulletList){
         bulletList.textContent="";
         cfg.bullets.forEach(item=>{
           const li=createEl("li");
@@ -1147,7 +1235,7 @@
       }
 
       const faqWrap=document.getElementById("faqWrap");
-      if(faqWrap&&Array.isArray(cfg.faq)){
+      if(faqWrap){
         faqWrap.textContent="";
         cfg.faq.forEach((item,i)=>{
           const faqItem=createEl("div","faq-item"+(i===0?" open":""));
@@ -1167,18 +1255,13 @@
         });
       }
 
-      setText("footerBrandTitle",safeText(cfg.authorName)+" • "+safeText(cfg.publisherName));
-      setText("companyNameLine",safeText(cfg.companyName));
-      setText("companyDocLine",safeText(cfg.companyDocument));
-      setText("companyAddressLine",safeText(cfg.companyAddress));
-      setText("companyEmailLine",safeText(cfg.supportEmail));
+      ["navDownloadBtn","navPanelDownloadBtn","heroDownloadBtn","secondaryDownloadBtn","finalDownloadBtn","floatingDownloadBtn","stickyMobileDownloadBtn"].forEach(id=>{
+        setHref(id,cfg.downloadUrl);
+      });
 
-      setHref("privacyLink",cfg.privacyUrl);
-      setHref("termsLink",cfg.termsUrl);
-      setHref("contactLink",cfg.contactUrl);
-
-      ["navDownloadBtn","navPanelDownloadBtn","heroDownloadBtn","secondaryDownloadBtn","finalDownloadBtn","floatingDownloadBtn","stickyMobileDownloadBtn"].forEach(id=>setHref(id,cfg.downloadUrl));
-      ["whatsappChannelBtn","finalWhatsappBtn"].forEach(id=>setHref(id,cfg.whatsappChannelUrl));
+      ["whatsappChannelBtn","finalWhatsappBtn"].forEach(id=>{
+        setHref(id,cfg.whatsappChannelUrl);
+      });
 
       setText("heroDownloadBtn",safeText(cfg.primaryCtaText));
       setText("secondaryDownloadBtn",safeText(cfg.secondaryCtaText));
@@ -1280,8 +1363,47 @@
           els.forEach(el=>el.classList.add("visible"));
         }
       }
-
       bindReveal();
+
+      const modal = document.getElementById("legalModal");
+      const modalTitle = document.getElementById("legalModalTitle");
+      const modalContent = document.getElementById("legalModalContent");
+      const openers = document.querySelectorAll("[data-legal-open]");
+      const closers = document.querySelectorAll("[data-legal-close]");
+
+      function openLegalModal(type) {
+        const data = legalContent[type];
+        if (!data) return;
+        modalTitle.textContent = data.title;
+        modalContent.innerHTML = data.html;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("legal-lock");
+      }
+
+      function closeLegalModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("legal-lock");
+      }
+
+      openers.forEach((el) => {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          const type = this.getAttribute("data-legal-open");
+          openLegalModal(type);
+        });
+      });
+
+      closers.forEach((el) => {
+        el.addEventListener("click", closeLegalModal);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) {
+          closeLegalModal();
+        }
+      });
     })();
   </script>
 </body>
