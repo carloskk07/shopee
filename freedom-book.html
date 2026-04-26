@@ -274,6 +274,121 @@
     @media (max-width:640px){.container{width:min(calc(100% - 22px), var(--container))}.hero-shell{padding:16px;border-radius:24px}.heading{font-size:clamp(2rem,13vw,3.1rem);letter-spacing:-.06em}.lead{font-size:1rem}.mobile-book-strip{display:flex}.trust-ribbon span{font-size:.78rem}.cover-float{width:132px;border-radius:16px}.covers-stack{height:334px;width:min(100%,356px)}.hero-showcase{min-height:344px}.cover-b{left:calc(50% - 66px);top:0}.cover-a{left:0;bottom:44px}.cover-c{right:0;top:72px}.cover-d{left:calc(50% - 5px);bottom:0}.book-cover-wrap{min-height:300px;padding:14px}.book-cover-wrap img{width:min(100%,220px)}.book-content,.mission-card,.support-shell,.final-cta{padding:18px}.book-title{font-size:1.45rem}.section-title{font-size:clamp(1.7rem,8vw,2.2rem)}.support-copy h2{font-size:clamp(1.75rem,8vw,2.3rem)}.pix-qr{width:160px;height:160px}.support-values{grid-template-columns:1fr}.modal-dialog{width:min(95vw, 820px);margin:3vh auto 0;border-radius:20px}.modal-head{padding:20px 18px 12px}.modal-body{padding:18px 18px 22px;max-height:calc(90vh - 100px);font-size:.95rem}.modal-head h2{font-size:1.38rem}}
     @media (max-width:380px){.cover-float{width:120px}.covers-stack{height:304px}.hero-showcase{min-height:314px}.cover-b{left:calc(50% - 60px)}.cover-d{left:calc(50% - 2px)}.heading{font-size:clamp(1.9rem,12vw,2.7rem)}.btn{white-space:normal;min-height:54px}.share-row{grid-template-columns:1fr}}
     @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.reveal,.faq-answer,.faq-question span:last-child,.btn,.cover-float{transition:none !important}.reveal{opacity:1;transform:none}}
+
+    /* ===== MOBILE-FIRST HARDENING V2 — Freedom Book ===== */
+    html,body{max-width:100%;overflow-x:hidden}
+    .container,.hero-shell,.card,.support-shell,.channel-wrap,.final-cta{max-width:100%}
+    .book-card,.hero-point,.stat-card,.mission-card,.support-panel,.faq-item{min-width:0}
+    .book-title,.heading,.section-title,.support-copy h2,.final-copy h3,.book-desc,.lead,.muted,.section-sub,.mission-card p,.support-copy p,.psych-box{overflow-wrap:anywhere}
+    .hero-showcase,.covers-stack{max-width:100%}
+    .book-cover-wrap img{max-height:430px}
+    .mobile-book-pill{flex:0 0 auto}
+
+    @media (max-width:900px){
+      :root{--sticky-mobile-h:78px}
+      .container{width:min(calc(100% - 20px), var(--container))}
+      .nav-inner{min-height:64px}
+      .brand{font-size:1rem}
+      .brand-mark,.footer-brand img{width:36px;height:36px}
+      .menu-toggle{width:44px;height:44px}
+      .hero{padding:14px 0 22px}
+      .hero-shell{padding:15px;border-radius:22px}
+      .hero-wrap{display:block}
+      .hero-copy{max-width:100%}
+      .eyebrow{font-size:.72rem;letter-spacing:.055em;padding:7px 11px;white-space:normal}
+      .heading{font-size:clamp(2.05rem,13vw,3.05rem);line-height:1.01;letter-spacing:-.055em;margin:14px 0 10px}
+      .lead{font-size:1rem;line-height:1.5}
+      .hero-ctas{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0 12px}
+      .hero-ctas .btn{width:100%;min-height:54px;padding-inline:14px}
+      .trust-ribbon{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+      .trust-ribbon span{justify-content:center;text-align:center;min-height:36px;padding:7px 8px;font-size:.76rem;line-height:1.16}
+      .mobile-book-strip{display:flex;margin:14px -10px 0;padding:2px 10px 12px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+      .mobile-book-strip::-webkit-scrollbar{display:none}
+      .mobile-book-pill{min-width:178px;max-width:178px}
+      .hero-points{grid-template-columns:1fr;gap:10px;margin-top:12px}
+      .hero-point{padding:14px;border-radius:16px}
+      .hero-point strong{font-size:.96rem}
+      .hero-point .muted{font-size:.9rem;line-height:1.42}
+      .hero-showcase{display:none!important}
+      .section{padding:46px 0;scroll-margin-top:76px}
+      .stats-row{grid-template-columns:repeat(2,1fr);gap:10px}
+      .stat-card{padding:16px 10px;border-radius:18px}
+      .stat-value{font-size:1.45rem}
+      .stat-label{font-size:.84rem;line-height:1.25}
+      .section-title{font-size:clamp(1.65rem,8vw,2.15rem);line-height:1.08}
+      .section-sub{font-size:.96rem;margin-bottom:20px}
+      .featured-book-note{font-size:.92rem;margin:0 0 16px;padding:13px 14px;border-radius:16px}
+      .books-grid{grid-template-columns:1fr;gap:16px}
+      .book-card{border-radius:22px}
+      .book-cover-wrap{min-height:auto;padding:14px}
+      .book-cover-wrap img{width:min(72vw,245px);max-height:360px;border-radius:16px}
+      .book-content{padding:16px;gap:12px}
+      .book-badge{font-size:.72rem;padding:6px 10px}
+      .book-title{font-size:clamp(1.32rem,7vw,1.65rem);line-height:1.08}
+      .book-desc{font-size:.94rem;line-height:1.5}
+      .tag{font-size:.78rem;min-height:30px;padding:0 10px}
+      .book-main-actions{grid-template-columns:1fr;gap:9px}
+      .book-main-actions .btn{width:100%;min-height:52px}
+      .share-row{grid-template-columns:1fr 1fr;gap:8px}
+      .share-chip{min-height:42px;padding:0 10px;font-size:.86rem}
+      .mission-wrap{grid-template-columns:1fr;gap:14px}
+      .mission-card{padding:18px;border-radius:22px}
+      .mission-card h3{font-size:1.45rem}
+      .support-shell{padding:16px;border-radius:22px}
+      .support-wrap{grid-template-columns:1fr;gap:18px}
+      .support-copy h2{font-size:clamp(1.65rem,8vw,2.15rem);line-height:1.08}
+      .support-copy p{font-size:.95rem}
+      .support-list-item{font-size:.92rem}
+      .support-panel{padding:16px;border-radius:20px}
+      .pix-grid{grid-template-columns:1fr;gap:14px}
+      .pix-qr-wrap{justify-items:center}
+      .pix-qr{width:min(62vw,190px);height:min(62vw,190px);border-radius:18px}
+      .pix-key-box{font-size:.88rem;line-height:1.35}
+      .support-panel .btn.small{width:100%;min-height:48px}
+      .support-panel div[style*="display:flex"]{display:grid!important;grid-template-columns:1fr!important;width:100%}
+      .support-values{grid-template-columns:1fr 1fr;gap:8px}
+      .psych-box{font-size:.91rem;line-height:1.5}
+      .channel-wrap{padding:16px;border-radius:22px}
+      .channel-grid{grid-template-columns:1fr;gap:14px}
+      .channel-grid h3{font-size:1.18rem}
+      .channel-grid p{font-size:.94rem}
+      .channel-grid .btn{width:100%;min-height:52px}
+      .faq-wrap{gap:10px}
+      .faq-question{padding:16px;font-size:.95rem}
+      .faq-answer p{padding:0 16px 16px;font-size:.92rem}
+      .final-cta{padding:16px;border-radius:22px}
+      .final-wrap{grid-template-columns:1fr;gap:16px}
+      .final-copy h3{font-size:1.55rem}
+      .final-actions .btn,.final-actions .share-chip{width:100%;min-height:52px}
+      .footer{padding-bottom:calc(28px + var(--sticky-mobile-h))}
+      .footer-links{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
+      .sticky-mobile{display:block;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}
+      .sticky-mobile .btn{min-height:52px;border-radius:14px}
+      .floating-cta{display:none}
+    }
+
+    @media (max-width:430px){
+      .container{width:min(calc(100% - 16px), var(--container))}
+      .hero-shell{padding:13px;border-radius:20px}
+      .heading{font-size:clamp(1.92rem,12.2vw,2.68rem)}
+      .trust-ribbon{grid-template-columns:1fr}
+      .mobile-book-pill{min-width:166px;max-width:166px}
+      .mobile-book-pill img{width:40px;height:60px}
+      .mobile-book-pill strong{font-size:.78rem}
+      .mobile-book-pill span{font-size:.7rem}
+      .book-cover-wrap img{width:min(76vw,230px)}
+      .share-row{grid-template-columns:1fr}
+      .support-values{grid-template-columns:1fr}
+    }
+
+    @media (max-width:360px){
+      .heading{font-size:1.82rem}
+      .btn{font-size:.94rem}
+      .book-title{font-size:1.25rem}
+      .section-title{font-size:1.55rem}
+      .mobile-book-pill{min-width:156px;max-width:156px}
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -334,7 +449,7 @@
               <p class="lead">Quatro e-books gratuitos para quem sente demais, pensa demais, carrega demais — e em algum momento percebe que precisa voltar a si.</p>
               <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne leituras curtas, visuais premium e textos emocionalmente precisos. Materiais feitos para abrir no celular, ler sem cadastro, baixar em PDF e compartilhar com alguém que talvez esteja precisando de uma frase certa hoje.</p>
               <div class="hero-ctas">
-                <a href="#catalogo" class="btn" id="heroCatalogBtn">Ler e baixar grátis</a>
+                <a href="#catalogo" class="btn" id="heroCatalogBtn">Ler e baixar os e-books</a>
                 <a href="#apoie" class="btn secondary" id="heroSupportBtn">Apoiar com Pix</a>
                 <button type="button" class="btn ghost" id="heroSharePageBtn">Compartilhar página</button>
               </div>
@@ -420,7 +535,7 @@
   <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><img id="footerMark" alt="Freedom Book" loading="lazy" width="40" height="40" /><div><div id="footerBrandTitle">Freedom Book</div><div style="color:#bfb7a7;font-size:.9rem;">Editora digital independente</div></div></div><div class="footer-links"><a href="#" data-modal-open="privacy">Política de privacidade</a><a href="#" data-modal-open="terms">Termos</a><a href="mailto:contato@achadostube.com.br" id="contactLink">Contato</a></div></div><div class="company-box"><div id="companyNameLine">Freedom Book</div><div id="companyDocLine">Projeto editorial independente</div><div id="companyAddressLine">Brasil</div><div id="companyEmailLine">contato@achadostube.com.br</div></div></div></div></footer>
 
   <a href="#catalogo" class="btn floating-cta" id="floatingCatalogBtn" aria-label="Ver catálogo">Ver catálogo</a>
-  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ver catálogo</a></div>
+  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ler e baixar os e-books grátis</a></div>
 
   <div class="modal" id="legalModal" aria-hidden="true"><div class="modal-backdrop" data-modal-close></div><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalContent"><button class="modal-close" type="button" aria-label="Fechar" data-modal-close>×</button><div class="modal-head"><div class="modal-kicker">Informações legais</div><h2 id="legalModalTitle">Política de Privacidade</h2></div><div class="modal-body" id="legalModalContent"></div></div></div>
 
