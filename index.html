@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <title>Freedom Book — E-books Gratuitos para Leitura e Clareza</title>
-  <meta name="description" content="Conheça a biblioteca Freedom Book: e-books gratuitos, autorais e visuais para leitura reflexiva, clareza pessoal, organização de ideias e desenvolvimento cotidiano." />
+  <title>Freedom Book — Biblioteca de E-books Gratuitos</title>
+  <meta name="description" content="Conheça a Freedom Book: e-books gratuitos, autorais e visuais para leitura reflexiva, clareza pessoal, disciplina, organização de ideias e desenvolvimento cotidiano." />
   <meta name="theme-color" content="#07070a" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="author" content="Freedom Book" />
@@ -15,8 +15,8 @@
 
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Freedom Book — E-books Gratuitos para Leitura e Clareza" />
-  <meta property="og:description" content="Leituras reflexivas e guias práticos para organizar ideias, simplificar escolhas e criar momentos de clareza." />
+  <meta property="og:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
+  <meta property="og:description" content="Leituras reflexivas e guias práticos gratuitos para clareza, disciplina, organização de ideias e desenvolvimento cotidiano." />
   <meta property="og:url" content="https://achadostube.com.br" />
   <meta property="og:site_name" content="Freedom Book" />
   <meta property="og:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
@@ -26,8 +26,8 @@
   <meta property="og:image:alt" content="Freedom Book — biblioteca de e-books gratuitos" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Freedom Book — E-books Gratuitos para Leitura e Clareza" />
-  <meta name="twitter:description" content="Leituras reflexivas e guias práticos para organizar ideias, simplificar escolhas e criar momentos de clareza." />
+  <meta name="twitter:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
+  <meta name="twitter:description" content="Leituras reflexivas e guias práticos gratuitos para clareza, disciplina, organização de ideias e desenvolvimento cotidiano." />
   <meta name="twitter:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any" />
@@ -602,6 +602,1294 @@
       .support-values{grid-template-columns:1fr}
     }
 
+
+    /* ===== FREEDOM BOOK — PATCH DISCIPLINA É LIBERDADE ===== */
+    .book-card[data-line="pratica"]{
+      border-color:rgba(240,199,104,.24);
+      box-shadow:0 24px 78px rgba(216,167,63,.11);
+    }
+    .book-card[data-line="pratica"] .book-cover-wrap{
+      background:
+        radial-gradient(circle at 50% 12%, rgba(240,199,104,.12), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.006)),
+        #0a0d12;
+    }
+    .book-card:first-child{
+      border-color:rgba(240,199,104,.34);
+      box-shadow:0 30px 94px rgba(216,167,63,.16);
+    }
+    .book-card:first-child .book-badge{
+      background:linear-gradient(180deg,rgba(240,199,104,.16),rgba(255,255,255,.035));
+      border-color:rgba(240,199,104,.32);
+      color:#fff0bd;
+    }
+    .cover-f{left:44px;top:168px;z-index:1;--r:6deg}
+    .covers-stack{width:min(100%,640px);height:630px}
+    .cover-float{width:206px}
+    .cover-a{left:0;bottom:96px;--r:-8deg}
+    .cover-b{left:142px;top:0;z-index:5;--r:-2deg}
+    .cover-c{right:14px;top:70px;z-index:2;--r:7deg}
+    .cover-d{left:286px;bottom:8px;z-index:6;--r:3deg}
+    .cover-e{right:0;bottom:100px;z-index:4;--r:-4deg}
+    @media (max-width:1180px){
+      .covers-stack{width:min(100%,590px);height:585px}
+      .cover-float{width:188px}
+      .cover-a{left:8px;bottom:80px}
+      .cover-b{left:132px;top:0}
+      .cover-c{right:10px;top:70px}
+      .cover-d{left:250px;bottom:8px}
+      .cover-e{right:0;bottom:78px}
+      .cover-f{left:42px;top:154px}
+    }
+    @media (max-width:900px){
+      .hero-showcase{display:none!important}
+      .mobile-book-strip{display:flex}
+      .book-card:first-child{box-shadow:0 24px 78px rgba(216,167,63,.14)}
+    }
+
+
+    /* ===== FREEDOM BOOK — MASTER FINAL OVERRIDE 6 LIVROS ===== */
+    html,body{max-width:100%;overflow-x:hidden}
+    img{max-width:100%;height:auto}
+    .container,.hero-shell,.card,.support-shell,.channel-wrap,.final-cta{max-width:100%}
+    .brand,.heading,.lead,.muted,.section-title,.section-sub,.book-title,.book-desc,.mission-card p,.support-copy p,.psych-box,.faq-answer p{overflow-wrap:anywhere}
+    .btn,.share-chip,.support-value{touch-action:manipulation}
+    .line-label{
+      display:inline-flex;
+      width:max-content;
+      max-width:100%;
+      align-items:center;
+      gap:7px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(240,199,104,.12);
+      background:rgba(255,255,255,.025);
+      color:#d9cfbe;
+      font-size:.76rem;
+      font-weight:800;
+      line-height:1.1;
+    }
+    .line-label::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--gold-2);
+      box-shadow:0 0 10px rgba(240,199,104,.35);
+      flex:0 0 auto;
+    }
+    .book-card[data-line="pratica"]{
+      border-color:rgba(240,199,104,.24);
+      box-shadow:0 24px 78px rgba(216,167,63,.11);
+    }
+    .book-card[data-line="pratica"] .book-cover-wrap{
+      background:
+        radial-gradient(circle at 50% 12%, rgba(240,199,104,.12), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.006)),
+        #0a0d12;
+    }
+    .book-card[data-line="pratica"] .line-label{
+      border-color:rgba(240,199,104,.24);
+      background:rgba(240,199,104,.055);
+      color:#f4dfaa;
+    }
+    .book-card:first-child{
+      border-color:rgba(240,199,104,.36);
+      box-shadow:0 30px 96px rgba(216,167,63,.16);
+    }
+    .book-card:first-child .book-badge{
+      background:linear-gradient(180deg,rgba(240,199,104,.17),rgba(255,255,255,.035));
+      border-color:rgba(240,199,104,.34);
+      color:#fff0bd;
+    }
+    .pix-key-box{min-width:0}
+    .pix-key-box span{overflow-wrap:anywhere}
+    .book-main-actions .btn{white-space:normal}
+    .covers-stack{width:min(100%,650px);height:630px}
+    .cover-float{width:206px}
+    .cover-a{left:0;bottom:96px;--r:-8deg}
+    .cover-b{left:142px;top:0;z-index:6;--r:-2deg}
+    .cover-c{right:14px;top:70px;z-index:2;--r:7deg}
+    .cover-d{left:286px;bottom:8px;z-index:7;--r:3deg}
+    .cover-e{right:0;bottom:100px;z-index:4;--r:-4deg}
+    .cover-f{left:44px;top:168px;z-index:1;--r:6deg}
+
+    @media (max-width:1180px){
+      .covers-stack{width:min(100%,590px);height:585px}
+      .cover-float{width:188px}
+      .cover-a{left:8px;bottom:80px}
+      .cover-b{left:132px;top:0}
+      .cover-c{right:10px;top:70px}
+      .cover-d{left:250px;bottom:8px}
+      .cover-e{right:0;bottom:78px}
+      .cover-f{left:42px;top:154px}
+    }
+
+    @media (max-width:900px){
+      :root{--sticky-mobile-h:78px}
+      body{padding-bottom:var(--sticky-mobile-h)}
+      .container{width:min(calc(100% - 18px), var(--container))}
+      .nav-inner{min-height:64px}
+      .brand{font-size:1rem;line-height:1.12}
+      .brand-mark,.footer-brand img{width:36px;height:36px}
+      .menu-toggle{width:44px;height:44px}
+      .nav-links,.nav-actions .btn{display:none!important}
+      .nav.open .nav-panel{display:flex}
+      .nav-panel .btn{width:100%}
+      .hero{padding:14px 0 22px}
+      .hero-shell{padding:14px;border-radius:22px}
+      .hero-wrap{display:block}
+      .hero-copy{max-width:100%}
+      .hero-showcase{display:none!important}
+      .heading{font-size:clamp(1.95rem,12vw,3rem);line-height:1.02;letter-spacing:-.052em;margin:14px 0 10px}
+      .lead{font-size:.98rem;line-height:1.48}
+      .hero-copy>.muted{font-size:.93rem;line-height:1.48}
+      .hero-ctas{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0 12px}
+      .hero-ctas .btn{width:100%;min-height:54px;white-space:normal}
+      .trust-ribbon{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+      .trust-ribbon span{justify-content:center;text-align:center;min-height:36px;padding:7px 8px;font-size:.76rem;line-height:1.16}
+      .mobile-book-strip{display:flex;margin:14px -9px 0;padding:2px 9px 12px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;gap:10px}
+      .mobile-book-strip::-webkit-scrollbar{display:none}
+      .mobile-book-pill{min-width:178px;max-width:178px;flex:0 0 auto}
+      .hero-points{display:none!important}
+      .section{padding:42px 0;scroll-margin-top:76px}
+      .stats-row{grid-template-columns:repeat(2,1fr);gap:10px}
+      .stat-card{padding:16px 10px;border-radius:18px}
+      .stat-value{font-size:1.45rem}
+      .stat-label{font-size:.84rem;line-height:1.25}
+      .section-title{font-size:clamp(1.6rem,7.6vw,2.12rem);line-height:1.08}
+      .section-sub{font-size:.95rem;margin-bottom:20px}
+      .featured-book-note{font-size:.9rem;margin:0 0 16px;padding:13px 14px;border-radius:16px}
+      .books-grid{grid-template-columns:1fr;gap:16px}
+      .book-card{border-radius:22px}
+      .book-cover-wrap{min-height:auto;padding:14px}
+      .book-cover-wrap img{width:min(72vw,245px);max-height:360px;border-radius:16px}
+      .book-content{padding:16px;gap:12px}
+      .book-badge{font-size:.72rem;padding:6px 10px}
+      .book-title{font-size:clamp(1.28rem,6.6vw,1.62rem);line-height:1.08}
+      .book-desc{font-size:.94rem;line-height:1.5}
+      .tag{font-size:.78rem;min-height:30px;padding:0 10px}
+      .book-main-actions{grid-template-columns:1fr;gap:9px}
+      .book-main-actions .btn{width:100%;min-height:52px}
+      .share-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .share-chip{width:100%;min-height:42px;padding:0 10px;font-size:.86rem;white-space:normal}
+      .mission-wrap,.support-wrap,.channel-grid,.final-wrap{grid-template-columns:1fr;gap:14px}
+      .mission-card,.support-shell,.final-cta{padding:18px;border-radius:22px}
+      .mission-card h3{font-size:1.42rem}
+      .support-copy h2{font-size:clamp(1.65rem,8vw,2.15rem);line-height:1.08}
+      .support-copy p,.support-list-item{font-size:.93rem}
+      .support-panel{padding:16px;border-radius:20px}
+      .pix-grid{grid-template-columns:1fr;gap:14px}
+      .pix-qr-wrap{justify-items:center}
+      .pix-qr{width:min(62vw,190px);height:min(62vw,190px);border-radius:18px}
+      .support-panel .btn.small{width:100%;min-height:48px}
+      .support-panel div[style*="display:flex"]{display:grid!important;grid-template-columns:1fr!important;width:100%}
+      .support-values{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .support-value{width:100%}
+      .psych-box{font-size:.91rem;line-height:1.5}
+      .channel-wrap{padding:16px;border-radius:22px}
+      .channel-grid .btn{width:100%;min-height:52px}
+      .faq-wrap{gap:10px}
+      .faq-question{padding:16px;font-size:.95rem}
+      .faq-answer p{padding:0 16px 16px;font-size:.92rem}
+      .final-copy h3{font-size:1.5rem}
+      .final-actions .btn,.final-actions .share-chip{width:100%;min-height:52px}
+      .footer{padding-bottom:calc(28px + var(--sticky-mobile-h))}
+      .footer-links{display:grid;grid-template-columns:1fr;gap:10px;width:100%}
+      .sticky-mobile{display:block;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}
+      .sticky-mobile .btn{min-height:52px;border-radius:14px}
+      .floating-cta{display:none}
+    }
+
+    @media (max-width:430px){
+      .container{width:min(calc(100% - 16px), var(--container))}
+      .hero-shell{padding:13px;border-radius:20px}
+      .trust-ribbon{grid-template-columns:1fr}
+      .mobile-book-pill{min-width:166px;max-width:166px}
+      .mobile-book-pill img{width:40px;height:60px}
+      .mobile-book-pill strong{font-size:.78rem}
+      .mobile-book-pill span{font-size:.7rem}
+      .book-cover-wrap img{width:min(76vw,230px)}
+      .share-row{grid-template-columns:1fr}
+      .support-values{grid-template-columns:1fr}
+    }
+
+
+    /* ===== PATCH VISUAL — EFEITOS ATRÁS DAS CAPAS ===== */
+    .hero-showcase{
+      position:relative;
+      isolation:isolate;
+    }
+
+    .covers-stack{
+      position:relative;
+      isolation:isolate;
+    }
+
+    .covers-stack::before{
+      content:"";
+      position:absolute;
+      inset:5% 3% 0 3%;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(240,199,104,.18), transparent 23%),
+        radial-gradient(circle at 78% 22%, rgba(240,199,104,.16), transparent 24%),
+        radial-gradient(circle at 34% 76%, rgba(240,199,104,.13), transparent 22%),
+        radial-gradient(circle at 70% 72%, rgba(240,199,104,.14), transparent 24%);
+      filter:blur(18px);
+      opacity:.9;
+      pointer-events:none;
+      z-index:0;
+      animation: fbAmbientGlow 8s ease-in-out infinite alternate;
+    }
+
+    .covers-stack::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:2%;
+      width:72%;
+      height:20%;
+      transform:translateX(-50%);
+      background:radial-gradient(ellipse at center, rgba(240,199,104,.28), rgba(240,199,104,.08) 45%, transparent 72%);
+      filter:blur(14px);
+      opacity:.85;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .cover-float{
+      position:absolute;
+      isolation:isolate;
+      z-index:2;
+    }
+
+    .cover-float::before{
+      content:"";
+      position:absolute;
+      inset:-10% -10% -8% -10%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(240,199,104,.22), rgba(240,199,104,.10) 36%, transparent 66%);
+      filter:blur(18px);
+      opacity:.9;
+      z-index:-2;
+      pointer-events:none;
+      animation: fbPulseGlow 4.6s ease-in-out infinite;
+    }
+
+    .cover-float::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:88%;
+      height:88%;
+      transform:translate(-50%,-50%);
+      background:
+        radial-gradient(circle at center, rgba(255,240,189,.12), rgba(240,199,104,.06) 38%, transparent 70%);
+      filter:blur(8px);
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .cover-float img{
+      position:relative;
+      z-index:2;
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.42),
+        0 0 0 1px rgba(240,199,104,.10),
+        0 0 34px rgba(240,199,104,.10);
+    }
+
+    .cover-b::before,
+    .cover-d::before{
+      background:
+        radial-gradient(circle at 50% 50%, rgba(240,199,104,.28), rgba(240,199,104,.12) 38%, transparent 68%);
+      opacity:1;
+    }
+
+    .book-cover-wrap{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+    }
+
+    .book-cover-wrap::before{
+      content:"";
+      position:absolute;
+      inset:8% 12%;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(240,199,104,.20), rgba(240,199,104,.09) 34%, transparent 68%);
+      filter:blur(22px);
+      z-index:0;
+      pointer-events:none;
+      animation: fbCardGlow 5.8s ease-in-out infinite alternate;
+    }
+
+    .book-cover-wrap::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:7%;
+      width:64%;
+      height:12%;
+      transform:translateX(-50%);
+      background:radial-gradient(ellipse at center, rgba(240,199,104,.18), rgba(240,199,104,.06) 45%, transparent 75%);
+      filter:blur(12px);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .book-cover-wrap img{
+      position:relative;
+      z-index:1;
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.38),
+        0 0 0 1px rgba(240,199,104,.08),
+        0 0 28px rgba(240,199,104,.10);
+    }
+
+    @keyframes fbAmbientGlow{
+      0%{transform:translateY(0) scale(1);opacity:.82}
+      100%{transform:translateY(-8px) scale(1.03);opacity:1}
+    }
+
+    @keyframes fbPulseGlow{
+      0%,100%{transform:scale(1);opacity:.82}
+      50%{transform:scale(1.045);opacity:1}
+    }
+
+    @keyframes fbCardGlow{
+      0%{transform:scale(1);opacity:.78}
+      100%{transform:scale(1.04);opacity:1}
+    }
+
+    @media (max-width:900px){
+      .covers-stack::before{
+        filter:blur(14px);
+        opacity:.85;
+      }
+      .cover-float::before{
+        inset:-8%;
+        filter:blur(14px);
+      }
+      .book-cover-wrap::before{
+        inset:10% 10%;
+        filter:blur(18px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .covers-stack::before,
+      .cover-float::before,
+      .book-cover-wrap::before{
+        animation:none;
+      }
+    }
+
+
+    /* ===== PATCH VISUAL — LUXO MÁXIMO / HERO CINEMATOGRÁFICO ===== */
+    .hero-showcase{
+      position:relative;
+      isolation:isolate;
+      overflow:visible;
+    }
+
+    .hero-showcase::before{
+      content:"";
+      position:absolute;
+      inset:-8% -6% -6% -6%;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255,228,148,.16), transparent 22%),
+        radial-gradient(circle at 22% 34%, rgba(240,199,104,.15), transparent 22%),
+        radial-gradient(circle at 78% 30%, rgba(240,199,104,.14), transparent 24%),
+        radial-gradient(circle at 34% 78%, rgba(240,199,104,.11), transparent 23%),
+        radial-gradient(circle at 70% 74%, rgba(240,199,104,.10), transparent 25%);
+      filter:blur(24px);
+      opacity:.95;
+      pointer-events:none;
+      z-index:0;
+      animation: fbLuxuryField 10s ease-in-out infinite alternate;
+    }
+
+    .hero-showcase::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:4%;
+      width:76%;
+      height:76%;
+      transform:translateX(-50%);
+      background:
+        conic-gradient(from 180deg at 50% 50%,
+          transparent 0deg,
+          rgba(240,199,104,.08) 30deg,
+          transparent 72deg,
+          rgba(240,199,104,.06) 116deg,
+          transparent 180deg,
+          rgba(255,236,171,.06) 250deg,
+          transparent 320deg,
+          rgba(240,199,104,.07) 360deg);
+      filter:blur(20px);
+      opacity:.7;
+      z-index:0;
+      pointer-events:none;
+      animation: fbRotateAura 22s linear infinite;
+    }
+
+    .covers-stack{
+      position:relative;
+      isolation:isolate;
+      overflow:visible;
+    }
+
+    .covers-stack::before{
+      content:"";
+      position:absolute;
+      inset:-2% -2% 6% -2%;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,234,165,.18), transparent 20%),
+        radial-gradient(circle at 18% 36%, rgba(240,199,104,.18), transparent 21%),
+        radial-gradient(circle at 82% 34%, rgba(240,199,104,.16), transparent 22%),
+        radial-gradient(circle at 36% 76%, rgba(240,199,104,.15), transparent 20%),
+        radial-gradient(circle at 66% 74%, rgba(240,199,104,.15), transparent 22%);
+      filter:blur(18px);
+      opacity:1;
+      pointer-events:none;
+      z-index:0;
+      animation: fbAmbientLuxury 7s ease-in-out infinite alternate;
+    }
+
+    .covers-stack::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:0;
+      width:78%;
+      height:18%;
+      transform:translateX(-50%);
+      background:
+        radial-gradient(ellipse at center,
+          rgba(240,199,104,.34),
+          rgba(240,199,104,.14) 34%,
+          rgba(240,199,104,.04) 58%,
+          transparent 76%);
+      filter:blur(16px);
+      opacity:.95;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .cover-float{
+      position:absolute;
+      isolation:isolate;
+      z-index:2;
+      filter:drop-shadow(0 18px 28px rgba(0,0,0,.28));
+    }
+
+    .cover-float::before{
+      content:"";
+      position:absolute;
+      inset:-14% -12% -12% -12%;
+      background:
+        radial-gradient(circle at 50% 50%,
+          rgba(255,235,170,.26),
+          rgba(240,199,104,.14) 30%,
+          rgba(240,199,104,.06) 52%,
+          transparent 70%);
+      filter:blur(18px);
+      opacity:.95;
+      z-index:-2;
+      pointer-events:none;
+      animation: fbPulseLuxury 4.8s ease-in-out infinite;
+    }
+
+    .cover-float::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:94%;
+      height:94%;
+      transform:translate(-50%,-50%);
+      background:
+        radial-gradient(circle at center,
+          rgba(255,244,202,.14),
+          rgba(240,199,104,.08) 36%,
+          transparent 72%);
+      filter:blur(8px);
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .cover-float img{
+      position:relative;
+      z-index:2;
+      box-shadow:
+        0 24px 58px rgba(0,0,0,.45),
+        0 0 0 1px rgba(240,199,104,.14),
+        0 0 34px rgba(240,199,104,.10);
+    }
+
+    .cover-b::before,
+    .cover-d::before,
+    .cover-e::before{
+      background:
+        radial-gradient(circle at 50% 50%,
+          rgba(255,238,183,.30),
+          rgba(240,199,104,.16) 30%,
+          rgba(240,199,104,.07) 54%,
+          transparent 72%);
+      opacity:1;
+    }
+
+    .cover-b img,
+    .cover-d img{
+      box-shadow:
+        0 28px 68px rgba(0,0,0,.46),
+        0 0 0 1px rgba(255,236,171,.16),
+        0 0 42px rgba(240,199,104,.12);
+    }
+
+    .book-cover-wrap{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+    }
+
+    .book-cover-wrap::before{
+      content:"";
+      position:absolute;
+      inset:8% 11%;
+      background:
+        radial-gradient(circle at 50% 42%,
+          rgba(255,235,170,.22),
+          rgba(240,199,104,.12) 34%,
+          transparent 70%);
+      filter:blur(20px);
+      z-index:0;
+      pointer-events:none;
+      animation: fbCardLuxury 5.4s ease-in-out infinite alternate;
+    }
+
+    .book-cover-wrap::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:7%;
+      width:66%;
+      height:14%;
+      transform:translateX(-50%);
+      background:
+        radial-gradient(ellipse at center,
+          rgba(240,199,104,.20),
+          rgba(240,199,104,.08) 42%,
+          transparent 76%);
+      filter:blur(12px);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .book-cover-wrap img{
+      position:relative;
+      z-index:1;
+      box-shadow:
+        0 22px 56px rgba(0,0,0,.38),
+        0 0 0 1px rgba(240,199,104,.10),
+        0 0 24px rgba(240,199,104,.08);
+    }
+
+    .cover-particles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+
+    .cover-particles span{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,240,189,.95), rgba(240,199,104,.5) 55%, transparent 75%);
+      box-shadow:0 0 10px rgba(240,199,104,.35);
+      opacity:.8;
+      animation: fbParticleFloat var(--d,8s) linear infinite;
+    }
+
+    .cover-particles span:nth-child(1){left:12%; top:72%; --d:9s; animation-delay:-1s}
+    .cover-particles span:nth-child(2){left:24%; top:40%; --d:11s; animation-delay:-4s}
+    .cover-particles span:nth-child(3){left:38%; top:20%; --d:10s; animation-delay:-2s}
+    .cover-particles span:nth-child(4){left:52%; top:62%; --d:12s; animation-delay:-6s}
+    .cover-particles span:nth-child(5){left:66%; top:30%; --d:8.5s; animation-delay:-3s}
+    .cover-particles span:nth-child(6){left:78%; top:70%; --d:10.5s; animation-delay:-5s}
+    .cover-particles span:nth-child(7){left:84%; top:18%; --d:9.5s; animation-delay:-7s}
+    .cover-particles span:nth-child(8){left:30%; top:78%; --d:11.5s; animation-delay:-8s}
+    .cover-particles span:nth-child(9){left:58%; top:10%; --d:9.8s; animation-delay:-4.5s}
+    .cover-particles span:nth-child(10){left:8%; top:26%; --d:12.5s; animation-delay:-2.5s}
+
+    @keyframes fbLuxuryField{
+      0%{transform:translateY(0) scale(1); opacity:.88}
+      100%{transform:translateY(-8px) scale(1.03); opacity:1}
+    }
+
+    @keyframes fbRotateAura{
+      from{transform:translateX(-50%) rotate(0deg)}
+      to{transform:translateX(-50%) rotate(360deg)}
+    }
+
+    @keyframes fbAmbientLuxury{
+      0%{transform:translateY(0) scale(1); opacity:.9}
+      100%{transform:translateY(-10px) scale(1.035); opacity:1}
+    }
+
+    @keyframes fbPulseLuxury{
+      0%,100%{transform:scale(1); opacity:.86}
+      50%{transform:scale(1.055); opacity:1}
+    }
+
+    @keyframes fbCardLuxury{
+      0%{transform:scale(1); opacity:.8}
+      100%{transform:scale(1.04); opacity:1}
+    }
+
+    @keyframes fbParticleFloat{
+      0%{transform:translate3d(0,0,0) scale(.8); opacity:0}
+      8%{opacity:.9}
+      50%{transform:translate3d(6px,-32px,0) scale(1.05); opacity:1}
+      100%{transform:translate3d(-6px,-66px,0) scale(.7); opacity:0}
+    }
+
+    @media (max-width:900px){
+      .hero-showcase::before,
+      .hero-showcase::after,
+      .covers-stack::before,
+      .covers-stack::after,
+      .cover-particles{
+        display:none;
+      }
+
+      .cover-float::before{
+        inset:-9%;
+        filter:blur(14px);
+      }
+
+      .book-cover-wrap::before{
+        inset:10% 10%;
+        filter:blur(16px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .hero-showcase::before,
+      .hero-showcase::after,
+      .covers-stack::before,
+      .cover-float::before,
+      .book-cover-wrap::before,
+      .cover-particles span{
+        animation:none !important;
+      }
+    }
+
+
+    /* ===== PATCH PREMIUM — 3D / HOVER / BOTÕES COM GLOW ===== */
+    .cover-float,
+    .book-card,
+    .btn,
+    .share-chip{
+      transition:
+        transform .38s cubic-bezier(.2,.8,.2,1),
+        box-shadow .38s cubic-bezier(.2,.8,.2,1),
+        border-color .32s ease,
+        background .32s ease,
+        color .32s ease,
+        filter .32s ease,
+        opacity .32s ease;
+      will-change: transform, box-shadow;
+    }
+
+    .hero-showcase{
+      perspective: 1400px;
+    }
+
+    .covers-stack{
+      transform-style: preserve-3d;
+    }
+
+    .cover-float{
+      transform-style: preserve-3d;
+      transform:
+        translate3d(0,0,0)
+        rotate(var(--r, 0deg));
+    }
+
+    .cover-float:hover{
+      z-index: 20 !important;
+      transform:
+        translate3d(0,-10px,28px)
+        rotate(var(--r, 0deg))
+        scale(1.035);
+      filter:
+        drop-shadow(0 22px 34px rgba(0,0,0,.34))
+        drop-shadow(0 0 22px rgba(240,199,104,.16));
+    }
+
+    .cover-float:hover::before{
+      opacity: 1;
+      filter: blur(20px);
+    }
+
+    .cover-float img{
+      transition:
+        transform .38s cubic-bezier(.2,.8,.2,1),
+        box-shadow .38s cubic-bezier(.2,.8,.2,1),
+        filter .32s ease;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .cover-float:hover img{
+      transform: translateZ(20px);
+      box-shadow:
+        0 34px 78px rgba(0,0,0,.50),
+        0 0 0 1px rgba(255,236,171,.18),
+        0 0 42px rgba(240,199,104,.14);
+      filter: saturate(1.03);
+    }
+
+    .book-card{
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+    }
+
+    .book-card::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: inherit;
+      pointer-events:none;
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,.00) 0%,
+          rgba(240,199,104,.10) 35%,
+          rgba(255,255,255,.00) 65%,
+          rgba(240,199,104,.06) 100%);
+      opacity:0;
+      transition: opacity .35s ease;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      padding:1px;
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+    }
+
+    .book-card:hover{
+      transform: translateY(-6px);
+      box-shadow:
+        0 28px 84px rgba(0,0,0,.34),
+        0 0 0 1px rgba(240,199,104,.14);
+      border-color: rgba(240,199,104,.22);
+    }
+
+    .book-card:hover::after{
+      opacity:1;
+    }
+
+    .book-card:hover .book-cover-wrap::before{
+      opacity:1;
+      transform: scale(1.04);
+    }
+
+    .book-card:hover .book-cover-wrap img{
+      transform: translateY(-4px) scale(1.018);
+      box-shadow:
+        0 28px 64px rgba(0,0,0,.40),
+        0 0 0 1px rgba(240,199,104,.12),
+        0 0 32px rgba(240,199,104,.11);
+    }
+
+    .btn,
+    .share-chip{
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .btn::before,
+    .share-chip::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: inherit;
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,.16),
+          rgba(255,255,255,0) 30%,
+          rgba(240,199,104,.14) 65%,
+          rgba(255,255,255,.06));
+      opacity:.0;
+      z-index:-1;
+      transition: opacity .28s ease;
+      pointer-events:none;
+    }
+
+    .btn::after,
+    .share-chip::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-130%;
+      width:56%;
+      height:100%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,.18) 48%,
+        rgba(255,255,255,.06) 62%,
+        transparent 100%);
+      transform: skewX(-22deg);
+      pointer-events:none;
+      opacity:.0;
+    }
+
+    .btn:hover::before,
+    .share-chip:hover::before{
+      opacity:1;
+    }
+
+    .btn:hover::after,
+    .share-chip:hover::after{
+      opacity:1;
+      animation: fbBtnShine 1.05s ease;
+    }
+
+    .btn:hover,
+    .share-chip:hover{
+      transform: translateY(-2px);
+    }
+
+    .btn.primary,
+    .btn.gold,
+    .btn[data-variant="primary"]{
+      box-shadow:
+        0 10px 24px rgba(216,167,63,.18),
+        0 0 0 1px rgba(240,199,104,.14);
+    }
+
+    .btn.primary:hover,
+    .btn.gold:hover,
+    .btn[data-variant="primary"]:hover{
+      box-shadow:
+        0 14px 32px rgba(216,167,63,.24),
+        0 0 0 1px rgba(255,236,171,.20),
+        0 0 26px rgba(240,199,104,.18);
+      filter: saturate(1.04);
+    }
+
+    .btn.secondary:hover,
+    .btn.ghost:hover,
+    .share-chip:hover{
+      box-shadow:
+        0 12px 28px rgba(0,0,0,.24),
+        0 0 0 1px rgba(240,199,104,.12),
+        0 0 18px rgba(240,199,104,.10);
+    }
+
+    .book-main-actions .btn:first-child,
+    .hero-ctas .btn:first-child,
+    .sticky-mobile .btn{
+      box-shadow:
+        0 12px 28px rgba(216,167,63,.22),
+        0 0 0 1px rgba(240,199,104,.16),
+        0 0 0 rgba(240,199,104,0);
+      animation: fbSoftPulse 3.6s ease-in-out infinite;
+    }
+
+    .book-main-actions .btn:first-child:hover,
+    .hero-ctas .btn:first-child:hover,
+    .sticky-mobile .btn:hover{
+      box-shadow:
+        0 18px 40px rgba(216,167,63,.28),
+        0 0 0 1px rgba(255,236,171,.22),
+        0 0 28px rgba(240,199,104,.20);
+    }
+
+    @keyframes fbBtnShine{
+      0%{ left:-130%; }
+      100%{ left:155%; }
+    }
+
+    @keyframes fbSoftPulse{
+      0%,100%{
+        box-shadow:
+          0 12px 28px rgba(216,167,63,.20),
+          0 0 0 1px rgba(240,199,104,.15),
+          0 0 0 rgba(240,199,104,0);
+      }
+      50%{
+        box-shadow:
+          0 14px 34px rgba(216,167,63,.24),
+          0 0 0 1px rgba(255,236,171,.18),
+          0 0 20px rgba(240,199,104,.14);
+      }
+    }
+
+    @media (max-width:900px){
+      .cover-float:hover,
+      .book-card:hover,
+      .btn:hover,
+      .share-chip:hover{
+        transform:none;
+      }
+
+      .cover-float:hover img,
+      .book-card:hover .book-cover-wrap img{
+        transform:none;
+      }
+
+      .book-main-actions .btn:first-child,
+      .hero-ctas .btn:first-child,
+      .sticky-mobile .btn{
+        animation:none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .cover-float,
+      .book-card,
+      .btn,
+      .share-chip,
+      .cover-float img{
+        transition:none !important;
+      }
+
+      .btn::after,
+      .share-chip::after,
+      .book-main-actions .btn:first-child,
+      .hero-ctas .btn:first-child,
+      .sticky-mobile .btn{
+        animation:none !important;
+      }
+    }
+
+
+    /* ===== FREEDOM BOOK — VERSÃO FINAL ABSURDA / CONVERSÃO MOBILE ===== */
+
+    /* HERO MOBILE IMPACTANTE */
+    .hero-copy{
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-copy::before{
+      content:"Biblioteca gratuita";
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      max-width:100%;
+      margin:0 0 10px;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid rgba(240,199,104,.16);
+      background:
+        linear-gradient(180deg,rgba(240,199,104,.10),rgba(255,255,255,.025));
+      color:#f4dfaa;
+      font-size:.74rem;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.075em;
+      text-transform:uppercase;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+    }
+
+    .hero-copy .lead{
+      position:relative;
+      padding-left:16px;
+      border-left:2px solid rgba(240,199,104,.38);
+    }
+
+    .hero-ctas{
+      position:relative;
+    }
+
+    .hero-ctas::after{
+      content:"Acesso imediato • PDF gratuito • sem cadastro";
+      display:block;
+      width:100%;
+      margin-top:8px;
+      color:#d8cfbe;
+      font-size:.84rem;
+      font-weight:750;
+      letter-spacing:-.01em;
+    }
+
+    /* SELO NOVO MAIS FORTE */
+    .book-card:first-child{
+      position:relative;
+    }
+
+    .book-card:first-child::before{
+      content:"NOVO GUIA";
+      position:absolute;
+      top:14px;
+      right:14px;
+      z-index:5;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:32px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,240,189,.34);
+      background:
+        linear-gradient(180deg,#fff2bf 0%, #e0ae4b 58%, #986615 100%);
+      color:#1a1208;
+      font-size:.72rem;
+      font-weight:950;
+      letter-spacing:.075em;
+      text-transform:uppercase;
+      box-shadow:
+        0 10px 24px rgba(216,167,63,.22),
+        inset 0 1px 0 rgba(255,255,255,.38);
+    }
+
+    .book-card:first-child .book-title{
+      color:#fff6d9;
+      text-shadow:0 14px 34px rgba(216,167,63,.08);
+    }
+
+    .book-card:first-child .book-cover-wrap{
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,236,171,.18), transparent 36%),
+        radial-gradient(circle at 50% 78%, rgba(240,199,104,.12), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.006)),
+        #0a0d12;
+    }
+
+    .book-card:first-child .book-cover-wrap::before{
+      opacity:1;
+      background:
+        radial-gradient(circle at 50% 42%,
+          rgba(255,238,183,.26),
+          rgba(240,199,104,.13) 36%,
+          transparent 70%);
+    }
+
+    /* CTA STICKY MAIS CONVERTEDOR */
+    .sticky-mobile{
+      isolation:isolate;
+    }
+
+    .sticky-mobile::before{
+      content:"";
+      position:absolute;
+      inset:-1px 0 auto 0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(240,199,104,.45), transparent);
+      pointer-events:none;
+    }
+
+    .sticky-mobile::after{
+      content:"Leia grátis no celular";
+      display:block;
+      text-align:center;
+      margin-top:6px;
+      color:#d8cfbe;
+      font-size:.78rem;
+      font-weight:750;
+      letter-spacing:-.01em;
+    }
+
+    .sticky-mobile .btn{
+      min-height:56px;
+      border-radius:16px;
+      font-size:1rem;
+      letter-spacing:-.01em;
+      box-shadow:
+        0 14px 34px rgba(216,167,63,.26),
+        0 0 0 1px rgba(255,236,171,.18),
+        0 0 28px rgba(240,199,104,.14);
+    }
+
+    .sticky-mobile .btn::before{
+      opacity:.55;
+    }
+
+    /* MICROANIMAÇÕES PREMIUM */
+    .reveal.visible.card,
+    .reveal.visible .card,
+    .book-card.reveal.visible,
+    .stat-card.reveal.visible,
+    .mission-card.reveal.visible{
+      animation: fbSoftEnter .64s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .book-card.reveal.visible:nth-child(1){animation-delay:.02s}
+    .book-card.reveal.visible:nth-child(2){animation-delay:.07s}
+    .book-card.reveal.visible:nth-child(3){animation-delay:.12s}
+    .book-card.reveal.visible:nth-child(4){animation-delay:.17s}
+    .book-card.reveal.visible:nth-child(5){animation-delay:.22s}
+    .book-card.reveal.visible:nth-child(6){animation-delay:.27s}
+
+    .stat-card{
+      overflow:hidden;
+      position:relative;
+    }
+
+    .stat-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent, rgba(240,199,104,.08), transparent);
+      transform:translateX(-130%);
+      opacity:.0;
+      pointer-events:none;
+    }
+
+    .stat-card.reveal.visible::after{
+      animation: fbCardSweep 1.2s ease .32s both;
+    }
+
+    .section-title.reveal.visible{
+      animation: fbTitleRise .7s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .featured-book-note.reveal.visible{
+      animation: fbNoteGlow 1.2s ease both;
+    }
+
+    /* CTA FINAL MAIS CONVINCENTE SEM EXAGERO */
+    .final-cta{
+      position:relative;
+      isolation:isolate;
+    }
+
+    .final-cta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(240,199,104,.10), transparent 28%),
+        radial-gradient(circle at 88% 30%, rgba(240,199,104,.07), transparent 32%);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .final-copy .eyebrow{
+      box-shadow:0 12px 28px rgba(0,0,0,.18);
+    }
+
+    .final-actions .btn:first-child{
+      min-height:58px;
+      font-size:1.02rem;
+    }
+
+    /* BOTÃO NOVO NO CATÁLOGO — EFEITO DE PRIORIDADE VISUAL */
+    .book-card:first-child .book-main-actions .btn:first-child{
+      min-height:58px;
+      box-shadow:
+        0 18px 40px rgba(216,167,63,.28),
+        0 0 0 1px rgba(255,236,171,.22),
+        0 0 30px rgba(240,199,104,.16);
+    }
+
+    /* MOBILE POLISH */
+    @media (max-width:900px){
+      .hero-copy::before{
+        margin-bottom:8px;
+        font-size:.70rem;
+      }
+
+      .hero-copy .lead{
+        padding-left:13px;
+        border-left-color:rgba(240,199,104,.32);
+      }
+
+      .hero-ctas::after{
+        text-align:center;
+        font-size:.80rem;
+        margin-top:2px;
+      }
+
+      .book-card:first-child::before{
+        top:10px;
+        right:10px;
+        min-height:30px;
+        padding:0 10px;
+        font-size:.68rem;
+      }
+
+      .book-card:first-child .book-main-actions .btn:first-child{
+        min-height:54px;
+      }
+
+      .final-actions .btn:first-child{
+        min-height:56px;
+      }
+
+      .sticky-mobile{
+        padding:10px 12px calc(9px + env(safe-area-inset-bottom,0px));
+      }
+    }
+
+    @media (max-width:430px){
+      .hero-copy::before{
+        width:100%;
+        justify-content:center;
+      }
+
+      .heading{
+        text-align:left;
+      }
+
+      .book-card:first-child::before{
+        font-size:.64rem;
+      }
+
+      .sticky-mobile::after{
+        font-size:.74rem;
+      }
+    }
+
+    @keyframes fbSoftEnter{
+      0%{opacity:0; transform:translateY(18px) scale(.985)}
+      100%{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    @keyframes fbCardSweep{
+      0%{transform:translateX(-130%); opacity:0}
+      18%{opacity:1}
+      100%{transform:translateX(130%); opacity:0}
+    }
+
+    @keyframes fbTitleRise{
+      0%{opacity:0; transform:translateY(18px); filter:blur(2px)}
+      100%{opacity:1; transform:translateY(0); filter:blur(0)}
+    }
+
+    @keyframes fbNoteGlow{
+      0%{box-shadow:0 0 0 rgba(240,199,104,0)}
+      50%{box-shadow:0 0 32px rgba(240,199,104,.10)}
+      100%{box-shadow:0 0 0 rgba(240,199,104,0)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal.visible.card,
+      .reveal.visible .card,
+      .book-card.reveal.visible,
+      .stat-card.reveal.visible,
+      .mission-card.reveal.visible,
+      .section-title.reveal.visible,
+      .featured-book-note.reveal.visible,
+      .stat-card.reveal.visible::after{
+        animation:none !important;
+      }
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -629,7 +1917,7 @@
           "position": 1,
           "item": {
             "@type": "Book",
-            "name": "O Cansaço Invisível",
+            "name": "Disciplina é Liberdade",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -641,7 +1929,7 @@
           "position": 2,
           "item": {
             "@type": "Book",
-            "name": "Quando Sua Vida Virou Sobrevivência",
+            "name": "O Método da Vida Mais Leve",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -653,7 +1941,7 @@
           "position": 3,
           "item": {
             "@type": "Book",
-            "name": "A Vida Que Você Adiou",
+            "name": "O Cansaço Invisível",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -665,7 +1953,7 @@
           "position": 4,
           "item": {
             "@type": "Book",
-            "name": "O Peso de Ser Forte o Tempo Todo",
+            "name": "Quando Sua Vida Virou Sobrevivência",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -677,7 +1965,19 @@
           "position": 5,
           "item": {
             "@type": "Book",
-            "name": "O Método da Vida Mais Leve",
+            "name": "A Vida Que Você Adiou",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "Book",
+            "name": "O Peso de Ser Forte o Tempo Todo",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -706,7 +2006,7 @@
         </nav>
         <div class="nav-actions">
           <a href="#catalogo" class="btn small secondary" id="navCatalogBtn">Ver livros</a>
-          <a href="#apoie" class="btn small" id="navSupportBtn">Apoiar opcionalmente</a>
+          <a href="#apoie" class="btn small" id="navSupportBtn">Apoio opcional</a>
           <button type="button" class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navPanel">☰</button>
         </div>
       </div>
@@ -716,7 +2016,7 @@
         <a href="#apoie">Apoie</a>
         <a href="#faq">FAQ</a>
         <a href="#catalogo" class="btn">Ver livros</a>
-        <a href="#apoie" class="btn secondary">Apoiar opcionalmente</a>
+        <a href="#apoie" class="btn secondary">Apoio opcional</a>
       </div>
     </div>
   </header>
@@ -729,10 +2029,10 @@
             <div class="hero-copy">
               <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Editora digital independente</span>
               <h1 class="heading">Freedom <span class="gold">Book</span></h1>
-              <p class="lead">E-books gratuitos para leitura reflexiva, clareza pessoal e desenvolvimento cotidiano.</p>
-              <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne conteúdos autorais em PDF, com visual premium e leitura simples pelo celular. Escolha um tema, abra o material gratuitamente e compartilhe com quem gosta de conteúdos que ajudam a pensar melhor.</p>
+              <p class="lead">E-books gratuitos para leitura reflexiva, clareza pessoal, disciplina e desenvolvimento cotidiano.</p>
+              <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne conteúdos autorais em PDF, com visual premium e leitura simples pelo celular. Escolha um tema, abra o material gratuitamente e compartilhe com quem gosta de leituras bonitas, práticas e bem apresentadas.</p>
               <div class="hero-ctas">
-                <a href="#catalogo" class="btn" id="heroCatalogBtn">Ler e baixar grátis</a>
+                <a href="#catalogo" class="btn" id="heroCatalogBtn">Ver e-books gratuitos</a>
                 <a href="#apoie" class="btn secondary" id="heroSupportBtn">Apoio opcional</a>
                 <button type="button" class="btn ghost" id="heroSharePageBtn">Compartilhar página</button>
               </div>
@@ -760,8 +2060,8 @@
     <section class="section" id="catalogo">
       <div class="container">
         <h2 class="section-title reveal">Biblioteca Freedom Book</h2>
-        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para clareza, organização de ideias e rotina mais simples.</p>
-        <div class="featured-book-note reveal"><strong>Nova linha editorial:</strong> “O Método da Vida Mais Leve” inaugura os Guias de Clareza Prática: materiais mais aplicáveis, com organização de ideias, redução de excessos e passos simples para o dia a dia.</div>
+        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para clareza, disciplina, organização de ideias e rotina mais simples.</p>
+        <div class="featured-book-note reveal"><strong>Novo guia na biblioteca:</strong> “Disciplina é Liberdade” amplia a linha de Guias Práticos da Freedom Book com um material direto sobre foco, consistência, acordos mínimos e liberdade com direção.</div>
         <div class="books-grid" id="booksGrid"></div>
       </div>
     </section>
@@ -770,7 +2070,7 @@
       <div class="container">
         <div class="mission-wrap reveal">
           <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Manifesto</span><h3>Publicamos leituras bonitas, acessíveis e fáceis de compartilhar.</h3><p>A Freedom Book nasceu para transformar ideias, reflexões e métodos simples em materiais digitais bem apresentados. Cada e-book foi pensado para ser lido no celular, baixado em PDF e compartilhado com quem aprecia conteúdos autorais.</p></div>
-          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, clareza e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada e acessível.</p></div>
+          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, clareza, disciplina e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada, acessível e aplicável no cotidiano.</p></div>
         </div>
       </div>
     </section>
@@ -812,13 +2112,13 @@
 
     <section class="section" id="faq"><div class="container"><h2 class="section-title reveal">Perguntas frequentes</h2><p class="section-sub reveal">Respostas rápidas para facilitar o uso da página, acesso aos livros e entendimento do apoio via Pix.</p><div class="faq-wrap reveal" id="faqWrap"></div></div></section>
 
-    <section class="section"><div class="container"><div class="card final-cta reveal"><div class="final-wrap"><div class="final-copy"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Freedom Book</span><h3>Escolha um e-book, leia no celular e compartilhe com quem gosta de conteúdos reflexivos.</h3><p>A biblioteca Freedom Book foi criada para acesso simples: leitura gratuita, download em PDF, compartilhamento fácil e apoio opcional para quem deseja contribuir com o projeto.</p></div><div class="final-actions"><a href="#catalogo" class="btn">Explorar catálogo</a><a href="#apoie" class="btn secondary">Apoio opcional</a><button type="button" class="share-chip" id="sharePageFinalBtn">Compartilhar esta página</button><div style="color:#cfc6b6;font-size:.95rem;">Leitura, compartilhamento e apoio voluntário</div></div></div></div></div></section>
+    <section class="section"><div class="container"><div class="card final-cta reveal"><div class="final-wrap"><div class="final-copy"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Freedom Book</span><h3>Escolha um e-book, leia no celular e compartilhe com quem gosta de conteúdos reflexivos e práticos.</h3><p>A biblioteca Freedom Book foi criada para acesso simples: leitura gratuita, download em PDF, compartilhamento fácil e apoio opcional para quem deseja contribuir com o projeto.</p></div><div class="final-actions"><a href="#catalogo" class="btn">Explorar catálogo</a><a href="#apoie" class="btn secondary">Apoio opcional</a><button type="button" class="share-chip" id="sharePageFinalBtn">Compartilhar esta página</button><div style="color:#cfc6b6;font-size:.95rem;">Leitura, compartilhamento e apoio voluntário</div></div></div></div></div></section>
   </main>
 
   <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><img id="footerMark" alt="Freedom Book" loading="lazy" width="40" height="40" /><div><div id="footerBrandTitle">Freedom Book</div><div style="color:#bfb7a7;font-size:.9rem;">Editora digital independente</div></div></div><div class="footer-links"><a href="#" data-modal-open="privacy">Política de privacidade</a><a href="#" data-modal-open="terms">Termos</a><a href="mailto:contato@achadostube.com.br" id="contactLink">Contato</a></div></div><div class="company-box"><div id="companyNameLine">Freedom Book</div><div id="companyDocLine">Projeto editorial independente</div><div id="companyAddressLine">Brasil</div><div id="companyEmailLine">contato@achadostube.com.br</div></div></div></div></footer>
 
   <a href="#catalogo" class="btn floating-cta" id="floatingCatalogBtn" aria-label="Ver catálogo">Ver catálogo</a>
-  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ver e baixar os e-books grátis</a></div>
+  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ver e-books grátis</a></div>
 
   <div class="modal" id="legalModal" aria-hidden="true"><div class="modal-backdrop" data-modal-close></div><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalContent"><button class="modal-close" type="button" aria-label="Fechar" data-modal-close>×</button><div class="modal-head"><div class="modal-kicker">Informações legais</div><h2 id="legalModalTitle">Política de Privacidade</h2></div><div class="modal-body" id="legalModalContent"></div></div></div>
 
@@ -828,8 +2128,8 @@
 
       const cfg = {
         pageUrl: "https://achadostube.com.br/freedom-book",
-        pageTitle: "Freedom Book — E-books Gratuitos para Leitura e Clareza",
-        shareText: "Conheça a Freedom Book: e-books gratuitos para leitura reflexiva e clareza pessoal.",
+        pageTitle: "Freedom Book — Biblioteca de E-books Gratuitos",
+        shareText: "Conheça a Freedom Book: e-books gratuitos para leitura reflexiva, clareza e guias práticos.",
         brandName: "Freedom Book",
         brandDescription: "Editora digital independente",
         contactEmail: "contato@achadostube.com.br",
@@ -844,22 +2144,23 @@
         stats: [
           { value: "PDF", label: "leitura gratuita" },
           { value: "2", label: "linhas editoriais" },
-          { value: "1", label: "editora independente" },
-          { value: "∞", label: "possibilidades de impacto" }
+          { value: "0", label: "cadastro obrigatório" },
+          { value: "∞", label: "novos temas em expansão" }
         ],
         books: [
+          {slug:"disciplina-e-liberdade",title:"Disciplina é Liberdade",badge:"Guia 02 · novo",cover:"https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",description:"Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",tags:["disciplina","consistência","liberdade"],readUrl:"https://achadostube.com.br/disciplina-e-liberdade",downloadUrl:"https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf",shareText:"Leia o guia Disciplina é Liberdade",line:"pratica"},
+          {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar ideias, reduzir excessos e recuperar direção nos seus dias sem mudar tudo de uma vez.",tags:["clareza prática","organização","rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"},
           {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna. Um material para quem busca nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão","rotina","clareza"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
           {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Uma leitura sobre rotina, pausa e retomada de perspectiva. Um convite para observar os dias com mais presença e clareza.",tags:["pausa","perspectiva","retomada"],readUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reflexiva"},
           {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura sobre adiamentos, escolhas e pequenos começos possíveis. Um convite para refletir sobre presença, direção e próximos passos.",tags:["adiamento","presença","direção"],readUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou",line:"reflexiva"},
-          {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Uma leitura sobre excesso de responsabilidade, limites pessoais e a importância de reconhecer quando a rotina ficou pesada demais.",tags:["responsabilidade","limites","rotina"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo_v2_premium_pix.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo",line:"reflexiva"},
-          {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01 · novo",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar a mente, reduzir excessos e recuperar controle dos seus dias sem mudar tudo de uma vez.",tags:["clareza prática","organização","rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"}
+          {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Uma leitura sobre excesso de responsabilidade, limites pessoais e a importância de reconhecer quando a rotina ficou pesada demais.",tags:["responsabilidade","limites","rotina"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo_v2_premium_pix.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo",line:"reflexiva"}
         ],
         faq: [
           {q:"Os e-books são gratuitos?",a:"Sim. A página foi preparada para liberar leitura e download dos PDFs, com apoio via Pix totalmente voluntário."},
-          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias de Clareza Prática traz materiais mais aplicáveis, com métodos simples, organização de ideias e passos possíveis."},
+          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias Práticos traz materiais mais aplicáveis, com métodos simples, organização de ideias, disciplina, rotina e passos possíveis."},
           {q:"O apoio via Pix é obrigatório?",a:"Não. O apoio é totalmente voluntário. Você pode ler, baixar e compartilhar os materiais sem contribuir financeiramente."},
           {q:"Posso compartilhar esta página ou os livros?",a:"Sim. A página foi preparada com botões de compartilhamento para facilitar o envio a outras pessoas."},
-          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: leitura reflexiva, rotina, presença, responsabilidade pessoal ou organização de ideias para uma vida mais leve."},
+          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: leitura reflexiva, rotina, presença, responsabilidade pessoal, disciplina ou organização de ideias para uma vida mais leve."},
           {q:"Este conteúdo substitui orientação profissional?",a:"Não. Os materiais têm finalidade educativa, reflexiva e editorial. Quando necessário, procure apoio profissional qualificado."}
         ],
         legal: {
@@ -891,8 +2192,8 @@
       const heroCoversStack = byId("heroCoversStack");
       if(heroCoversStack){
         heroCoversStack.innerHTML="";
-        cfg.books.slice(0,5).forEach(function(book,index){
-          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e"];
+        cfg.books.slice(0,6).forEach(function(book,index){
+          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f"];
           const wrap=createEl("div","cover-float "+classes[index]);
           const img=document.createElement("img");img.alt="Capa do e-book "+book.title;img.loading="lazy";img.src=book.cover;img.onerror=function(){img.removeAttribute("src");};
           wrap.appendChild(img);heroCoversStack.appendChild(wrap);
@@ -941,7 +2242,7 @@
           const copyLinkBtn=createEl("button","share-chip","Copiar link");copyLinkBtn.type="button";copyLinkBtn.addEventListener("click",async function(){try{await navigator.clipboard.writeText(shareUrl);copyLinkBtn.textContent="Link copiado";setTimeout(function(){copyLinkBtn.textContent="Copiar link";},1800);}catch(e){window.prompt("Copie o link:",shareUrl);}trackEvent("share",{content_name:book.title,platform:"copy_link"});});
           [[shareWhats,"whatsapp"],[shareFace,"facebook"],[shareTele,"telegram"]].forEach(function(pair){pair[0].addEventListener("click",function(){trackEvent("share",{content_name:book.title,platform:pair[1]});});});
           shareRow.append(shareWhats,shareFace,shareTele,copyLinkBtn);actions.append(mainActions,shareRow);
-          content.append(createEl("span","book-badge",safeText(book.badge)),createEl("div","line-label",book.line==="pratica" ? "Linha: Clareza Prática" : "Linha: Leituras Reflexivas"),createEl("h3","book-title",safeText(book.title)),createEl("p","book-desc",safeText(book.description)),tags,actions);
+          content.append(createEl("span","book-badge",safeText(book.badge)),createEl("div","line-label",book.line==="pratica" ? "Linha: Guias Práticos" : "Linha: Leituras Reflexivas"),createEl("h3","book-title",safeText(book.title)),createEl("p","book-desc",safeText(book.description)),tags,actions);
           article.append(coverWrap,content);booksGrid.appendChild(article);
         });
       }
