@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <title>Freedom Book — E-books que tocam, despertam e ajudam a reconstruir</title>
-  <meta name="description" content="Conheça os e-books da Freedom Book. Leituras profundas, visuais premium e conteúdos gratuitos para quem precisa parar, sentir, entender e recomeçar." />
+  <title>Freedom Book — Biblioteca de E-books Gratuitos</title>
+  <meta name="description" content="Conheça a biblioteca Freedom Book: e-books gratuitos, autorais e premium para reconstrução interior, clareza prática, organização mental e recomeços possíveis." />
   <meta name="theme-color" content="#07070a" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="author" content="Freedom Book" />
@@ -15,9 +15,9 @@
 
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Freedom Book — E-books que tocam, despertam e ajudam a reconstruir" />
-  <meta property="og:description" content="Uma editora digital independente com e-books gratuitos, leitura profunda, visual premium e apoio voluntário via Pix." />
-  <meta property="og:url" content="https://achadostube.com.br" />
+  <meta property="og:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
+  <meta property="og:description" content="E-books gratuitos, autorais e premium para reconstrução interior, clareza prática, organização mental e recomeços possíveis." />
+  <meta property="og:url" content="https://achadostube.com.br/freedom-book" />
   <meta property="og:site_name" content="Freedom Book" />
   <meta property="og:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
   <meta property="og:image:secure_url" content="https://achadostube.com.br/og/freedom-book-home.png" />
@@ -26,8 +26,8 @@
   <meta property="og:image:alt" content="Freedom Book — catálogo de e-books" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Freedom Book — E-books que tocam, despertam e ajudam a reconstruir" />
-  <meta name="twitter:description" content="Conheça os e-books gratuitos da Freedom Book: materiais criados para tocar, acolher e provocar retomada." />
+  <meta name="twitter:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
+  <meta name="twitter:description" content="Conheça os e-books gratuitos da Freedom Book: ensaios profundos e guias práticos para sentir, organizar, simplificar e recomeçar." />
   <meta name="twitter:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any" />
@@ -389,22 +389,133 @@
       .mobile-book-pill{min-width:156px;max-width:156px}
     }
 
+
+    /* bloco anterior atualizado abaixo */
+    .cover-e{right:54px;bottom:16px;z-index:5;--r:-3deg}
+    .book-card[data-line="pratica"] .book-badge{background:linear-gradient(180deg,rgba(240,199,104,.12),rgba(255,255,255,.03));border-color:rgba(240,199,104,.24);color:#fff0bd}
+    .book-card[data-line="pratica"]{border-color:rgba(240,199,104,.20)}
+    .line-label{display:inline-flex;width:max-content;max-width:100%;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;border:1px solid rgba(240,199,104,.12);background:rgba(255,255,255,.025);color:#d9cfbe;font-size:.76rem;font-weight:800}
+    .line-label strong{color:var(--gold-2)}
+    @media (max-width:1180px){.cover-e{right:36px;bottom:10px}}
+    @media (max-width:640px){.cover-e{right:20px;bottom:20px}}
+
+
+    /* ===== CORREÇÕES GERAIS V3 — Freedom Book 5 materiais ===== */
+    .covers-stack{width:min(100%, 590px);height:600px}
+    .cover-a{left:4px;bottom:86px;--r:-8deg}
+    .cover-b{left:136px;top:2px;z-index:4;--r:-2deg}
+    .cover-c{right:18px;top:72px;z-index:2;--r:7deg}
+    .cover-d{left:264px;bottom:12px;z-index:5;--r:3deg}
+    .cover-e{right:6px;bottom:74px;z-index:3;--r:-4deg}
+    .book-card[data-line="pratica"] .book-cover-wrap{background:radial-gradient(circle at 50% 10%, rgba(240,199,104,.10), transparent 38%), #0a0d12}
+    .book-card[data-line="pratica"] .line-label{border-color:rgba(240,199,104,.22);background:rgba(240,199,104,.055);color:#f0e0b8}
+    .line-label{display:inline-flex;width:max-content;max-width:100%;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;border:1px solid rgba(240,199,104,.12);background:rgba(255,255,255,.025);color:#d9cfbe;font-size:.76rem;font-weight:800}
+    .line-label::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 10px rgba(240,199,104,.35)}
+    .book-card[data-line="pratica"]{border-color:rgba(240,199,104,.22)}
+    .pix-key-box{min-width:0}
+    .pix-key-box span{overflow-wrap:anywhere}
+    .book-main-actions .btn{white-space:normal}
+    @media (max-width:1180px){
+      .covers-stack{width:min(100%, 560px);height:560px}
+      .cover-a{left:10px;bottom:72px}
+      .cover-b{left:130px;top:0}
+      .cover-c{right:16px;top:70px}
+      .cover-d{left:250px;bottom:8px}
+      .cover-e{right:4px;bottom:62px}
+    }
+    @media (max-width:900px){
+      .hero-showcase{display:none!important}
+      .books-grid{grid-template-columns:1fr}
+      .mobile-book-strip{display:flex}
+      .book-card[data-line="pratica"]{box-shadow:0 22px 70px rgba(216,167,63,.13)}
+    }
+
   </style>
 
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@graph":[
-      {"@type":"Organization","name":"Freedom Book","url":"https://achadostube.com.br/freedom-book","logo":"https://achadostube.com.br/imagens/freedom-book-logo.png","description":"Editora digital independente com e-books profundos, visual premium e proposta de leitura transformadora."},
-      {"@type":"WebSite","name":"Freedom Book","url":"https://achadostube.com.br/freedom-book"},
-      {"@type":"ItemList","name":"Biblioteca Freedom Book","itemListElement":[
-        {"@type":"ListItem","position":1,"item":{"@type":"Book","name":"O Cansaço Invisível","author":{"@type":"Person","name":"Arthur Magnus"}}},
-        {"@type":"ListItem","position":2,"item":{"@type":"Book","name":"Quando Sua Vida Virou Sobrevivência","author":{"@type":"Person","name":"Arthur Magnus"}}},
-        {"@type":"ListItem","position":3,"item":{"@type":"Book","name":"A Vida Que Você Adiou","author":{"@type":"Person","name":"Arthur Magnus"}}},
-        {"@type":"ListItem","position":4,"item":{"@type":"Book","name":"O Peso de Ser Forte o Tempo Todo","author":{"@type":"Person","name":"Arthur Magnus"}}}
-      ]}
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Freedom Book",
+      "url": "https://achadostube.com.br/freedom-book",
+      "logo": "https://achadostube.com.br/imagens/freedom-book-logo.png",
+      "description": "Editora digital independente com e-books de reconstrução interior, guias de clareza prática, visual premium e leitura gratuita."
+    },
+    {
+      "@type": "WebSite",
+      "name": "Freedom Book",
+      "url": "https://achadostube.com.br/freedom-book"
+    },
+    {
+      "@type": "ItemList",
+      "name": "Biblioteca Freedom Book",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Book",
+            "name": "O Cansaço Invisível",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Book",
+            "name": "Quando Sua Vida Virou Sobrevivência",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Book",
+            "name": "A Vida Que Você Adiou",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Book",
+            "name": "O Peso de Ser Forte o Tempo Todo",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Book",
+            "name": "O Método da Vida Mais Leve",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -446,8 +557,8 @@
             <div class="hero-copy">
               <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Editora digital independente</span>
               <h1 class="heading">Freedom <span class="gold">Book</span></h1>
-              <p class="lead">E-books gratuitos para quem sente demais, pensa demais, carrega demais — e em algum momento percebe que precisa voltar a si.</p>
-              <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne leituras curtas, visuais premium e textos emocionalmente precisos. Materiais feitos para abrir no celular, ler sem cadastro, baixar em PDF e compartilhar com alguém que talvez esteja precisando de uma frase certa hoje.</p>
+              <p class="lead">E-books gratuitos para quem sente demais, pensa demais, vive no excesso mental — e em algum momento precisa de acolhimento, clareza e um próximo passo possível.</p>
+              <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne ensaios de reconstrução interior e guias de clareza prática. Materiais feitos para abrir no celular, ler sem cadastro, baixar em PDF e compartilhar com alguém que talvez precise de uma direção simples hoje.</p>
               <div class="hero-ctas">
                 <a href="#catalogo" class="btn" id="heroCatalogBtn">Ler e baixar grátis</a>
                 <a href="#apoie" class="btn secondary" id="heroSupportBtn">Apoiar com Pix</a>
@@ -461,7 +572,7 @@
               </div>
               <div class="mobile-book-strip" id="mobileBookStrip" aria-label="Acesso rápido aos e-books"></div>
               <div class="hero-points">
-                <div class="hero-point"><strong>Biblioteca gratuita</strong><div class="muted">Conteúdo autoral com visual sofisticado e proposta emocional consistente.</div></div>
+                <div class="hero-point"><strong>Biblioteca gratuita</strong><div class="muted">Conteúdo autoral com visual sofisticado, profundidade emocional e aplicação prática.</div></div>
                 <div class="hero-point"><strong>Leitura e download</strong><div class="muted">Estrutura pronta para leitura imediata e também para baixar em PDF.</div></div>
                 <div class="hero-point"><strong>Apoio voluntário</strong><div class="muted">Quem quiser pode apoiar a continuidade do projeto e ajudar novos livros a nascerem.</div></div>
               </div>
@@ -477,8 +588,8 @@
     <section class="section" id="catalogo">
       <div class="container">
         <h2 class="section-title reveal">Biblioteca Freedom Book</h2>
-        <p class="section-sub reveal">Uma biblioteca em expansão, com identidade forte, estética premium e mensagens para quem sente o peso invisível do cansaço, da sobrevivência emocional, da vida adiada e da obrigação de ser forte o tempo todo.</p>
-        <div class="featured-book-note reveal"><strong>Novo na coleção:</strong> “O Peso de Ser Forte o Tempo Todo” aprofunda a sobrecarga de quem sustenta tudo, ajuda muito, pede pouco e sente culpa ao descansar.</div>
+        <p class="section-sub reveal">Uma biblioteca em expansão, com identidade forte, estética premium e duas linhas editoriais: ensaios de reconstrução interior e guias de clareza prática para organizar a mente e recuperar direção.</p>
+        <div class="featured-book-note reveal"><strong>Nova linha editorial:</strong> “O Método da Vida Mais Leve” inaugura os Guias de Clareza Prática: uma linha mais aplicável, com organização mental, redução de excessos e rotina mínima para recuperar direção sem mudar tudo de uma vez.</div>
         <div class="books-grid" id="booksGrid"></div>
       </div>
     </section>
@@ -486,8 +597,8 @@
     <section class="section" id="manifesto">
       <div class="container">
         <div class="mission-wrap reveal">
-          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Manifesto</span><h3>Não publicamos apenas páginas. Publicamos espelhos.</h3><p>A Freedom Book nasceu da ideia de que algumas palavras chegam na hora exata. Nem sempre para ensinar algo grandioso, mas muitas vezes para nomear o que estava confuso, acolher o que estava pesado e acender algo que parecia esquecido.</p></div>
-          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos que ajudam a parar, sentir, entender e recomeçar.</h3><p>Nosso trabalho é transformar temas humanos delicados em experiências editoriais bonitas, profundas e acessíveis. Cada e-book busca deixar uma impressão real — não só visual, mas interna.</p></div>
+          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Manifesto</span><h3>Não publicamos apenas páginas. Publicamos espelhos e mapas.</h3><p>A Freedom Book nasceu da ideia de que algumas palavras chegam na hora exata. Às vezes elas acolhem o que estava pesado. Outras vezes organizam o que estava confuso e ajudam a transformar excesso mental em um próximo passo possível.</p></div>
+          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos que ajudam a sentir, organizar, simplificar e recomeçar.</h3><p>Nosso trabalho é transformar temas humanos e práticos em experiências editoriais bonitas, profundas e acessíveis. Cada e-book busca deixar uma impressão real — seja como acolhimento, clareza, método ou pequeno recomeço.</p></div>
         </div>
       </div>
     </section>
@@ -502,8 +613,8 @@
               <p>A Freedom Book existe para publicar materiais que ajudam pessoas de verdade. Cada capa, cada texto, cada página diagramada, cada revisão e cada ajuste visual consomem tempo, energia criativa e dedicação.</p>
               <p>Se você acredita no valor desse trabalho, pode apoiar com um Pix. É um gesto simples — mas ele ajuda a sustentar a continuidade do projeto e abre espaço para novos livros, novos temas e novas entregas.</p>
               <div class="support-list">
-                <div class="support-list-item"><span>•</span><div>Seu apoio ajuda a manter <strong>novos e-books gratuitos e de qualidade</strong>.</div></div>
-                <div class="support-list-item"><span>•</span><div>Você fortalece uma iniciativa editorial <strong>independente, autoral e sensível</strong>.</div></div>
+                <div class="support-list-item"><span>•</span><div>Seu apoio ajuda a manter <strong>novos e-books gratuitos, bonitos e úteis</strong>.</div></div>
+                <div class="support-list-item"><span>•</span><div>Você fortalece uma iniciativa editorial <strong>independente, autoral, sensível e prática</strong>.</div></div>
                 <div class="support-list-item"><span>•</span><div>Mesmo um valor pequeno já comunica algo importante: <strong>“isso fez diferença para mim”</strong>.</div></div>
               </div>
             </div>
@@ -525,7 +636,7 @@
       </div>
     </section>
 
-    <section class="section"><div class="container"><div class="channel-wrap reveal"><div class="channel-grid"><div><h3>Quer acompanhar próximos lançamentos e novos materiais?</h3><p>Entre no canal do WhatsApp da Freedom Book para acompanhar novidades, novos e-books, atualizações e próximos projetos editoriais. Isso é opcional e não interfere no acesso aos livros.</p></div><div style="display:grid;gap:10px;"><a href="#" class="btn whatsapp" target="_blank" rel="noopener noreferrer" id="whatsappChannelBtn">Entrar no canal do WhatsApp</a><a href="#catalogo" class="btn secondary">Continuar vendo os livros</a></div></div></div></div></section>
+    <section class="section"><div class="container"><div class="channel-wrap reveal"><div class="channel-grid"><div><h3>Quer acompanhar próximos lançamentos, ensaios e guias?</h3><p>Entre no canal do WhatsApp da Freedom Book para acompanhar novidades, novos e-books, guias práticos e próximos projetos editoriais. Isso é opcional e não interfere no acesso aos livros.</p></div><div style="display:grid;gap:10px;"><a href="#" class="btn whatsapp" target="_blank" rel="noopener noreferrer" id="whatsappChannelBtn">Entrar no canal do WhatsApp</a><a href="#catalogo" class="btn secondary">Continuar vendo os livros</a></div></div></div></div></section>
 
     <section class="section" id="faq"><div class="container"><h2 class="section-title reveal">Perguntas frequentes</h2><p class="section-sub reveal">Respostas rápidas para facilitar o uso da página, acesso aos livros e entendimento do apoio via Pix.</p><div class="faq-wrap reveal" id="faqWrap"></div></div></section>
 
@@ -535,7 +646,7 @@
   <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><img id="footerMark" alt="Freedom Book" loading="lazy" width="40" height="40" /><div><div id="footerBrandTitle">Freedom Book</div><div style="color:#bfb7a7;font-size:.9rem;">Editora digital independente</div></div></div><div class="footer-links"><a href="#" data-modal-open="privacy">Política de privacidade</a><a href="#" data-modal-open="terms">Termos</a><a href="mailto:contato@achadostube.com.br" id="contactLink">Contato</a></div></div><div class="company-box"><div id="companyNameLine">Freedom Book</div><div id="companyDocLine">Projeto editorial independente</div><div id="companyAddressLine">Brasil</div><div id="companyEmailLine">contato@achadostube.com.br</div></div></div></div></footer>
 
   <a href="#catalogo" class="btn floating-cta" id="floatingCatalogBtn" aria-label="Ver catálogo">Ver catálogo</a>
-  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ler e baixar grátis</a></div>
+  <div class="sticky-mobile"><a href="#catalogo" class="btn" id="stickyMobileBtn">Ver e baixar os e-books grátis</a></div>
 
   <div class="modal" id="legalModal" aria-hidden="true"><div class="modal-backdrop" data-modal-close></div><div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle" aria-describedby="legalModalContent"><button class="modal-close" type="button" aria-label="Fechar" data-modal-close>×</button><div class="modal-head"><div class="modal-kicker">Informações legais</div><h2 id="legalModalTitle">Política de Privacidade</h2></div><div class="modal-body" id="legalModalContent"></div></div></div>
 
@@ -545,8 +656,8 @@
 
       const cfg = {
         pageUrl: "https://achadostube.com.br/freedom-book",
-        pageTitle: "Freedom Book — E-books que tocam, despertam e ajudam a reconstruir",
-        shareText: "Conheça a Freedom Book e seus e-books gratuitos.",
+        pageTitle: "Freedom Book — Biblioteca de E-books Gratuitos",
+        shareText: "Conheça a Freedom Book: e-books gratuitos para reconstrução interior e clareza prática.",
         brandName: "Freedom Book",
         brandDescription: "Editora digital independente",
         contactEmail: "contato@achadostube.com.br",
@@ -555,26 +666,28 @@
         support: {
           pixKey: "livepix.gg/editorafreedombook",
           pixPageUrl: "https://livepix.gg/editorafreedombook",
-          pixQrUrl: "https://achadostube.com.br/imagens/livepix-qr.PNG",
+          pixQrUrl: "https://achadostube.com.br/imagens/livepix-qr.png",
           suggestedValues: ["R$ 5", "R$ 10", "R$ 20", "R$ 30", "R$ 50"]
         },
         stats: [
           { value: "PDF", label: "leitura gratuita" },
-          { value: "100%", label: "conteúdo autoral" },
+          { value: "2", label: "linhas editoriais" },
           { value: "1", label: "editora independente" },
           { value: "∞", label: "possibilidades de impacto" }
         ],
         books: [
-          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Um e-book para quem está exausto por dentro, mesmo quando por fora continua funcionando. Uma leitura sobre o peso silencioso que nem sempre os outros veem.",tags:["cansaço emocional","sobrecarga","acolhimento"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível"},
-          {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Para quem percebeu que deixou de viver e passou apenas a suportar os dias. Um convite à lucidez, à pausa e à reconstrução interna.",tags:["sobrevivência emocional","lucidez","retomada"],readUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência"},
-          {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura para quem vive esperando o momento ideal e sente que a própria vida foi ficando para depois. Um chamado à coragem e à presença.",tags:["adiamento","coragem","presença"],readUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou"},
-          {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04 · novo",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Para quem se acostumou a carregar tudo sozinho, sustentar todos ao redor e quase nunca se permitir descansar sem culpa.",tags:["força excessiva","sobrecarga","limites"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo_v2_premium_pix.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo"}
+          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Um e-book para quem está exausto por dentro, mesmo quando por fora continua funcionando. Uma leitura sobre o peso silencioso que nem sempre os outros veem.",tags:["cansaço emocional","sobrecarga","acolhimento"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reconstrucao"},
+          {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Para quem percebeu que deixou de viver e passou apenas a suportar os dias. Um convite à lucidez, à pausa e à reconstrução interna.",tags:["sobrevivência emocional","lucidez","retomada"],readUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reconstrucao"},
+          {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura para quem vive esperando o momento ideal e sente que a própria vida foi ficando para depois. Um chamado à coragem e à presença.",tags:["adiamento","coragem","presença"],readUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou",line:"reconstrucao"},
+          {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Para quem se acostumou a carregar tudo sozinho, sustentar todos ao redor e quase nunca se permitir descansar sem culpa.",tags:["força excessiva","sobrecarga","limites"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo_v2_premium_pix.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo",line:"reconstrucao"},
+          {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01 · novo",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar a mente, reduzir excessos e recuperar controle dos seus dias sem mudar tudo de uma vez.",tags:["clareza prática","organização mental","rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"}
         ],
         faq: [
           {q:"Os e-books são gratuitos?",a:"Sim. A página foi preparada para liberar leitura e download dos PDFs, com apoio via Pix totalmente voluntário."},
+          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Reconstrução Interior reúne leituras mais emocionais e reflexivas. A linha Guias de Clareza Prática traz materiais mais aplicáveis, com métodos simples, organização mental e passos possíveis."},
           {q:"O apoio via Pix é obrigatório?",a:"Não. O apoio é totalmente voluntário. Ele serve como uma forma elegante de retribuição para quem quiser ajudar o projeto a continuar."},
-          {q:"Posso compartilhar esta página ou os livros?",a:"Sim. A página foi preparada com botões de compartilhamento, para facilitar o envio a outras pessoas."},
-          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais parece falar com o seu momento: cansaço invisível, sobrevivência emocional, vida adiada ou o peso de ser forte o tempo todo."}
+          {q:"Posso compartilhar esta página ou os livros?",a:"Sim. A página foi preparada com botões de compartilhamento para facilitar o envio a outras pessoas."},
+          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais parece falar com o seu momento: cansaço invisível, sobrevivência emocional, vida adiada, excesso de força ou organização mental para uma vida mais leve."}
         ],
         legal: {
           privacy: {title:"Política de Privacidade",html:`<h3>1. Coleta de informações</h3><p>Esta página pode registrar informações técnicas básicas de navegação, como páginas visitadas, cliques, dispositivo, navegador e origem de tráfego, com a finalidade de melhorar a experiência do usuário e compreender o desempenho do conteúdo.</p><h3>2. Tecnologias de medição</h3><p>Podemos utilizar ferramentas de análise e mensuração, incluindo pixels e scripts estatísticos, para entender interações com a página, leituras, downloads, compartilhamentos e acessos.</p><h3>3. Cookies e identificadores</h3><p>O site pode utilizar cookies e tecnologias semelhantes para funcionamento, medição de desempenho, personalização básica de experiência e análise de acesso.</p><h3>4. Compartilhamento de dados</h3><p>Não vendemos dados pessoais. Informações técnicas podem ser processadas por plataformas de hospedagem, análise, mensuração e entrega de conteúdo, conforme as políticas desses serviços.</p><h3>5. Finalidade de uso</h3><ul><li>melhorar a navegação e usabilidade do site;</li><li>medir acessos, downloads, compartilhamentos e interações;</li><li>entender desempenho de páginas e conteúdos;</li><li>aprimorar materiais e experiência do usuário.</li></ul>`},
@@ -605,8 +718,8 @@
       const heroCoversStack = byId("heroCoversStack");
       if(heroCoversStack){
         heroCoversStack.innerHTML="";
-        cfg.books.slice(0,4).forEach(function(book,index){
-          const classes = ["cover-a","cover-b","cover-c","cover-d"];
+        cfg.books.slice(0,5).forEach(function(book,index){
+          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e"];
           const wrap=createEl("div","cover-float "+classes[index]);
           const img=document.createElement("img");img.alt="Capa do e-book "+book.title;img.loading="lazy";img.src=book.cover;img.onerror=function(){img.removeAttribute("src");};
           wrap.appendChild(img);heroCoversStack.appendChild(wrap);
@@ -638,7 +751,7 @@
       if(booksGrid){
         booksGrid.innerHTML="";
         cfg.books.forEach(function(book){
-          const article=createEl("article","card book-card reveal");article.id="book-"+book.slug;
+          const article=createEl("article","card book-card reveal");article.id="book-"+book.slug;article.dataset.line=book.line||"reconstrucao";
           const coverWrap=createEl("div","book-cover-wrap");
           const cover=document.createElement("img");cover.alt="Capa do e-book "+book.title;cover.loading="lazy";cover.src=book.cover;cover.onerror=function(){cover.removeAttribute("src");};coverWrap.appendChild(cover);
           const content=createEl("div","book-content");
@@ -655,7 +768,7 @@
           const copyLinkBtn=createEl("button","share-chip","Copiar link");copyLinkBtn.type="button";copyLinkBtn.addEventListener("click",async function(){try{await navigator.clipboard.writeText(shareUrl);copyLinkBtn.textContent="Link copiado";setTimeout(function(){copyLinkBtn.textContent="Copiar link";},1800);}catch(e){window.prompt("Copie o link:",shareUrl);}trackEvent("share",{content_name:book.title,platform:"copy_link"});});
           [[shareWhats,"whatsapp"],[shareFace,"facebook"],[shareTele,"telegram"]].forEach(function(pair){pair[0].addEventListener("click",function(){trackEvent("share",{content_name:book.title,platform:pair[1]});});});
           shareRow.append(shareWhats,shareFace,shareTele,copyLinkBtn);actions.append(mainActions,shareRow);
-          content.append(createEl("span","book-badge",safeText(book.badge)),createEl("h3","book-title",safeText(book.title)),createEl("p","book-desc",safeText(book.description)),tags,actions);
+          content.append(createEl("span","book-badge",safeText(book.badge)),createEl("div","line-label",book.line==="pratica" ? "Linha: Clareza Prática" : "Linha: Reconstrução Interior"),createEl("h3","book-title",safeText(book.title)),createEl("p","book-desc",safeText(book.description)),tags,actions);
           article.append(coverWrap,content);booksGrid.appendChild(article);
         });
       }
