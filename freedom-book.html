@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>Freedom Book — Biblioteca de E-books Gratuitos</title>
-  <meta name="description" content="Conheça a Freedom Book: e-books gratuitos, autorais e visuais para leitura reflexiva, recomeços, foco, clareza mental, disciplina, leveza e desenvolvimento cotidiano." />
+  <meta name="description" content="Conheça a Freedom Book: e-books gratuitos, autorais e visuais para propósito, recomeços, foco, clareza mental, disciplina, leveza e desenvolvimento cotidiano." />
   <meta name="theme-color" content="#07070a" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="author" content="Freedom Book" />
@@ -16,7 +16,7 @@
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
-  <meta property="og:description" content="Leituras reflexivas e guias práticos gratuitos para recomeços, foco, clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
+  <meta property="og:description" content="Leituras reflexivas e guias práticos gratuitos para propósito, recomeços, foco, clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
   <meta property="og:url" content="https://achadostube.com.br/freedom-book" />
   <meta property="og:site_name" content="Freedom Book" />
   <meta property="og:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
@@ -27,7 +27,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
-  <meta name="twitter:description" content="Leituras reflexivas e guias práticos gratuitos para recomeços, foco, clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
+  <meta name="twitter:description" content="Leituras reflexivas e guias práticos gratuitos para propósito, recomeços, foco, clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
   <meta name="twitter:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any" />
@@ -2124,6 +2124,88 @@
       }
     }
 
+
+    /* ===== PATCH NOVO E-BOOK — PROPÓSITO MAIOR ===== */
+    .book-card:first-child{
+      border-color:rgba(240,199,104,.48)!important;
+      box-shadow:
+        0 40px 120px rgba(216,167,63,.22),
+        0 0 0 1px rgba(240,199,104,.13)!important;
+    }
+    .book-card:first-child::before{
+      content:"NOVO E-BOOK";
+      position:absolute;
+      top:14px;
+      right:14px;
+      z-index:8;
+      min-height:32px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,240,189,.36);
+      background:linear-gradient(180deg,#fff2bf 0%, #e0ae4b 58%, #986615 100%);
+      color:#1a1208;
+      font-size:.72rem;
+      font-weight:950;
+      letter-spacing:.075em;
+      text-transform:uppercase;
+      box-shadow:0 10px 24px rgba(216,167,63,.28), inset 0 1px 0 rgba(255,255,255,.40);
+    }
+    .book-card:first-child .book-title{
+      color:#fff6d9;
+      text-shadow:0 14px 34px rgba(216,167,63,.14);
+    }
+    .book-card:first-child .book-cover-wrap{
+      background:
+        radial-gradient(circle at 50% 8%, rgba(255,236,171,.26), transparent 36%),
+        radial-gradient(circle at 50% 78%, rgba(240,199,104,.17), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.030), rgba(255,255,255,.006)),
+        #0a0d12!important;
+    }
+
+    .covers-stack{width:min(100%,790px);height:705px}
+    .cover-float{width:168px}
+    .cover-a{left:0;bottom:142px;--r:-9deg}
+    .cover-b{left:118px;top:0;z-index:11;--r:-2deg}
+    .cover-c{right:74px;top:42px;z-index:6;--r:7deg}
+    .cover-d{left:338px;bottom:10px;z-index:10;--r:3deg}
+    .cover-e{right:30px;bottom:124px;z-index:8;--r:-4deg}
+    .cover-f{left:36px;top:210px;z-index:5;--r:6deg}
+    .cover-g{left:202px;top:244px;z-index:4;--r:-6deg}
+    .cover-h{right:176px;top:276px;z-index:3;--r:5deg}
+    .cover-i{right:14px;top:262px;z-index:2;--r:-7deg}
+    .cover-j{left:430px;top:172px;z-index:1;--r:8deg}
+
+    @media (max-width:1180px){
+      .covers-stack{width:min(100%,680px);height:645px}
+      .cover-float{width:156px}
+      .cover-a{left:4px;bottom:118px}
+      .cover-b{left:110px;top:0}
+      .cover-c{right:60px;top:58px}
+      .cover-d{left:280px;bottom:8px}
+      .cover-e{right:22px;bottom:106px}
+      .cover-f{left:38px;top:182px}
+      .cover-g{left:188px;top:222px}
+      .cover-h{right:136px;top:254px}
+      .cover-i{right:0;top:242px}
+      .cover-j{left:356px;top:172px}
+    }
+
+    @media (max-width:900px){
+      .book-card:first-child::before{
+        top:10px;
+        right:10px;
+        min-height:30px;
+        padding:0 10px;
+        font-size:.66rem;
+      }
+      .book-card:first-child{
+        box-shadow:0 26px 90px rgba(216,167,63,.19)!important;
+      }
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -2151,7 +2233,7 @@
           "position": 1,
           "item": {
             "@type": "Book",
-            "name": "Recomeços São Escolhas",
+            "name": "Propósito Maior",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2163,7 +2245,7 @@
           "position": 2,
           "item": {
             "@type": "Book",
-            "name": "Foco Que Gera Resultados",
+            "name": "Recomeços São Escolhas",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2175,7 +2257,7 @@
           "position": 3,
           "item": {
             "@type": "Book",
-            "name": "Mente Forte Vida Leve",
+            "name": "Foco Que Gera Resultados",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2187,7 +2269,7 @@
           "position": 4,
           "item": {
             "@type": "Book",
-            "name": "Disciplina é Liberdade",
+            "name": "Mente Forte Vida Leve",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2199,7 +2281,7 @@
           "position": 5,
           "item": {
             "@type": "Book",
-            "name": "O Método da Vida Mais Leve",
+            "name": "Disciplina é Liberdade",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2211,7 +2293,7 @@
           "position": 6,
           "item": {
             "@type": "Book",
-            "name": "O Cansaço Invisível",
+            "name": "O Método da Vida Mais Leve",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2223,7 +2305,7 @@
           "position": 7,
           "item": {
             "@type": "Book",
-            "name": "Quando Sua Vida Virou Sobrevivência",
+            "name": "O Cansaço Invisível",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2235,7 +2317,7 @@
           "position": 8,
           "item": {
             "@type": "Book",
-            "name": "A Vida Que Você Adiou",
+            "name": "Quando Sua Vida Virou Sobrevivência",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -2245,6 +2327,18 @@
         {
           "@type": "ListItem",
           "position": 9,
+          "item": {
+            "@type": "Book",
+            "name": "A Vida Que Você Adiou",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
           "item": {
             "@type": "Book",
             "name": "O Peso de Ser Forte o Tempo Todo",
@@ -2299,7 +2393,7 @@
             <div class="hero-copy">
               <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Editora digital independente</span>
               <h1 class="heading">Freedom <span class="gold">Book</span></h1>
-              <p class="lead">E-books gratuitos para leitura reflexiva, recomeços, foco, clareza mental, presença, disciplina e desenvolvimento cotidiano.</p>
+              <p class="lead">E-books gratuitos para propósito, leitura reflexiva, recomeços, foco, clareza mental, presença, disciplina e desenvolvimento cotidiano.</p>
               <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne conteúdos autorais em PDF, com visual premium e leitura simples pelo celular. Escolha um tema, abra o material gratuitamente e compartilhe com quem gosta de leituras bonitas, práticas e bem apresentadas.</p>
               <div class="hero-ctas">
                 <a href="#catalogo" class="btn" id="heroCatalogBtn">Ver e-books gratuitos</a>
@@ -2330,8 +2424,8 @@
     <section class="section" id="catalogo">
       <div class="container">
         <h2 class="section-title reveal">Biblioteca Freedom Book</h2>
-        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para recomeços, foco, clareza mental, disciplina, leveza, organização de ideias e rotina mais simples.</p>
-        <div class="featured-book-note reveal"><strong>Novo material na biblioteca:</strong> “Recomeços São Escolhas” amplia a linha de Leituras Reflexivas da Freedom Book com um e-book visual sobre fins, viradas de ciclo, método P.O.R.T.A. e pequenos passos para voltar ao movimento.</div>
+        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para propósito, recomeços, foco, clareza mental, disciplina, leveza, organização de ideias e rotina mais simples.</p>
+        <div class="featured-book-note reveal"><strong>Novo material na biblioteca:</strong> “Propósito Maior” amplia a linha Freedom Book com uma leitura visual sobre sentido, valores, direção, método M.A.P.A. e escolhas mais coerentes.</div>
         <div class="books-grid" id="booksGrid"></div>
       </div>
     </section>
@@ -2340,7 +2434,7 @@
       <div class="container">
         <div class="mission-wrap reveal">
           <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Manifesto</span><h3>Publicamos leituras bonitas, acessíveis e fáceis de compartilhar.</h3><p>A Freedom Book nasceu para transformar ideias, reflexões e métodos simples em materiais digitais bem apresentados. Cada e-book foi pensado para ser lido no celular, baixado em PDF e compartilhado com quem aprecia conteúdos autorais.</p></div>
-          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, recomeços, foco, clareza mental, disciplina, leveza e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada, acessível e aplicável no cotidiano.</p></div>
+          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, propósito, recomeços, foco, clareza mental, disciplina, leveza e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada, acessível e aplicável no cotidiano.</p></div>
         </div>
       </div>
     </section>
@@ -2399,7 +2493,7 @@
       const cfg = {
         pageUrl: "https://achadostube.com.br/freedom-book",
         pageTitle: "Freedom Book — Biblioteca de E-books Gratuitos",
-        shareText: "Conheça a Freedom Book: e-books gratuitos para recomeços, foco, clareza mental, leituras reflexivas e guias práticos.",
+        shareText: "Conheça a Freedom Book: e-books gratuitos para propósito, recomeços, foco, clareza mental, leituras reflexivas e guias práticos.",
         brandName: "Freedom Book",
         brandDescription: "Editora digital independente",
         contactEmail: "contato@achadostube.com.br",
@@ -2418,22 +2512,23 @@
           { value: "∞", label: "novos temas em expansão" }
         ],
         books: [
-          {slug:"recomecos-sao-escolhas",title:"Recomeços São Escolhas",badge:"Guia 05 · novo",cover:"https://achadostube.com.br/imagens/capa-recomecos-sao-escolhas.png",description:"Um guia visual e reflexivo para transformar fins em novos começos com clareza, coragem e pequenos passos possíveis.",tags:["recomeços","clareza","coragem"],readUrl:"https://achadostube.com.br/recomecos-sao-escolhas",downloadUrl:"https://achadostube.com.br/ebook/recomecos-sao-escolhas.pdf",shareText:"Leia o guia Recomeços São Escolhas",line:"reflexiva"},
+          {slug:"proposito-maior",title:"Propósito Maior",badge:"Guia 06 · novo",cover:"https://achadostube.com.br/imagens/capa-proposito-maior.png",description:"Um guia visual e reflexivo para descobrir por que você está aqui, reconhecer valores inegociáveis e transformar sentido em direção.",tags:["propósito","direção","sentido"],readUrl:"https://achadostube.com.br/proposito-maior",downloadUrl:"https://achadostube.com.br/ebook/proposito-maior.pdf",shareText:"Leia o guia Propósito Maior",line:"reflexiva"},
+          {slug:"recomecos-sao-escolhas",title:"Recomeços São Escolhas",badge:"Guia 05",cover:"https://achadostube.com.br/imagens/capa-recomecos-sao-escolhas.png",description:"Um guia visual e reflexivo para transformar fins em novos começos com clareza, coragem e pequenos passos possíveis.",tags:["recomeços","clareza","coragem"],readUrl:"https://achadostube.com.br/recomecos-sao-escolhas",downloadUrl:"https://achadostube.com.br/ebook/recomecos-sao-escolhas.pdf",shareText:"Leia o guia Recomeços São Escolhas",line:"reflexiva"},
           {slug:"foco-que-gera-resultados",title:"Foco Que Gera Resultados",badge:"Guia 04",cover:"https://achadostube.com.br/imagens/capa-foco-que-gera-resultados.png",description:"Um guia visual e prático para reduzir distrações, proteger sua atenção e transformar esforço em progresso real.",tags:["foco","atenção","resultado"],readUrl:"https://achadostube.com.br/foco-que-gera-resultados",downloadUrl:"https://achadostube.com.br/ebook/foco-que-gera-resultados.pdf",shareText:"Leia o guia Foco Que Gera Resultados",line:"pratica"},
           {slug:"mente-forte-vida-leve",title:"Mente Forte Vida Leve",badge:"Guia 03",cover:"https://achadostube.com.br/imagens/capa-mente-forte-vida-leve.png",description:"Um guia visual e prático para reduzir ruído mental, organizar pensamentos e viver com mais clareza, presença e leveza.",tags:["clareza mental","presença","leveza"],readUrl:"https://achadostube.com.br/mente-forte-vida-leve",downloadUrl:"https://achadostube.com.br/ebook/mente-forte-vida-leve.pdf",shareText:"Leia o guia Mente Forte Vida Leve",line:"pratica"},
           {slug:"disciplina-e-liberdade",title:"Disciplina é Liberdade",badge:"Guia 02",cover:"https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",description:"Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",tags:["disciplina","consistência","liberdade"],readUrl:"https://achadostube.com.br/disciplina-e-liberdade",downloadUrl:"https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf",shareText:"Leia o guia Disciplina é Liberdade",line:"pratica"},
           {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar ideias, reduzir excessos e recuperar direção nos seus dias sem mudar tudo de uma vez.",tags:["clareza prática","organização","rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"},
-          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna. Um material para quem busca nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão","rotina","clareza"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
-          {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Uma leitura sobre rotina, pausa e retomada de perspectiva. Um convite para observar os dias com mais presença e clareza.",tags:["pausa","perspectiva","retomada"],readUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reflexiva"},
-          {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura sobre adiamentos, escolhas e pequenos começos possíveis. Um convite para refletir sobre presença, direção e próximos passos.",tags:["adiamento","presença","direção"],readUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou",line:"reflexiva"},
+          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna. Um material para quem busca nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão","rotina","clareza"],readUrl:"https://achadostube.com.br/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
+          {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Uma leitura sobre rotina, pausa e retomada de perspectiva. Um convite para observar os dias com mais presença e clareza.",tags:["pausa","perspectiva","retomada"],readUrl:"https://achadostube.com.br/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reflexiva"},
+          {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura sobre adiamentos, escolhas e pequenos começos possíveis. Um convite para refletir sobre presença, direção e próximos passos.",tags:["adiamento","presença","direção"],readUrl:"https://achadostube.com.br/a-vida-que-voce-adiou.pdf",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou",line:"reflexiva"},
           {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Uma leitura sobre excesso de responsabilidade, limites pessoais e a importância de reconhecer quando a rotina ficou pesada demais.",tags:["responsabilidade","limites","rotina"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo_v2_premium_pix.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo",line:"reflexiva"}
         ],
         faq: [
           {q:"Os e-books são gratuitos?",a:"Sim. A página foi preparada para liberar leitura e download dos PDFs, com apoio via Pix totalmente voluntário."},
-          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias Práticos traz materiais mais aplicáveis, com métodos simples, recomeços, foco, clareza mental, disciplina, rotina e passos possíveis."},
+          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias Práticos traz materiais mais aplicáveis, com métodos simples, propósito, recomeços, foco, clareza mental, disciplina, rotina e passos possíveis."},
           {q:"O apoio via Pix é obrigatório?",a:"Não. O apoio é totalmente voluntário. Você pode ler, baixar e compartilhar os materiais sem contribuir financeiramente."},
           {q:"Posso compartilhar esta página ou os livros?",a:"Sim. A página foi preparada com botões de compartilhamento para facilitar o envio a outras pessoas."},
-          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: recomeços, foco, clareza mental, leitura reflexiva, rotina, presença, responsabilidade pessoal, disciplina ou organização de ideias para uma vida mais leve."},
+          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: propósito, recomeços, foco, clareza mental, leitura reflexiva, rotina, presença, responsabilidade pessoal, disciplina ou organização de ideias para uma vida mais leve."},
           {q:"Este conteúdo substitui orientação profissional?",a:"Não. Os materiais têm finalidade educativa, reflexiva e editorial. Quando necessário, procure apoio profissional qualificado."}
         ],
         legal: {
@@ -2465,8 +2560,8 @@
       const heroCoversStack = byId("heroCoversStack");
       if(heroCoversStack){
         heroCoversStack.innerHTML="";
-        cfg.books.slice(0,9).forEach(function(book,index){
-          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f","cover-g","cover-h","cover-i"];
+        cfg.books.slice(0,10).forEach(function(book,index){
+          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f","cover-g","cover-h","cover-i","cover-j"];
           const wrap=createEl("div","cover-float "+classes[index]);
           const img=document.createElement("img");img.alt="Capa do e-book "+book.title;img.loading="lazy";img.src=book.cover;img.onerror=function(){img.removeAttribute("src");};
           wrap.appendChild(img);heroCoversStack.appendChild(wrap);
@@ -2515,7 +2610,7 @@
           const copyLinkBtn=createEl("button","share-chip","Copiar link");copyLinkBtn.type="button";copyLinkBtn.addEventListener("click",async function(){try{await navigator.clipboard.writeText(shareUrl);copyLinkBtn.textContent="Link copiado";setTimeout(function(){copyLinkBtn.textContent="Copiar link";},1800);}catch(e){window.prompt("Copie o link:",shareUrl);}trackEvent("share",{content_name:book.title,platform:"copy_link"});});
           [[shareWhats,"whatsapp"],[shareFace,"facebook"],[shareTele,"telegram"]].forEach(function(pair){pair[0].addEventListener("click",function(){trackEvent("share",{content_name:book.title,platform:pair[1]});});});
           shareRow.append(shareWhats,shareFace,shareTele,copyLinkBtn);actions.append(mainActions,shareRow);
-          content.append(createEl("span","book-badge",safeText(book.badge)),createEl("div","line-label",book.line==="pratica" ? "Linha: Guias Práticos" : "Linha: Leituras Reflexivas"),createEl("h3","book-title",safeText(book.title)),createEl("p","book-desc",safeText(book.description)),tags,actions);
+          content.append(createEl("span","book-badge",safeText(book.badge)), createEl("div","line-label",book.line==="pratica" ? "Linha: Guias Práticos" : "Linha: Leituras Reflexivas"), createEl("h3","book-title",safeText(book.title)), createEl("p","book-desc",safeText(book.description)), tags, actions);
           article.append(coverWrap,content);booksGrid.appendChild(article);
         });
       }
