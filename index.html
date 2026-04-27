@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>Freedom Book — Biblioteca de E-books Gratuitos</title>
-  <meta name="description" content="Conheça a Freedom Book: e-books gratuitos, autorais e visuais para leitura reflexiva, clareza pessoal, disciplina, organização de ideias e desenvolvimento cotidiano." />
+  <meta name="description" content="Conheça a Freedom Book: e-books gratuitos, autorais e visuais para leitura reflexiva, clareza mental, disciplina, leveza, organização de ideias e desenvolvimento cotidiano." />
   <meta name="theme-color" content="#07070a" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="author" content="Freedom Book" />
@@ -16,7 +16,7 @@
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
-  <meta property="og:description" content="Leituras reflexivas e guias práticos gratuitos para clareza, disciplina, organização de ideias e desenvolvimento cotidiano." />
+  <meta property="og:description" content="Leituras reflexivas e guias práticos gratuitos para clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
   <meta property="og:url" content="https://achadostube.com.br" />
   <meta property="og:site_name" content="Freedom Book" />
   <meta property="og:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
@@ -27,7 +27,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Freedom Book — Biblioteca de E-books Gratuitos" />
-  <meta name="twitter:description" content="Leituras reflexivas e guias práticos gratuitos para clareza, disciplina, organização de ideias e desenvolvimento cotidiano." />
+  <meta name="twitter:description" content="Leituras reflexivas e guias práticos gratuitos para clareza mental, presença, disciplina, leveza e desenvolvimento cotidiano." />
   <meta name="twitter:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
 
   <link rel="icon" href="/imagens/favicon.ico" sizes="any" />
@@ -1890,6 +1890,82 @@
       }
     }
 
+
+    /* ===== PATCH NOVO E-BOOK — MENTE FORTE VIDA LEVE ===== */
+    .book-card:first-child{
+      border-color:rgba(240,199,104,.42)!important;
+      box-shadow:
+        0 34px 104px rgba(216,167,63,.18),
+        0 0 0 1px rgba(240,199,104,.10)!important;
+    }
+    .book-card:first-child::before{
+      content:"NOVO GUIA";
+      position:absolute;
+      top:14px;
+      right:14px;
+      z-index:6;
+      min-height:32px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,240,189,.34);
+      background:linear-gradient(180deg,#fff2bf 0%, #e0ae4b 58%, #986615 100%);
+      color:#1a1208;
+      font-size:.72rem;
+      font-weight:950;
+      letter-spacing:.075em;
+      text-transform:uppercase;
+      box-shadow:0 10px 24px rgba(216,167,63,.22), inset 0 1px 0 rgba(255,255,255,.38);
+    }
+    .book-card:first-child .book-title{
+      color:#fff6d9;
+      text-shadow:0 14px 34px rgba(216,167,63,.10);
+    }
+    .book-card:first-child .book-cover-wrap{
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,236,171,.20), transparent 36%),
+        radial-gradient(circle at 50% 78%, rgba(240,199,104,.13), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.006)),
+        #0a0d12!important;
+    }
+
+    .cover-g{left:216px;top:198px;z-index:0;--r:-6deg}
+    .covers-stack{width:min(100%,690px);height:655px}
+    .cover-float{width:198px}
+    .cover-a{left:0;bottom:108px;--r:-9deg}
+    .cover-b{left:150px;top:0;z-index:8;--r:-2deg}
+    .cover-c{right:24px;top:66px;z-index:3;--r:7deg}
+    .cover-d{left:316px;bottom:10px;z-index:7;--r:3deg}
+    .cover-e{right:0;bottom:116px;z-index:5;--r:-4deg}
+    .cover-f{left:46px;top:176px;z-index:2;--r:6deg}
+
+    @media (max-width:1180px){
+      .covers-stack{width:min(100%,620px);height:610px}
+      .cover-float{width:182px}
+      .cover-a{left:4px;bottom:92px}
+      .cover-b{left:132px;top:0}
+      .cover-c{right:12px;top:70px}
+      .cover-d{left:268px;bottom:8px}
+      .cover-e{right:0;bottom:90px}
+      .cover-f{left:42px;top:158px}
+      .cover-g{left:200px;top:186px}
+    }
+
+    @media (max-width:900px){
+      .book-card:first-child::before{
+        top:10px;
+        right:10px;
+        min-height:30px;
+        padding:0 10px;
+        font-size:.66rem;
+      }
+      .book-card:first-child{
+        box-shadow:0 26px 84px rgba(216,167,63,.16)!important;
+      }
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -1917,7 +1993,7 @@
           "position": 1,
           "item": {
             "@type": "Book",
-            "name": "Disciplina é Liberdade",
+            "name": "Mente Forte Vida Leve",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -1929,7 +2005,7 @@
           "position": 2,
           "item": {
             "@type": "Book",
-            "name": "O Método da Vida Mais Leve",
+            "name": "Disciplina é Liberdade",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -1941,7 +2017,7 @@
           "position": 3,
           "item": {
             "@type": "Book",
-            "name": "O Cansaço Invisível",
+            "name": "O Método da Vida Mais Leve",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -1953,7 +2029,7 @@
           "position": 4,
           "item": {
             "@type": "Book",
-            "name": "Quando Sua Vida Virou Sobrevivência",
+            "name": "O Cansaço Invisível",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -1965,7 +2041,7 @@
           "position": 5,
           "item": {
             "@type": "Book",
-            "name": "A Vida Que Você Adiou",
+            "name": "Quando Sua Vida Virou Sobrevivência",
             "author": {
               "@type": "Person",
               "name": "Arthur Magnus"
@@ -1975,6 +2051,18 @@
         {
           "@type": "ListItem",
           "position": 6,
+          "item": {
+            "@type": "Book",
+            "name": "A Vida Que Você Adiou",
+            "author": {
+              "@type": "Person",
+              "name": "Arthur Magnus"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
           "item": {
             "@type": "Book",
             "name": "O Peso de Ser Forte o Tempo Todo",
@@ -2029,7 +2117,7 @@
             <div class="hero-copy">
               <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Editora digital independente</span>
               <h1 class="heading">Freedom <span class="gold">Book</span></h1>
-              <p class="lead">E-books gratuitos para leitura reflexiva, clareza pessoal, disciplina e desenvolvimento cotidiano.</p>
+              <p class="lead">E-books gratuitos para leitura reflexiva, clareza mental, presença, disciplina e desenvolvimento cotidiano.</p>
               <p class="muted" style="max-width:760px;margin:0;">A Freedom Book reúne conteúdos autorais em PDF, com visual premium e leitura simples pelo celular. Escolha um tema, abra o material gratuitamente e compartilhe com quem gosta de leituras bonitas, práticas e bem apresentadas.</p>
               <div class="hero-ctas">
                 <a href="#catalogo" class="btn" id="heroCatalogBtn">Ver e-books gratuitos</a>
@@ -2060,8 +2148,8 @@
     <section class="section" id="catalogo">
       <div class="container">
         <h2 class="section-title reveal">Biblioteca Freedom Book</h2>
-        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para clareza, disciplina, organização de ideias e rotina mais simples.</p>
-        <div class="featured-book-note reveal"><strong>Novo guia na biblioteca:</strong> “Disciplina é Liberdade” amplia a linha de Guias Práticos da Freedom Book com um material direto sobre foco, consistência, acordos mínimos e liberdade com direção.</div>
+        <p class="section-sub reveal">Uma biblioteca em expansão com duas linhas editoriais: leituras reflexivas para temas humanos e guias práticos para clareza mental, disciplina, leveza, organização de ideias e rotina mais simples.</p>
+        <div class="featured-book-note reveal"><strong>Novo guia na biblioteca:</strong> “Mente Forte Vida Leve” amplia a linha de Guias Práticos da Freedom Book com um material visual sobre clareza mental, pensamentos, presença e leveza para o dia a dia.</div>
         <div class="books-grid" id="booksGrid"></div>
       </div>
     </section>
@@ -2070,7 +2158,7 @@
       <div class="container">
         <div class="mission-wrap reveal">
           <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Manifesto</span><h3>Publicamos leituras bonitas, acessíveis e fáceis de compartilhar.</h3><p>A Freedom Book nasceu para transformar ideias, reflexões e métodos simples em materiais digitais bem apresentados. Cada e-book foi pensado para ser lido no celular, baixado em PDF e compartilhado com quem aprecia conteúdos autorais.</p></div>
-          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, clareza, disciplina e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada, acessível e aplicável no cotidiano.</p></div>
+          <div class="card mission-card"><span class="eyebrow"><span class="dot" aria-hidden="true"></span> Propósito</span><h3>Conteúdos para leitura, clareza mental, disciplina, leveza e pequenos momentos de organização pessoal.</h3><p>Nosso trabalho é criar experiências editoriais simples, elegantes e úteis. Alguns livros são mais reflexivos; outros são mais práticos. Todos buscam oferecer uma leitura agradável, visualmente cuidada, acessível e aplicável no cotidiano.</p></div>
         </div>
       </div>
     </section>
@@ -2129,7 +2217,7 @@
       const cfg = {
         pageUrl: "https://achadostube.com.br/freedom-book",
         pageTitle: "Freedom Book — Biblioteca de E-books Gratuitos",
-        shareText: "Conheça a Freedom Book: e-books gratuitos para leitura reflexiva, clareza e guias práticos.",
+        shareText: "Conheça a Freedom Book: e-books gratuitos para clareza mental, leituras reflexivas e guias práticos.",
         brandName: "Freedom Book",
         brandDescription: "Editora digital independente",
         contactEmail: "contato@achadostube.com.br",
@@ -2148,7 +2236,8 @@
           { value: "∞", label: "novos temas em expansão" }
         ],
         books: [
-          {slug:"disciplina-e-liberdade",title:"Disciplina é Liberdade",badge:"Guia 02 · novo",cover:"https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",description:"Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",tags:["disciplina","consistência","liberdade"],readUrl:"https://achadostube.com.br/disciplina-e-liberdade",downloadUrl:"https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf",shareText:"Leia o guia Disciplina é Liberdade",line:"pratica"},
+          {slug:"mente-forte-vida-leve",title:"Mente Forte Vida Leve",badge:"Guia 03 · novo",cover:"https://achadostube.com.br/imagens/capa-mente-forte-vida-leve.png",description:"Um guia visual e prático para reduzir ruído mental, organizar pensamentos e viver com mais clareza, presença e leveza.",tags:["clareza mental","presença","leveza"],readUrl:"https://achadostube.com.br/mente-forte-vida-leve",downloadUrl:"https://achadostube.com.br/ebook/mente-forte-vida-leve.pdf",shareText:"Leia o guia Mente Forte Vida Leve",line:"pratica"},
+          {slug:"disciplina-e-liberdade",title:"Disciplina é Liberdade",badge:"Guia 02",cover:"https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",description:"Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",tags:["disciplina","consistência","liberdade"],readUrl:"https://achadostube.com.br/disciplina-e-liberdade",downloadUrl:"https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf",shareText:"Leia o guia Disciplina é Liberdade",line:"pratica"},
           {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar ideias, reduzir excessos e recuperar direção nos seus dias sem mudar tudo de uma vez.",tags:["clareza prática","organização","rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"},
           {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna. Um material para quem busca nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão","rotina","clareza"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
           {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Uma leitura sobre rotina, pausa e retomada de perspectiva. Um convite para observar os dias com mais presença e clareza.",tags:["pausa","perspectiva","retomada"],readUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reflexiva"},
@@ -2157,10 +2246,10 @@
         ],
         faq: [
           {q:"Os e-books são gratuitos?",a:"Sim. A página foi preparada para liberar leitura e download dos PDFs, com apoio via Pix totalmente voluntário."},
-          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias Práticos traz materiais mais aplicáveis, com métodos simples, organização de ideias, disciplina, rotina e passos possíveis."},
+          {q:"Qual é a diferença entre as linhas editoriais?",a:"A linha Leituras Reflexivas reúne conteúdos mais contemplativos. A linha Guias Práticos traz materiais mais aplicáveis, com métodos simples, clareza mental, disciplina, rotina e passos possíveis."},
           {q:"O apoio via Pix é obrigatório?",a:"Não. O apoio é totalmente voluntário. Você pode ler, baixar e compartilhar os materiais sem contribuir financeiramente."},
           {q:"Posso compartilhar esta página ou os livros?",a:"Sim. A página foi preparada com botões de compartilhamento para facilitar o envio a outras pessoas."},
-          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: leitura reflexiva, rotina, presença, responsabilidade pessoal, disciplina ou organização de ideias para uma vida mais leve."},
+          {q:"Qual e-book eu devo ler primeiro?",a:"Comece pelo tema que mais combina com seu momento: clareza mental, leitura reflexiva, rotina, presença, responsabilidade pessoal, disciplina ou organização de ideias para uma vida mais leve."},
           {q:"Este conteúdo substitui orientação profissional?",a:"Não. Os materiais têm finalidade educativa, reflexiva e editorial. Quando necessário, procure apoio profissional qualificado."}
         ],
         legal: {
@@ -2192,8 +2281,8 @@
       const heroCoversStack = byId("heroCoversStack");
       if(heroCoversStack){
         heroCoversStack.innerHTML="";
-        cfg.books.slice(0,6).forEach(function(book,index){
-          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f"];
+        cfg.books.slice(0,7).forEach(function(book,index){
+          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f","cover-g"];
           const wrap=createEl("div","cover-float "+classes[index]);
           const img=document.createElement("img");img.alt="Capa do e-book "+book.title;img.loading="lazy";img.src=book.cover;img.onerror=function(){img.removeAttribute("src");};
           wrap.appendChild(img);heroCoversStack.appendChild(wrap);
