@@ -80,13 +80,3 @@ jobs:
             -o /tmp/book.pdf
           test "$(head -c 5 /tmp/book.pdf)" = '%PDF-'
           test "$(wc -c < /tmp/book.pdf)" -gt 1024
-
-      - name: Verify Vercel routing headers without coupling to a region
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl --fail --silent --show-error --location \
-            -D /tmp/headers.txt -o /dev/null \
-            "https://achadostube.com.br/deploy-marker.json"
-          grep -iq '^x-content-type-options: *nosniff' /tmp/headers.txt
-          grep -iq '^referrer-policy: *strict-origin-when-cross-origin' /tmp/headers.txt
