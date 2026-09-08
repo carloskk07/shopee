@@ -11,13 +11,13 @@
   <meta name="author" content="Freedom Book" />
   <meta name="format-detection" content="telephone=no" />
 
-  <link rel="canonical" href="https://www.achadostube.com.br" />
+  <link rel="canonical" href="https://achadostube.com.br/" />
 
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="E-books Gratuitos em PDF | Freedom Book" />
   <meta property="og:description" content="Biblioteca digital gratuita com e-books em PDF para propósito, foco, disciplina, recomeços, clareza mental, vida leve e Códigos de Vida." />
-  <meta property="og:url" content="https://achadostube.com.br" />
+  <meta property="og:url" content="https://achadostube.com.br/" />
   <meta property="og:site_name" content="Freedom Book" />
   <meta property="og:image" content="https://achadostube.com.br/og/freedom-book-home.png" />
   <meta property="og:image:secure_url" content="https://achadostube.com.br/og/freedom-book-home.png" />
@@ -614,11 +614,11 @@
         linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.006)),
         #0a0d12;
     }
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.34);
       box-shadow:0 30px 94px rgba(216,167,63,.16);
     }
-    .book-card:first-child .book-badge{
+    .book-card[data-featured="true"] .book-badge{
       background:linear-gradient(180deg,rgba(240,199,104,.16),rgba(255,255,255,.035));
       border-color:rgba(240,199,104,.32);
       color:#fff0bd;
@@ -644,7 +644,7 @@
     @media (max-width:900px){
       .hero-showcase{display:none!important}
       .mobile-book-strip{display:flex}
-      .book-card:first-child{box-shadow:0 24px 78px rgba(216,167,63,.14)}
+      .book-card[data-featured="true"]{box-shadow:0 24px 78px rgba(216,167,63,.14)}
     }
 
 
@@ -693,11 +693,11 @@
       background:rgba(240,199,104,.055);
       color:#f4dfaa;
     }
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.36);
       box-shadow:0 30px 96px rgba(216,167,63,.16);
     }
-    .book-card:first-child .book-badge{
+    .book-card[data-featured="true"] .book-badge{
       background:linear-gradient(180deg,rgba(240,199,104,.17),rgba(255,255,255,.035));
       border-color:rgba(240,199,104,.34);
       color:#fff0bd;
@@ -1305,7 +1305,6 @@
         color .32s ease,
         filter .32s ease,
         opacity .32s ease;
-      will-change: transform, box-shadow;
     }
 
     .hero-showcase{
@@ -1628,11 +1627,11 @@
     }
 
     /* SELO NOVO MAIS FORTE */
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       position:relative;
     }
 
-    .book-card:first-child::before{
+    .book-card[data-featured="true"]::before{
       content:"NOVO GUIA";
       position:absolute;
       top:14px;
@@ -1657,12 +1656,12 @@
         inset 0 1px 0 rgba(255,255,255,.38);
     }
 
-    .book-card:first-child .book-title{
+    .book-card[data-featured="true"] .book-title{
       color:#fff6d9;
       text-shadow:0 14px 34px rgba(216,167,63,.08);
     }
 
-    .book-card:first-child .book-cover-wrap{
+    .book-card[data-featured="true"] .book-cover-wrap{
       background:
         radial-gradient(circle at 50% 10%, rgba(255,236,171,.18), transparent 36%),
         radial-gradient(circle at 50% 78%, rgba(240,199,104,.12), transparent 42%),
@@ -1670,7 +1669,7 @@
         #0a0d12;
     }
 
-    .book-card:first-child .book-cover-wrap::before{
+    .book-card[data-featured="true"] .book-cover-wrap::before{
       opacity:1;
       background:
         radial-gradient(circle at 50% 42%,
@@ -1789,7 +1788,7 @@
     }
 
     /* BOTÃO NOVO NO CATÁLOGO — EFEITO DE PRIORIDADE VISUAL */
-    .book-card:first-child .book-main-actions .btn:first-child{
+    .book-card[data-featured="true"] .book-main-actions .btn:first-child{
       min-height:58px;
       box-shadow:
         0 18px 40px rgba(216,167,63,.28),
@@ -1815,7 +1814,7 @@
         margin-top:2px;
       }
 
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         top:10px;
         right:10px;
         min-height:30px;
@@ -1823,7 +1822,7 @@
         font-size:.68rem;
       }
 
-      .book-card:first-child .book-main-actions .btn:first-child{
+      .book-card[data-featured="true"] .book-main-actions .btn:first-child{
         min-height:54px;
       }
 
@@ -1846,7 +1845,7 @@
         text-align:left;
       }
 
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         font-size:.64rem;
       }
 
@@ -1892,13 +1891,13 @@
 
 
     /* ===== PATCH NOVO E-BOOK — MENTE FORTE VIDA LEVE ===== */
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.42)!important;
       box-shadow:
         0 34px 104px rgba(216,167,63,.18),
         0 0 0 1px rgba(240,199,104,.10)!important;
     }
-    .book-card:first-child::before{
+    .book-card[data-featured="true"]::before{
       content:"NOVO GUIA";
       position:absolute;
       top:14px;
@@ -1919,11 +1918,11 @@
       text-transform:uppercase;
       box-shadow:0 10px 24px rgba(216,167,63,.22), inset 0 1px 0 rgba(255,255,255,.38);
     }
-    .book-card:first-child .book-title{
+    .book-card[data-featured="true"] .book-title{
       color:#fff6d9;
       text-shadow:0 14px 34px rgba(216,167,63,.10);
     }
-    .book-card:first-child .book-cover-wrap{
+    .book-card[data-featured="true"] .book-cover-wrap{
       background:
         radial-gradient(circle at 50% 10%, rgba(255,236,171,.20), transparent 36%),
         radial-gradient(circle at 50% 78%, rgba(240,199,104,.13), transparent 42%),
@@ -1954,27 +1953,27 @@
     }
 
     @media (max-width:900px){
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         top:10px;
         right:10px;
         min-height:30px;
         padding:0 10px;
         font-size:.66rem;
       }
-      .book-card:first-child{
+      .book-card[data-featured="true"]{
         box-shadow:0 26px 84px rgba(216,167,63,.16)!important;
       }
     }
 
 
     /* ===== PATCH NOVO E-BOOK — FOCO QUE GERA RESULTADOS ===== */
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.44)!important;
       box-shadow:
         0 36px 110px rgba(216,167,63,.19),
         0 0 0 1px rgba(240,199,104,.12)!important;
     }
-    .book-card:first-child::before{
+    .book-card[data-featured="true"]::before{
       content:"NOVO GUIA";
       position:absolute;
       top:14px;
@@ -1995,11 +1994,11 @@
       text-transform:uppercase;
       box-shadow:0 10px 24px rgba(216,167,63,.24), inset 0 1px 0 rgba(255,255,255,.38);
     }
-    .book-card:first-child .book-title{
+    .book-card[data-featured="true"] .book-title{
       color:#fff6d9;
       text-shadow:0 14px 34px rgba(216,167,63,.12);
     }
-    .book-card:first-child .book-cover-wrap{
+    .book-card[data-featured="true"] .book-cover-wrap{
       background:
         radial-gradient(circle at 50% 10%, rgba(255,236,171,.22), transparent 36%),
         radial-gradient(circle at 50% 78%, rgba(240,199,104,.14), transparent 42%),
@@ -2032,27 +2031,27 @@
     }
 
     @media (max-width:900px){
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         top:10px;
         right:10px;
         min-height:30px;
         padding:0 10px;
         font-size:.66rem;
       }
-      .book-card:first-child{
+      .book-card[data-featured="true"]{
         box-shadow:0 26px 86px rgba(216,167,63,.17)!important;
       }
     }
 
 
     /* ===== PATCH NOVO E-BOOK — RECOMEÇOS SÃO ESCOLHAS ===== */
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.46)!important;
       box-shadow:
         0 38px 116px rgba(216,167,63,.20),
         0 0 0 1px rgba(240,199,104,.12)!important;
     }
-    .book-card:first-child::before{
+    .book-card[data-featured="true"]::before{
       content:"NOVO E-BOOK";
       position:absolute;
       top:14px;
@@ -2073,11 +2072,11 @@
       text-transform:uppercase;
       box-shadow:0 10px 24px rgba(216,167,63,.26), inset 0 1px 0 rgba(255,255,255,.38);
     }
-    .book-card:first-child .book-title{
+    .book-card[data-featured="true"] .book-title{
       color:#fff6d9;
       text-shadow:0 14px 34px rgba(216,167,63,.13);
     }
-    .book-card:first-child .book-cover-wrap{
+    .book-card[data-featured="true"] .book-cover-wrap{
       background:
         radial-gradient(circle at 50% 10%, rgba(255,236,171,.24), transparent 36%),
         radial-gradient(circle at 50% 78%, rgba(240,199,104,.16), transparent 42%),
@@ -2112,27 +2111,27 @@
     }
 
     @media (max-width:900px){
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         top:10px;
         right:10px;
         min-height:30px;
         padding:0 10px;
         font-size:.66rem;
       }
-      .book-card:first-child{
+      .book-card[data-featured="true"]{
         box-shadow:0 26px 88px rgba(216,167,63,.18)!important;
       }
     }
 
 
     /* ===== PATCH NOVO E-BOOK — PROPÓSITO MAIOR ===== */
-    .book-card:first-child{
+    .book-card[data-featured="true"]{
       border-color:rgba(240,199,104,.48)!important;
       box-shadow:
         0 40px 120px rgba(216,167,63,.22),
         0 0 0 1px rgba(240,199,104,.13)!important;
     }
-    .book-card:first-child::before{
+    .book-card[data-featured="true"]::before{
       content:"NOVO E-BOOK";
       position:absolute;
       top:14px;
@@ -2153,11 +2152,11 @@
       text-transform:uppercase;
       box-shadow:0 10px 24px rgba(216,167,63,.28), inset 0 1px 0 rgba(255,255,255,.40);
     }
-    .book-card:first-child .book-title{
+    .book-card[data-featured="true"] .book-title{
       color:#fff6d9;
       text-shadow:0 14px 34px rgba(216,167,63,.14);
     }
-    .book-card:first-child .book-cover-wrap{
+    .book-card[data-featured="true"] .book-cover-wrap{
       background:
         radial-gradient(circle at 50% 8%, rgba(255,236,171,.26), transparent 36%),
         radial-gradient(circle at 50% 78%, rgba(240,199,104,.17), transparent 42%),
@@ -2194,14 +2193,14 @@
     }
 
     @media (max-width:900px){
-      .book-card:first-child::before{
+      .book-card[data-featured="true"]::before{
         top:10px;
         right:10px;
         min-height:30px;
         padding:0 10px;
         font-size:.66rem;
       }
-      .book-card:first-child{
+      .book-card[data-featured="true"]{
         box-shadow:0 26px 90px rgba(216,167,63,.19)!important;
       }
     }
@@ -2290,6 +2289,41 @@
       .seo-pill-grid a{width:100%;justify-content:center;text-align:center}
     }
 
+
+    /* ===== STABILITY / ACCESSIBILITY / MOBILE PERFORMANCE PATCH 2026-09-08 ===== */
+    .btn.is-disabled{
+      cursor:not-allowed;
+      opacity:.58;
+      filter:none!important;
+      transform:none!important;
+      box-shadow:none!important;
+      user-select:none;
+      pointer-events:none;
+    }
+    .book-cover-fallback{
+      width:min(72%,260px);
+      aspect-ratio:2/3;
+      display:grid;
+      place-items:center;
+      padding:22px;
+      text-align:center;
+      border-radius:18px;
+      border:1px solid rgba(240,199,104,.16);
+      background:linear-gradient(145deg,#0a0d12,#17130b 58%,#0b0d12);
+      color:#f2dfaa;
+      font-family:Cinzel,Georgia,"Times New Roman",serif;
+      font-weight:700;
+      line-height:1.25;
+    }
+    @media (hover:none), (pointer:coarse){
+      .cover-float:hover,.book-card:hover,.btn:hover,.share-chip:hover{transform:none!important}
+      .cover-float:hover img,.book-card:hover .book-cover-wrap img{transform:none!important}
+    }
+    @media (max-width:900px){
+      .book-cover-wrap::before{animation:none!important}
+      .book-card,.btn,.share-chip,.cover-float,.cover-float img{will-change:auto!important}
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -2300,7 +2334,7 @@
       "@type": "Organization",
       "@id": "https://achadostube.com.br/#organization",
       "name": "Freedom Book",
-      "url": "https://achadostube.com.br/freedom-book",
+      "url": "https://achadostube.com.br/",
       "logo": {
         "@type": "ImageObject",
         "url": "https://achadostube.com.br/imagens/logo-freedom-book-redonda.png",
@@ -2314,7 +2348,7 @@
       "@type": "WebSite",
       "@id": "https://achadostube.com.br/#website",
       "name": "Freedom Book",
-      "url": "https://achadostube.com.br",
+      "url": "https://achadostube.com.br/",
       "publisher": {
         "@id": "https://achadostube.com.br/#organization"
       },
@@ -2325,8 +2359,8 @@
         "WebPage",
         "CollectionPage"
       ],
-      "@id": "https://achadostube.com.br/freedom-book#webpage",
-      "url": "https://achadostube.com.br/freedom-book",
+      "@id": "https://achadostube.com.br/#webpage",
+      "url": "https://achadostube.com.br/",
       "name": "E-books Gratuitos em PDF | Freedom Book",
       "description": "Leia e baixe e-books gratuitos em PDF da Freedom Book: propósito, foco, disciplina, recomeços, clareza mental, vida leve e Códigos de Vida.",
       "isPartOf": {
@@ -2342,17 +2376,17 @@
         "height": 630
       },
       "inLanguage": "pt-BR",
-      "dateModified": "2026-04-28",
+      "dateModified": "2026-09-08",
       "breadcrumb": {
-        "@id": "https://achadostube.com.br/freedom-book#breadcrumb"
+        "@id": "https://achadostube.com.br/#breadcrumb"
       },
       "mainEntity": {
-        "@id": "https://achadostube.com.br/freedom-book#itemlist"
+        "@id": "https://achadostube.com.br/#itemlist"
       }
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://achadostube.com.br/freedom-book#breadcrumb",
+      "@id": "https://achadostube.com.br/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -2364,13 +2398,13 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Freedom Book",
-          "item": "https://achadostube.com.br/freedom-book"
+          "item": "https://achadostube.com.br/"
         }
       ]
     },
     {
       "@type": "ItemList",
-      "@id": "https://achadostube.com.br/freedom-book#itemlist",
+      "@id": "https://achadostube.com.br/#itemlist",
       "name": "Biblioteca de e-books gratuitos em PDF da Freedom Book",
       "numberOfItems": 11,
       "itemListOrder": "https://schema.org/ItemListOrderAscending",
@@ -2378,10 +2412,10 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "url": "https://achadostube.com.br/codigo-da-vida-inabalavel",
+          "url": "https://achadostube.com.br/#book-codigo-da-vida-inabalavel",
           "name": "O Código da Vida Inabalável",
           "item": {
-            "@id": "https://achadostube.com.br/codigo-da-vida-inabalavel#book"
+            "@id": "https://achadostube.com.br/#book-codigo-da-vida-inabalavel-entity"
           }
         },
         {
@@ -2441,7 +2475,7 @@
         {
           "@type": "ListItem",
           "position": 8,
-          "url": "https://achadostube.com.br/o-cansaco-invisivel",
+          "url": "https://achadostube.com.br/#book-o-cansaco-invisivel",
           "name": "O Cansaço Invisível",
           "item": {
             "@id": "https://achadostube.com.br/o-cansaco-invisivel#book"
@@ -2478,7 +2512,7 @@
     },
     {
       "@type": "FAQPage",
-      "@id": "https://achadostube.com.br/freedom-book#faqpage",
+      "@id": "https://achadostube.com.br/#faqpage",
       "mainEntity": [
         {
           "@type": "Question",
@@ -2548,7 +2582,7 @@
     },
     {
       "@type": "CreativeWorkSeries",
-      "@id": "https://achadostube.com.br/freedom-book#series-codigos-de-vida",
+      "@id": "https://achadostube.com.br/#series-codigos-de-vida",
       "name": "Códigos de Vida",
       "description": "Linha editorial da Freedom Book com e-books simbólicos e premium sobre princípios, força interna, presença e direção.",
       "publisher": {
@@ -2558,7 +2592,7 @@
     },
     {
       "@type": "CreativeWorkSeries",
-      "@id": "https://achadostube.com.br/freedom-book#series-guias-praticos",
+      "@id": "https://achadostube.com.br/#series-guias-praticos",
       "name": "Guias Práticos",
       "description": "Linha editorial com e-books aplicáveis sobre foco, disciplina, clareza mental e rotina mais leve.",
       "publisher": {
@@ -2568,7 +2602,7 @@
     },
     {
       "@type": "CreativeWorkSeries",
-      "@id": "https://achadostube.com.br/freedom-book#series-leituras-reflexivas",
+      "@id": "https://achadostube.com.br/#series-leituras-reflexivas",
       "name": "Leituras Reflexivas",
       "description": "Linha editorial com e-books reflexivos sobre propósito, recomeços, presença e temas humanos.",
       "publisher": {
@@ -2578,14 +2612,13 @@
     },
     {
       "@type": "Book",
-      "@id": "https://achadostube.com.br/codigo-da-vida-inabalavel#book",
+      "@id": "https://achadostube.com.br/#book-codigo-da-vida-inabalavel-entity",
       "name": "O Código da Vida Inabalável",
       "headline": "O Código da Vida Inabalável",
       "description": "Uma leitura super luxo sobre princípios, força interna, presença e direção para permanecer de pé quando tudo tenta tirar você do eixo.",
-      "url": "https://achadostube.com.br/codigo-da-vida-inabalavel",
+      "url": "https://achadostube.com.br/#book-codigo-da-vida-inabalavel",
       "image": "https://achadostube.com.br/imagens/capa-codigo-da-vida-inabalavel.png",
       "inLanguage": "pt-BR",
-      "isAccessibleForFree": true,
       "author": {
         "@type": "Person",
         "name": "Arthur Magnus"
@@ -2594,18 +2627,7 @@
         "@id": "https://achadostube.com.br/#organization"
       },
       "genre": "Códigos de Vida",
-      "keywords": "códigos de vida, força interna, direção, ebook gratuito, PDF gratuito, Freedom Book",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "BRL",
-        "availability": "https://schema.org/InStock",
-        "url": "https://achadostube.com.br/ebook/codigo-da-vida-inabalavel.pdf"
-      },
-      "potentialAction": {
-        "@type": "ReadAction",
-        "target": "https://achadostube.com.br/codigo-da-vida-inabalavel"
-      }
+      "keywords": "códigos de vida, força interna, direção, ebook gratuito, PDF gratuito, Freedom Book"
     },
     {
       "@type": "Book",
@@ -2799,7 +2821,7 @@
       "name": "O Cansaço Invisível",
       "headline": "O Cansaço Invisível",
       "description": "Uma leitura reflexiva sobre cansaço, rotina e percepção interna para nomear sensações comuns do cotidiano com mais clareza.",
-      "url": "https://achadostube.com.br/o-cansaco-invisivel",
+      "url": "https://achadostube.com.br/#book-o-cansaco-invisivel",
       "image": "https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",
       "inLanguage": "pt-BR",
       "isAccessibleForFree": true,
@@ -2821,7 +2843,7 @@
       },
       "potentialAction": {
         "@type": "ReadAction",
-        "target": "https://achadostube.com.br/o-cansaco-invisivel"
+        "target": "https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf"
       }
     },
     {
@@ -2924,8 +2946,8 @@
   <meta name="application-name" content="Freedom Book" />
   <meta name="color-scheme" content="dark" />
   <link rel="sitemap" type="application/xml" href="https://achadostube.com.br/sitemap.xml" />
-  <link rel="alternate" hreflang="pt-BR" href="https://achadostube.com.br/freedom-book" />
-  <link rel="alternate" hreflang="x-default" href="https://achadostube.com.br/freedom-book" />
+  <link rel="alternate" hreflang="pt-BR" href="https://achadostube.com.br/" />
+  <link rel="alternate" hreflang="x-default" href="https://achadostube.com.br/" />
 </head>
 <body>
   <header class="nav" id="top">
@@ -3021,21 +3043,21 @@
       <div class="container">
         <h2 class="section-title reveal">Biblioteca de e-books gratuitos em PDF</h2>
         <p class="section-sub reveal">Explore livros digitais gratuitos da Freedom Book sobre propósito, recomeços, foco, disciplina, clareza mental, vida leve, responsabilidade emocional e códigos de vida. Todos foram preparados para leitura no celular, download em PDF e compartilhamento fácil.</p>
-        <div class="featured-book-note reveal"><strong>Novo na biblioteca:</strong> “O Código da Vida Inabalável” inaugura a linha <strong>Códigos de Vida</strong>, com uma leitura super luxo sobre princípios, força interna, presença e direção.</div>
+        <div class="featured-book-note reveal"><strong>Próximo lançamento:</strong> “O Código da Vida Inabalável” inaugura a linha <strong>Códigos de Vida</strong>, com uma leitura premium sobre princípios, força interna, presença e direção.</div>
         <div class="books-grid" id="booksGrid"></div>
         <noscript>
           <div class="card noscript-catalog" style="padding:22px;margin-top:18px;">
             <h3>Catálogo de e-books gratuitos em PDF</h3>
             <p>Lista de leitura direta para navegadores sem JavaScript.</p>
             <ul>
-              <li><a href="https://achadostube.com.br/codigo-da-vida-inabalavel">O Código da Vida Inabalável</a> — <a href="https://achadostube.com.br/ebook/codigo-da-vida-inabalavel.pdf">baixar PDF</a></li>
+              <li><strong>O Código da Vida Inabalável</strong> — em breve</li>
               <li><a href="https://achadostube.com.br/proposito-maior">Propósito Maior</a> — <a href="https://achadostube.com.br/ebook/proposito-maior.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/recomecos-sao-escolhas">Recomeços São Escolhas</a> — <a href="https://achadostube.com.br/ebook/recomecos-sao-escolhas.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/foco-que-gera-resultados">Foco Que Gera Resultados</a> — <a href="https://achadostube.com.br/ebook/foco-que-gera-resultados.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/mente-forte-vida-leve">Mente Forte Vida Leve</a> — <a href="https://achadostube.com.br/ebook/mente-forte-vida-leve.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/disciplina-e-liberdade">Disciplina é Liberdade</a> — <a href="https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/o-metodo-da-vida-mais-leve">O Método da Vida Mais Leve</a> — <a href="https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf">baixar PDF</a></li>
-              <li><a href="https://achadostube.com.br/o-cansaco-invisivel">O Cansaço Invisível</a> — <a href="https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf">baixar PDF</a></li>
+              <li><a href="https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf">O Cansaço Invisível</a> — <a href="https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/quando-sua-vida-virou-sobrevivencia">Quando Sua Vida Virou Sobrevivência</a> — <a href="https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/a-vida-que-voce-adiou">A Vida Que Você Adiou</a> — <a href="https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf">baixar PDF</a></li>
               <li><a href="https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo">O Peso de Ser Forte o Tempo Todo</a> — <a href="https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo.pdf">baixar PDF</a></li>
@@ -3071,12 +3093,12 @@
             </div>
             <div class="support-panel">
               <h3>Apoie com Pix</h3>
-              <p>Escaneie o QR Code ou copie a chave abaixo. O apoio é totalmente voluntário.</p>
+              <p>Escaneie o QR Code ou copie o link de apoio abaixo. O apoio é totalmente voluntário.</p>
               <div class="pix-grid">
-                <div class="pix-qr-wrap"><img id="pixQr" class="pix-qr" alt="QR Code Pix de apoio" loading="lazy" /><div class="pix-note">Escaneie com o app do seu banco</div></div>
+                <div class="pix-qr-wrap"><img id="pixQr" class="pix-qr" alt="QR Code Pix de apoio" loading="lazy" /><div class="pix-note">Escaneie com a câmera do celular</div></div>
                 <div>
-                  <div class="pix-key-label">Chave Pix</div><div class="pix-key-box"><span id="pixKeyText">carregando...</span></div>
-                  <div style="display:flex;gap:10px;flex-wrap:wrap;"><button type="button" class="btn small" id="copyPixBtn">Copiar chave Pix</button><a href="#" class="btn small secondary" id="openPixPageBtn" target="_blank" rel="noopener noreferrer">Abrir página de apoio</a></div>
+                  <div class="pix-key-label">Link de apoio</div><div class="pix-key-box"><span id="pixKeyText">carregando...</span></div>
+                  <div style="display:flex;gap:10px;flex-wrap:wrap;"><button type="button" class="btn small" id="copyPixBtn">Copiar link de apoio</button><a href="#" class="btn small secondary" id="openPixPageBtn" target="_blank" rel="noopener noreferrer">Abrir página de apoio</a></div>
                   <div class="support-values" id="supportValues"></div>
                   <div class="psych-box"><strong>Apoio voluntário, sem obrigação.</strong><br><br>Você pode ler, baixar e compartilhar os e-books gratuitamente. O Pix existe apenas para quem deseja contribuir espontaneamente com a continuidade da Freedom Book.</div>
                 </div>
@@ -3106,7 +3128,7 @@
       "use strict";
 
       const cfg = {
-        pageUrl: "https://achadostube.com.br/freedom-book",
+        pageUrl: "https://achadostube.com.br/",
         pageTitle: "E-books Gratuitos em PDF | Freedom Book",
         shareText: "Conheça a Freedom Book: e-books gratuitos em PDF para propósito, foco, disciplina, recomeços, clareza mental e Códigos de Vida.",
         brandName: "Freedom Book",
@@ -3115,7 +3137,7 @@
         logoUrl: "https://achadostube.com.br/imagens/logo-freedom-book-redonda.png",
         whatsappChannelUrl: "https://whatsapp.com/channel/0029Vb84nsQHgZWYKx7syI2O",
         support: {
-          pixKey: "livepix.gg/editorafreedombook",
+          supportLink: "https://livepix.gg/editorafreedombook",
           pixPageUrl: "https://livepix.gg/editorafreedombook",
           pixQrUrl: "https://achadostube.com.br/imagens/livepix-qr.PNG",
           suggestedValues: ["R$ 5", "R$ 10", "R$ 20", "R$ 30", "R$ 50"]
@@ -3127,14 +3149,14 @@
           { value: "∞", label: "novos temas em expansão" }
         ],
         books: [
-          {slug:"codigo-da-vida-inabalavel",title:"O Código da Vida Inabalável",badge:"Códigos de Vida · novo",cover:"https://achadostube.com.br/imagens/capa-codigo-da-vida-inabalavel.png",description:"Uma leitura super luxo sobre princípios, força interna, presença e direção para permanecer de pé quando tudo tenta tirar você do eixo.",tags:["códigos de vida", "força interna", "direção"],readUrl:"https://achadostube.com.br/codigo-da-vida-inabalavel",downloadUrl:"https://achadostube.com.br/ebook/codigo-da-vida-inabalavel.pdf",shareText:"Leia o e-book O Código da Vida Inabalável",line:"codigos"},
+          {slug:"codigo-da-vida-inabalavel",title:"O Código da Vida Inabalável",badge:"Códigos de Vida · em breve",featured:true,available:false,cover:"https://achadostube.com.br/imagens/capa-codigo-da-vida-inabalavel.png",description:"Uma leitura super luxo sobre princípios, força interna, presença e direção para permanecer de pé quando tudo tenta tirar você do eixo.",tags:["códigos de vida", "força interna", "direção"],readUrl:"https://achadostube.com.br/codigo-da-vida-inabalavel",downloadUrl:"https://achadostube.com.br/ebook/codigo-da-vida-inabalavel.pdf",shareText:"Leia o e-book O Código da Vida Inabalável",line:"codigos"},
           {slug:"proposito-maior",title:"Propósito Maior",badge:"Guia 06",cover:"https://achadostube.com.br/imagens/capa-proposito-maior.png",description:"Um guia visual e reflexivo para descobrir por que você está aqui, reconhecer valores inegociáveis e transformar sentido em direção.",tags:["propósito", "direção", "sentido"],readUrl:"https://achadostube.com.br/proposito-maior",downloadUrl:"https://achadostube.com.br/ebook/proposito-maior.pdf",shareText:"Leia o guia Propósito Maior",line:"reflexiva"},
           {slug:"recomecos-sao-escolhas",title:"Recomeços São Escolhas",badge:"Guia 05",cover:"https://achadostube.com.br/imagens/capa-recomecos-sao-escolhas.png",description:"Um guia visual e reflexivo para transformar fins em novos começos com clareza, coragem e pequenos passos possíveis.",tags:["recomeços", "clareza", "coragem"],readUrl:"https://achadostube.com.br/recomecos-sao-escolhas",downloadUrl:"https://achadostube.com.br/ebook/recomecos-sao-escolhas.pdf",shareText:"Leia o guia Recomeços São Escolhas",line:"reflexiva"},
           {slug:"foco-que-gera-resultados",title:"Foco Que Gera Resultados",badge:"Guia 04",cover:"https://achadostube.com.br/imagens/capa-foco-que-gera-resultados.png",description:"Um guia visual e prático para reduzir distrações, proteger sua atenção e transformar esforço em progresso real.",tags:["foco", "atenção", "resultado"],readUrl:"https://achadostube.com.br/foco-que-gera-resultados",downloadUrl:"https://achadostube.com.br/ebook/foco-que-gera-resultados.pdf",shareText:"Leia o guia Foco Que Gera Resultados",line:"pratica"},
           {slug:"mente-forte-vida-leve",title:"Mente Forte Vida Leve",badge:"Guia 03",cover:"https://achadostube.com.br/imagens/capa-mente-forte-vida-leve.png",description:"Um guia visual e prático para reduzir ruído mental, organizar pensamentos e viver com mais clareza, presença e leveza.",tags:["clareza mental", "presença", "leveza"],readUrl:"https://achadostube.com.br/mente-forte-vida-leve",downloadUrl:"https://achadostube.com.br/ebook/mente-forte-vida-leve.pdf",shareText:"Leia o guia Mente Forte Vida Leve",line:"pratica"},
           {slug:"disciplina-e-liberdade",title:"Disciplina é Liberdade",badge:"Guia 02",cover:"https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",description:"Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",tags:["disciplina", "consistência", "liberdade"],readUrl:"https://achadostube.com.br/disciplina-e-liberdade",downloadUrl:"https://achadostube.com.br/ebook/disciplina-e-liberdade.pdf",shareText:"Leia o guia Disciplina é Liberdade",line:"pratica"},
           {slug:"o-metodo-da-vida-mais-leve",title:"O Método da Vida Mais Leve",badge:"Guia 01",cover:"https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",description:"Um guia prático para organizar ideias, reduzir excessos e recuperar direção nos seus dias sem mudar tudo de uma vez.",tags:["clareza prática", "organização", "rotina leve"],readUrl:"https://achadostube.com.br/o-metodo-da-vida-mais-leve",downloadUrl:"https://achadostube.com.br/ebook/o-metodo-da-vida-mais-leve.pdf",shareText:"Leia o guia O Método da Vida Mais Leve",line:"pratica"},
-          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna para nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão", "rotina", "clareza"],readUrl:"https://achadostube.com.br/o-cansaco-invisivel",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
+          {slug:"o-cansaco-invisivel",title:"O Cansaço Invisível",badge:"E-book 01",cover:"https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",description:"Uma leitura reflexiva sobre cansaço, rotina e percepção interna para nomear sensações comuns do cotidiano com mais clareza.",tags:["reflexão", "rotina", "clareza"],readUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",downloadUrl:"https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf",shareText:"Leia o e-book O Cansaço Invisível",line:"reflexiva"},
           {slug:"quando-sua-vida-virou-sobrevivencia",title:"Quando Sua Vida Virou Sobrevivência",badge:"E-book 02",cover:"https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",description:"Uma leitura sobre rotina, pausa e retomada de perspectiva para observar os dias com mais presença e clareza.",tags:["pausa", "perspectiva", "retomada"],readUrl:"https://achadostube.com.br/quando-sua-vida-virou-sobrevivencia",downloadUrl:"https://achadostube.com.br/ebook/quando-sua-vida-virou-sobrevivencia.pdf",shareText:"Leia o e-book Quando Sua Vida Virou Sobrevivência",line:"reflexiva"},
           {slug:"a-vida-que-voce-adiou",title:"A Vida Que Você Adiou",badge:"E-book 03",cover:"https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",description:"Uma leitura sobre adiamentos, escolhas e pequenos começos possíveis para refletir sobre presença, direção e próximos passos.",tags:["adiamento", "presença", "direção"],readUrl:"https://achadostube.com.br/a-vida-que-voce-adiou",downloadUrl:"https://achadostube.com.br/ebook/a-vida-que-voce-adiou.pdf",shareText:"Leia o e-book A Vida Que Você Adiou",line:"reflexiva"},
           {slug:"o-peso-de-ser-forte-o-tempo-todo",title:"O Peso de Ser Forte o Tempo Todo",badge:"E-book 04",cover:"https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",description:"Uma leitura sobre excesso de responsabilidade, limites pessoais e a importância de reconhecer quando a rotina ficou pesada demais.",tags:["responsabilidade", "limites", "rotina"],readUrl:"https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",downloadUrl:"https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo.pdf",shareText:"Leia o e-book O Peso de Ser Forte o Tempo Todo",line:"reflexiva"}
@@ -3182,108 +3204,357 @@
       const byId = (id) => document.getElementById(id);
       const safeText = (value, fallback = "") => typeof value === "string" ? value : fallback;
       const encode = (value) => encodeURIComponent(value || "");
-      const createEl = (tag, className, text) => {const el=document.createElement(tag);if(className)el.className=className;if(typeof text==="string")el.textContent=text;return el;};
+      const createEl = (tag, className, text) => {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (typeof text === "string") el.textContent = text;
+        return el;
+      };
+      const setText = (id, value) => { const el = byId(id); if (el) el.textContent = safeText(value); };
+      const setHref = (id, value) => { const el = byId(id); if (el && value) el.href = value; };
 
       function setImage(id, src, alt){
-        const el=byId(id);if(!el)return;if(alt)el.alt=alt;if(src)el.src=src;
-        el.addEventListener("error",function(){el.removeAttribute("src");el.setAttribute("role","img");el.setAttribute("aria-label",alt||"Imagem indisponível");},{once:true});
+        const el = byId(id);
+        if (!el) return;
+        if (alt) el.alt = alt;
+        if (src) el.src = src;
+        el.addEventListener("error", function(){
+          el.removeAttribute("src");
+          el.setAttribute("role", "img");
+          el.setAttribute("aria-label", alt || "Imagem indisponível");
+        }, {once:true});
       }
-      function trackEvent(name, params){try{if(typeof gtag!=="undefined")gtag("event",name,params||{});if(typeof ttq!=="undefined")ttq.track(name,params||{});}catch(e){}}
+
+      function trackEvent(name, params){
+        try {
+          if (typeof gtag !== "undefined") gtag("event", name, params || {});
+          if (typeof ttq !== "undefined") ttq.track(name, params || {});
+        } catch(e) {}
+      }
 
       setImage("brandMark", cfg.logoUrl, cfg.brandName);
       setImage("footerMark", cfg.logoUrl, cfg.brandName);
-      byId("contactLink").href = "mailto:" + cfg.contactEmail;
-      byId("companyEmailLine").textContent = cfg.contactEmail;
-      byId("footerBrandTitle").textContent = cfg.brandName;
-      byId("companyNameLine").textContent = cfg.brandName;
-      byId("companyDocLine").textContent = cfg.brandDescription;
-      byId("whatsappChannelBtn").href = cfg.whatsappChannelUrl;
+      setHref("contactLink", "mailto:" + cfg.contactEmail);
+      setText("companyEmailLine", cfg.contactEmail);
+      setText("footerBrandTitle", cfg.brandName);
+      setText("companyNameLine", cfg.brandName);
+      setText("companyDocLine", cfg.brandDescription);
+      setHref("whatsappChannelBtn", cfg.whatsappChannelUrl);
 
       const heroCoversStack = byId("heroCoversStack");
-      if(heroCoversStack){
-        heroCoversStack.innerHTML="";
+      if (heroCoversStack) {
+        heroCoversStack.innerHTML = "";
         cfg.books.slice(0,11).forEach(function(book,index){
-          const classes = ["cover-a", "cover-b", "cover-c", "cover-d", "cover-e", "cover-f", "cover-g", "cover-h", "cover-i", "cover-j", "cover-k"];
-          const wrap=createEl("div","cover-float "+classes[index]);
-          const img=document.createElement("img");img.alt="Capa do e-book "+book.title;img.loading="lazy";img.src=book.cover;img.onerror=function(){img.removeAttribute("src");};
-          wrap.appendChild(img);heroCoversStack.appendChild(wrap);
+          const classes = ["cover-a","cover-b","cover-c","cover-d","cover-e","cover-f","cover-g","cover-h","cover-i","cover-j","cover-k"];
+          const wrap = createEl("div", "cover-float " + classes[index]);
+          const img = document.createElement("img");
+          img.alt = "Capa do e-book " + book.title;
+          img.loading = index < 3 ? "eager" : "lazy";
+          img.decoding = "async";
+          img.src = book.cover;
+          img.onerror = function(){ wrap.hidden = true; };
+          wrap.appendChild(img);
+          heroCoversStack.appendChild(wrap);
         });
       }
 
       const mobileBookStrip = byId("mobileBookStrip");
-      if(mobileBookStrip){
-        mobileBookStrip.innerHTML="";
+      if (mobileBookStrip) {
+        mobileBookStrip.innerHTML = "";
         cfg.books.forEach(function(book){
-          const pill = createEl("a","mobile-book-pill");
+          const pill = createEl("a", "mobile-book-pill");
           pill.href = "#book-" + book.slug;
-          pill.setAttribute("aria-label","Ir para " + book.title);
+          pill.setAttribute("aria-label", "Ir para " + book.title);
           const img = document.createElement("img");
           img.src = book.cover;
           img.alt = "";
           img.loading = "lazy";
+          img.decoding = "async";
+          img.onerror = function(){ img.hidden = true; };
           const txt = createEl("div");
-          txt.append(createEl("strong","",book.title), createEl("span","",book.badge.replace(" · novo","")));
+          txt.append(createEl("strong", "", book.title), createEl("span", "", book.badge.replace(" · novo", "")));
           pill.append(img, txt);
           mobileBookStrip.appendChild(pill);
         });
       }
 
       const statsRow = byId("statsRow");
-      if(statsRow){statsRow.innerHTML="";cfg.stats.forEach(function(stat){const card=createEl("div","stat-card card reveal");card.append(createEl("div","stat-value",safeText(stat.value)),createEl("div","stat-label",safeText(stat.label)));statsRow.appendChild(card);});}
-
-      const booksGrid = byId("booksGrid");
-      if(booksGrid){
-        booksGrid.innerHTML="";
-        cfg.books.forEach(function(book){
-          const article=createEl("article","card book-card reveal");article.id="book-"+book.slug;article.dataset.line=book.line||"reflexiva";
-          const coverWrap=createEl("div","book-cover-wrap");
-          const cover=document.createElement("img");cover.alt="Capa do e-book "+book.title;cover.loading="lazy";cover.src=book.cover;cover.onerror=function(){cover.removeAttribute("src");};coverWrap.appendChild(cover);
-          const content=createEl("div","book-content");
-          const tags=createEl("div","book-tags");(book.tags||[]).forEach(function(tagText){tags.appendChild(createEl("span","tag",safeText(tagText)));});
-          const actions=createEl("div","book-actions");const mainActions=createEl("div","book-main-actions");
-          const readBtn=createEl("a","btn","Ler agora");readBtn.href=book.readUrl;readBtn.target="_blank";readBtn.rel="noopener noreferrer";readBtn.setAttribute("aria-label","Ler o e-book "+book.title);readBtn.addEventListener("click",function(){trackEvent("view_content",{content_name:book.title,content_type:"ebook",action:"read"});});
-          const downloadBtn=createEl("a","btn secondary","Baixar PDF");downloadBtn.href=book.downloadUrl;downloadBtn.target="_blank";downloadBtn.rel="noopener noreferrer";downloadBtn.setAttribute("aria-label","Baixar o PDF "+book.title);downloadBtn.setAttribute("download","");downloadBtn.addEventListener("click",function(){trackEvent("download",{content_name:book.title,content_type:"ebook",action:"download"});});
-          mainActions.append(readBtn,downloadBtn);
-          const shareRow=createEl("div","share-row");
-          const shareUrl=cfg.pageUrl+"#book-"+book.slug;
-          const shareWhats=createEl("a","share-chip","WhatsApp");shareWhats.href="https://api.whatsapp.com/send?text="+encode(book.shareText+" "+shareUrl);shareWhats.target="_blank";shareWhats.rel="noopener noreferrer";
-          const shareFace=createEl("a","share-chip","Facebook");shareFace.href="https://www.facebook.com/sharer/sharer.php?u="+encode(shareUrl);shareFace.target="_blank";shareFace.rel="noopener noreferrer";
-          const shareTele=createEl("a","share-chip","Telegram");shareTele.href="https://t.me/share/url?url="+encode(shareUrl)+"&text="+encode(book.shareText);shareTele.target="_blank";shareTele.rel="noopener noreferrer";
-          const copyLinkBtn=createEl("button","share-chip","Copiar link");copyLinkBtn.type="button";copyLinkBtn.addEventListener("click",async function(){try{await navigator.clipboard.writeText(shareUrl);copyLinkBtn.textContent="Link copiado";setTimeout(function(){copyLinkBtn.textContent="Copiar link";},1800);}catch(e){window.prompt("Copie o link:",shareUrl);}trackEvent("share",{content_name:book.title,platform:"copy_link"});});
-          [[shareWhats,"whatsapp"],[shareFace,"facebook"],[shareTele,"telegram"]].forEach(function(pair){pair[0].addEventListener("click",function(){trackEvent("share",{content_name:book.title,platform:pair[1]});});});
-          shareRow.append(shareWhats,shareFace,shareTele,copyLinkBtn);actions.append(mainActions,shareRow);
-          content.append(createEl("span","book-badge",safeText(book.badge)), createEl("div","line-label",book.line==="pratica" ? "Linha: Guias Práticos" : (book.line==="codigos" ? "Linha: Códigos de Vida" : "Linha: Leituras Reflexivas")), createEl("h3","book-title",safeText(book.title)), createEl("p","book-desc",safeText(book.description)), tags, actions);
-          article.append(coverWrap,content);booksGrid.appendChild(article);
+      if (statsRow) {
+        statsRow.innerHTML = "";
+        cfg.stats.forEach(function(stat){
+          const card = createEl("div", "stat-card card reveal");
+          card.append(createEl("div", "stat-value", safeText(stat.value)), createEl("div", "stat-label", safeText(stat.label)));
+          statsRow.appendChild(card);
         });
       }
 
-      setImage("pixQr", cfg.support.pixQrUrl, "QR Code Pix de apoio");
-      byId("pixKeyText").textContent = cfg.support.pixKey;
-      byId("openPixPageBtn").href = cfg.support.pixPageUrl;
-      const supportValues=byId("supportValues");
-      if(supportValues){supportValues.innerHTML="";cfg.support.suggestedValues.forEach(function(value){const btn=createEl("button","support-value",value);btn.type="button";btn.addEventListener("click",function(){window.open(cfg.support.pixPageUrl,"_blank","noopener,noreferrer");trackEvent("support_value_click",{suggested_value:value});});supportValues.appendChild(btn);});}
-      const copyPixBtn=byId("copyPixBtn");
-      if(copyPixBtn){copyPixBtn.addEventListener("click",async function(){try{await navigator.clipboard.writeText(cfg.support.pixKey);copyPixBtn.textContent="Chave Pix copiada";setTimeout(function(){copyPixBtn.textContent="Copiar chave Pix";},1800);}catch(e){window.prompt("Copie a chave Pix:",cfg.support.pixKey);}trackEvent("copy_pix_key",{pix_key:cfg.support.pixKey});});}
+      const booksGrid = byId("booksGrid");
+      if (booksGrid) {
+        booksGrid.innerHTML = "";
+        cfg.books.forEach(function(book){
+          const article = createEl("article", "card book-card reveal");
+          article.id = "book-" + book.slug;
+          article.dataset.line = book.line || "reflexiva";
+          article.dataset.featured = book.featured ? "true" : "false";
 
-      const faqWrap=byId("faqWrap");
-      if(faqWrap){faqWrap.innerHTML="";cfg.faq.forEach(function(item,index){const faqItem=createEl("div","faq-item"+(index===0?" open":""));const question=createEl("button","faq-question");question.type="button";question.setAttribute("aria-expanded",String(index===0));question.append(createEl("span","",safeText(item.q)),createEl("span","","+"));const answer=createEl("div","faq-answer");const inner=createEl("div");inner.appendChild(createEl("p","",safeText(item.a)));answer.appendChild(inner);faqItem.append(question,answer);faqWrap.appendChild(faqItem);question.addEventListener("click",function(){const isOpen=faqItem.classList.toggle("open");question.setAttribute("aria-expanded",String(isOpen));});});}
+          const coverWrap = createEl("div", "book-cover-wrap");
+          const cover = document.createElement("img");
+          cover.alt = "Capa do e-book " + book.title;
+          cover.loading = "lazy";
+          cover.decoding = "async";
+          cover.src = book.cover;
+          cover.onerror = function(){
+            cover.hidden = true;
+            if (!coverWrap.querySelector(".book-cover-fallback")) {
+              coverWrap.appendChild(createEl("div", "book-cover-fallback", book.title));
+            }
+          };
+          coverWrap.appendChild(cover);
 
-      async function sharePage(){const title=cfg.pageTitle;const text=cfg.shareText;const url=cfg.pageUrl||window.location.href;if(navigator.share){try{await navigator.share({title,text,url});trackEvent("share",{content_name:"Freedom Book",platform:"native_share"});return;}catch(e){}}window.open("https://api.whatsapp.com/send?text="+encode(text+" "+url),"_blank","noopener,noreferrer");trackEvent("share",{content_name:"Freedom Book",platform:"whatsapp_fallback"});}
-      ["heroSharePageBtn","sharePageFinalBtn"].forEach(function(id){const el=byId(id);if(el)el.addEventListener("click",function(e){e.preventDefault();sharePage();});});
+          const content = createEl("div", "book-content");
+          const tags = createEl("div", "book-tags");
+          (book.tags || []).forEach(function(tagText){ tags.appendChild(createEl("span", "tag", safeText(tagText))); });
 
-      const menuToggle=byId("menuToggle");const nav=document.querySelector(".nav");const navPanel=byId("navPanel");
-      if(menuToggle&&nav&&navPanel){menuToggle.addEventListener("click",function(){const isOpen=nav.classList.toggle("open");menuToggle.setAttribute("aria-expanded",String(isOpen));});navPanel.querySelectorAll("a").forEach(function(link){link.addEventListener("click",function(){nav.classList.remove("open");menuToggle.setAttribute("aria-expanded","false");});});}
+          const actions = createEl("div", "book-actions");
+          const mainActions = createEl("div", "book-main-actions");
+          const isAvailable = book.available !== false;
 
-      const modal=byId("legalModal"), modalTitle=byId("legalModalTitle"), modalContent=byId("legalModalContent");
-      function openModal(type){const data=cfg.legal[type];if(!data||!modal||!modalTitle||!modalContent)return;modalTitle.textContent=data.title;modalContent.innerHTML=data.html;modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");}
-      function closeModal(){if(!modal)return;modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open");}
-      document.querySelectorAll("[data-modal-open]").forEach(function(opener){opener.addEventListener("click",function(e){e.preventDefault();openModal(this.getAttribute("data-modal-open"));});});
-      document.querySelectorAll("[data-modal-close]").forEach(function(closer){closer.addEventListener("click",closeModal);});
-      document.addEventListener("keydown",function(e){if(e.key==="Escape"&&modal&&modal.classList.contains("open"))closeModal();});
+          if (isAvailable) {
+            const readBtn = createEl("a", "btn", "Ler agora");
+            readBtn.href = book.readUrl;
+            readBtn.target = "_blank";
+            readBtn.rel = "noopener noreferrer";
+            readBtn.setAttribute("aria-label", "Ler o e-book " + book.title);
+            readBtn.addEventListener("click", function(){ trackEvent("view_content", {content_name:book.title,content_type:"ebook",action:"read"}); });
 
-      function bindReveal(){const els=document.querySelectorAll(".reveal");if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){els.forEach(function(el){el.classList.add("visible");});return;}if("IntersectionObserver" in window){const obs=new IntersectionObserver(function(entries,observer){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}});},{threshold:.12});els.forEach(function(el){obs.observe(el);});}else{els.forEach(function(el){el.classList.add("visible");});}}
+            const downloadBtn = createEl("a", "btn secondary", "Baixar PDF");
+            downloadBtn.href = book.downloadUrl;
+            downloadBtn.rel = "noopener";
+            downloadBtn.download = book.slug + ".pdf";
+            downloadBtn.setAttribute("aria-label", "Baixar o PDF " + book.title);
+            downloadBtn.addEventListener("click", function(){ trackEvent("download", {content_name:book.title,content_type:"ebook",action:"download"}); });
+            mainActions.append(readBtn, downloadBtn);
+          } else {
+            const soonRead = createEl("span", "btn is-disabled", "Em breve");
+            soonRead.setAttribute("aria-disabled", "true");
+            const soonPdf = createEl("span", "btn secondary is-disabled", "PDF em breve");
+            soonPdf.setAttribute("aria-disabled", "true");
+            mainActions.append(soonRead, soonPdf);
+          }
+
+          const shareRow = createEl("div", "share-row");
+          const shareUrl = cfg.pageUrl + "#book-" + book.slug;
+          const shareWhats = createEl("a", "share-chip", "WhatsApp");
+          shareWhats.href = "https://api.whatsapp.com/send?text=" + encode(book.shareText + " " + shareUrl);
+          shareWhats.target = "_blank"; shareWhats.rel = "noopener noreferrer";
+          const shareFace = createEl("a", "share-chip", "Facebook");
+          shareFace.href = "https://www.facebook.com/sharer/sharer.php?u=" + encode(shareUrl);
+          shareFace.target = "_blank"; shareFace.rel = "noopener noreferrer";
+          const shareTele = createEl("a", "share-chip", "Telegram");
+          shareTele.href = "https://t.me/share/url?url=" + encode(shareUrl) + "&text=" + encode(book.shareText);
+          shareTele.target = "_blank"; shareTele.rel = "noopener noreferrer";
+          const copyLinkBtn = createEl("button", "share-chip", "Copiar link");
+          copyLinkBtn.type = "button";
+          copyLinkBtn.addEventListener("click", async function(){
+            try {
+              await navigator.clipboard.writeText(shareUrl);
+              copyLinkBtn.textContent = "Link copiado";
+              setTimeout(function(){ copyLinkBtn.textContent = "Copiar link"; }, 1800);
+            } catch(e) {
+              window.prompt("Copie o link:", shareUrl);
+            }
+            trackEvent("share", {content_name:book.title,platform:"copy_link"});
+          });
+          [[shareWhats,"whatsapp"],[shareFace,"facebook"],[shareTele,"telegram"]].forEach(function(pair){
+            pair[0].addEventListener("click", function(){ trackEvent("share", {content_name:book.title,platform:pair[1]}); });
+          });
+          shareRow.append(shareWhats, shareFace, shareTele, copyLinkBtn);
+          actions.append(mainActions, shareRow);
+
+          content.append(
+            createEl("span", "book-badge", safeText(book.badge)),
+            createEl("div", "line-label", book.line === "pratica" ? "Linha: Guias Práticos" : (book.line === "codigos" ? "Linha: Códigos de Vida" : "Linha: Leituras Reflexivas")),
+            createEl("h3", "book-title", safeText(book.title)),
+            createEl("p", "book-desc", safeText(book.description)),
+            tags,
+            actions
+          );
+          article.append(coverWrap, content);
+          booksGrid.appendChild(article);
+        });
+      }
+
+      setImage("pixQr", cfg.support.pixQrUrl, "QR Code da página de apoio");
+      setText("pixKeyText", cfg.support.supportLink);
+      setHref("openPixPageBtn", cfg.support.pixPageUrl);
+
+      const supportValues = byId("supportValues");
+      if (supportValues) {
+        supportValues.innerHTML = "";
+        cfg.support.suggestedValues.forEach(function(value){
+          const btn = createEl("button", "support-value", "Apoiar com " + value);
+          btn.type = "button";
+          btn.addEventListener("click", function(){
+            const win = window.open(cfg.support.pixPageUrl, "_blank", "noopener,noreferrer");
+            if (win) win.opener = null;
+            trackEvent("support_value_click", {suggested_value:value});
+          });
+          supportValues.appendChild(btn);
+        });
+      }
+
+      const copyPixBtn = byId("copyPixBtn");
+      if (copyPixBtn) {
+        copyPixBtn.addEventListener("click", async function(){
+          try {
+            await navigator.clipboard.writeText(cfg.support.supportLink);
+            copyPixBtn.textContent = "Link copiado";
+            setTimeout(function(){ copyPixBtn.textContent = "Copiar link de apoio"; }, 1800);
+          } catch(e) {
+            window.prompt("Copie o link de apoio:", cfg.support.supportLink);
+          }
+          trackEvent("copy_support_link", {source:"support_panel"});
+        });
+      }
+
+      const faqWrap = byId("faqWrap");
+      if (faqWrap) {
+        faqWrap.innerHTML = "";
+        cfg.faq.forEach(function(item,index){
+          const faqItem = createEl("div", "faq-item" + (index === 0 ? " open" : ""));
+          const question = createEl("button", "faq-question");
+          const answerId = "faq-answer-" + index;
+          question.type = "button";
+          question.setAttribute("aria-expanded", String(index === 0));
+          question.setAttribute("aria-controls", answerId);
+          question.append(createEl("span", "", safeText(item.q)), createEl("span", "", "+"));
+          const answer = createEl("div", "faq-answer");
+          answer.id = answerId;
+          answer.setAttribute("role", "region");
+          const inner = createEl("div");
+          inner.appendChild(createEl("p", "", safeText(item.a)));
+          answer.appendChild(inner);
+          faqItem.append(question, answer);
+          faqWrap.appendChild(faqItem);
+          question.addEventListener("click", function(){
+            const isOpen = faqItem.classList.toggle("open");
+            question.setAttribute("aria-expanded", String(isOpen));
+          });
+        });
+      }
+
+      async function sharePage(){
+        const title = cfg.pageTitle;
+        const text = cfg.shareText;
+        const url = cfg.pageUrl || window.location.href;
+        if (navigator.share) {
+          try {
+            await navigator.share({title,text,url});
+            trackEvent("share", {content_name:"Freedom Book",platform:"native_share"});
+            return;
+          } catch(e) {
+            if (e && e.name === "AbortError") return;
+          }
+        }
+        const win = window.open("https://api.whatsapp.com/send?text=" + encode(text + " " + url), "_blank", "noopener,noreferrer");
+        if (win) win.opener = null;
+        trackEvent("share", {content_name:"Freedom Book",platform:"whatsapp_fallback"});
+      }
+      ["heroSharePageBtn","sharePageFinalBtn"].forEach(function(id){
+        const el = byId(id);
+        if (el) el.addEventListener("click", function(e){ e.preventDefault(); sharePage(); });
+      });
+
+      const menuToggle = byId("menuToggle");
+      const nav = document.querySelector(".nav");
+      const navPanel = byId("navPanel");
+      function closeMenu(){
+        if (!menuToggle || !nav) return;
+        nav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menu");
+      }
+      if (menuToggle && nav && navPanel) {
+        menuToggle.addEventListener("click", function(){
+          const isOpen = nav.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+        });
+        navPanel.querySelectorAll("a").forEach(function(link){ link.addEventListener("click", closeMenu); });
+      }
+
+      const modal = byId("legalModal");
+      const modalTitle = byId("legalModalTitle");
+      const modalContent = byId("legalModalContent");
+      let modalOpener = null;
+      function modalFocusables(){
+        if (!modal) return [];
+        return Array.from(modal.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){ return !el.hidden; });
+      }
+      function openModal(type, opener){
+        const data = cfg.legal[type];
+        if (!data || !modal || !modalTitle || !modalContent) return;
+        modalOpener = opener || document.activeElement;
+        modalTitle.textContent = data.title;
+        modalContent.innerHTML = data.html;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        const focusables = modalFocusables();
+        if (focusables[0]) focusables[0].focus();
+      }
+      function closeModal(){
+        if (!modal || !modal.classList.contains("open")) return;
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+        if (modalOpener && typeof modalOpener.focus === "function") modalOpener.focus();
+        modalOpener = null;
+      }
+      document.querySelectorAll("[data-modal-open]").forEach(function(opener){
+        opener.addEventListener("click", function(e){ e.preventDefault(); openModal(this.getAttribute("data-modal-open"), this); });
+      });
+      document.querySelectorAll("[data-modal-close]").forEach(function(closer){ closer.addEventListener("click", closeModal); });
+      document.addEventListener("keydown", function(e){
+        if (e.key === "Escape") {
+          if (modal && modal.classList.contains("open")) closeModal();
+          else closeMenu();
+        }
+        if (e.key === "Tab" && modal && modal.classList.contains("open")) {
+          const focusables = modalFocusables();
+          if (!focusables.length) return;
+          const first = focusables[0], last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      function bindReveal(){
+        const els = document.querySelectorAll(".reveal");
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          els.forEach(function(el){ el.classList.add("visible"); });
+          return;
+        }
+        if ("IntersectionObserver" in window) {
+          const obs = new IntersectionObserver(function(entries,observer){
+            entries.forEach(function(entry){
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {threshold:.08, rootMargin:"0px 0px 120px 0px"});
+          els.forEach(function(el){ obs.observe(el); });
+        } else {
+          els.forEach(function(el){ el.classList.add("visible"); });
+        }
+      }
       bindReveal();
-      ["heroCatalogBtn","heroSupportBtn","navCatalogBtn","navSupportBtn","floatingCatalogBtn","stickyMobileBtn"].forEach(function(id){const el=byId(id);if(el)el.addEventListener("click",function(){trackEvent("navigation_click",{button_id:id});});});
+
+      ["heroCatalogBtn","heroSupportBtn","navCatalogBtn","navSupportBtn","floatingCatalogBtn","stickyMobileBtn"].forEach(function(id){
+        const el = byId(id);
+        if (el) el.addEventListener("click", function(){ trackEvent("navigation_click", {button_id:id}); });
+      });
     })();
   </script>
 </body>
