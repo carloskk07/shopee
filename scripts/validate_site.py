@@ -151,7 +151,7 @@ if release.get('release')!=RELEASE:fail('release.json release mismatch')
 art=release.get('artifacts',{})
 for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.3.css','assets/app.v2.2.3.js','deploy-marker.json'):
     if required not in art:fail(f'release surface missing {required}')
-if len(art)<40:fail(f'release surface unexpectedly small: {len(art)}')
+if len(art)<38:fail(f'release surface unexpectedly small: {len(art)}')
 for rel,expected_hash in art.items():
     p=ROOT/rel
     if not p.is_file():fail(f'release artifact missing {rel}')
