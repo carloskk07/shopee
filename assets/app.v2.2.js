@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const CONFIG = {ga:"G-DK72PVREEJ",tiktok:"D78O6VJC77U8CCU0EA0G",release:"2026.09.08-v2.2"};
+  const CONFIG = {ga:"G-DK72PVREEJ",tiktok:"D78O6VJC77U8CCU0EA0G",release:"2026.09.08-v2.2.2"};
   const safeDestination=(href="")=>{try{const u=new URL(href,location.href);return u.origin===location.origin?u.pathname:u.hostname}catch(_){return ""}};
   const $=(s,root=document)=>root.querySelector(s);
   const $$=(s,root=document)=>[...root.querySelectorAll(s)];
@@ -40,6 +40,7 @@
       if(empty)empty.hidden=visible!==0;
     };
     search?.addEventListener("input",()=>{forcedSlugs=null;apply()});
+    search?.addEventListener("change",()=>{const q=norm(search.value||"");if(q)track("catalog_search",{query_length:q.length,release:CONFIG.release})});
     $$(".filter-btn").forEach(btn=>btn.addEventListener("click",()=>{
       $$(".filter-btn").forEach(b=>b.setAttribute("aria-pressed","false"));btn.setAttribute("aria-pressed","true");
       filter=btn.dataset.filter||"all";forcedSlugs=null;apply();track("catalog_filter",{filter,release:CONFIG.release});
@@ -83,11 +84,13 @@
 
   function initPerformanceTelemetry(){
     if(perfStarted||!("PerformanceObserver" in window))return;perfStarted=true;
-    let cls=0,lcp=0,inp=0;
+    let cls=0,lcp=0,inp=0,fcp=0,ttfb=0;
+    try{const navEntry=performance.getEntriesByType("navigation")[0];if(navEntry)ttfb=Math.round(navEntry.responseStart||0)}catch(_){}
     try{new PerformanceObserver(list=>{for(const e of list.getEntries())if(!e.hadRecentInput)cls+=e.value}).observe({type:"layout-shift",buffered:true})}catch(_){}
     try{new PerformanceObserver(list=>{const es=list.getEntries();const last=es[es.length-1];if(last)lcp=Math.round(last.startTime)}).observe({type:"largest-contentful-paint",buffered:true})}catch(_){}
     try{new PerformanceObserver(list=>{for(const e of list.getEntries())inp=Math.max(inp,Math.round(e.duration||0))}).observe({type:"event",buffered:true,durationThreshold:40})}catch(_){}
-    addEventListener("pagehide",()=>track("page_quality",{cls:Number(cls.toFixed(3)),lcp_ms:lcp||undefined,inp_ms:inp||undefined,release:CONFIG.release}),{once:true});
+    try{new PerformanceObserver(list=>{for(const e of list.getEntries())if(e.name==="first-contentful-paint")fcp=Math.round(e.startTime)}).observe({type:"paint",buffered:true})}catch(_){}
+    addEventListener("pagehide",()=>track("page_quality",{cls:Number(cls.toFixed(3)),lcp_ms:lcp||undefined,inp_ms:inp||undefined,fcp_ms:fcp||undefined,ttfb_ms:ttfb||undefined,release:CONFIG.release}),{once:true});
   }
   function loadGA(){
     if(gaLoaded||!consent.analytics)return;gaLoaded=true;

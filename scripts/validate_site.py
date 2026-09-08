@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RELEASE = "2026.09.08-v2.2.1"
+RELEASE = "2026.09.08-v2.2.2"
 CANON = "https://achadostube.com.br"
 EXPECTED_HTML = {
     "index.html", "404.html", "a-vida-que-voce-adiou.html", "codigo-da-vida-inabalavel.html",
@@ -144,6 +144,35 @@ for cover in sorted(required_covers):
     p=cover_dir/cover
     if not p.is_file() or p.stat().st_size < 1024:
         fail(f'missing or invalid optimized cover: assets/covers/{cover}')
+
+# V2.2.2 performance and installability contracts.
+js=(ROOT/'assets/app.v2.2.js').read_text('utf-8')
+if f'release:"{RELEASE}"' not in js:
+    fail('runtime analytics release marker is stale')
+css=(ROOT/'assets/style.v2.2.css').read_text('utf-8')
+for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','body::before{display:none}'):
+    if marker not in css: fail(f'missing mobile performance contract: {marker}')
+for b in books:
+    if not b.get('available'): continue
+    slug=b['slug']; text=(ROOT/f'{slug}.html').read_text('utf-8')
+    preload=f'<link href="/assets/covers/capa-{slug}.webp" rel="preload" as="image" type="image/webp" fetchpriority="high"/>'
+    if preload not in text: fail(f'{slug}: missing high-priority LCP cover preload')
+home_feature=re.search(r'<div class="featured-cover"><img[^>]+>', home)
+if not home_feature or 'loading="lazy"' not in home_feature.group(0) or 'fetchpriority="low"' not in home_feature.group(0):
+    fail('home below-fold featured cover must be lazy/low-priority')
+manifest=json.loads((ROOT/'manifest.webmanifest').read_text('utf-8'))
+expected_icons={
+    '/assets/icons/icon-192.png':('192x192','any'),
+    '/assets/icons/icon-512.png':('512x512','any'),
+    '/assets/icons/maskable-512.png':('512x512','maskable'),
+}
+actual_icons={i.get('src'):(i.get('sizes'),i.get('purpose')) for i in manifest.get('icons',[])}
+if actual_icons != expected_icons: fail(f'manifest icon contract mismatch: {actual_icons}')
+for src in expected_icons:
+    p=ROOT/src.lstrip('/')
+    if not p.is_file() or p.stat().st_size < 1024: fail(f'missing or invalid PWA icon: {src}')
+apple=ROOT/'assets/icons/apple-touch-icon.png'
+if not apple.is_file() or apple.stat().st_size < 1024: fail('missing optimized apple-touch-icon')
 
 # release.json must exactly describe critical bytes.
 release=json.loads((ROOT/'release.json').read_text('utf-8'))
