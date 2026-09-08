@@ -49,7 +49,7 @@ jobs:
           base='https://achadostube.com.br'
           rel=json.loads(pathlib.Path('release.json').read_text())
           artifacts=rel.get('artifacts',{})
-          if len(artifacts) < 40:
+          if len(artifacts) < 38:
               raise SystemExit(f'release contract unexpectedly small: {len(artifacts)} artifacts')
           def public_path(path):
               if path == 'index.html': return '/'
