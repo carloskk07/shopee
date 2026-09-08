@@ -1,30 +1,45 @@
 # AchadosTube / Freedom Book
 
-Repositório do site público **achadostube.com.br**.
+Repositório público de `achadostube.com.br`.
+
+## Produção atual
+
+O núcleo editorial atual é a **Freedom Book V2.2**. A publicação é tratada como um contrato verificável:
+
+`branch -> PR -> Site integrity / validate -> main -> Vercel -> Production smoke`
+
+A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull Request com **Squash**, status check obrigatório e bloqueio de force push/deleção.
 
 ## Estrutura
 
-- `index.html` — home atual da Freedom Book.
-- `*.html` — páginas públicas de livros e páginas legadas que ainda podem receber tráfego externo.
-- `ebook/` — PDFs publicados da Freedom Book.
-- `imagens/` — capas, logos, QR e imagens editoriais.
-- `og/` — imagens para Open Graph/compartilhamento.
-- `product/` e páginas `kit-*` — conteúdo legado do projeto AchadosTube/Shopee; mantido para preservar URLs existentes.
-- `assets/` — recursos compartilhados do site.
-- `CNAME` — domínio customizado do GitHub Pages.
-- `sitemap.xml` / `robots.txt` — descoberta e indexação pelos buscadores.
+- `index.html` — home Freedom Book.
+- `*.html` — páginas editoriais públicas e páginas legadas preservadas.
+- `assets/style.v2.2.css` — CSS versionado da Freedom Book.
+- `assets/app.v2.2.js` — runtime, catálogo, compartilhamento e consentimento.
+- `site-data.generated.json` — contrato de dados do catálogo.
+- `ebook/` — PDFs publicados.
+- `imagens/` — capas, logos e QR.
+- `og/` — imagens sociais.
+- `release.json` — sentinela da versão esperada em produção.
+- `vercel.json` — clean URLs, redirects e headers do deploy Vercel.
+- `sitemap.xml` / `robots.txt` — descoberta e indexação.
+- `.github/workflows/site-integrity.yml` — gate obrigatório antes do merge.
+- `.github/workflows/production-smoke.yml` — validação do domínio depois do deploy.
+- `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.
 
 ## Regras de manutenção
 
-1. Não substituir PDFs por placeholders ou arquivos vazios.
-2. Manter URLs públicas existentes sempre que possível; páginas antigas devem redirecionar em vez de simplesmente desaparecer.
-3. Usar `https://achadostube.com.br/` como origem canônica principal.
-4. Alterações relevantes devem passar por branch/PR antes de chegar à `main`.
-5. Antes de publicar um livro, validar página, capa e PDF.
-6. Não duplicar a home em vários arquivos grandes; aliases legados devem ser redirects leves.
+1. Nunca atualizar `main` diretamente; usar branch + PR.
+2. Não publicar PDFs vazios, placeholders ou sem assinatura `%PDF-`.
+3. Não anunciar PDF/landing que não exista.
+4. Preservar URLs antigas por redirect quando houver tráfego potencial.
+5. Usar `https://achadostube.com.br/` como origem canônica.
+6. Não carregar GA4/TikTok antes do consentimento correspondente.
+7. Alterações de catálogo devem manter `site-data.generated.json`, HTML e sitemap coerentes.
+8. Uma release só é considerada realmente publicada quando **Production smoke** passa.
 
-## Produção
+## Release
 
-A branch `main` é a origem publicada. O domínio configurado é `achadostube.com.br`.
+Release editorial atual: `2026.09.08-v2.2`.
 
-A organização V2.1 da Freedom Book consolida SEO, catálogo, privacidade, sitemap, robots e recuperação de downloads corrompidos sem remover o conteúdo legado do AchadosTube.
+`deploy-marker.json` mantém a provenance estável da origem (`main`); `release.json` identifica criptograficamente cada release editorial e é a autoridade do smoke pós-deploy.

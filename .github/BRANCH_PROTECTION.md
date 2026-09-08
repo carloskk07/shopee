@@ -1,20 +1,24 @@
 # Proteção da branch `main`
 
-A infraestrutura local do repositório está preparada para proteção obrigatória da `main`.
+O ruleset **Protect main** está ativo e trata `main` como produção.
 
-## Ruleset recomendado
-
-Target: `main`
-
-Regras:
+## Contrato efetivo
 
 - Restrict deletions
 - Block force pushes
 - Require a pull request before merging
-- Require status checks to pass
-  - `Site integrity / validate`
+- Require status checks to pass: `validate`
+- Require branch to be up to date before merge
 - Require conversation resolution before merging
+- Require linear history
+- Allowed merge method: Squash
+- Required approvals: 0
+- Bypass: nenhum
 
-## Observação
+## Release
 
-`CODEOWNERS`, o template de Pull Request e o workflow `Site integrity` já estão versionados. A ativação do ruleset depende de permissão administrativa do repositório no GitHub.
+Uma mudança editorial não termina no merge. O contrato completo é:
+
+`branch -> PR -> validate -> squash/main -> Vercel -> Production smoke`
+
+`release.json` é a autoridade criptográfica do conteúdo editorial publicado.
