@@ -25,12 +25,33 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html robots.txt sitemap.xml README.md)
+          required=(CNAME index.html robots.txt sitemap.xml README.md vercel.json deploy-marker.json)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
           grep -qx 'achadostube.com.br' CNAME || { echo 'Unexpected CNAME'; exit 1; }
           grep -q 'Sitemap: https://achadostube.com.br/sitemap.xml' robots.txt || { echo 'robots.txt does not expose canonical sitemap'; exit 1; }
+
+      - name: Validate deployment contract files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          vercel = json.loads(Path('vercel.json').read_text(encoding='utf-8'))
+          marker = json.loads(Path('deploy-marker.json').read_text(encoding='utf-8'))
+          if vercel.get('cleanUrls') is not True:
+              raise SystemExit('vercel.json must enable cleanUrls')
+          if vercel.get('trailingSlash') is not False:
+              raise SystemExit('vercel.json must disable trailingSlash')
+          if marker.get('schema') != 'freedom-book-deploy-marker-v1':
+              raise SystemExit('unexpected deploy marker schema')
+          if marker.get('repository') != 'carloskk07/shopee' or marker.get('branch') != 'main':
+              raise SystemExit('deploy marker does not identify production main')
+          print('Deployment contract files are valid')
+          PY
 
       - name: Reject empty, placeholder or invalid PDFs
         shell: bash
