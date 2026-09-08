@@ -1,0 +1,177 @@
+name: Apply Freedom Book V2.2.2 performance campaign
+
+on:
+  push:
+    branches: ["perf/v2-2-2-mobile-seo"]
+    paths: [".perf-v222/READY"]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout performance branch
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Build V2.2.2 mobile performance, SEO and telemetry hardening
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet 'Pillow==11.3.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, json, re
+
+          ROOT=Path('.')
+          OLD='2026.09.08-v2.2.1'
+          NEW='2026.09.08-v2.2.2'
+          EDITORIAL=[
+            'index.html','404.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
+            'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html',
+            'o-cansaco-invisivel.html','o-metodo-da-vida-mais-leve.html','o-peso-de-ser-forte-o-tempo-todo.html',
+            'privacidade.html','proposito-maior.html','quando-sua-vida-virou-sobrevivencia.html',
+            'recomecos-sao-escolhas.html','termos.html'
+          ]
+
+          data_path=ROOT/'site-data.generated.json'
+          data=json.loads(data_path.read_text('utf-8'))
+          books=data.get('books',[])
+          available=[b for b in books if b.get('available')]
+          if len(available)!=10:
+              raise SystemExit(f'expected 10 available books, got {len(available)}')
+
+          # Optimized PWA/app icons generated from the canonical logo.
+          source=ROOT/'imagens'/'logo-freedom-book-redonda.png'
+          icon_dir=ROOT/'assets'/'icons'
+          icon_dir.mkdir(parents=True,exist_ok=True)
+          with Image.open(source) as raw:
+              rgba=raw.convert('RGBA')
+              def save_any(size,name):
+                  im=rgba.resize((size,size),Image.Resampling.LANCZOS)
+                  im.save(icon_dir/name,'PNG',optimize=True)
+              save_any(180,'apple-touch-icon.png')
+              save_any(192,'icon-192.png')
+              save_any(512,'icon-512.png')
+              mask=Image.new('RGBA',(512,512),(5,6,9,255))
+              logo=rgba.resize((320,320),Image.Resampling.LANCZOS)
+              mask.alpha_composite(logo,((512-320)//2,(512-320)//2))
+              mask.convert('RGB').save(icon_dir/'maskable-512.png','PNG',optimize=True)
+
+          # Bump editorial release metadata, use optimized touch icon and preload each book-page LCP cover.
+          for name in EDITORIAL:
+              p=ROOT/name
+              text=p.read_text('utf-8')
+              if OLD not in text:
+                  raise SystemExit(f'{name}: missing old release marker')
+              text=text.replace(OLD,NEW)
+              text=text.replace('href="/imagens/logo-freedom-book-redonda.png" rel="apple-touch-icon"',
+                                'href="/assets/icons/apple-touch-icon.png" rel="apple-touch-icon"')
+              p.write_text(text,'utf-8')
+
+          for b in available:
+              slug=b['slug']; p=ROOT/f'{slug}.html'; text=p.read_text('utf-8')
+              preload=f'<link href="/assets/covers/capa-{slug}.webp" rel="preload" as="image" type="image/webp" fetchpriority="high"/>'
+              if preload not in text:
+                  canonical=f'<link href="https://achadostube.com.br/{slug}" rel="canonical"/>'
+                  if canonical not in text:
+                      raise SystemExit(f'{slug}: canonical insertion point missing')
+                  text=text.replace(canonical,canonical+preload,1)
+              p.write_text(text,'utf-8')
+
+          # Home: do not compete for bandwidth with a below-the-fold featured cover.
+          home_path=ROOT/'index.html'
+          home=home_path.read_text('utf-8')
+          old_fragment='fetchpriority="high" height="900" loading="eager" src="/assets/covers/capa-proposito-maior.webp"'
+          new_fragment='fetchpriority="low" height="900" loading="lazy" src="/assets/covers/capa-proposito-maior.webp"'
+          if home.count(old_fragment)!=1:
+              raise SystemExit('home featured-cover priority contract changed unexpectedly')
+          home=home.replace(old_fragment,new_fragment,1)
+          home_path.write_text(home,'utf-8')
+
+          # Mobile rendering hardening: reduce persistent GPU paint, defer offscreen card work and honor reduced motion.
+          css_path=ROOT/'assets'/'style.v2.2.css'
+          css=css_path.read_text('utf-8')
+          marker='/* V2.2.2 mobile performance hardening */'
+          if marker in css:
+              raise SystemExit('performance block already present')
+          css += '''\n\n/* V2.2.2 mobile performance hardening */\n@supports (content-visibility:auto){\n  .book-card{content-visibility:auto;contain-intrinsic-size:auto 620px}\n  .related-card,.theme-card{content-visibility:auto;contain-intrinsic-size:auto 180px}\n}\n@media (max-width:760px){\n  body::before{display:none}\n  .nav{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}\n  .card{box-shadow:0 14px 34px rgba(0,0,0,.26)}\n}\n@media (prefers-reduced-motion:reduce){\n  html{scroll-behavior:auto}\n  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}\n}\n'''
+          css_path.write_text(css,'utf-8')
+
+          # Telemetry truth: fix stale release label, add privacy-safe search intent and richer CWV diagnostics.
+          js_path=ROOT/'assets'/'app.v2.2.js'
+          js=js_path.read_text('utf-8')
+          js,n=re.subn(r'release:"2026\.09\.08-v2\.2(?:\.1)?"',f'release:"{NEW}"',js,count=1)
+          if n!=1:
+              raise SystemExit('JS release marker not found exactly once')
+          needle='search?.addEventListener("input",()=>{forcedSlugs=null;apply()});'
+          insert=needle+'\n    search?.addEventListener("change",()=>{const q=norm(search.value||"");if(q)track("catalog_search",{query_length:q.length,release:CONFIG.release})});'
+          if needle not in js:
+              raise SystemExit('catalog search insertion point missing')
+          js=js.replace(needle,insert,1)
+          start=js.index('  function initPerformanceTelemetry(){')
+          end=js.index('  function loadGA(){',start)
+          perf='''  function initPerformanceTelemetry(){\n    if(perfStarted||!("PerformanceObserver" in window))return;perfStarted=true;\n    let cls=0,lcp=0,inp=0,fcp=0,ttfb=0;\n    try{const navEntry=performance.getEntriesByType("navigation")[0];if(navEntry)ttfb=Math.round(navEntry.responseStart||0)}catch(_){}\n    try{new PerformanceObserver(list=>{for(const e of list.getEntries())if(!e.hadRecentInput)cls+=e.value}).observe({type:"layout-shift",buffered:true})}catch(_){}\n    try{new PerformanceObserver(list=>{const es=list.getEntries();const last=es[es.length-1];if(last)lcp=Math.round(last.startTime)}).observe({type:"largest-contentful-paint",buffered:true})}catch(_){}\n    try{new PerformanceObserver(list=>{for(const e of list.getEntries())inp=Math.max(inp,Math.round(e.duration||0))}).observe({type:"event",buffered:true,durationThreshold:40})}catch(_){}\n    try{new PerformanceObserver(list=>{for(const e of list.getEntries())if(e.name==="first-contentful-paint")fcp=Math.round(e.startTime)}).observe({type:"paint",buffered:true})}catch(_){}\n    addEventListener("pagehide",()=>track("page_quality",{cls:Number(cls.toFixed(3)),lcp_ms:lcp||undefined,inp_ms:inp||undefined,fcp_ms:fcp||undefined,ttfb_ms:ttfb||undefined,release:CONFIG.release}),{once:true});\n  }\n'''
+          js=js[:start]+perf+js[end:]
+          js_path.write_text(js,'utf-8')
+
+          # PWA manifest with complete any + maskable icon contract.
+          manifest={
+            'name':'Freedom Book','short_name':'Freedom Book','start_url':'/','display':'standalone',
+            'background_color':'#050609','theme_color':'#050609','lang':'pt-BR','id':'/','scope':'/',
+            'icons':[
+              {'src':'/assets/icons/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},
+              {'src':'/assets/icons/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'},
+              {'src':'/assets/icons/maskable-512.png','sizes':'512x512','type':'image/png','purpose':'maskable'}
+            ]
+          }
+          (ROOT/'manifest.webmanifest').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n','utf-8')
+
+          data['site']['release']=NEW
+          data_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n','utf-8')
+
+          # Harden local validation so these improvements cannot silently regress.
+          val_path=ROOT/'scripts'/'validate_site.py'
+          val=val_path.read_text('utf-8').replace('RELEASE = "2026.09.08-v2.2.1"',f'RELEASE = "{NEW}"')
+          anchor='# release.json must exactly describe critical bytes.'
+          if anchor not in val:
+              raise SystemExit('validator insertion anchor missing')
+          contract='''# V2.2.2 performance and installability contracts.\njs=(ROOT/'assets/app.v2.2.js').read_text('utf-8')\nif f'release:"{RELEASE}"' not in js:\n    fail('runtime analytics release marker is stale')\ncss=(ROOT/'assets/style.v2.2.css').read_text('utf-8')\nfor marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','body::before{display:none}'):\n    if marker not in css: fail(f'missing mobile performance contract: {marker}')\nfor b in books:\n    if not b.get('available'): continue\n    slug=b['slug']; text=(ROOT/f'{slug}.html').read_text('utf-8')\n    preload=f'<link href="/assets/covers/capa-{slug}.webp" rel="preload" as="image" type="image/webp" fetchpriority="high"/>'\n    if preload not in text: fail(f'{slug}: missing high-priority LCP cover preload')\nhome_feature=re.search(r'<div class="featured-cover"><img[^>]+>', home)\nif not home_feature or 'loading="lazy"' not in home_feature.group(0) or 'fetchpriority="low"' not in home_feature.group(0):\n    fail('home below-fold featured cover must be lazy/low-priority')\nmanifest=json.loads((ROOT/'manifest.webmanifest').read_text('utf-8'))\nexpected_icons={\n    '/assets/icons/icon-192.png':('192x192','any'),\n    '/assets/icons/icon-512.png':('512x512','any'),\n    '/assets/icons/maskable-512.png':('512x512','maskable'),\n}\nactual_icons={i.get('src'):(i.get('sizes'),i.get('purpose')) for i in manifest.get('icons',[])}\nif actual_icons != expected_icons: fail(f'manifest icon contract mismatch: {actual_icons}')\nfor src in expected_icons:\n    p=ROOT/src.lstrip('/')\n    if not p.is_file() or p.stat().st_size < 1024: fail(f'missing or invalid PWA icon: {src}')\napple=ROOT/'assets/icons/apple-touch-icon.png'\nif not apple.is_file() or apple.stat().st_size < 1024: fail('missing optimized apple-touch-icon')\n\n'''
+          val=val.replace(anchor,contract+anchor,1)
+          val_path.write_text(val,'utf-8')
+
+          # Expand release parity from a small critical subset to the complete editorial surface.
+          rel_path=ROOT/'release.json'
+          rel=json.loads(rel_path.read_text('utf-8'))
+          rel['release']=NEW
+          cover_paths=sorted(p.relative_to(ROOT).as_posix() for p in (ROOT/'assets'/'covers').glob('*.webp'))
+          icon_paths=sorted(p.relative_to(ROOT).as_posix() for p in icon_dir.glob('*.png'))
+          artifacts=EDITORIAL+[
+            'assets/style.v2.2.css','assets/app.v2.2.js','sitemap.xml','robots.txt',
+            'site-data.generated.json','manifest.webmanifest','deploy-marker.json'
+          ]+cover_paths+icon_paths
+          def sha(path): return hashlib.sha256((ROOT/path).read_bytes()).hexdigest()
+          rel['artifacts']={path:sha(path) for path in artifacts}
+          rel_path.write_text(json.dumps(rel,ensure_ascii=False,indent=2)+'\n','utf-8')
+          PY
+
+          node --check assets/app.v2.2.js
+          python3 scripts/validate_site.py
+          test ! -e vercel.json
+          test -s assets/icons/icon-192.png
+          test -s assets/icons/icon-512.png
+          test -s assets/icons/maskable-512.png
+          test -s assets/icons/apple-touch-icon.png
+
+          rm -rf .perf-v222
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          test -z "$(git diff --cached --name-only -- .github/workflows)"
+          git commit -m "perf: harden Freedom Book V2.2.2 mobile delivery"
+          git push origin HEAD:perf/v2-2-2-mobile-seo
