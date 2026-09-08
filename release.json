@@ -1,14 +1,26 @@
 {
   "schema": "freedom-book-release-v1",
-  "release": "2026.09.08-v2.2",
+  "release": "2026.09.08-v2.2.1",
   "publishedFrom": "main",
   "origin": "https://achadostube.com.br",
   "artifacts": {
-    "index.html": "ade0122448be5e804639e55a643e6525a07f2486456a63d72ea4ea1195d0af5e",
+    "index.html": "9337a2f1ca39572d3c59de984460152642f15efa2e0d65daa617bedd5ae14eff",
     "assets/style.v2.2.css": "3f26b111fd5481ca55aafdac2df754563b219d9bbed30a231ce03612e6d7d7bf",
     "assets/app.v2.2.js": "cbe971f830c19d140e1f4b6487999f9c6619078f0a9b5c3442946c6cb4c5e5ce",
     "sitemap.xml": "de7b08db52fd9f9faed20a35dfd8859f9addfa8a1d59ea43159ec359ce716bbd",
-    "site-data.generated.json": "2fdf489b2adf41be9fa515c29e8ef4212ed22d33f4dd44fc8ff088fad6e55b65",
-    "manifest.webmanifest": "4593122e2af5e179d4eeea3dc1a6085fbf10be99191bf50f80310222eb383bb3"
+    "site-data.generated.json": "512f833fe12267ef7da0fce76b013f325c8ee394d8010da2b7ad413026b149b0",
+    "manifest.webmanifest": "4593122e2af5e179d4eeea3dc1a6085fbf10be99191bf50f80310222eb383bb3",
+    "deploy-marker.json": "212fa273d1512858d1f8b79ac6cbea1960992601cfeb3dea77f9f447bb1ca682",
+    "assets/covers/capa-a-vida-que-voce-adiou.webp": "b4f368df4db900c6d7fcf6309ef334ffbc30c73043958a2dd0a884aef3c9a6b8",
+    "assets/covers/capa-disciplina-e-liberdade.webp": "03293b278cd090d0d16159cd9d8bace4a807a336479f05cd9a7bd07c9b19a258",
+    "assets/covers/capa-foco-que-gera-resultados.webp": "bce2f094848b49fc29dc6c522c533c659832eda97d35287f3329bb8c35f3b95a",
+    "assets/covers/capa-mente-forte-vida-leve.webp": "0b815bc0a93c905311208012f1b37bc8462cfbe9a0b0ca4c1585c6163f97af48",
+    "assets/covers/capa-o-cansaco-invisivel.webp": "31008ee3f2fcc2db2173f68077ae63503847ff4bf4ae654e31ca334dab43d46e",
+    "assets/covers/capa-o-metodo-da-vida-mais-leve.webp": "67a1800ae2db6480ade838e3578007a3dcc6d260351eff0e62a078c071c1da43",
+    "assets/covers/capa-o-peso-de-ser-forte-o-tempo-todo.webp": "6ac300c637175f566fb640396ae748ff614752052c3c91862971a140b604027a",
+    "assets/covers/capa-proposito-maior.webp": "530bcb3fea9423355bc850b73e173567f330907cb63636960f7b64c9022bd093",
+    "assets/covers/capa-quando-sua-vida-virou-sobrevivencia.webp": "cc9fb982efbd48f44f9f91d3fec4715a4f9714b93df33d1670adc41807a85fa5",
+    "assets/covers/capa-recomecos-sao-escolhas.webp": "40808f60d1935ad7aafead54274d3487784048ade5776bdd837514a20dc849c4",
+    "assets/covers/logo-freedom-book-redonda.webp": "125bc9c9485a0d6d5e9c2e58eef2204a3d0c841d8f1f7442256ef3fd2516b365"
   }
 }

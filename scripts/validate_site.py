@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RELEASE = "2026.09.08-v2.2"
+RELEASE = "2026.09.08-v2.2.1"
 CANON = "https://achadostube.com.br"
 EXPECTED_HTML = {
     "index.html", "404.html", "a-vida-que-voce-adiou.html", "codigo-da-vida-inabalavel.html",
@@ -125,15 +125,25 @@ for url in urls:
     if not target.is_file() or target.stat().st_size==0: fail(f'sitemap route missing: {url} -> {target.relative_to(ROOT)}')
 if CANON+'/codigo-da-vida-inabalavel' in urls: fail('noindex upcoming release must not be in sitemap')
 
-# Vercel image optimizer contract: every requested width and quality is allowlisted.
-v=json.loads((ROOT/'vercel.json').read_text('utf-8'))
-img=v.get('images',{}); sizes=set(img.get('sizes',[])); qualities=set(img.get('qualities',[]))
+# GitHub Pages static-image contract. Production must not depend on Vercel-only endpoints.
 for name in EXPECTED_HTML:
     text=(ROOT/name).read_text('utf-8')
-    for w in re.findall(r'/_vercel/image\?[^"\s]*?&amp;w=(\d+)&amp;q=(\d+)', text):
-        wi,qi=map(int,w)
-        if wi not in sizes: fail(f'{name}: image width {wi} not allowed by vercel.json')
-        if qi not in qualities: fail(f'{name}: image quality {qi} not allowed by vercel.json')
+    if '/_vercel/image' in text:
+        fail(f'{name}: Vercel-only image endpoint is forbidden on GitHub Pages production')
+    for src in re.findall(r'<img\b[^>]*\bsrc="(/[^"]+)"', text, re.I):
+        path=urlparse(src).path.lstrip('/')
+        target=ROOT/path
+        if not target.is_file() or target.stat().st_size==0:
+            fail(f'{name}: missing static image asset: {src}')
+
+# Optimized Freedom Book covers are pre-generated static WebP assets.
+cover_dir=ROOT/'assets'/'covers'
+required_covers={f'capa-{b["slug"]}.webp' for b in books if b.get('available')}
+required_covers.add('logo-freedom-book-redonda.webp')
+for cover in sorted(required_covers):
+    p=cover_dir/cover
+    if not p.is_file() or p.stat().st_size < 1024:
+        fail(f'missing or invalid optimized cover: assets/covers/{cover}')
 
 # release.json must exactly describe critical bytes.
 release=json.loads((ROOT/'release.json').read_text('utf-8'))
