@@ -22,15 +22,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          archive='.v22-stage/v22.tar.xz'
-          test -s "$archive"
-          echo '1359e2084400039377aafb89137145d4e1819afa39319ec311fde121795697cd  .v22-stage/v22.tar.xz' | sha256sum -c -
-          tar -tJf "$archive" > /tmp/archive-files.txt
+          echo '131b123b06a091df8cc34276f61b88ca1afcf1fc27f9a30009ceec34183bcd27  .v22-stage/part-00' | sha256sum -c -
+          echo '6b5ad1da668a7a606e32c44c5854da6686dda41739bfdd8505a7ed9e1d650199  .v22-stage/part-01' | sha256sum -c -
+          echo '57ed0e190789d903b455bf09d35ece4c17174186d77999dc44d584c414d4a1e0  .v22-stage/part-02' | sha256sum -c -
+          echo '93cb6db4e28a350daaaf385b74b7bec3f74e0a53a9a0d141b89196938cea415f  .v22-stage/part-03' | sha256sum -c -
+          echo '6c554f819585a0c0d2e18647e3e5f6bd8fbf4e0cd5e712b1d398a1ea0c312258  .v22-stage/part-04' | sha256sum -c -
+          cat .v22-stage/part-00 .v22-stage/part-01 .v22-stage/part-02 .v22-stage/part-03 .v22-stage/part-04 > /tmp/v22.b64
+          base64 -d /tmp/v22.b64 > /tmp/v22.tar.xz
+          echo '1359e2084400039377aafb89137145d4e1819afa39319ec311fde121795697cd  /tmp/v22.tar.xz' | sha256sum -c -
+          tar -tJf /tmp/v22.tar.xz > /tmp/archive-files.txt
           allowed='README.md|index.html|404.html|a-vida-que-voce-adiou.html|codigo-da-vida-inabalavel.html|disciplina-e-liberdade.html|foco-que-gera-resultados.html|mente-forte-vida-leve.html|o-cansaco-invisivel.html|o-metodo-da-vida-mais-leve.html|o-peso-de-ser-forte-o-tempo-todo.html|privacidade.html|proposito-maior.html|quando-sua-vida-virou-sobrevivencia.html|recomecos-sao-escolhas.html|termos.html|assets/style.v2.2.css|assets/app.v2.2.js|site-data.generated.json|manifest.webmanifest|robots.txt|sitemap.xml|vercel.json|release.json|scripts/validate_site.py|.github/workflows/site-integrity.yml|.github/workflows/production-smoke.yml|.github/BRANCH_PROTECTION.md'
           while IFS= read -r path; do
             printf '%s\n' "$path" | grep -Exq "$allowed" || { echo "Unexpected archive path: $path"; exit 1; }
           done < /tmp/archive-files.txt
-          tar -xJf "$archive" -C .
+          tar -xJf /tmp/v22.tar.xz -C .
           rm -rf .v22-stage .github/workflows/apply-v22-staged.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
