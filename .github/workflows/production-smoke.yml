@@ -1,0 +1,92 @@
+name: Production smoke
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: freedom-book-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout approved main
+        uses: actions/checkout@v4
+
+      - name: Wait for the approved release to reach production
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          matched=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location \
+              --connect-timeout 10 --max-time 20 \
+              "$base/deploy-marker.json?probe=$GITHUB_SHA-$attempt" \
+              -o /tmp/public-marker.json; then
+              if cmp -s deploy-marker.json /tmp/public-marker.json; then
+                echo "Production marker matches approved main on attempt $attempt."
+                matched=1
+                break
+              fi
+            fi
+            echo "Attempt $attempt/30: production has not converged yet."
+            sleep 20
+          done
+          test "$matched" -eq 1
+
+      - name: Verify critical public routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          for path in \
+            / \
+            /sitemap.xml \
+            /robots.txt \
+            /proposito-maior \
+            /o-cansaco-invisivel; do
+            echo "Checking $path"
+            curl --fail --silent --show-error --location \
+              --connect-timeout 10 --max-time 30 \
+              "$base$path" -o /tmp/route-body
+            test -s /tmp/route-body
+          done
+
+      - name: Verify sitemap contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            "https://achadostube.com.br/sitemap.xml" -o /tmp/sitemap.xml
+          grep -Fq 'https://achadostube.com.br/' /tmp/sitemap.xml
+          grep -Fq 'https://achadostube.com.br/proposito-maior' /tmp/sitemap.xml
+          grep -Fq 'https://achadostube.com.br/o-cansaco-invisivel' /tmp/sitemap.xml
+
+      - name: Verify a published PDF is real
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            --connect-timeout 10 --max-time 60 \
+            "https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf" \
+            -o /tmp/book.pdf
+          test "$(head -c 5 /tmp/book.pdf)" = '%PDF-'
+          test "$(wc -c < /tmp/book.pdf)" -gt 1024
+
+      - name: Verify Vercel routing headers without coupling to a region
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -D /tmp/headers.txt -o /dev/null \
+            "https://achadostube.com.br/deploy-marker.json"
+          grep -iq '^x-content-type-options: *nosniff' /tmp/headers.txt
+          grep -iq '^referrer-policy: *strict-origin-when-cross-origin' /tmp/headers.txt
