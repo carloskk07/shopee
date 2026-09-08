@@ -1,0 +1,19 @@
+{
+  "name": "Freedom Book",
+  "short_name": "Freedom Book",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050609",
+  "theme_color": "#050609",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/assets/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "/",
+  "scope": "/"
+}
