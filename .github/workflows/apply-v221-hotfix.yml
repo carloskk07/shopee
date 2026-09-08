@@ -1,0 +1,131 @@
+name: Apply Freedom Book V2.2.1 hotfix
+
+on:
+  push:
+    branches: ["fix/v2-2-1-github-pages-images"]
+    paths: [".hotfix-v221/READY"]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout hotfix branch
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Build GitHub Pages native image hotfix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet 'Pillow==11.3.0'
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, html, json, re, urllib.parse
+
+          root=Path('.')
+          old='2026.09.08-v2.2'
+          new='2026.09.08-v2.2.1'
+          editorial=[
+            'index.html','404.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
+            'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html',
+            'o-cansaco-invisivel.html','o-metodo-da-vida-mais-leve.html','o-peso-de-ser-forte-o-tempo-todo.html',
+            'privacidade.html','proposito-maior.html','quando-sua-vida-virou-sobrevivencia.html',
+            'recomecos-sao-escolhas.html','termos.html'
+          ]
+
+          cover_dir=root/'assets'/'covers'
+          cover_dir.mkdir(parents=True,exist_ok=True)
+          for p in sorted((root/'imagens').glob('capa-*.png')):
+              with Image.open(p) as im:
+                  im=im.convert('RGB')
+                  w=560; h=round(im.height*w/im.width)
+                  im=im.resize((w,h),Image.Resampling.LANCZOS)
+                  im.save(cover_dir/f'{p.stem}.webp','WEBP',quality=82,method=6)
+          with Image.open(root/'imagens'/'logo-freedom-book-redonda.png') as im:
+              im=im.convert('RGBA').resize((96,96),Image.Resampling.LANCZOS)
+              im.save(cover_dir/'logo-freedom-book-redonda.webp','WEBP',quality=84,method=6)
+
+          def map_source(src):
+              if src.startswith('/imagens/capa-') and src.lower().endswith('.png'):
+                  return '/assets/covers/'+Path(src).stem+'.webp'
+              if src=='/imagens/logo-freedom-book-redonda.png':
+                  return '/assets/covers/logo-freedom-book-redonda.webp'
+              if src=='/imagens/livepix-qr.PNG':
+                  return src
+              return src
+
+          def rewrite_img(tag):
+              if '/_vercel/image' not in tag:
+                  return tag
+              m=re.search(r'src="/_vercel/image\?([^\"]+)"',tag)
+              if m:
+                  params=urllib.parse.parse_qs(html.unescape(m.group(1)))
+                  src=params.get('url',[''])[0]
+                  tag=tag[:m.start()]+f'src="{map_source(src)}"'+tag[m.end():]
+              tag=re.sub(r'\s+srcset="[^"]*/_vercel/image[^"]*"','',tag)
+              tag=re.sub(r'\s+sizes="[^"]*"','',tag)
+              return tag
+
+          for name in editorial:
+              p=root/name
+              text=p.read_text('utf-8').replace(old,new)
+              text=re.sub(r'<img\b[^>]*>',lambda m:rewrite_img(m.group(0)),text,flags=re.I)
+              if '/_vercel/image' in text:
+                  raise SystemExit(f'optimizer residue in {name}')
+              p.write_text(text,'utf-8')
+
+          data_path=root/'site-data.generated.json'
+          data=json.loads(data_path.read_text('utf-8'))
+          data['site']['release']=new
+          data_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n','utf-8')
+
+          marker_path=root/'deploy-marker.json'
+          marker=json.loads(marker_path.read_text('utf-8'))
+          marker['release']='2026.09.08-deploy-truth-2'
+          marker['provider']='github-pages'
+          marker['source']='main'
+          marker_path.write_text(json.dumps(marker,ensure_ascii=False,indent=2)+'\n','utf-8')
+
+          validator=root/'scripts'/'validate_site.py'
+          text=validator.read_text('utf-8').replace('RELEASE = "2026.09.08-v2.2"','RELEASE = "2026.09.08-v2.2.1"')
+          start=text.index('# Vercel image optimizer contract:')
+          end=text.index('# release.json must exactly describe critical bytes.',start)
+          pages_contract='''# GitHub Pages static-image contract. Production must not depend on Vercel-only endpoints.\nfor name in EXPECTED_HTML:\n    text=(ROOT/name).read_text('utf-8')\n    if '/_vercel/image' in text:\n        fail(f'{name}: Vercel-only image endpoint is forbidden on GitHub Pages production')\n    for src in re.findall(r'<img\\b[^>]*\\bsrc="(/[^"]+)"', text, re.I):\n        path=urlparse(src).path.lstrip('/')\n        target=ROOT/path\n        if not target.is_file() or target.stat().st_size==0:\n            fail(f'{name}: missing static image asset: {src}')\n\n# Optimized Freedom Book covers are pre-generated static WebP assets.\ncover_dir=ROOT/'assets'/'covers'\nrequired_covers={f'capa-{b["slug"]}.webp' for b in books if b.get('available')}\nrequired_covers.add('logo-freedom-book-redonda.webp')\nfor cover in sorted(required_covers):\n    p=cover_dir/cover\n    if not p.is_file() or p.stat().st_size < 1024:\n        fail(f'missing or invalid optimized cover: assets/covers/{cover}')\n\n'''
+          validator.write_text(text[:start]+pages_contract+text[end:],'utf-8')
+
+          readme='''# AchadosTube / Freedom Book\n\nRepositório público de `achadostube.com.br`.\n\n## Produção atual\n\nO núcleo editorial atual é a **Freedom Book V2.2.1**. A publicação é tratada como um contrato verificável:\n\n`branch -> PR -> Site integrity / validate -> main -> GitHub Pages -> Production smoke`\n\nA origem pública `https://achadostube.com.br/` é publicada pelo **GitHub Pages** a partir da `main`. O `CNAME` é a autoridade do domínio dentro do repositório. Endpoints exclusivos da Vercel, como `/_vercel/image`, não podem ser usados no HTML de produção.\n\nA branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull Request com **Squash**, status check obrigatório e bloqueio de force push/deleção.\n\n## Estrutura\n\n- `index.html` — home Freedom Book.\n- `*.html` — páginas editoriais públicas e páginas legadas preservadas.\n- `assets/style.v2.2.css` — CSS versionado da Freedom Book.\n- `assets/app.v2.2.js` — runtime, catálogo, compartilhamento e consentimento.\n- `assets/covers/` — capas WebP estáticas otimizadas para GitHub Pages.\n- `site-data.generated.json` — contrato de dados do catálogo.\n- `ebook/` — PDFs publicados.\n- `imagens/` — originais das capas, logos e QR.\n- `og/` — imagens sociais.\n- `release.json` — hashes SHA-256 dos artefatos críticos esperados em produção.\n- `deploy-marker.json` — provenance da origem, branch e provedor de produção.\n- `sitemap.xml` / `robots.txt` — descoberta e indexação.\n- `.github/workflows/site-integrity.yml` — gate obrigatório antes do merge.\n- `.github/workflows/production-smoke.yml` — validação do domínio depois do deploy.\n- `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.\n\n## Regras de manutenção\n\n1. Nunca atualizar `main` diretamente; usar branch + PR.\n2. Não publicar PDFs vazios, placeholders ou sem assinatura `%PDF-`.\n3. Não anunciar PDF/landing que não exista.\n4. Preservar URLs antigas quando houver tráfego potencial.\n5. Usar `https://achadostube.com.br/` como origem canônica.\n6. Não carregar GA4/TikTok antes do consentimento correspondente.\n7. Alterações de catálogo devem manter `site-data.generated.json`, HTML e sitemap coerentes.\n8. Não referenciar endpoints de outro provedor no HTML público.\n9. Uma release só é considerada realmente publicada quando **Production smoke** passa.\n\n## Release\n\nRelease editorial atual: `2026.09.08-v2.2.1`.\n\n`deploy-marker.json` identifica a cadeia de deploy ativa; `release.json` identifica criptograficamente os bytes críticos da release e é a autoridade do smoke pós-deploy.\n'''
+          (root/'README.md').write_text(readme,'utf-8')
+
+          # Vercel is not the active production host; remove stale provider configuration.
+          (root/'vercel.json').unlink(missing_ok=True)
+
+          rel_path=root/'release.json'
+          rel=json.loads(rel_path.read_text('utf-8'))
+          rel['release']=new
+          artifacts=list(rel['artifacts'].keys())+['deploy-marker.json']
+          artifacts += [p.relative_to(root).as_posix() for p in sorted(cover_dir.glob('*.webp'))]
+          artifacts=list(dict.fromkeys(artifacts))
+          def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+          rel['artifacts']={path:sha(root/path) for path in artifacts}
+          rel_path.write_text(json.dumps(rel,ensure_ascii=False,indent=2)+'\n','utf-8')
+          PY
+
+          node --check assets/app.v2.2.js
+          python3 scripts/validate_site.py
+          test ! -e vercel.json
+          ! grep -RIl --include='*.html' '/_vercel/image' .
+          find assets/covers -type f -name '*.webp' -size +1k | sort
+
+          rm -rf .hotfix-v221
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          test -z "$(git diff --cached --name-only -- .github/workflows)"
+          git commit -m "fix: make V2.2.1 native to GitHub Pages"
+          git push origin HEAD:fix/v2-2-1-github-pages-images
