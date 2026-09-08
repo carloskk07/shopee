@@ -2,7 +2,7 @@ name: Production smoke
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -18,65 +18,74 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout approved main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Wait for the approved release to reach production
+      - name: Wait for exact release to reach production
         shell: bash
         run: |
           set -euo pipefail
           base="https://achadostube.com.br"
           matched=0
           for attempt in $(seq 1 30); do
-            if curl --fail --silent --show-error --location \
-              --connect-timeout 10 --max-time 20 \
-              "$base/deploy-marker.json?probe=$GITHUB_SHA-$attempt" \
-              -o /tmp/public-marker.json; then
-              if cmp -s deploy-marker.json /tmp/public-marker.json; then
-                echo "Production marker matches approved main on attempt $attempt."
+            if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 20 \
+              "$base/release.json?probe=$GITHUB_SHA-$attempt" -o /tmp/public-release.json; then
+              if cmp -s release.json /tmp/public-release.json; then
+                echo "Production release.json matches approved main on attempt $attempt."
                 matched=1
                 break
               fi
             fi
-            echo "Attempt $attempt/30: production has not converged yet."
+            echo "Attempt $attempt/30: production release has not converged yet."
             sleep 20
           done
           test "$matched" -eq 1
+
+      - name: Verify production artifact hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, pathlib, urllib.request
+          base='https://achadostube.com.br'
+          rel=json.loads(pathlib.Path('release.json').read_text())
+          route={'index.html':'/'}
+          for path, expected in rel['artifacts'].items():
+              url=base+route.get(path,'/'+path)
+              req=urllib.request.Request(url, headers={'User-Agent':'FreedomBook-Production-Smoke/2.2'})
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  body=r.read()
+              actual=hashlib.sha256(body).hexdigest()
+              if actual != expected:
+                  raise SystemExit(f'hash mismatch {path}: {actual} != {expected}')
+              print('OK', path, len(body), actual)
+          PY
 
       - name: Verify critical public routes
         shell: bash
         run: |
           set -euo pipefail
           base="https://achadostube.com.br"
-          for path in \
-            / \
-            /sitemap.xml \
-            /robots.txt \
-            /proposito-maior \
-            /o-cansaco-invisivel; do
+          for path in / /sitemap.xml /robots.txt /proposito-maior /o-cansaco-invisivel /privacidade /termos; do
             echo "Checking $path"
-            curl --fail --silent --show-error --location \
-              --connect-timeout 10 --max-time 30 \
-              "$base$path" -o /tmp/route-body
+            curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "$base$path" -o /tmp/route-body
             test -s /tmp/route-body
           done
 
-      - name: Verify sitemap contract
+      - name: Verify image optimization path
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location \
-            "https://achadostube.com.br/sitemap.xml" -o /tmp/sitemap.xml
-          grep -Fq 'https://achadostube.com.br/' /tmp/sitemap.xml
-          grep -Fq 'https://achadostube.com.br/proposito-maior' /tmp/sitemap.xml
-          grep -Fq 'https://achadostube.com.br/o-cansaco-invisivel' /tmp/sitemap.xml
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 \
+            'https://achadostube.com.br/_vercel/image?url=%2Fimagens%2Fcapa-proposito-maior.png&w=320&q=70' \
+            -D /tmp/image-headers -o /tmp/cover
+          test "$(wc -c < /tmp/cover)" -gt 1000
+          grep -Eqi '^content-type: image/(webp|avif|png|jpeg)' /tmp/image-headers
 
       - name: Verify a published PDF is real
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location \
-            --connect-timeout 10 --max-time 60 \
-            "https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf" \
-            -o /tmp/book.pdf
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 \
+            'https://achadostube.com.br/ebook/o-cansaco-invisivel.pdf' -o /tmp/book.pdf
           test "$(head -c 5 /tmp/book.pdf)" = '%PDF-'
           test "$(wc -c < /tmp/book.pdf)" -gt 1024
