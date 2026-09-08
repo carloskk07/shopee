@@ -69,12 +69,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RIl --include='*.html' '/assets/style.v2.2.css\|/assets/app.v2.2.js' index.html autor-arthur-magnus.html *-*.html 2>/dev/null; then
-            echo 'Found stale V2.2.2 asset references in active editorial HTML.'
-            exit 1
-          fi
-          grep -q '/assets/style.v2.2.3.css' index.html
-          grep -q '/assets/app.v2.2.3.js' index.html
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          release=json.loads(Path('release.json').read_text(encoding='utf-8'))
+          active=[Path(p) for p in release.get('artifacts',{}) if p.endswith('.html')]
+          if not active: raise SystemExit('release has no active HTML artifacts')
+          for path in active:
+              text=path.read_text(encoding='utf-8')
+              if '/assets/style.v2.2.css' in text or '/assets/app.v2.2.js' in text:
+                  raise SystemExit(f'stale V2.2.2 asset reference: {path}')
+              if '/assets/style.v2.2.3.css' not in text or '/assets/app.v2.2.3.js' not in text:
+                  raise SystemExit(f'missing V2.2.3 asset reference: {path}')
+          print('Versioned asset references are coherent across',len(active),'release HTML files')
+          PY
 
       - name: Enforce mobile delivery budgets
         shell: bash
