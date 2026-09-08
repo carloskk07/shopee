@@ -41,3 +41,19 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inhe
 .cover-placeholder strong{font-family:"Cinzel",serif;font-size:clamp(1.15rem,3vw,1.75rem);line-height:1.08;max-width:14ch}
 .cover-placeholder-kicker{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#d6ac5c;font-weight:800}
 @media (max-width:520px){.cover-placeholder{min-height:280px;padding:1.4rem}}
+
+
+/* V2.2.2 mobile performance hardening */
+@supports (content-visibility:auto){
+  .book-card{content-visibility:auto;contain-intrinsic-size:auto 620px}
+  .related-card,.theme-card{content-visibility:auto;contain-intrinsic-size:auto 180px}
+}
+@media (max-width:760px){
+  body::before{display:none}
+  .nav{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .card{box-shadow:0 14px 34px rgba(0,0,0,.26)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
