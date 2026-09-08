@@ -51,13 +51,36 @@ jobs:
           route={'index.html':'/'}
           for path, expected in rel['artifacts'].items():
               url=base+route.get(path,'/'+path)
-              req=urllib.request.Request(url, headers={'User-Agent':'FreedomBook-Production-Smoke/2.2'})
+              req=urllib.request.Request(url, headers={'User-Agent':'FreedomBook-Production-Smoke/2.2.1'})
               with urllib.request.urlopen(req, timeout=60) as r:
                   body=r.read()
               actual=hashlib.sha256(body).hexdigest()
               if actual != expected:
                   raise SystemExit(f'hash mismatch {path}: {actual} != {expected}')
               print('OK', path, len(body), actual)
+          PY
+
+      - name: Verify GitHub Pages hosting provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 \
+            'https://achadostube.com.br/deploy-marker.json' -o /tmp/deploy-marker.json
+          python3 - <<'PY'
+          import json
+          marker=json.load(open('/tmp/deploy-marker.json', encoding='utf-8'))
+          expected={
+              'schema':'freedom-book-deploy-marker-v1',
+              'repository':'carloskk07/shopee',
+              'branch':'main',
+              'origin':'https://achadostube.com.br/',
+              'provider':'github-pages',
+              'source':'main',
+          }
+          for key, value in expected.items():
+              if marker.get(key) != value:
+                  raise SystemExit(f'production deploy-marker mismatch: {key}={marker.get(key)!r}, expected {value!r}')
+          print('Production hosting provenance: GitHub Pages / main')
           PY
 
       - name: Verify critical public routes
@@ -71,15 +94,17 @@ jobs:
             test -s /tmp/route-body
           done
 
-      - name: Verify image optimization path
+      - name: Verify optimized static WebP cover
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 \
-            'https://achadostube.com.br/_vercel/image?url=%2Fimagens%2Fcapa-proposito-maior.png&w=320&q=70' \
-            -D /tmp/image-headers -o /tmp/cover
-          test "$(wc -c < /tmp/cover)" -gt 1000
-          grep -Eqi '^content-type: image/(webp|avif|png|jpeg)' /tmp/image-headers
+            'https://achadostube.com.br/assets/covers/capa-proposito-maior.webp' \
+            -D /tmp/image-headers -o /tmp/cover.webp
+          test "$(wc -c < /tmp/cover.webp)" -gt 1000
+          test "$(head -c 4 /tmp/cover.webp)" = 'RIFF'
+          test "$(dd if=/tmp/cover.webp bs=1 skip=8 count=4 status=none)" = 'WEBP'
+          grep -Eqi '^content-type: image/webp' /tmp/image-headers
 
       - name: Verify a published PDF is real
         shell: bash
