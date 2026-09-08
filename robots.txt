@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://achadostube.com.br/sitemap.xml

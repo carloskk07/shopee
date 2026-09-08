@@ -1,0 +1,47 @@
+name: Site integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate required site files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(CNAME index.html robots.txt sitemap.xml)
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
+          done
+          grep -qx 'achadostube.com.br' CNAME || { echo 'Unexpected CNAME'; exit 1; }
+
+      - name: Reject empty or placeholder PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          failed=0
+          while IFS= read -r -d '' pdf; do
+            size=$(stat -c%s "$pdf")
+            if [ "$size" -lt 1024 ]; then
+              echo "Invalid PDF (<1 KiB): $pdf ($size bytes)"
+              failed=1
+            fi
+          done < <(find ebook -type f -name '*.pdf' -print0)
+          test "$failed" -eq 0
+
+      - name: Validate sitemap URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '<urlset' sitemap.xml
+          grep -q 'https://achadostube.com.br/' sitemap.xml
