@@ -66,6 +66,35 @@ jobs:
       - name: Validate JavaScript syntax
         run: node --check assets/app.v2.2.js
 
+      - name: Enforce mobile delivery budgets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          limits={
+              Path('assets/style.v2.2.css'):40*1024,
+              Path('assets/app.v2.2.js'):20*1024,
+              Path('index.html'):100*1024,
+          }
+          for path, limit in limits.items():
+              size=path.stat().st_size
+              if size > limit:
+                  raise SystemExit(f'asset budget exceeded: {path} = {size} bytes > {limit}')
+              print('BUDGET OK', path, size, '/', limit)
+          for path in Path('.').glob('*.html'):
+              if path.stat().st_size > 100*1024:
+                  raise SystemExit(f'HTML budget exceeded: {path} = {path.stat().st_size} bytes')
+          for path in Path('assets/covers').glob('*.webp'):
+              if path.stat().st_size > 150*1024:
+                  raise SystemExit(f'WebP cover budget exceeded: {path} = {path.stat().st_size} bytes')
+          for path in Path('assets/icons').glob('*.png'):
+              if path.stat().st_size > 400*1024:
+                  raise SystemExit(f'PWA icon budget exceeded: {path} = {path.stat().st_size} bytes')
+          print('Mobile delivery budgets are within limits')
+          PY
+
       - name: Reject invalid PDFs globally
         shell: bash
         run: |
