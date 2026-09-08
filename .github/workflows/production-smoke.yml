@@ -49,29 +49,27 @@ jobs:
           base='https://achadostube.com.br'
           rel=json.loads(pathlib.Path('release.json').read_text())
           artifacts=rel.get('artifacts',{})
-          if len(artifacts) < 35:
+          if len(artifacts) < 38:
               raise SystemExit(f'release contract unexpectedly small: {len(artifacts)} artifacts')
           def public_path(path):
               if path == 'index.html': return '/'
               if path == '404.html': return '/404.html'
               if path.endswith('.html'): return '/' + path[:-5]
               return '/' + path
-          for path, expected in artifacts.items():
+          for path,expected in artifacts.items():
               url=base+public_path(path)
-              req=urllib.request.Request(url, headers={'User-Agent':'FreedomBook-Production-Smoke/2.2.2'})
-              with urllib.request.urlopen(req, timeout=60) as r:
-                  body=r.read()
-                  ctype=(r.headers.get('Content-Type') or '').lower()
-              if path.endswith('.html') and 'text/html' not in ctype:
-                  raise SystemExit(f'bad HTML content-type {path}: {ctype}')
-              if path.endswith('.webp') and 'image/webp' not in ctype:
-                  raise SystemExit(f'bad WebP content-type {path}: {ctype}')
-              if path.endswith('.png') and 'image/png' not in ctype:
-                  raise SystemExit(f'bad PNG content-type {path}: {ctype}')
+              req=urllib.request.Request(url,headers={'User-Agent':'FreedomBook-Production-Smoke/2.2.3'})
+              with urllib.request.urlopen(req,timeout=60) as r:
+                  body=r.read(); ctype=(r.headers.get('Content-Type') or '').lower()
+              if path.endswith('.html') and 'text/html' not in ctype: raise SystemExit(f'bad HTML content-type {path}: {ctype}')
+              if path.endswith('.css') and 'text/css' not in ctype: raise SystemExit(f'bad CSS content-type {path}: {ctype}')
+              if path.endswith('.js') and 'javascript' not in ctype: raise SystemExit(f'bad JS content-type {path}: {ctype}')
+              if path.endswith('.webp') and 'image/webp' not in ctype: raise SystemExit(f'bad WebP content-type {path}: {ctype}')
+              if path.endswith('.png') and 'image/png' not in ctype: raise SystemExit(f'bad PNG content-type {path}: {ctype}')
+              if path.endswith('.xml') and 'xml' not in ctype: raise SystemExit(f'bad XML content-type {path}: {ctype}')
               actual=hashlib.sha256(body).hexdigest()
-              if actual != expected:
-                  raise SystemExit(f'hash mismatch {path}: {actual} != {expected}')
-              print('OK', path, public_path(path), len(body), actual)
+              if actual!=expected: raise SystemExit(f'hash mismatch {path}: {actual} != {expected}')
+              print('OK',path,public_path(path),len(body),actual)
           PY
 
       - name: Verify GitHub Pages hosting provenance
@@ -82,39 +80,36 @@ jobs:
             'https://achadostube.com.br/deploy-marker.json' -o /tmp/deploy-marker.json
           python3 - <<'PY'
           import json
-          marker=json.load(open('/tmp/deploy-marker.json', encoding='utf-8'))
-          expected={
-              'schema':'freedom-book-deploy-marker-v1',
-              'repository':'carloskk07/shopee',
-              'branch':'main',
-              'origin':'https://achadostube.com.br/',
-              'provider':'github-pages',
-              'source':'main',
-          }
-          for key, value in expected.items():
-              if marker.get(key) != value:
-                  raise SystemExit(f'production deploy-marker mismatch: {key}={marker.get(key)!r}, expected {value!r}')
+          marker=json.load(open('/tmp/deploy-marker.json',encoding='utf-8'))
+          expected={'schema':'freedom-book-deploy-marker-v1','repository':'carloskk07/shopee','branch':'main','origin':'https://achadostube.com.br/','provider':'github-pages','source':'main'}
+          for key,value in expected.items():
+              if marker.get(key)!=value: raise SystemExit(f'production deploy-marker mismatch: {key}={marker.get(key)!r}, expected {value!r}')
           print('Production hosting provenance: GitHub Pages / main')
           PY
 
-      - name: Verify critical public routes
+      - name: Verify discovery and canonical public routes
         shell: bash
         run: |
           set -euo pipefail
           base="https://achadostube.com.br"
-          for path in / /sitemap.xml /robots.txt /proposito-maior /o-cansaco-invisivel /privacidade /termos; do
+          for path in / /sitemap.xml /feed.xml /robots.txt /manifest.webmanifest /autor-arthur-magnus /proposito-maior /o-cansaco-invisivel /privacidade /termos; do
             echo "Checking $path"
             curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "$base$path" -o /tmp/route-body
             test -s /tmp/route-body
           done
+          curl --fail --silent --show-error --location "$base/" -o /tmp/home.html
+          grep -q '/assets/style.v2.2.3.css' /tmp/home.html
+          grep -q '/assets/app.v2.2.3.js' /tmp/home.html
+          grep -q '/autor-arthur-magnus' /tmp/home.html
+          ! grep -q '/assets/style.v2.2.css' /tmp/home.html
+          ! grep -q '/assets/app.v2.2.js' /tmp/home.html
 
       - name: Verify optimized static media and PWA icons
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 \
-            'https://achadostube.com.br/assets/covers/capa-proposito-maior.webp' \
-            -D /tmp/image-headers -o /tmp/cover.webp
+            'https://achadostube.com.br/assets/covers/capa-proposito-maior.webp' -D /tmp/image-headers -o /tmp/cover.webp
           test "$(wc -c < /tmp/cover.webp)" -gt 1000
           test "$(head -c 4 /tmp/cover.webp)" = 'RIFF'
           test "$(dd if=/tmp/cover.webp bs=1 skip=8 count=4 status=none)" = 'WEBP'
