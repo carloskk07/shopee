@@ -4,13 +4,19 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: site-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,29 +25,77 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html robots.txt sitemap.xml)
+          required=(CNAME index.html robots.txt sitemap.xml README.md)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
           grep -qx 'achadostube.com.br' CNAME || { echo 'Unexpected CNAME'; exit 1; }
+          grep -q 'Sitemap: https://achadostube.com.br/sitemap.xml' robots.txt || { echo 'robots.txt does not expose canonical sitemap'; exit 1; }
 
-      - name: Reject empty or placeholder PDFs
+      - name: Reject empty, placeholder or invalid PDFs
         shell: bash
         run: |
           set -euo pipefail
           failed=0
+          count=0
           while IFS= read -r -d '' pdf; do
+            count=$((count + 1))
             size=$(stat -c%s "$pdf")
+            magic=$(head -c 5 "$pdf" || true)
             if [ "$size" -lt 1024 ]; then
               echo "Invalid PDF (<1 KiB): $pdf ($size bytes)"
               failed=1
             fi
+            if [ "$magic" != '%PDF-' ]; then
+              echo "Invalid PDF signature: $pdf"
+              failed=1
+            fi
           done < <(find ebook -type f -name '*.pdf' -print0)
+          test "$count" -gt 0 || { echo 'No PDFs found in ebook/'; exit 1; }
           test "$failed" -eq 0
 
-      - name: Validate sitemap URLs
+      - name: Validate sitemap and published routes
         shell: bash
         run: |
           set -euo pipefail
-          grep -q '<urlset' sitemap.xml
-          grep -q 'https://achadostube.com.br/' sitemap.xml
+          python3 - <<'PY'
+          import pathlib
+          import xml.etree.ElementTree as ET
+          from urllib.parse import urlparse
+
+          root = ET.parse('sitemap.xml').getroot()
+          ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls = [el.text.strip() for el in root.findall('s:url/s:loc', ns) if el.text]
+          if not urls:
+              raise SystemExit('sitemap.xml has no URLs')
+
+          seen = set()
+          for url in urls:
+              if url in seen:
+                  raise SystemExit(f'duplicate sitemap URL: {url}')
+              seen.add(url)
+              parsed = urlparse(url)
+              if parsed.scheme != 'https' or parsed.netloc != 'achadostube.com.br':
+                  raise SystemExit(f'non-canonical sitemap URL: {url}')
+              path = parsed.path.rstrip('/')
+              if not path:
+                  target = pathlib.Path('index.html')
+              else:
+                  slug = path.lstrip('/')
+                  target = pathlib.Path(f'{slug}.html')
+                  if not target.exists() and pathlib.Path(slug).is_file():
+                      target = pathlib.Path(slug)
+              if not target.is_file() or target.stat().st_size == 0:
+                  raise SystemExit(f'sitemap route has no published file: {url} -> {target}')
+
+          print(f'Validated {len(urls)} sitemap routes')
+          PY
+
+      - name: Validate canonical-domain hygiene
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RIl --include='*.html' --include='*.xml' --include='*.txt' 'https://www.achadostube.com.br' .; then
+            echo 'Found obsolete www canonical URL(s). Use https://achadostube.com.br instead.'
+            exit 1
+          fi
