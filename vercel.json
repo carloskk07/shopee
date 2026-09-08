@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/freedom-book", "destination": "/", "permanent": true },
+    { "source": "/freedom-book.html", "destination": "/", "permanent": true },
+    { "source": "/conteudo", "destination": "/", "permanent": true },
+    { "source": "/conteudo.html", "destination": "/", "permanent": true },
+    { "source": "/ebook-gratuito-o-cansaco-invisivel", "destination": "/o-cansaco-invisivel", "permanent": true },
+    { "source": "/ebook-gratuito-o-cansaco-invisivel.html", "destination": "/o-cansaco-invisivel", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/(sitemap.xml|robots.txt|deploy-marker.json)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ]
+}
