@@ -25,12 +25,40 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html robots.txt sitemap.xml README.md vercel.json deploy-marker.json release.json site-data.generated.json manifest.webmanifest assets/style.v2.2.css assets/app.v2.2.js scripts/validate_site.py)
+          required=(CNAME index.html robots.txt sitemap.xml README.md deploy-marker.json release.json site-data.generated.json manifest.webmanifest assets/style.v2.2.css assets/app.v2.2.js scripts/validate_site.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
           grep -qx 'achadostube.com.br' CNAME
           grep -q 'Sitemap: https://achadostube.com.br/sitemap.xml' robots.txt
+          test ! -e vercel.json || { echo 'Stale vercel.json found: production host is GitHub Pages'; exit 1; }
+
+      - name: Validate GitHub Pages hosting truth
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          marker=json.loads(Path('deploy-marker.json').read_text(encoding='utf-8'))
+          expected={
+              'schema':'freedom-book-deploy-marker-v1',
+              'repository':'carloskk07/shopee',
+              'branch':'main',
+              'origin':'https://achadostube.com.br/',
+              'provider':'github-pages',
+              'source':'main',
+          }
+          for key, value in expected.items():
+              if marker.get(key) != value:
+                  raise SystemExit(f'deploy-marker mismatch: {key}={marker.get(key)!r}, expected {value!r}')
+          print('GitHub Pages hosting truth is valid')
+          PY
+          if grep -RIl --include='*.html' '/_vercel/image' .; then
+            echo 'Found Vercel-only image endpoint in GitHub Pages production HTML.'
+            exit 1
+          fi
 
       - name: Validate editorial contracts
         run: python3 scripts/validate_site.py
