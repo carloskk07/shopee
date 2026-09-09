@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html 404.html autor-arthur-magnus.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
+          required=(CNAME index.html 404.html autor-arthur-magnus.html guias.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/editorial-guides.v1.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/validate_guides.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
@@ -64,6 +64,9 @@ jobs:
 
       - name: Validate Google indexation and entity contract
         run: python3 scripts/validate_seo.py
+
+      - name: Validate topical authority guides
+        run: python3 scripts/validate_guides.py
 
       - name: Validate JavaScript syntax
         run: node --check assets/app.v2.2.5.js
@@ -105,9 +108,11 @@ jobs:
           from pathlib import Path
           limits={
               Path('assets/style.v2.2.5.css'):40*1024,
+              Path('assets/editorial-guides.v1.css'):16*1024,
               Path('assets/app.v2.2.5.js'):24*1024,
               Path('index.html'):100*1024,
               Path('autor-arthur-magnus.html'):40*1024,
+              Path('guias.html'):60*1024,
               Path('feed.xml'):32*1024,
               Path('sitemap.xml'):32*1024,
           }
@@ -115,7 +120,7 @@ jobs:
               size=path.stat().st_size
               if size>limit: raise SystemExit(f'asset budget exceeded: {path} = {size} > {limit}')
               print('BUDGET OK',path,size,'/',limit)
-          for path in Path('.').glob('*.html'):
+          for path in Path('.').rglob('*.html'):
               if path.stat().st_size>100*1024: raise SystemExit(f'HTML budget exceeded: {path} = {path.stat().st_size}')
           for path in Path('assets/covers').glob('*.webp'):
               if path.stat().st_size>150*1024: raise SystemExit(f'WebP cover budget exceeded: {path} = {path.stat().st_size}')
