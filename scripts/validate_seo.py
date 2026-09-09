@@ -29,6 +29,9 @@ modified = data.get('site', {}).get('modified')
 if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(modified)):
     fail(f'invalid site modified date: {modified!r}')
 available = [b for b in data.get('books', []) if b.get('available')]
+guides = data.get('guides', [])
+if len(guides) != 6:
+    fail(f'expected 6 editorial guides, got {len(guides)}')
 if len(available) != 10:
     fail(f'expected 10 available books, got {len(available)}')
 
@@ -110,11 +113,39 @@ for b in available:
     if web_page.get('dateModified') != modified:
         fail(f'{slug}: WebPage dateModified mismatch')
 
+# Editorial guide authority.
+for g in guides:
+    page = ROOT / 'guias' / f"{g['slug']}.html"
+    text = page.read_text(encoding='utf-8')
+    if f'<link rel="canonical" href="{g["url"]}"' not in text:
+        fail(f"{g['slug']}: guide canonical drift")
+    if 'name="robots" content="index,follow' not in text and 'content="index,follow' not in text:
+        fail(f"{g['slug']}: guide is not indexable")
+    ld = jsonld(page); nodes = ld.get('@graph', []) if isinstance(ld, dict) else []
+    article = next((n for n in nodes if n.get('@type') == 'Article'), None)
+    crumbs = next((n for n in nodes if n.get('@type') == 'BreadcrumbList'), None)
+    if not article or not crumbs:
+        fail(f"{g['slug']}: Article/BreadcrumbList missing")
+    if article.get('author', {}).get('@id') != CANON + '/#organization' or article.get('publisher', {}).get('@id') != CANON + '/#organization':
+        fail(f"{g['slug']}: guide authorship/publisher drift")
+    if article.get('datePublished') != modified or article.get('dateModified') != modified:
+        fail(f"{g['slug']}: guide dates drift")
+    for bslug in g.get('relatedBooks', []):
+        if f'href="/{bslug}"' not in text:
+            fail(f"{g['slug']}: related book link missing: {bslug}")
+
+hub = (ROOT / 'guias.html').read_text(encoding='utf-8')
+if hub.count('class="card guide-card"') != 6:
+    fail('guides hub must expose six guide cards in initial HTML')
+for g in guides:
+    if f'href="/guias/{g["slug"]}"' not in hub or f'href="/guias/{g["slug"]}"' not in home:
+        fail(f"{g['slug']}: internal discovery link missing from hub/home")
+
 # Sitemap must contain only indexable canonical editorial pages and accurate lastmod values.
 ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9', 'i': 'http://www.google.com/schemas/sitemap-image/1.1'}
 root = ET.parse(ROOT / 'sitemap.xml').getroot()
 nodes = root.findall('s:url', ns)
-expected = {CANON + '/', CANON + '/autor-arthur-magnus'} | {b['pageUrl'] for b in available}
+expected = {CANON + '/', CANON + '/autor-arthur-magnus', CANON + '/guias'} | {b['pageUrl'] for b in available} | {g['url'] for g in guides}
 seen: set[str] = set()
 for node in nodes:
     loc = node.find('s:loc', ns)

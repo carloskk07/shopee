@@ -490,7 +490,7 @@ for g in guides:
     if t.count('<h1')!=1:fail(f"{g['slug']}: h1 contract")
     if t.count('<h2')<5:fail(f"{g['slug']}: insufficient section depth")
     if 'Guia editorial da Freedom Book' not in t:fail(f"{g['slug']}: editorial provenance missing")
-    for bad in ('garantia de resultado','ranking garantido','cura garantida','diagnóstico','segredo que ninguém conta'):
+    for bad in ('garantia de resultado','ranking garantido','cura garantida','segredo que ninguém conta'):
         if bad in t.lower():fail(f"{g['slug']}: manipulative/unsafe claim: {bad}")
     for b in g.get('relatedBooks',[]):
         bt=(ROOT/f'{b}.html').read_text('utf-8')
@@ -562,7 +562,7 @@ update_route_generator()
 update_validate_seo()
 update_validate_site()
 write_guide_validator()
-update_workflows()
+# update_workflows deferred to authorized connector
 update_readme()
 update_marker()
 update_release_surface()

@@ -15,7 +15,8 @@ EXPECTED_HTML={
  'index.html','404.html','autor-arthur-magnus.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
  'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html','o-cansaco-invisivel.html',
  'o-metodo-da-vida-mais-leve.html','o-peso-de-ser-forte-o-tempo-todo.html','privacidade.html','proposito-maior.html',
- 'quando-sua-vida-virou-sobrevivencia.html','recomecos-sao-escolhas.html','termos.html'
+ 'quando-sua-vida-virou-sobrevivencia.html','recomecos-sao-escolhas.html','termos.html',
+ 'guias.html','guias/como-encontrar-proposito-na-vida.html','guias/como-melhorar-o-foco-e-reduzir-distracoes.html','guias/como-criar-disciplina-sem-depender-de-motivacao.html','guias/como-recomecar-com-mais-clareza.html','guias/como-simplificar-uma-rotina-que-ficou-pesada.html','guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos.html'
 }
 
 class Parser(HTMLParser):
@@ -78,6 +79,7 @@ for name in sorted(EXPECTED_HTML):
 home=(ROOT/'index.html').read_text('utf-8')
 if home.count('data-book-card')!=11:fail('home must contain 11 catalog cards')
 if 'href="/autor-arthur-magnus"' not in home:fail('author internal discovery link missing')
+if 'href="/guias"' not in home:fail('guides internal discovery link missing')
 if 'autor-arthur-magnus#person' not in home:fail('home author entity missing')
 if 'Códigos de Vida · Códigos de Vida' in home:fail('duplicated upcoming taxonomy label')
 
@@ -112,6 +114,8 @@ if len(books)!=11:fail(f'expected 11 books, got {len(books)}')
 slugs=[b['slug'] for b in books]
 if len(slugs)!=len(set(slugs)):fail('duplicate book slug')
 available=[b for b in books if b.get('available')]
+guides=data.get('guides',[])
+if len(guides)!=6:fail(f'expected 6 editorial guides, got {len(guides)}')
 if len(available)!=10:fail(f'expected 10 available books, got {len(available)}')
 for b in books:
     slug=b['slug']; page=ROOT/f'{slug}.html'
@@ -143,7 +147,7 @@ for invented in ('Avaliação dos leitores','depoimentos de leitores','newslette
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9','i':'http://www.google.com/schemas/sitemap-image/1.1'}
 root=ET.parse(ROOT/'sitemap.xml').getroot(); nodes=root.findall('s:url',ns)
 urls=[n.find('s:loc',ns).text.strip() for n in nodes]
-expected={CANON+'/',CANON+'/autor-arthur-magnus'}|{b['pageUrl'] for b in available}
+expected={CANON+'/',CANON+'/autor-arthur-magnus',CANON+'/guias'}|{b['pageUrl'] for b in available}|{g['url'] for g in guides}
 if set(urls)!=expected or len(urls)!=len(expected):fail(f'sitemap routes mismatch: {urls}')
 for n in nodes:
     loc=n.find('s:loc',ns).text.strip(); u=urlparse(loc)
@@ -241,7 +245,7 @@ for required in ('Freedom Book V2.2.5','assets/style.v2.2.5.css','assets/app.v2.
 for stale in ('Freedom Book V2.2.3','assets/style.v2.2.3.css` — CSS ativo','assets/app.v2.2.3.js` — runtime ativo'):
     if stale in readme:fail(f'README stale current-version statement: {stale}')
 maintenance=json.loads((ROOT/'maintenance-marker.json').read_text('utf-8'))
-expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'cover-integrity-v1','version':2,'source':'main','origin':CANON+'/'}
+expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'topical-authority-v2','version':2,'source':'main','origin':CANON+'/'}
 if maintenance!=expected_maintenance:fail(f'maintenance marker mismatch: {maintenance}')
 
 print(f'PASS: Freedom Book {RELEASE}; {len(EXPECTED_HTML)} editorial HTML; {len(available)} available books; {len(urls)} sitemap routes; {len(entries)} feed entries; {len(art)} release artifacts')

@@ -264,5 +264,119 @@
         "o-metodo-da-vida-mais-leve"
       ]
     }
+  ],
+  "guides": [
+    {
+      "slug": "como-encontrar-proposito-na-vida",
+      "title": "Como encontrar propósito na vida com mais clareza",
+      "shortTitle": "Como encontrar propósito na vida",
+      "url": "https://achadostube.com.br/guias/como-encontrar-proposito-na-vida",
+      "description": "Um processo prático para separar expectativas externas, valores pessoais, prioridades e próximos passos quando você sente que perdeu direção.",
+      "image": "https://achadostube.com.br/assets/covers/capa-proposito-maior.webp",
+      "relatedBooks": [
+        "proposito-maior"
+      ],
+      "keywords": [
+        "propósito",
+        "direção",
+        "valores",
+        "clareza",
+        "prioridades"
+      ]
+    },
+    {
+      "slug": "como-melhorar-o-foco-e-reduzir-distracoes",
+      "title": "Como melhorar o foco e reduzir distrações no dia a dia",
+      "shortTitle": "Como melhorar o foco",
+      "url": "https://achadostube.com.br/guias/como-melhorar-o-foco-e-reduzir-distracoes",
+      "description": "Um método simples para proteger atenção, diminuir trocas de contexto e transformar prioridades em blocos de trabalho executáveis.",
+      "image": "https://achadostube.com.br/assets/covers/capa-foco-que-gera-resultados.webp",
+      "relatedBooks": [
+        "foco-que-gera-resultados"
+      ],
+      "keywords": [
+        "foco",
+        "distrações",
+        "atenção",
+        "prioridades",
+        "produtividade"
+      ]
+    },
+    {
+      "slug": "como-criar-disciplina-sem-depender-de-motivacao",
+      "title": "Como criar disciplina sem depender de motivação",
+      "shortTitle": "Como criar disciplina",
+      "url": "https://achadostube.com.br/guias/como-criar-disciplina-sem-depender-de-motivacao",
+      "description": "Um guia para transformar intenção em rotina com compromissos menores, ambiente favorável, consistência e regras simples de retomada.",
+      "image": "https://achadostube.com.br/assets/covers/capa-disciplina-e-liberdade.webp",
+      "relatedBooks": [
+        "disciplina-e-liberdade"
+      ],
+      "keywords": [
+        "disciplina",
+        "motivação",
+        "constância",
+        "hábitos",
+        "rotina"
+      ]
+    },
+    {
+      "slug": "como-recomecar-com-mais-clareza",
+      "title": "Como recomeçar com mais clareza sem tentar mudar tudo de uma vez",
+      "shortTitle": "Como recomeçar com clareza",
+      "url": "https://achadostube.com.br/guias/como-recomecar-com-mais-clareza",
+      "description": "Um roteiro para encerrar ciclos, escolher prioridades e reconstruir movimento com passos pequenos quando você sente necessidade de recomeçar.",
+      "image": "https://achadostube.com.br/assets/covers/capa-recomecos-sao-escolhas.webp",
+      "relatedBooks": [
+        "recomecos-sao-escolhas",
+        "a-vida-que-voce-adiou"
+      ],
+      "keywords": [
+        "recomeçar",
+        "mudança",
+        "clareza",
+        "escolhas",
+        "próximos passos"
+      ]
+    },
+    {
+      "slug": "como-simplificar-uma-rotina-que-ficou-pesada",
+      "title": "Como simplificar uma rotina que ficou pesada demais",
+      "shortTitle": "Como simplificar uma rotina pesada",
+      "url": "https://achadostube.com.br/guias/como-simplificar-uma-rotina-que-ficou-pesada",
+      "description": "Um método de revisão de responsabilidades, compromissos e prioridades para reduzir excesso e recuperar margem no cotidiano.",
+      "image": "https://achadostube.com.br/assets/covers/capa-o-metodo-da-vida-mais-leve.webp",
+      "relatedBooks": [
+        "o-metodo-da-vida-mais-leve",
+        "quando-sua-vida-virou-sobrevivencia",
+        "o-peso-de-ser-forte-o-tempo-todo"
+      ],
+      "keywords": [
+        "rotina",
+        "sobrecarga",
+        "prioridades",
+        "limites",
+        "simplificar"
+      ]
+    },
+    {
+      "slug": "como-organizar-a-mente-quando-ha-excesso-de-estimulos",
+      "title": "Como organizar a mente quando há excesso de estímulos e pendências",
+      "shortTitle": "Como organizar a mente",
+      "url": "https://achadostube.com.br/guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos",
+      "description": "Um roteiro prático para tirar pendências da cabeça, reduzir entradas desnecessárias e recuperar clareza quando tudo parece pedir atenção ao mesmo tempo.",
+      "image": "https://achadostube.com.br/assets/covers/capa-mente-forte-vida-leve.webp",
+      "relatedBooks": [
+        "mente-forte-vida-leve",
+        "o-cansaco-invisivel"
+      ],
+      "keywords": [
+        "clareza mental",
+        "estímulos",
+        "pendências",
+        "organização",
+        "atenção"
+      ]
+    }
   ]
 }

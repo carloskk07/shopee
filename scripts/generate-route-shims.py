@@ -14,6 +14,13 @@ MANIFEST = ROOT / 'route-shims.generated.json'
 RELEASE = ROOT / 'release.json'
 
 CANONICAL_PATHS = (
+    '/guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos',
+    '/guias/como-simplificar-uma-rotina-que-ficou-pesada',
+    '/guias/como-recomecar-com-mais-clareza',
+    '/guias/como-criar-disciplina-sem-depender-de-motivacao',
+    '/guias/como-melhorar-o-foco-e-reduzir-distracoes',
+    '/guias/como-encontrar-proposito-na-vida',
+    '/guias',
     '/autor-arthur-magnus',
     '/a-vida-que-voce-adiou',
     '/codigo-da-vida-inabalavel',
