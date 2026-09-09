@@ -59,7 +59,7 @@ def tokens(value: str) -> set[str]:
 
 def number(value: str, percent: bool = False) -> float:
     raw = (value or "0").strip().replace("\u00a0", " ").replace(" ", "")
-    is_pct = raw.endswith("%") or percent
+    had_percent_sign = raw.endswith("%")
     raw = raw.rstrip("%")
     if "," in raw and "." in raw:
         if raw.rfind(",") > raw.rfind("."):
@@ -72,7 +72,9 @@ def number(value: str, percent: bool = False) -> float:
         value_num = float(raw)
     except ValueError:
         return 0.0
-    if is_pct and value_num > 1:
+    if had_percent_sign:
+        value_num /= 100.0
+    elif percent and value_num > 1:
         value_num /= 100.0
     return value_num
 
