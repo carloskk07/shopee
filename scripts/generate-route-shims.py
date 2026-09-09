@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CANON = 'https://achadostube.com.br'
 MANIFEST = ROOT / 'route-shims.generated.json'
+RELEASE = ROOT / 'release.json'
 
 CANONICAL_PATHS = (
     '/autor-arthur-magnus',
@@ -143,9 +144,19 @@ def check() -> None:
         failures.append('missing route-shims.generated.json')
     elif MANIFEST.read_bytes() != manifest:
         failures.append('route-shims.generated.json drift')
+
+    if RELEASE.is_file() and MANIFEST.is_file():
+        release = json.loads(RELEASE.read_text(encoding='utf-8'))
+        artifacts = release.get('artifacts', {})
+        manifest_hash = hashlib.sha256(MANIFEST.read_bytes()).hexdigest()
+        if artifacts.get('route-shims.generated.json') != manifest_hash:
+            failures.append('release.json does not bind the exact route-shim manifest')
+        if len(artifacts) < 40:
+            failures.append(f'release surface unexpectedly small for route shims: {len(artifacts)}')
+
     if failures:
         raise SystemExit('\n'.join(failures))
-    print(f'PASS: {len(files)} static route shims are deterministic and complete')
+    print(f'PASS: {len(files)} static route shims are deterministic, complete and release-bound')
 
 
 def write() -> None:
