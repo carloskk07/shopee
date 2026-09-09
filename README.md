@@ -35,6 +35,10 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.
 - `assets/legacy-offer.v1.css` + `assets/legacy-consent.v1.js` — superfície leve das páginas legadas de afiliado, com consentimento antes de métricas e sem urgência/estoque/preço simulados.
 
+## Integridade visual das capas
+
+As capas editoriais nunca podem ser recortadas para preencher um quadro. `assets/cover-integrity.v1.css` preserva a proporção natural da arte com `object-fit: contain` e remove dependência de `aspect-ratio: 2/3` nas superfícies de catálogo, destaque e landing individual. Os HTMLs editoriais também não fixam `width`/`height` nas capas, evitando que metadados antigos imponham uma proporção incorreta.
+
 ## Estratégia de cache
 
 GitHub Pages não oferece controle fino de `Cache-Control` por arquivo neste repositório. Por isso, CSS e JavaScript ativos usam **versionamento no nome do arquivo** (`style.v2.2.5.css` / `app.v2.2.5.js`). O HTML é a autoridade que troca a versão dos assets; uma release nova não deve reutilizar o mesmo nome para bytes diferentes.
