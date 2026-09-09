@@ -65,6 +65,6 @@ GA4 e TikTok continuam condicionados ao consentimento correspondente. A V2.2.3 a
 
 ## Release
 
-Release editorial atual: `2026.09.08-v2.2.3`.
+Release editorial atual: `2026.09.08-v2.2.4`.
 
 `deploy-marker.json` identifica a cadeia de deploy ativa; `release.json` identifica criptograficamente os bytes críticos da release e é a autoridade do smoke pós-deploy.

@@ -6,10 +6,10 @@ from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-RELEASE='2026.09.08-v2.2.3'
+RELEASE='2026.09.08-v2.2.4'
 CANON='https://achadostube.com.br'
-CSS='/assets/style.v2.2.3.css'
-JS='/assets/app.v2.2.3.js'
+CSS='/assets/style.v2.2.4.css'
+JS='/assets/app.v2.2.4.js'
 EXPECTED_HTML={
  'index.html','404.html','autor-arthur-magnus.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
  'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html','o-cansaco-invisivel.html',
