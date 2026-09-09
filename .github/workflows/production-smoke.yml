@@ -70,7 +70,7 @@ jobs:
           base='https://achadostube.com.br'
           rel=json.loads(pathlib.Path('release.json').read_text())
           artifacts=rel.get('artifacts',{})
-          if len(artifacts) < 38:
+          if len(artifacts) < 49:
               raise SystemExit(f'release contract unexpectedly small: {len(artifacts)} artifacts')
           def public_path(path):
               if path == 'index.html': return '/'
@@ -113,7 +113,7 @@ jobs:
         run: |
           set -euo pipefail
           base="https://achadostube.com.br"
-          for path in / /sitemap.xml /feed.xml /robots.txt /manifest.webmanifest /autor-arthur-magnus /proposito-maior /o-cansaco-invisivel /privacidade /termos; do
+          for path in / /sitemap.xml /feed.xml /robots.txt /manifest.webmanifest /autor-arthur-magnus /guias /proposito-maior /o-cansaco-invisivel /privacidade /termos; do
             echo "Checking $path"
             curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "$base$path" -o /tmp/route-body
             test -s /tmp/route-body
@@ -123,6 +123,7 @@ jobs:
           grep -q '/assets/style.v2.2.5.css' /tmp/home.html
           grep -q '/assets/app.v2.2.5.js' /tmp/home.html
           grep -q '/autor-arthur-magnus' /tmp/home.html
+          grep -q 'href="/guias"' /tmp/home.html
           grep -q '/assets/covers/logo-freedom-book-redonda.webp' /tmp/author.html
           grep -q 'fonts.googleapis.com' /tmp/author.html
           grep -q 'id="consentBanner"' /tmp/author.html
@@ -153,8 +154,34 @@ jobs:
           ! grep -q 'https://achadostube.com.br/imagens/capa-proposito-maior.png' /tmp/seo-book.html
           ! grep -q 'https://achadostube.com.br/imagens/logo-freedom-book-redonda.png' /tmp/home.html
           grep -q '2026-09-09' /tmp/seo-data.json
-          test "$(grep -o '<lastmod>2026-09-09</lastmod>' /tmp/seo-sitemap.xml | wc -l)" -eq 12
+          test "$(grep -o '<lastmod>2026-09-09</lastmod>' /tmp/seo-sitemap.xml | wc -l)" -eq 19
           ! grep -q '<loc>https://achadostube.com.br/codigo-da-vida-inabalavel</loc>' /tmp/seo-sitemap.xml
+
+      - name: Verify topical authority guides in production
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          paths=(
+            /guias
+            /guias/como-encontrar-proposito-na-vida
+            /guias/como-melhorar-o-foco-e-reduzir-distracoes
+            /guias/como-criar-disciplina-sem-depender-de-motivacao
+            /guias/como-recomecar-com-mais-clareza
+            /guias/como-simplificar-uma-rotina-que-ficou-pesada
+            /guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos
+          )
+          for path in "${paths[@]}"; do
+            curl --fail --silent --show-error --location "$base$path?probe=$GITHUB_SHA" -o /tmp/guide.html
+            grep -q 'index,follow' /tmp/guide.html
+            grep -q 'rel="canonical"' /tmp/guide.html
+            grep -q '/assets/editorial-guides.v1.css' /tmp/guide.html
+          done
+          curl --fail --silent --show-error --location "$base/guias/como-melhorar-o-foco-e-reduzir-distracoes?probe=$GITHUB_SHA" -o /tmp/article.html
+          grep -q '"@type":"Article"' /tmp/article.html
+          grep -q '"author":{"@id":"https://achadostube.com.br/#organization"}' /tmp/article.html
+          grep -q 'href="/foco-que-gera-resultados"' /tmp/article.html
+          grep -q 'Guia editorial da Freedom Book' /tmp/article.html
 
       - name: Verify hardened legacy public surfaces
         shell: bash

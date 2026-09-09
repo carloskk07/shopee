@@ -49,6 +49,48 @@
       "sha256": "6e0e92de2d4165a009c9fb28a41a908d2467845d0dc8709f463b7b7c54a58d0a"
     },
     {
+      "destination": "/guias/como-criar-disciplina-sem-depender-de-motivacao",
+      "file": "guias/como-criar-disciplina-sem-depender-de-motivacao/index.html",
+      "publicPath": "/guias/como-criar-disciplina-sem-depender-de-motivacao/",
+      "sha256": "8bb3f21dbd73fffbb32927a59ab076bd5bb5e899fa9921d7383e4c429d906b19"
+    },
+    {
+      "destination": "/guias/como-encontrar-proposito-na-vida",
+      "file": "guias/como-encontrar-proposito-na-vida/index.html",
+      "publicPath": "/guias/como-encontrar-proposito-na-vida/",
+      "sha256": "80ef4ccf812c99f8cab29693a074d09838155ad8bb343b7642828a0b6ee1f041"
+    },
+    {
+      "destination": "/guias/como-melhorar-o-foco-e-reduzir-distracoes",
+      "file": "guias/como-melhorar-o-foco-e-reduzir-distracoes/index.html",
+      "publicPath": "/guias/como-melhorar-o-foco-e-reduzir-distracoes/",
+      "sha256": "bdf1a8a4a296a9c963cc4fcc15d894da9d1cb3895122580ad11c8fd7ce92ecf1"
+    },
+    {
+      "destination": "/guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos",
+      "file": "guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos/index.html",
+      "publicPath": "/guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos/",
+      "sha256": "c00fd930a892d00276b693c98f395fd353a0afd6931a2f149fef5ddbfb42ceea"
+    },
+    {
+      "destination": "/guias/como-recomecar-com-mais-clareza",
+      "file": "guias/como-recomecar-com-mais-clareza/index.html",
+      "publicPath": "/guias/como-recomecar-com-mais-clareza/",
+      "sha256": "7d6ec74ba62c1b4a24b303a65320eca4d6b7f1ee3c87b2c51a87dff1c1dccbcc"
+    },
+    {
+      "destination": "/guias/como-simplificar-uma-rotina-que-ficou-pesada",
+      "file": "guias/como-simplificar-uma-rotina-que-ficou-pesada/index.html",
+      "publicPath": "/guias/como-simplificar-uma-rotina-que-ficou-pesada/",
+      "sha256": "49e370983a07e15a66fcc2e5c188702b328459ea282b73aa9f70cae122750b9d"
+    },
+    {
+      "destination": "/guias",
+      "file": "guias/index.html",
+      "publicPath": "/guias/",
+      "sha256": "b1a929b91317351a27d5aeb6ccaf751905bfd71a262e6fd963cedbac40b6b91b"
+    },
+    {
       "destination": "/kit-3-pares",
       "file": "kit-3-pares/index.html",
       "publicPath": "/kit-3-pares/",

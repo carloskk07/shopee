@@ -90,3 +90,8 @@ GA4 e TikTok continuam condicionados ao consentimento correspondente. A V2.2.5 m
 Release editorial atual: `2026.09.08-v2.2.5`.
 
 `deploy-marker.json` identifica a cadeia de deploy ativa; `release.json` identifica criptograficamente os bytes críticos da release e é a autoridade do smoke pós-deploy.
+
+
+## Autoridade temática e guias
+
+A Freedom Book mantém uma biblioteca editorial de guias em `/guias`, conectada aos 10 e-books publicados. A estratégia prioriza poucas páginas substanciais e navegáveis, com utilidade própria, links recíprocos com os livros, `Article`/`BreadcrumbList`, sitemap e validação anti-conteúdo-fino. O objetivo é ampliar descoberta por intenções não-branded sem criar doorway pages, keyword stuffing ou conteúdo em escala.
