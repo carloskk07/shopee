@@ -1,0 +1,38 @@
+name: Build static route shims
+
+on:
+  push:
+    branches: ['fix/static-route-shims']
+    paths: ['.route-shims/READY']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Generate deterministic static route shims
+        run: python3 scripts/generate-route-shims.py
+      - name: Refresh release surface
+        run: python3 scripts/refresh_release.py
+      - name: Validate generated route shims
+        run: python3 scripts/generate-route-shims.py --check
+      - name: Validate existing site contract
+        run: python3 scripts/validate_site.py
+      - name: Validate route recovery contract
+        run: node scripts/test-route-recovery.cjs
+      - name: Commit generated shims
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .route-shims
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add route-shims.generated.json release.json */index.html locked/*/index.html
+          git commit -m 'fix: materialize static GitHub Pages route shims'
+          git push origin HEAD:fix/static-route-shims
