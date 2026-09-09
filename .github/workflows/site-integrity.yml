@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html 404.html autor-arthur-magnus.html guias.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/editorial-guides.v1.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/validate_guides.py scripts/release_hashes.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
+          required=(CNAME index.html 404.html autor-arthur-magnus.html guias.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/editorial-guides.v1.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/validate_guides.py scripts/release_hashes.py scripts/seo_intelligence.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
@@ -59,6 +59,9 @@ jobs:
             echo 'Found Vercel-only image endpoint in GitHub Pages production HTML.'
             exit 1
           fi
+
+      - name: Validate SEO intelligence tooling syntax
+        run: python3 -m py_compile scripts/release_hashes.py scripts/seo_intelligence.py
 
       - name: Audit release hashes
         run: python3 scripts/release_hashes.py --changed-only
