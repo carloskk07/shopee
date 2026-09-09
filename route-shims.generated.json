@@ -1,0 +1,138 @@
+{
+  "entries": [
+    {
+      "destination": "/a-vida-que-voce-adiou",
+      "file": "a-vida-que-voce-adiou/index.html",
+      "publicPath": "/a-vida-que-voce-adiou/",
+      "sha256": "20a92b060e49e396fc55bd80fa5405fd7e625c61b1d11c0fb23c39ff6a14ca20"
+    },
+    {
+      "destination": "/autor-arthur-magnus",
+      "file": "autor-arthur-magnus/index.html",
+      "publicPath": "/autor-arthur-magnus/",
+      "sha256": "16782c43aa200852f72441642f6116250c0cbcb8b483d1befe167b4d2c3db2bb"
+    },
+    {
+      "destination": "/codigo-da-vida-inabalavel",
+      "file": "codigo-da-vida-inabalavel/index.html",
+      "publicPath": "/codigo-da-vida-inabalavel/",
+      "sha256": "83664245b73c29ff9eb2f8cb81ba5e0fabd552d9bd08f0512f3a31e966eccd2f"
+    },
+    {
+      "destination": "/",
+      "file": "conteudo/index.html",
+      "publicPath": "/conteudo/",
+      "sha256": "64e5935fb5d130fbcdaaa04427dd4347fff21bb70d07235089d0711eeb07a3ca"
+    },
+    {
+      "destination": "/disciplina-e-liberdade",
+      "file": "disciplina-e-liberdade/index.html",
+      "publicPath": "/disciplina-e-liberdade/",
+      "sha256": "b40a2630dca24cabf2434b533dad7b9daaa02696a4241088df257aebe7c718c5"
+    },
+    {
+      "destination": "/o-cansaco-invisivel",
+      "file": "ebook-gratuito-o-cansaco-invisivel/index.html",
+      "publicPath": "/ebook-gratuito-o-cansaco-invisivel/",
+      "sha256": "a214fc45cf3b5e42408d3802812895985669145dee88541f2841d415d787dc26"
+    },
+    {
+      "destination": "/foco-que-gera-resultados",
+      "file": "foco-que-gera-resultados/index.html",
+      "publicPath": "/foco-que-gera-resultados/",
+      "sha256": "c0ac63740a018683a11e9cc1a3a8409674dbf43dbe5199208984f86d46744fe5"
+    },
+    {
+      "destination": "/",
+      "file": "freedom-book/index.html",
+      "publicPath": "/freedom-book/",
+      "sha256": "6e0e92de2d4165a009c9fb28a41a908d2467845d0dc8709f463b7b7c54a58d0a"
+    },
+    {
+      "destination": "/kit-3-pares",
+      "file": "kit-3-pares/index.html",
+      "publicPath": "/kit-3-pares/",
+      "sha256": "ff6fe2377c98b39b71ff127d0bf878ba833ddc43cd1e14c11c0c473c5ab8756b"
+    },
+    {
+      "destination": "/kit-sandalias-infantil",
+      "file": "kit-sandalias-infantil/index.html",
+      "publicPath": "/kit-sandalias-infantil/",
+      "sha256": "ae087d3be4b0dd3694cda6ff3b087d8e843e4142886990d53dd23d7599cffddd"
+    },
+    {
+      "destination": "/kit-3-pares",
+      "file": "kit-tenis-sandalia/index.html",
+      "publicPath": "/kit-tenis-sandalia/",
+      "sha256": "7826785dc66f43f2ab11ae00fd0d7ead201d8064ff6f6598cd4529cf6d0ef99c"
+    },
+    {
+      "destination": "/o-cansaco-invisivel",
+      "file": "leitor/index.html",
+      "publicPath": "/leitor/",
+      "sha256": "e700932d4533a1aaf74836f7e77cbcbfc65f4a3761724d97973276cadf556875"
+    },
+    {
+      "destination": "/",
+      "file": "locked/the_select/index.html",
+      "publicPath": "/locked/the_select/",
+      "sha256": "142607bf20c5a1b7cbcc3801c0bec80ec5cc70b076eeb61534d1df7fd2fdee00"
+    },
+    {
+      "destination": "/mente-forte-vida-leve",
+      "file": "mente-forte-vida-leve/index.html",
+      "publicPath": "/mente-forte-vida-leve/",
+      "sha256": "6670e4c4fff6b3556d78cb78197893ec91dbcbaad876d7f02883e7367d939f7d"
+    },
+    {
+      "destination": "/o-cansaco-invisivel",
+      "file": "o-cansaco-invisivel/index.html",
+      "publicPath": "/o-cansaco-invisivel/",
+      "sha256": "8fbe63d126662f56f8fce675d64ceda1adcbae6c360a392e5a913a5c6c56cb9c"
+    },
+    {
+      "destination": "/o-metodo-da-vida-mais-leve",
+      "file": "o-metodo-da-vida-mais-leve/index.html",
+      "publicPath": "/o-metodo-da-vida-mais-leve/",
+      "sha256": "3dde28913029008e40b4c91b58c065bbf04d9f96b8ca0f94935cb61d3de1056b"
+    },
+    {
+      "destination": "/o-peso-de-ser-forte-o-tempo-todo",
+      "file": "o-peso-de-ser-forte-o-tempo-todo/index.html",
+      "publicPath": "/o-peso-de-ser-forte-o-tempo-todo/",
+      "sha256": "6e14c7c683cc006b9a00ff72c05e2f173e9b7851da223d95198bb6978c34c801"
+    },
+    {
+      "destination": "/privacidade",
+      "file": "privacidade/index.html",
+      "publicPath": "/privacidade/",
+      "sha256": "599c4abfb22a94451addca0b9882ce26adc8aec4028887f9d9e1a7a2c128d138"
+    },
+    {
+      "destination": "/proposito-maior",
+      "file": "proposito-maior/index.html",
+      "publicPath": "/proposito-maior/",
+      "sha256": "7291346c4f9fc246680061209b594925fa7b8e2c8c6202017efc0960041d3db0"
+    },
+    {
+      "destination": "/quando-sua-vida-virou-sobrevivencia",
+      "file": "quando-sua-vida-virou-sobrevivencia/index.html",
+      "publicPath": "/quando-sua-vida-virou-sobrevivencia/",
+      "sha256": "9bc96f9aae16eda3528b9f3103c7120682f5ba418d545b1324d9b6e9d1952583"
+    },
+    {
+      "destination": "/recomecos-sao-escolhas",
+      "file": "recomecos-sao-escolhas/index.html",
+      "publicPath": "/recomecos-sao-escolhas/",
+      "sha256": "2d39c099ebae83924a24acb5506268622152278d177272ff9fdbae2832e38681"
+    },
+    {
+      "destination": "/termos",
+      "file": "termos/index.html",
+      "publicPath": "/termos/",
+      "sha256": "bab59f76417fc66200fbe69faeddbbe38307a563a1395dce5752b03ed7be0259"
+    }
+  ],
+  "origin": "https://achadostube.com.br",
+  "schema": "freedom-book-route-shims-v1"
+}
