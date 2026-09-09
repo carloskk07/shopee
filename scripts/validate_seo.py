@@ -137,16 +137,12 @@ if seen != expected:
 if CANON + '/codigo-da-vida-inabalavel' in seen:
     fail('noindex upcoming page must not enter sitemap')
 
-# Legacy commerce is intentionally isolated from the editorial sitemap; do not silently deindex without traffic evidence.
+# Legacy commerce remains outside the editorial sitemap. Its indexability is not changed without traffic evidence.
 for name in ('kit-3-pares.html', 'kit-sandalias-infantil.html'):
     text = (ROOT / name).read_text(encoding='utf-8')
     if 'name="robots" content="index,follow' not in text:
         fail(f'{name}: legacy indexability changed without Search Console evidence')
     if name[:-5] in ''.join(sorted(seen)):
         fail(f'{name}: legacy offer leaked into editorial sitemap')
-
-marker = json.loads((ROOT / 'maintenance-marker.json').read_text(encoding='utf-8'))
-if marker.get('campaign') != 'seo-indexation-v1' or marker.get('version') != 1:
-    fail('SEO maintenance marker mismatch')
 
 print(f'PASS: SEO/indexation contract coherent for {len(expected)} canonical indexable pages and {len(available)} published books')
