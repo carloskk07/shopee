@@ -87,7 +87,7 @@ for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','
 if 'book-card:first-child' in css:fail('positional featured styling reintroduced')
 
 cover_css=(ROOT/COVER_CSS.lstrip('/')).read_text('utf-8')
-for marker in ('Freedom Book cover integrity v1','.book-cover img','.featured-cover img','.book-hero-cover img','object-fit:contain','aspect-ratio:auto'):
+for marker in ('Freedom Book cover integrity v1','.book-cover img','.featured-cover img','.book-hero-cover img','.related-card img','object-fit:contain','aspect-ratio:auto'):
     if marker not in cover_css:fail(f'cover-integrity CSS contract missing: {marker}')
 for name in sorted(EXPECTED_HTML):
     text=(ROOT/name).read_text('utf-8')
