@@ -1,0 +1,34 @@
+name: Refresh route-recovery release candidate
+
+on:
+  push:
+    branches: ['fix/github-pages-route-recovery']
+    paths: ['.release-refresh/READY']
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Refresh release hashes
+        run: python3 scripts/refresh_release.py
+      - name: Validate existing site contract
+        run: python3 scripts/validate_site.py
+      - name: Validate route recovery contract
+        run: node scripts/test-route-recovery.cjs
+      - name: Commit refreshed release
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .release-refresh
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add release.json
+          git commit -m 'chore: refresh release surface for route recovery'
+          git push origin HEAD:fix/github-pages-route-recovery
