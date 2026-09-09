@@ -162,8 +162,13 @@ jobs:
         run: |
           set -euo pipefail
           base="https://achadostube.com.br"
-          paths=(
-            /guias
+
+          curl --fail --silent --show-error --location "$base/guias?probe=$GITHUB_SHA" -o /tmp/guides-hub.html
+          grep -q 'index,follow' /tmp/guides-hub.html
+          grep -q 'rel="canonical"' /tmp/guides-hub.html
+          grep -q '/assets/editorial-guides.v1.css' /tmp/guides-hub.html
+
+          article_paths=(
             /guias/como-encontrar-proposito-na-vida
             /guias/como-melhorar-o-foco-e-reduzir-distracoes
             /guias/como-criar-disciplina-sem-depender-de-motivacao
@@ -171,7 +176,7 @@ jobs:
             /guias/como-simplificar-uma-rotina-que-ficou-pesada
             /guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos
           )
-          for path in "${paths[@]}"; do
+          for path in "${article_paths[@]}"; do
             curl --fail --silent --show-error --location "$base$path?probe=$GITHUB_SHA" -o /tmp/guide.html
             grep -q 'index,follow' /tmp/guide.html
             grep -q 'rel="canonical"' /tmp/guide.html
