@@ -38,6 +38,15 @@ INTENT_CANON = {
     "recomecar":"recomeco", "recomecando":"recomeco", "retomar":"recomeco", "retomada":"recomeco",
     "sobrecarregado":"rotina", "sobrecarregada":"rotina", "pesada":"rotina", "cansaco":"rotina",
     "estimulo":"mente", "estimulos":"mente", "pendencia":"mente", "pendencias":"mente", "mental":"mente",
+    "iniciantes":"iniciante",
+}
+
+# Verbos/formas de consulta que descrevem a ação de buscar, não o assunto central.
+# Eles são removidos apenas da chave de clustering; continuam disponíveis para
+# similaridade e diagnóstico da consulta original.
+INTENT_MODIFIERS = {
+    "aprender", "aprenda", "curso", "cursos", "guia", "tutorial", "dicas", "passo", "passos",
+    "melhor", "melhores", "maneira", "forma", "formas"
 }
 
 
@@ -137,7 +146,9 @@ def similarity(query_tokens: set[str], profile_tokens: set[str]) -> float:
 
 
 def intent_key(query: str) -> str:
-    ts = sorted(tokens(query))
+    ts = sorted(t for t in tokens(query) if t not in INTENT_MODIFIERS)
+    if not ts:
+        ts = sorted(tokens(query))
     return "|".join(ts[:4]) if ts else norm(query)
 
 
