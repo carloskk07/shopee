@@ -11,6 +11,7 @@ RELEASE_PATH = ROOT / 'release.json'
 release = json.loads(RELEASE_PATH.read_text(encoding='utf-8'))
 artifacts = release.setdefault('artifacts', {})
 artifacts.setdefault('assets/route-recovery.v1.js', '')
+artifacts.setdefault('route-shims.generated.json', '')
 
 for relative in sorted(artifacts):
     path = ROOT / relative
