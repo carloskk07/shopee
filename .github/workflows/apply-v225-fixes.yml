@@ -28,12 +28,16 @@ jobs:
           node --check assets/app.v2.2.5.js
           python3 scripts/validate_site.py
 
-      - name: Commit correction candidate
+      - name: Commit non-workflow correction candidate
         shell: bash
         run: |
           set -euo pipefail
           rm -f .v225-fix-ready
-          git rm .github/workflows/apply-v225-fixes.yml scripts/apply_v225_fixes.py
+          git rm scripts/apply_v225_fixes.py
+          # The connected Actions token cannot update workflow files. Keep those two
+          # generated workflow edits out of this bot commit; they are applied separately
+          # through the authorized GitHub connector after this candidate is pushed.
+          git checkout HEAD -- .github/workflows/site-integrity.yml .github/workflows/production-smoke.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
