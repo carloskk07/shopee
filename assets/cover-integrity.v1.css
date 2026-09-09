@@ -1,0 +1,21 @@
+/* Freedom Book cover integrity v1 — preserve the complete original artwork. */
+.book-cover{min-height:390px;align-items:center;justify-items:center}
+.book-cover img{width:auto!important;max-width:min(100%,240px)!important;height:auto!important;max-height:360px;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:#050505}
+.featured-cover{min-height:430px;align-items:center;justify-items:center}
+.featured-cover img{width:auto!important;max-width:min(100%,280px)!important;height:auto!important;max-height:420px;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:#050505}
+.book-hero-cover{align-self:stretch;min-height:500px;align-items:center;justify-items:center}
+.book-hero-cover img{width:auto!important;max-width:min(100%,320px)!important;height:auto!important;max-height:560px;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:#050505}
+.related-card img{width:72px!important;height:auto!important;max-height:108px;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:#050505}
+.status{z-index:2}
+@media(max-width:760px){
+  .book-cover{min-height:350px;padding:16px}
+  .book-cover img{max-width:min(100%,220px)!important;max-height:330px}
+  .featured-cover,.book-hero-cover{min-height:0}
+  .featured-cover img{max-width:min(78vw,280px)!important;max-height:none}
+  .book-hero-cover img{max-width:min(80vw,320px)!important;max-height:none}
+  .related-card img{width:72px!important;max-height:108px}
+}
+@media(max-width:390px){
+  .book-cover{min-height:320px}
+  .book-cover img{max-width:min(100%,200px)!important;max-height:300px}
+}

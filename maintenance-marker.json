@@ -1,7 +1,7 @@
 {
   "schema": "achadostube-maintenance-marker-v1",
-  "campaign": "legacy-surface-integrity",
-  "version": 1,
+  "campaign": "cover-integrity-v1",
+  "version": 2,
   "source": "main",
   "origin": "https://achadostube.com.br/"
 }

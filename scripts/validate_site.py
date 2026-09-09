@@ -10,6 +10,7 @@ RELEASE='2026.09.08-v2.2.5'
 CANON='https://achadostube.com.br'
 CSS='/assets/style.v2.2.5.css'
 JS='/assets/app.v2.2.5.js'
+COVER_CSS='/assets/cover-integrity.v1.css'
 EXPECTED_HTML={
  'index.html','404.html','autor-arthur-magnus.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
  'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html','o-cansaco-invisivel.html',
@@ -60,7 +61,7 @@ for name in sorted(EXPECTED_HTML):
         c=p.canon[0]
         if c in seen:fail(f'duplicate canonical: {c}')
         seen[c]=name
-    if CSS not in text or JS not in text:fail(f'{name}: not using V2.2.5 versioned assets')
+    if CSS not in text or JS not in text or COVER_CSS not in text:fail(f'{name}: active stylesheet/runtime contract missing')
     if '/assets/style.v2.2.4.css' in text or '/assets/app.v2.2.4.js' in text or '/assets/style.v2.2.3.css' in text or '/assets/app.v2.2.3.js' in text or '/assets/style.v2.2.css' in text or '/assets/app.v2.2.js' in text:
         fail(f'{name}: stale active asset reference')
     if 'gtag/js?id=' in text or 'analytics.tiktok.com' in text:fail(f'{name}: static tracker before consent')
@@ -84,6 +85,16 @@ css=(ROOT/CSS.lstrip('/')).read_text('utf-8')
 for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','V2.2.3 discovery/cache hardening','Freedom Book V2.2.4 — contextual premium editorial system','Freedom Book V2.2.5 — error-correction hardening'):
     if marker not in css:fail(f'CSS contract missing: {marker}')
 if 'book-card:first-child' in css:fail('positional featured styling reintroduced')
+
+cover_css=(ROOT/COVER_CSS.lstrip('/')).read_text('utf-8')
+for marker in ('Freedom Book cover integrity v1','.book-cover img','.featured-cover img','.book-hero-cover img','.related-card img','object-fit:contain','aspect-ratio:auto'):
+    if marker not in cover_css:fail(f'cover-integrity CSS contract missing: {marker}')
+for name in sorted(EXPECTED_HTML):
+    text=(ROOT/name).read_text('utf-8')
+    for tag in re.findall(r'<img\b[^>]*>',text,re.I):
+        if '/assets/covers/capa-' in tag and re.search(r'\s(?:width|height)=',tag,re.I):
+            fail(f'{name}: hard-coded cover dimensions can reintroduce aspect-ratio cropping')
+
 
 js=(ROOT/JS.lstrip('/')).read_text('utf-8')
 for marker in (f'release:"{RELEASE}"','coarseTrafficSource','traffic_source','catalog_search','query_length','result_count'):
@@ -170,7 +181,7 @@ if not (ROOT/'assets/icons/apple-touch-icon.png').is_file():fail('missing apple-
 release=json.loads((ROOT/'release.json').read_text('utf-8'))
 if release.get('release')!=RELEASE:fail('release.json release mismatch')
 art=release.get('artifacts',{})
-for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.5.css','assets/app.v2.2.5.js','deploy-marker.json'):
+for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.5.css','assets/cover-integrity.v1.css','assets/app.v2.2.5.js','deploy-marker.json'):
     if required not in art:fail(f'release surface missing {required}')
 if any(x in art for x in ('assets/style.v2.2.4.css','assets/app.v2.2.4.js','assets/style.v2.2.3.css','assets/app.v2.2.3.js')):fail('release surface still contains prior active version assets')
 if len(art)<38:fail(f'release surface unexpectedly small: {len(art)}')
@@ -230,7 +241,7 @@ for required in ('Freedom Book V2.2.5','assets/style.v2.2.5.css','assets/app.v2.
 for stale in ('Freedom Book V2.2.3','assets/style.v2.2.3.css` — CSS ativo','assets/app.v2.2.3.js` — runtime ativo'):
     if stale in readme:fail(f'README stale current-version statement: {stale}')
 maintenance=json.loads((ROOT/'maintenance-marker.json').read_text('utf-8'))
-expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'legacy-surface-integrity','version':1,'source':'main','origin':CANON+'/'}
+expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'cover-integrity-v1','version':2,'source':'main','origin':CANON+'/'}
 if maintenance!=expected_maintenance:fail(f'maintenance marker mismatch: {maintenance}')
 
 print(f'PASS: Freedom Book {RELEASE}; {len(EXPECTED_HTML)} editorial HTML; {len(available)} available books; {len(urls)} sitemap routes; {len(entries)} feed entries; {len(art)} release artifacts')
