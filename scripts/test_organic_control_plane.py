@@ -8,6 +8,7 @@ from pathlib import Path
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
+import generative_visibility
 import internal_link_intelligence as links
 import seo_temporal
 
@@ -40,6 +41,34 @@ def test_temporal() -> None:
         missing = next(x for x in report["comparisons"] if x["query"] == "rotina pesada")
         assert "not proof of zero traffic" in missing["reason"]
         assert report["guardrails"][1] == "missing_export_row_is_not_zero"
+
+
+def test_generative_visibility() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        ai = root / "ai.csv"
+        web = root / "web.csv"
+        ai.write_text(
+            "Páginas,Impressões\n"
+            "https://achadostube.com.br/guias/como-melhorar-o-foco-e-reduzir-distracoes,40\n"
+            "https://achadostube.com.br/guias/como-encontrar-proposito-na-vida,~\n",
+            encoding="utf-8",
+        )
+        web.write_text(
+            "Páginas,Impressões\n"
+            "https://achadostube.com.br/guias/como-melhorar-o-foco-e-reduzir-distracoes,200\n"
+            "https://achadostube.com.br/guias/como-encontrar-proposito-na-vida,300\n"
+            "https://achadostube.com.br/guias/como-criar-disciplina-sem-depender-de-motivacao,180\n",
+            encoding="utf-8",
+        )
+        report = generative_visibility.analyze(ai, web)
+        states = {x["page"]: x["state"] for x in report["pages"]}
+        assert states["/guias/como-melhorar-o-foco-e-reduzir-distracoes"] == "AI_VISIBLE", states
+        assert states["/guias/como-encontrar-proposito-na-vida"] == "AI_ZERO_OR_UNAVAILABLE", states
+        assert states["/guias/como-criar-disciplina-sem-depender-de-motivacao"] == "NOT_IN_AI_EXPORT", states
+        focus = next(x for x in report["pages"] if x["page"].endswith("foco-e-reduzir-distracoes"))
+        assert abs(focus["ai_to_web_ratio"] - 0.2) < 1e-9
+        assert "zero_export_value_is_ambiguous" in report["guardrails"]
 
 
 def html(title: str, h1: str, links_out: list[str]) -> str:
@@ -77,10 +106,12 @@ def test_live_repository_graph_contract() -> None:
     assert report["summary"]["indexable_urls"] >= 19
     assert report["summary"]["missing_files"] == 0, report["missing_files"]
     assert report["summary"]["guide_to_guide_edges"] >= 1
+    print("LIVE_GRAPH_SUMMARY", report["summary"])
 
 
 if __name__ == "__main__":
     test_temporal()
+    test_generative_visibility()
     test_internal_links()
     test_live_repository_graph_contract()
-    print("PASS: temporal evidence, missing-row safety and internal-link authority contracts are deterministic")
+    print("PASS: temporal, generative-visibility and internal-link authority contracts are deterministic")
