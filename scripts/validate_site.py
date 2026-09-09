@@ -76,7 +76,7 @@ if 'href="/autor-arthur-magnus"' not in home:fail('author internal discovery lin
 if 'autor-arthur-magnus#person' not in home:fail('home author entity missing')
 
 css=(ROOT/CSS.lstrip('/')).read_text('utf-8')
-for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','V2.2.3 discovery/cache hardening','V2.2.4 — CONTEXTUAL PREMIUM EDITORIAL SYSTEM'):
+for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','V2.2.3 discovery/cache hardening','Freedom Book V2.2.4 — contextual premium editorial system'):
     if marker not in css:fail(f'CSS contract missing: {marker}')
 if 'book-card:first-child' in css:fail('positional featured styling reintroduced')
 
