@@ -180,4 +180,57 @@ for rel,expected_hash in art.items():
     actual_hash=sha(p)
     if actual_hash!=expected_hash:fail(f'release hash mismatch {rel}: {actual_hash} != {expected_hash}')
 
+
+
+# Public legacy surface integrity: preserve traffic without stale prices, fabricated urgency or pre-consent tracking.
+LEGACY_OFFERS={
+    'kit-3-pares.html':CANON+'/kit-3-pares',
+    'kit-sandalias-infantil.html':CANON+'/kit-sandalias-infantil',
+}
+for name,canonical in LEGACY_OFFERS.items():
+    text=(ROOT/name).read_text('utf-8'); p=Parser(); p.feed(text)
+    if p.h1!=1:fail(f'{name}: legacy offer must have exactly one h1')
+    if p.canon!=[canonical]:fail(f'{name}: legacy canonical mismatch {p.canon}')
+    if '/assets/legacy-offer.v1.css' not in text or '/assets/legacy-consent.v1.js' not in text:fail(f'{name}: legacy shared assets missing')
+    if 'googletagmanager.com/gtag/js' in text or 'analytics.tiktok.com' in text:fail(f'{name}: static tracker before consent')
+    if 'R$' in text:fail(f'{name}: stale static price reintroduced')
+    for bad in ('vendidos hoje','unidades restantes','estoque quase zerado','estão vendo esta oferta agora','mães reais','oferta relâmpago','últimas unidades','garantia 30 dias'):
+        if bad in text.lower():fail(f'{name}: unsupported urgency/social-proof claim reintroduced: {bad}')
+    if re.search(r"ttq\.track\(['\"]Purchase",text,re.I) or re.search(r"gtag\(['\"]event['\"],\s*['\"]purchase",text,re.I):fail(f'{name}: click-to-purchase telemetry reintroduced')
+    links=re.findall(r'<a\b[^>]*href="https://s\.shopee\.com\.br/[^"]+"[^>]*>',text,re.I)
+    if not links:fail(f'{name}: affiliate destination missing')
+    for tag in links:
+        m=re.search(r'rel="([^"]+)"',tag,re.I)
+        rel=set((m.group(1) if m else '').lower().split())
+        if not {'sponsored','noopener','noreferrer'}<=rel:fail(f'{name}: affiliate rel contract missing {tag}')
+
+legacy_js=(ROOT/'assets/legacy-consent.v1.js').read_text('utf-8')
+for marker in ('freedom_book_consent_v2','affiliate_click','ClickButton','clearOptionalCookies'):
+    if marker not in legacy_js:fail(f'legacy consent contract missing: {marker}')
+if 'Purchase' in legacy_js:fail('legacy consent runtime must never synthesize purchase events')
+
+# Duplicate/obsolete routes are kept as safe noindex redirects, never as parallel indexable surfaces.
+redirect_contracts={
+    'kit-tenis-sandalia.html':(CANON+'/kit-3-pares','/kit-3-pares'),
+    'leitor.html':(CANON+'/o-cansaco-invisivel','/o-cansaco-invisivel'),
+    'locked/the_select.html':(CANON+'/','/'),
+}
+for name,(canonical,target) in redirect_contracts.items():
+    text=(ROOT/name).read_text('utf-8').lower()
+    if 'noindex' not in text:fail(f'{name}: obsolete route must be noindex')
+    if canonical.lower() not in text or f'url={target}'.lower() not in text:fail(f'{name}: redirect target mismatch')
+    if 'googletagmanager.com' in text or 'analytics.tiktok.com' in text:fail(f'{name}: tracker must not load on redirect')
+if 'o_cansaco_invisivel.pdf' in (ROOT/'leitor.html').read_text('utf-8'):fail('broken legacy reader PDF path reintroduced')
+if 'theselect.com.br' in (ROOT/'locked/the_select.html').read_text('utf-8') or 'example.com' in (ROOT/'locked/the_select.html').read_text('utf-8'):fail('locked placeholder identity/data reintroduced')
+
+# Documentation and maintenance deploy marker must describe the actual production state.
+readme=(ROOT/'README.md').read_text('utf-8')
+for required in ('Freedom Book V2.2.5','assets/style.v2.2.5.css','assets/app.v2.2.5.js','assets/legacy-consent.v1.js'):
+    if required not in readme:fail(f'README production truth missing: {required}')
+for stale in ('Freedom Book V2.2.3','assets/style.v2.2.3.css` — CSS ativo','assets/app.v2.2.3.js` — runtime ativo'):
+    if stale in readme:fail(f'README stale current-version statement: {stale}')
+maintenance=json.loads((ROOT/'maintenance-marker.json').read_text('utf-8'))
+expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'legacy-surface-integrity','version':1,'source':'main','origin':CANON+'/'}
+if maintenance!=expected_maintenance:fail(f'maintenance marker mismatch: {maintenance}')
+
 print(f'PASS: Freedom Book {RELEASE}; {len(EXPECTED_HTML)} editorial HTML; {len(available)} available books; {len(urls)} sitemap routes; {len(entries)} feed entries; {len(art)} release artifacts')

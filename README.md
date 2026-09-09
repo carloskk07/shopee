@@ -4,7 +4,7 @@ Repositório público de `achadostube.com.br`.
 
 ## Produção atual
 
-O núcleo editorial atual é a **Freedom Book V2.2.3**. A publicação é tratada como um contrato verificável:
+O núcleo editorial atual é a **Freedom Book V2.2.5**. A publicação é tratada como um contrato verificável:
 
 `branch -> PR -> Site integrity / validate -> main -> GitHub Pages -> Production smoke`
 
@@ -17,8 +17,8 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `index.html` — home Freedom Book.
 - `autor-arthur-magnus.html` — entidade editorial pública do autor.
 - `*.html` — páginas editoriais públicas e páginas legadas preservadas.
-- `assets/style.v2.2.3.css` — CSS ativo da release, versionado no próprio nome do arquivo.
-- `assets/app.v2.2.3.js` — runtime ativo, catálogo, consentimento, telemetria e funil editorial.
+- `assets/style.v2.2.5.css` — CSS ativo da release, versionado no próprio nome do arquivo.
+- `assets/app.v2.2.5.js` — runtime ativo, catálogo, consentimento, telemetria e funil editorial.
 - `assets/covers/` — capas WebP estáticas otimizadas para GitHub Pages.
 - `assets/icons/` — ícones PWA/Apple otimizados.
 - `site-data.generated.json` — contrato de dados do catálogo.
@@ -33,16 +33,17 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `.github/workflows/site-integrity.yml` — gate obrigatório antes do merge.
 - `.github/workflows/production-smoke.yml` — validação do domínio depois do deploy.
 - `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.
+- `assets/legacy-offer.v1.css` + `assets/legacy-consent.v1.js` — superfície leve das páginas legadas de afiliado, com consentimento antes de métricas e sem urgência/estoque/preço simulados.
 
 ## Estratégia de cache
 
-GitHub Pages não oferece controle fino de `Cache-Control` por arquivo neste repositório. Por isso, CSS e JavaScript ativos usam **versionamento no nome do arquivo** (`style.v2.2.3.css` / `app.v2.2.3.js`). O HTML é a autoridade que troca a versão dos assets; uma release nova não deve reutilizar o mesmo nome para bytes diferentes.
+GitHub Pages não oferece controle fino de `Cache-Control` por arquivo neste repositório. Por isso, CSS e JavaScript ativos usam **versionamento no nome do arquivo** (`style.v2.2.5.css` / `app.v2.2.5.js`). O HTML é a autoridade que troca a versão dos assets; uma release nova não deve reutilizar o mesmo nome para bytes diferentes.
 
 Os arquivos históricos podem coexistir por compatibilidade, mas o HTML editorial ativo não pode referenciar versões antigas. O `Site integrity` bloqueia regressões desse contrato.
 
 ## Telemetria e funil
 
-GA4 e TikTok continuam condicionados ao consentimento correspondente. A V2.2.3 acrescenta metadados editoriais de baixo risco para melhorar leitura do funil sem enviar texto pesquisado, UTMs brutas ou referrer completo:
+GA4 e TikTok continuam condicionados ao consentimento correspondente. A V2.2.5 mantém metadados editoriais de baixo risco para melhorar leitura do funil sem enviar texto pesquisado, UTMs brutas ou referrer completo:
 
 - release;
 - tipo de página;
