@@ -6,10 +6,10 @@ from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-RELEASE='2026.09.08-v2.2.4'
+RELEASE='2026.09.08-v2.2.5'
 CANON='https://achadostube.com.br'
-CSS='/assets/style.v2.2.4.css'
-JS='/assets/app.v2.2.4.js'
+CSS='/assets/style.v2.2.5.css'
+JS='/assets/app.v2.2.5.js'
 EXPECTED_HTML={
  'index.html','404.html','autor-arthur-magnus.html','a-vida-que-voce-adiou.html','codigo-da-vida-inabalavel.html',
  'disciplina-e-liberdade.html','foco-que-gera-resultados.html','mente-forte-vida-leve.html','o-cansaco-invisivel.html',
@@ -51,13 +51,17 @@ for name in sorted(EXPECTED_HTML):
     if p.h1!=1:fail(f'{name}: expected one h1, got {p.h1}')
     if p.handlers:fail(f'{name}: inline handlers forbidden')
     if p.release!=[RELEASE]:fail(f'{name}: release mismatch {p.release}')
+    if '#050505' not in text:fail(f'{name}: theme-color drift from active visual palette')
+    if '/assets/favicon.ico' not in text or '/manifest.webmanifest' not in text:fail(f'{name}: browser/PWA identity assets missing')
+    if 'fonts.googleapis.com' not in text:fail(f'{name}: typography contract missing')
+    if 'id="consentBanner"' not in text or 'id="cookiePrefs"' not in text:fail(f'{name}: consent controls missing')
     if name!='404.html':
         if len(p.canon)!=1 or not p.canon[0].startswith(CANON):fail(f'{name}: canonical invalid {p.canon}')
         c=p.canon[0]
         if c in seen:fail(f'duplicate canonical: {c}')
         seen[c]=name
-    if CSS not in text or JS not in text:fail(f'{name}: not using V2.2.4 versioned assets')
-    if '/assets/style.v2.2.3.css' in text or '/assets/app.v2.2.3.js' in text or '/assets/style.v2.2.css' in text or '/assets/app.v2.2.js' in text:
+    if CSS not in text or JS not in text:fail(f'{name}: not using V2.2.5 versioned assets')
+    if '/assets/style.v2.2.4.css' in text or '/assets/app.v2.2.4.js' in text or '/assets/style.v2.2.3.css' in text or '/assets/app.v2.2.3.js' in text or '/assets/style.v2.2.css' in text or '/assets/app.v2.2.js' in text:
         fail(f'{name}: stale active asset reference')
     if 'gtag/js?id=' in text or 'analytics.tiktok.com' in text:fail(f'{name}: static tracker before consent')
     for s in p.scripts:
@@ -74,9 +78,10 @@ home=(ROOT/'index.html').read_text('utf-8')
 if home.count('data-book-card')!=11:fail('home must contain 11 catalog cards')
 if 'href="/autor-arthur-magnus"' not in home:fail('author internal discovery link missing')
 if 'autor-arthur-magnus#person' not in home:fail('home author entity missing')
+if 'Códigos de Vida · Códigos de Vida' in home:fail('duplicated upcoming taxonomy label')
 
 css=(ROOT/CSS.lstrip('/')).read_text('utf-8')
-for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','V2.2.3 discovery/cache hardening','Freedom Book V2.2.4 — contextual premium editorial system'):
+for marker in ('V2.2.2 mobile performance hardening','content-visibility:auto','prefers-reduced-motion:reduce','V2.2.3 discovery/cache hardening','Freedom Book V2.2.4 — contextual premium editorial system','Freedom Book V2.2.5 — error-correction hardening'):
     if marker not in css:fail(f'CSS contract missing: {marker}')
 if 'book-card:first-child' in css:fail('positional featured styling reintroduced')
 
@@ -84,10 +89,13 @@ js=(ROOT/JS.lstrip('/')).read_text('utf-8')
 for marker in (f'release:"{RELEASE}"','coarseTrafficSource','traffic_source','catalog_search','query_length','result_count'):
     if marker not in js:fail(f'JS funnel contract missing: {marker}')
 if 'utm_source' in js or 'utm_medium' in js or 'utm_campaign' in js:fail('raw UTM capture is forbidden')
+if 'search?.addEventListener("change"' in js:fail('duplicate catalog search analytics listener reintroduced')
+if 'clearOptionalCookies' not in js:fail('optional-cookie revocation cleanup missing')
 
 # Catalog and PDF truth.
 data=json.loads((ROOT/'site-data.generated.json').read_text('utf-8'))
 if data.get('site',{}).get('release')!=RELEASE:fail('site-data release mismatch')
+if data.get('site',{}).get('logo')!=CANON+'/assets/covers/logo-freedom-book-redonda.webp':fail('site-data optimized logo drift')
 books=data.get('books',[])
 if len(books)!=11:fail(f'expected 11 books, got {len(books)}')
 slugs=[b['slug'] for b in books]
@@ -100,6 +108,8 @@ for b in books:
     title=b.get('title','').strip()
     if title and title not in home:fail(f'home catalog missing real title: {title}')
     if b.get('available'):
+        expected_cover=CANON+f'/assets/covers/capa-{slug}.webp'
+        if b.get('cover')!=expected_cover:fail(f'{slug}: site-data optimized cover drift')
         pdf=b.get('pdfUrl','')
         if not pdf.startswith(CANON+'/ebook/') or not pdf.endswith('.pdf'):fail(f'{slug}: bad PDF URL')
         local=ROOT/'ebook'/pathlib.PurePosixPath(urlparse(pdf).path).name
@@ -147,6 +157,7 @@ for cover in {f'capa-{b["slug"]}.webp' for b in available}|{'logo-freedom-book-r
     p=cover_dir/cover
     if not p.is_file() or p.stat().st_size<1024:fail(f'invalid optimized cover {cover}')
 manifest=json.loads((ROOT/'manifest.webmanifest').read_text('utf-8'))
+if manifest.get('background_color')!='#050505' or manifest.get('theme_color')!='#050505':fail('manifest theme palette drift')
 expected_icons={'/assets/icons/icon-192.png':('192x192','any'),'/assets/icons/icon-512.png':('512x512','any'),'/assets/icons/maskable-512.png':('512x512','maskable')}
 actual={i.get('src'):(i.get('sizes'),i.get('purpose')) for i in manifest.get('icons',[])}
 if actual!=expected_icons:fail(f'manifest icons mismatch {actual}')
@@ -159,9 +170,9 @@ if not (ROOT/'assets/icons/apple-touch-icon.png').is_file():fail('missing apple-
 release=json.loads((ROOT/'release.json').read_text('utf-8'))
 if release.get('release')!=RELEASE:fail('release.json release mismatch')
 art=release.get('artifacts',{})
-for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.4.css','assets/app.v2.2.4.js','deploy-marker.json'):
+for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.5.css','assets/app.v2.2.5.js','deploy-marker.json'):
     if required not in art:fail(f'release surface missing {required}')
-if 'assets/style.v2.2.3.css' in art or 'assets/app.v2.2.3.js' in art:fail('release surface still contains prior active version assets')
+if any(x in art for x in ('assets/style.v2.2.4.css','assets/app.v2.2.4.js','assets/style.v2.2.3.css','assets/app.v2.2.3.js')):fail('release surface still contains prior active version assets')
 if len(art)<38:fail(f'release surface unexpectedly small: {len(art)}')
 for rel,expected_hash in art.items():
     p=ROOT/rel

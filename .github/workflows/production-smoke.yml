@@ -58,7 +58,7 @@ jobs:
               return '/' + path
           for path,expected in artifacts.items():
               url=base+public_path(path)
-              req=urllib.request.Request(url,headers={'User-Agent':'FreedomBook-Production-Smoke/2.2.4'})
+              req=urllib.request.Request(url,headers={'User-Agent':'FreedomBook-Production-Smoke/2.2.5'})
               with urllib.request.urlopen(req,timeout=60) as r:
                   body=r.read(); ctype=(r.headers.get('Content-Type') or '').lower()
               if path.endswith('.html') and 'text/html' not in ctype: raise SystemExit(f'bad HTML content-type {path}: {ctype}')
@@ -99,10 +99,16 @@ jobs:
           done
           curl --fail --silent --show-error --location "$base/" -o /tmp/home.html
           curl --fail --silent --show-error --location "$base/autor-arthur-magnus" -o /tmp/author.html
-          grep -q '/assets/style.v2.2.4.css' /tmp/home.html
-          grep -q '/assets/app.v2.2.4.js' /tmp/home.html
+          grep -q '/assets/style.v2.2.5.css' /tmp/home.html
+          grep -q '/assets/app.v2.2.5.js' /tmp/home.html
           grep -q '/autor-arthur-magnus' /tmp/home.html
           grep -q '/assets/covers/logo-freedom-book-redonda.webp' /tmp/author.html
+          grep -q 'fonts.googleapis.com' /tmp/author.html
+          grep -q 'id="consentBanner"' /tmp/author.html
+          grep -q 'id="cookiePrefs"' /tmp/author.html
+          grep -q 'property="og:title"' /tmp/author.html
+          ! grep -q '/assets/style.v2.2.4.css' /tmp/home.html
+          ! grep -q '/assets/app.v2.2.4.js' /tmp/home.html
           ! grep -q '/assets/style.v2.2.3.css' /tmp/home.html
           ! grep -q '/assets/app.v2.2.3.js' /tmp/home.html
           ! grep -q '/assets/style.v2.2.css' /tmp/home.html
