@@ -35,14 +35,15 @@ cover_css='''/* Freedom Book cover integrity v1 — preserve the complete origin
 (ROOT/COVER_CSS.lstrip('/')).write_text(cover_css,encoding='utf-8')
 
 link=f'<link href="{COVER_CSS}" rel="stylesheet"/>'
-main_link=f'<link href="{MAIN_CSS}" rel="stylesheet"/>'
+style_re=re.compile(r'<link\b(?=[^>]*\bhref="/assets/style\.v2\.2\.5\.css")(?=[^>]*\brel="stylesheet")[^>]*/?>',re.I)
 for name in sorted(EXPECTED_HTML):
     p=ROOT/name
     text=p.read_text('utf-8')
     if COVER_CSS not in text:
-        if main_link not in text:
+        m=style_re.search(text)
+        if not m:
             raise SystemExit(f'{name}: main stylesheet link not found')
-        text=text.replace(main_link,main_link+link,1)
+        text=text[:m.end()]+link+text[m.end():]
     def clean_cover_tag(m):
         tag=m.group(0)
         if '/assets/covers/capa-' not in tag:
