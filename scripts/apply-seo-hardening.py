@@ -44,10 +44,10 @@ home = home.replace(
     CANON + '/imagens/logo-freedom-book-redonda.png',
     data['site']['logo'],
 )
-home = home.replace('"dateModified":"2026-09-08"', f'"dateModified":"{MODIFIED}"')
+home = re.sub(r'"dateModified":"[0-9]{4}-[0-9]{2}-[0-9]{2}"', f'"dateModified":"{MODIFIED}"', home, count=1)
 write_text(home_path, home)
 
-# Book landing pages: one image authority across HTML social metadata, JSON-LD and sitemap.
+# Book landing pages: one image authority across social metadata, JSON-LD and sitemap.
 for book in available:
     slug = book['slug']
     page_path = ROOT / f'{slug}.html'
@@ -164,14 +164,5 @@ for node in root.findall('s:url', ns):
     lastmod.text = MODIFIED
 tree.write(sitemap_path, encoding='utf-8', xml_declaration=True)
 
-# Maintenance marker lets post-deploy smoke distinguish this SEO campaign from older cached HTML.
-marker = {
-    'schema': 'achadostube-maintenance-marker-v1',
-    'campaign': 'seo-indexation-v1',
-    'version': 1,
-    'source': 'main',
-    'origin': CANON + '/',
-}
-write_text(ROOT / 'maintenance-marker.json', json.dumps(marker, ensure_ascii=False, indent=2) + '\n')
-
+# Deliberately preserve maintenance-marker.json: the existing validator owns that contract.
 print(f'Applied SEO hardening to home, author and {len(available)} book pages; lastmod={MODIFIED}')
