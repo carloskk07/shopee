@@ -19,6 +19,6 @@ O ruleset **Protect main** está ativo e trata `main` como produção.
 
 Uma mudança editorial não termina no merge. O contrato completo é:
 
-`branch -> PR -> validate -> squash/main -> Vercel -> Production smoke`
+`branch -> PR -> validate -> squash/main -> GitHub Pages -> Production smoke`
 
-`release.json` é a autoridade criptográfica do conteúdo editorial publicado.
+`release.json` é a autoridade criptográfica do conteúdo editorial publicado. A Vercel não faz parte da cadeia de produção deste repositório; eventuais checks externos da integração não substituem `validate` nem `Production smoke`.
