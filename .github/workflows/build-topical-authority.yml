@@ -1,0 +1,30 @@
+name: Build topical authority v2
+
+on:
+  push:
+    branches: ['seo/topical-authority-v2']
+    paths: ['.seo/TOPICAL_READY']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Build topical authority surface
+        run: python3 scripts/build-topical-authority.py
+      - name: Commit generated authority surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .seo
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'seo: build people-first topical authority clusters'
+          git push origin HEAD:seo/topical-authority-v2
