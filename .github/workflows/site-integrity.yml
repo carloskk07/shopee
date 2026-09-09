@@ -32,6 +32,7 @@ jobs:
           grep -qx 'achadostube.com.br' CNAME
           grep -q 'Sitemap: https://achadostube.com.br/sitemap.xml' robots.txt
           test ! -e vercel.json || { echo 'Stale vercel.json found: production host is GitHub Pages'; exit 1; }
+          test ! -e .vercel || { echo 'Stale .vercel project metadata found: production host is GitHub Pages'; exit 1; }
 
       - name: Validate GitHub Pages hosting truth
         shell: bash
