@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html autor-arthur-magnus.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json site-data.generated.json manifest.webmanifest assets/style.v2.2.4.css assets/app.v2.2.4.js scripts/validate_site.py)
+          required=(CNAME index.html autor-arthur-magnus.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json site-data.generated.json manifest.webmanifest assets/style.v2.2.5.css assets/app.v2.2.5.js scripts/validate_site.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
@@ -63,7 +63,7 @@ jobs:
         run: python3 scripts/validate_site.py
 
       - name: Validate JavaScript syntax
-        run: node --check assets/app.v2.2.4.js
+        run: node --check assets/app.v2.2.5.js
 
       - name: Enforce versioned asset references
         shell: bash
@@ -75,14 +75,14 @@ jobs:
           release=json.loads(Path('release.json').read_text(encoding='utf-8'))
           active=[Path(p) for p in release.get('artifacts',{}) if p.endswith('.html')]
           if not active: raise SystemExit('release has no active HTML artifacts')
-          old=('/assets/style.v2.2.css','/assets/app.v2.2.js','/assets/style.v2.2.3.css','/assets/app.v2.2.3.js')
+          old=('/assets/style.v2.2.css','/assets/app.v2.2.js','/assets/style.v2.2.3.css','/assets/app.v2.2.3.js','/assets/style.v2.2.4.css','/assets/app.v2.2.4.js')
           for path in active:
               text=path.read_text(encoding='utf-8')
               if any(token in text for token in old):
                   raise SystemExit(f'stale active asset reference: {path}')
-              if '/assets/style.v2.2.4.css' not in text or '/assets/app.v2.2.4.js' not in text:
-                  raise SystemExit(f'missing V2.2.4 asset reference: {path}')
-          print('V2.2.4 versioned asset references are coherent across',len(active),'release HTML files')
+              if '/assets/style.v2.2.5.css' not in text or '/assets/app.v2.2.5.js' not in text:
+                  raise SystemExit(f'missing V2.2.5 asset reference: {path}')
+          print('V2.2.5 versioned asset references are coherent across',len(active),'release HTML files')
           PY
 
       - name: Enforce mobile delivery budgets
@@ -92,8 +92,8 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           limits={
-              Path('assets/style.v2.2.4.css'):40*1024,
-              Path('assets/app.v2.2.4.js'):24*1024,
+              Path('assets/style.v2.2.5.css'):40*1024,
+              Path('assets/app.v2.2.5.js'):24*1024,
               Path('index.html'):100*1024,
               Path('autor-arthur-magnus.html'):40*1024,
               Path('feed.xml'):32*1024,
