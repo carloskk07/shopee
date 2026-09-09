@@ -1,0 +1,51 @@
+name: Apply cover integrity maintenance
+
+on:
+  push:
+    branches: ["fix/v2-2-6-cover-integrity"]
+    paths: [".cover-integrity/READY"]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout maintenance branch
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Apply deterministic cover correction
+        run: python3 scripts/apply_cover_integrity.py
+
+      - name: Validate JavaScript syntax
+        run: node --check assets/app.v2.2.5.js
+
+      - name: Validate strengthened site contract
+        run: python3 scripts/validate_site.py
+
+      - name: Assert all editorial cover tags are ratio-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'object-fit:contain' assets/cover-integrity.v1.css
+          grep -q 'aspect-ratio:auto' assets/cover-integrity.v1.css
+          if grep -RIE '<img[^>]+/assets/covers/capa-[^>]+(width|height)=' -- *.html; then
+            echo 'Hard-coded cover dimension found after migration.'
+            exit 1
+          fi
+
+      - name: Commit maintenance candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .cover-integrity
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git reset .github/workflows/apply-cover-integrity.yml
+          git commit -m "fix: preserve complete book cover artwork"
+          git push origin HEAD:fix/v2-2-6-cover-integrity
