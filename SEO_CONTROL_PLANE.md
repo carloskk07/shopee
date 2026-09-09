@@ -6,12 +6,13 @@ Sistema de decisão para crescimento orgânico da Freedom Book com foco em evid�
 
 A V4 não tenta publicar mais. Ela tenta **decidir melhor**.
 
-O sistema separa quatro perguntas:
+O sistema separa cinco perguntas:
 
 1. O que está começando a ganhar tração?
 2. O que está perdendo tração de forma material?
 3. Qual URL já possui autoridade para absorver uma intenção?
 4. Onde o grafo interno está deixando autoridade subutilizada?
+5. Quais páginas já aparecem em AI Overviews / AI Mode e com qual nível de evidência?
 
 Nenhuma dessas respostas autoriza publicação automática.
 
@@ -53,7 +54,27 @@ Estados:
 
 Uma consulta ausente no export atual **não é tratada como zero**. Search Console pode devolver apenas as principais linhas; ausência de linha não comprova desaparecimento da demanda.
 
-## 3. Internal Link Intelligence
+## 3. Generative Visibility Intelligence
+
+`scripts/generative_visibility.py`
+
+Lê o export oficial do relatório de performance da IA generativa do Search Console para páginas exibidas em recursos como AI Overviews e AI Mode.
+
+Estados:
+
+- `STRONG_AI_VISIBILITY`
+- `AI_VISIBLE`
+- `EARLY_AI_SIGNAL`
+- `AI_ZERO_OR_UNAVAILABLE`
+- `NOT_IN_AI_EXPORT`
+
+### Regra crítica de segurança
+
+O Search Console informa que valores apresentados como `~` ou indisponíveis podem ser exportados como zero. Por isso, zero **não é interpretado como ausência comprovada de visibilidade em IA**. Da mesma forma, linha ausente não vira zero por causa dos limites de linhas dos relatórios.
+
+Quando um export regular por página também é fornecido, o sistema calcula uma razão observacional IA/Web, sem tratá-la como sinal interno de ranking.
+
+## 4. Internal Link Intelligence
 
 `scripts/internal_link_intelligence.py`
 
@@ -72,7 +93,7 @@ Mede:
 
 O relatório nunca edita HTML automaticamente. Toda sugestão usa `REVIEW_INTERNAL_LINK`.
 
-## 4. Gates editoriais
+## 5. Gates editoriais
 
 Antes de criar uma nova URL, a operação deve preferir nesta ordem:
 
@@ -81,7 +102,8 @@ Antes de criar uma nova URL, a operação deve preferir nesta ordem:
 3. reforçar links internos semanticamente relevantes;
 4. corrigir CTR/snippet quando a posição já é boa;
 5. investigar canibalização;
-6. somente então revisar a hipótese de uma nova URL.
+6. verificar se há sinal de visibilidade generativa na URL vencedora;
+7. somente então revisar a hipótese de uma nova URL.
 
 ## Execução
 
@@ -101,6 +123,15 @@ python3 scripts/seo_temporal.py current.csv previous.csv \
   --markdown-output reports/seo-temporal.md
 ```
 
+### Visibilidade em IA generativa
+
+```bash
+python3 scripts/generative_visibility.py ai-pages.csv \
+  --web-csv web-pages.csv \
+  --json-output reports/generative-visibility.json \
+  --markdown-output reports/generative-visibility.md
+```
+
 ### Autoridade interna
 
 ```bash
@@ -114,12 +145,13 @@ python3 scripts/internal_link_intelligence.py \
 Base obrigatória:
 
 - Google Search Console — gratuito;
+- relatórios de performance e IA generativa do Search Console — gratuitos;
 - Python 3 — gratuito;
 - GitHub — infraestrutura atual;
 - GitHub Actions — CI atual;
 - GitHub Pages — produção atual.
 
-Nenhuma ferramenta SEO paga é requisito da arquitetura.
+Nenhuma ferramenta SEO/AEO/GEO paga é requisito da arquitetura.
 
 ## Política operacional
 
