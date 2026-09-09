@@ -20,8 +20,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # The word "diagnóstico" appears only in a safety disclaimer; do not flag the disclaimer itself as an unsafe claim.
+          # Safety disclaimer can contain the word "diagnóstico" without making a diagnostic claim.
           sed -i "s/,'diagnóstico'//" scripts/build-topical-authority.py
+          # GITHUB_TOKEN cannot update workflow files; those changes are applied separately through the authorized connector.
+          sed -i 's/^update_workflows()$/# update_workflows deferred to authorized connector/' scripts/build-topical-authority.py
           python3 scripts/build-topical-authority.py
       - name: Commit generated authority surface
         shell: bash
