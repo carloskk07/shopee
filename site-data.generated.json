@@ -5,7 +5,7 @@
     "url": "https://achadostube.com.br",
     "email": "contato@achadostube.com.br",
     "author": "Arthur Magnus",
-    "logo": "https://achadostube.com.br/imagens/logo-freedom-book-redonda.png",
+    "logo": "https://achadostube.com.br/assets/covers/logo-freedom-book-redonda.webp",
     "og": "https://achadostube.com.br/og/freedom-book-home.png",
     "whatsapp": "https://whatsapp.com/channel/0029Vb84nsQHgZWYKx7syI2O",
     "support": "https://livepix.gg/editorafreedombook",
@@ -13,13 +13,13 @@
     "ga": "G-DK72PVREEJ",
     "tiktok": "D78O6VJC77U8CCU0EA0G",
     "modified": "2026-09-08",
-    "release": "2026.09.08-v2.2.4"
+    "release": "2026.09.08-v2.2.5"
   },
   "books": [
     {
       "slug": "codigo-da-vida-inabalavel",
       "title": "O Código da Vida Inabalável",
-      "badge": "Códigos de Vida",
+      "badge": "Próximo lançamento",
       "available": false,
       "featured": false,
       "cover": "",
@@ -40,7 +40,7 @@
       "badge": "Guia 06",
       "available": true,
       "featured": true,
-      "cover": "https://achadostube.com.br/imagens/capa-proposito-maior.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-proposito-maior.webp",
       "description": "Um guia visual e reflexivo para descobrir por que você está aqui, reconhecer valores inegociáveis e transformar sentido em direção.",
       "tags": [
         "propósito",
@@ -58,7 +58,7 @@
       "badge": "Guia 05",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-recomecos-sao-escolhas.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-recomecos-sao-escolhas.webp",
       "description": "Um guia visual e reflexivo para transformar fins em novos começos com clareza, coragem e pequenos passos possíveis.",
       "tags": [
         "recomeços",
@@ -76,7 +76,7 @@
       "badge": "Guia 04",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-foco-que-gera-resultados.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-foco-que-gera-resultados.webp",
       "description": "Um guia visual e prático para reduzir distrações, proteger sua atenção e transformar esforço em progresso real.",
       "tags": [
         "foco",
@@ -94,7 +94,7 @@
       "badge": "Guia 03",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-mente-forte-vida-leve.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-mente-forte-vida-leve.webp",
       "description": "Um guia visual e prático para reduzir ruído mental, organizar pensamentos e viver com mais clareza, presença e leveza.",
       "tags": [
         "clareza mental",
@@ -112,7 +112,7 @@
       "badge": "Guia 02",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-disciplina-e-liberdade.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-disciplina-e-liberdade.webp",
       "description": "Um guia prático para transformar disciplina em direção, consistência e liberdade sem rigidez excessiva.",
       "tags": [
         "disciplina",
@@ -130,7 +130,7 @@
       "badge": "Guia 01",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-o-metodo-da-vida-mais-leve.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-o-metodo-da-vida-mais-leve.webp",
       "description": "Um guia prático para organizar ideias, reduzir excessos e recuperar direção nos seus dias sem mudar tudo de uma vez.",
       "tags": [
         "clareza prática",
@@ -148,7 +148,7 @@
       "badge": "E-book 01",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-o-cansaco-invisivel.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-o-cansaco-invisivel.webp",
       "description": "Uma leitura reflexiva sobre cansaço, rotina e percepção interna para nomear sensações comuns do cotidiano com mais clareza.",
       "tags": [
         "reflexão",
@@ -166,7 +166,7 @@
       "badge": "E-book 02",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-quando-sua-vida-virou-sobrevivencia.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-quando-sua-vida-virou-sobrevivencia.webp",
       "description": "Uma leitura sobre rotina, pausa e retomada de perspectiva para observar os dias com mais presença e clareza.",
       "tags": [
         "pausa",
@@ -184,7 +184,7 @@
       "badge": "E-book 03",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-a-vida-que-voce-adiou.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-a-vida-que-voce-adiou.webp",
       "description": "Uma leitura sobre adiamentos, escolhas e pequenos começos possíveis para refletir sobre presença, direção e próximos passos.",
       "tags": [
         "adiamento",
@@ -202,7 +202,7 @@
       "badge": "E-book 04",
       "available": true,
       "featured": false,
-      "cover": "https://achadostube.com.br/imagens/capa-o-peso-de-ser-forte-o-tempo-todo.png",
+      "cover": "https://achadostube.com.br/assets/covers/capa-o-peso-de-ser-forte-o-tempo-todo.webp",
       "description": "Uma leitura sobre excesso de responsabilidade, limites pessoais e a importância de reconhecer quando a rotina ficou pesada demais.",
       "tags": [
         "responsabilidade",
