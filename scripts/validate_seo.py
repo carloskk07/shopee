@@ -9,6 +9,8 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 CANON = 'https://achadostube.com.br'
+AUTHOR_ID = CANON + '/autor-arthur-magnus#person'
+AUTHOR_URL = CANON + '/autor-arthur-magnus'
 
 def fail(message: str) -> None:
     raise SystemExit(message)
@@ -62,11 +64,11 @@ breadcrumb = (by_type.get('BreadcrumbList') or [None])[0]
 org = (by_type.get('Organization') or [None])[0]
 if not all((profile, person, breadcrumb, org)):
     fail('author graph must include ProfilePage, Person, BreadcrumbList and Organization')
-if profile.get('mainEntity', {}).get('@id') != CANON + '/autor-arthur-magnus#person':
+if profile.get('mainEntity', {}).get('@id') != AUTHOR_ID:
     fail('author ProfilePage mainEntity mismatch')
 if profile.get('dateModified') != modified:
     fail('author ProfilePage dateModified mismatch')
-if person.get('name') != 'Arthur Magnus' or person.get('url') != CANON + '/autor-arthur-magnus':
+if person.get('name') != 'Arthur Magnus' or person.get('url') != AUTHOR_URL:
     fail('author Person identity drift')
 if 'image' in person:
     fail('author Person must not use a logo/placeholder as a synthetic portrait')
@@ -106,14 +108,14 @@ for b in available:
         fail(f'{slug}: expected Book + WebPage + BreadcrumbList graph')
     if book.get('url') != b['pageUrl'] or book.get('image') != b['cover']:
         fail(f'{slug}: Book entity URL/image drift')
-    if book.get('author', {}).get('@id') != CANON + '/autor-arthur-magnus#person':
+    if book.get('author', {}).get('@id') != AUTHOR_ID:
         fail(f'{slug}: Book author identity drift')
     if book.get('publisher', {}).get('@id') != CANON + '/#organization':
         fail(f'{slug}: Book publisher identity drift')
     if web_page.get('dateModified') != modified:
         fail(f'{slug}: WebPage dateModified mismatch')
 
-# Editorial guide authority.
+# Editorial guide authority: Person author is visible and machine-readable; Freedom Book remains publisher.
 for g in guides:
     page = ROOT / 'guias' / f"{g['slug']}.html"
     text = page.read_text(encoding='utf-8')
@@ -126,10 +128,15 @@ for g in guides:
     crumbs = next((n for n in nodes if n.get('@type') == 'BreadcrumbList'), None)
     if not article or not crumbs:
         fail(f"{g['slug']}: Article/BreadcrumbList missing")
-    if article.get('author', {}).get('@id') != CANON + '/#organization' or article.get('publisher', {}).get('@id') != CANON + '/#organization':
-        fail(f"{g['slug']}: guide authorship/publisher drift")
+    author = article.get('author', {})
+    if author.get('@type') != 'Person' or author.get('@id') != AUTHOR_ID or author.get('name') != 'Arthur Magnus' or author.get('url') != AUTHOR_URL:
+        fail(f"{g['slug']}: guide Person authorship drift")
+    if article.get('publisher', {}).get('@id') != CANON + '/#organization':
+        fail(f"{g['slug']}: guide publisher drift")
     if article.get('datePublished') != modified or article.get('dateModified') != modified:
         fail(f"{g['slug']}: guide dates drift")
+    if 'href="/autor-arthur-magnus"' not in text or 'data-track="guide_author_click"' not in text:
+        fail(f"{g['slug']}: visible author byline/link missing")
     for bslug in g.get('relatedBooks', []):
         if f'href="/{bslug}"' not in text:
             fail(f"{g['slug']}: related book link missing: {bslug}")
@@ -176,4 +183,4 @@ for name in ('kit-3-pares.html', 'kit-sandalias-infantil.html'):
     if name[:-5] in ''.join(sorted(seen)):
         fail(f'{name}: legacy offer leaked into editorial sitemap')
 
-print(f'PASS: SEO/indexation contract coherent for {len(expected)} canonical indexable pages and {len(available)} published books')
+print(f'PASS: SEO/indexation contract coherent for {len(expected)} canonical indexable pages, {len(available)} published books and Person-authored guides')

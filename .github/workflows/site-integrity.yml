@@ -25,13 +25,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(CNAME index.html 404.html autor-arthur-magnus.html guias.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/editorial-guides.v1.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/validate_guides.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
+          required=(CNAME index.html 404.html autor-arthur-magnus.html guias.html robots.txt sitemap.xml feed.xml README.md deploy-marker.json release.json route-shims.generated.json site-data.generated.json manifest.webmanifest _redirects assets/style.v2.2.5.css assets/editorial-guides.v1.css assets/app.v2.2.5.js assets/route-recovery.v1.js scripts/validate_site.py scripts/validate_seo.py scripts/validate_guides.py scripts/release_hashes.py scripts/seo_intelligence.py scripts/test_seo_intelligence.py scripts/test-route-recovery.cjs scripts/generate-route-shims.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
           done
           grep -qx 'achadostube.com.br' CNAME
           grep -q 'Sitemap: https://achadostube.com.br/sitemap.xml' robots.txt
           test ! -e vercel.json || { echo 'Stale vercel.json found: production host is GitHub Pages'; exit 1; }
+          test ! -e .vercel || { echo 'Stale .vercel project metadata found: production host is GitHub Pages'; exit 1; }
 
       - name: Validate GitHub Pages hosting truth
         shell: bash
@@ -58,6 +59,14 @@ jobs:
             echo 'Found Vercel-only image endpoint in GitHub Pages production HTML.'
             exit 1
           fi
+
+      - name: Validate SEO intelligence tooling
+        run: |
+          python3 -m py_compile scripts/release_hashes.py scripts/seo_intelligence.py scripts/test_seo_intelligence.py
+          python3 scripts/test_seo_intelligence.py
+
+      - name: Audit release hashes
+        run: python3 scripts/release_hashes.py --changed-only
 
       - name: Validate editorial, SEO, visual-context and release contracts
         run: python3 scripts/validate_site.py

@@ -176,10 +176,13 @@ jobs:
             grep -q 'index,follow' /tmp/guide.html
             grep -q 'rel="canonical"' /tmp/guide.html
             grep -q '/assets/editorial-guides.v1.css' /tmp/guide.html
+            grep -q 'data-track="guide_author_click"' /tmp/guide.html
           done
           curl --fail --silent --show-error --location "$base/guias/como-melhorar-o-foco-e-reduzir-distracoes?probe=$GITHUB_SHA" -o /tmp/article.html
           grep -q '"@type":"Article"' /tmp/article.html
-          grep -q '"author":{"@id":"https://achadostube.com.br/#organization"}' /tmp/article.html
+          grep -q '"author":{"@type":"Person","@id":"https://achadostube.com.br/autor-arthur-magnus#person","name":"Arthur Magnus","url":"https://achadostube.com.br/autor-arthur-magnus"}' /tmp/article.html
+          grep -q '"publisher":{"@id":"https://achadostube.com.br/#organization"}' /tmp/article.html
+          grep -q 'href="/autor-arthur-magnus"' /tmp/article.html
           grep -q 'href="/foco-que-gera-resultados"' /tmp/article.html
           grep -q 'Guia editorial da Freedom Book' /tmp/article.html
 
