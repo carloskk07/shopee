@@ -7,6 +7,9 @@ on:
       - '_redirects'
       - 'assets/route-recovery.v1.js'
       - 'scripts/test-route-recovery.cjs'
+      - 'scripts/generate-route-shims.py'
+      - 'route-shims.generated.json'
+      - '**/index.html'
       - 'release.json'
       - '.github/workflows/route-integrity.yml'
   push:
@@ -16,6 +19,9 @@ on:
       - '_redirects'
       - 'assets/route-recovery.v1.js'
       - 'scripts/test-route-recovery.cjs'
+      - 'scripts/generate-route-shims.py'
+      - 'route-shims.generated.json'
+      - '**/index.html'
       - 'release.json'
       - '.github/workflows/route-integrity.yml'
   workflow_dispatch:
@@ -34,3 +40,5 @@ jobs:
         run: node --check assets/route-recovery.v1.js
       - name: Validate aliases and open-redirect safety
         run: node scripts/test-route-recovery.cjs
+      - name: Validate deterministic static route shims
+        run: python3 scripts/generate-route-shims.py --check

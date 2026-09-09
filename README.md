@@ -19,7 +19,9 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `*.html` — páginas editoriais públicas e páginas legadas preservadas.
 - `assets/style.v2.2.5.css` — CSS ativo da release, versionado no próprio nome do arquivo.
 - `assets/app.v2.2.5.js` — runtime ativo, catálogo, consentimento, telemetria e funil editorial.
-- `assets/route-recovery.v1.js` — recuperação segura de aliases conhecidos quando o GitHub Pages cai no `404.html`.
+- `assets/route-recovery.v1.js` — fallback client-side para aliases conhecidos que ainda alcancem o `404.html`.
+- `route-shims.generated.json` — manifesto determinístico das rotas estáticas de compatibilidade servidas pelo GitHub Pages.
+- `*/index.html` nas rotas compatíveis — shims estáticos `noindex` que eliminam 404 HTTP em variantes com barra final e aliases históricos conhecidos.
 - `assets/covers/` — capas WebP estáticas otimizadas para GitHub Pages.
 - `assets/icons/` — ícones PWA/Apple otimizados.
 - `site-data.generated.json` — contrato de dados do catálogo.
@@ -28,13 +30,14 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `og/` — imagens sociais.
 - `feed.xml` — feed Atom dos títulos disponíveis.
 - `sitemap.xml` — sitemap canônico com descoberta de imagens das capas.
-- `release.json` — hashes SHA-256 dos artefatos críticos esperados em produção.
+- `release.json` — hashes SHA-256 dos artefatos críticos esperados em produção, incluindo o manifesto de rotas.
 - `deploy-marker.json` — provenance da origem, branch e provedor de produção.
 - `robots.txt` — política de rastreamento e descoberta do sitemap.
-- `_redirects` — mapa declarativo de compatibilidade; o GitHub Pages não o executa como regra de servidor.
+- `_redirects` — mapa declarativo de compatibilidade e fonte de verdade para aliases; o GitHub Pages não o executa como regra de servidor.
 - `.github/workflows/site-integrity.yml` — gate obrigatório antes do merge.
-- `.github/workflows/route-integrity.yml` — valida aliases, barras finais e proteção contra open redirect.
-- `.github/workflows/production-smoke.yml` — validação do domínio depois do deploy.
+- `.github/workflows/route-integrity.yml` — valida aliases, barras finais, shims estáticos e proteção contra open redirect.
+- `.github/workflows/production-smoke.yml` — validação geral do domínio depois do deploy.
+- `.github/workflows/route-production-smoke.yml` — prova pós-deploy de que cada rota compatível responde no HTTP com o shim exato e que rotas desconhecidas continuam 404.
 - `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.
 - `assets/legacy-offer.v1.css` + `assets/legacy-consent.v1.js` — superfície leve das páginas legadas de afiliado, com consentimento antes de métricas e sem urgência/estoque/preço simulados.
 
@@ -44,9 +47,13 @@ As capas editoriais nunca podem ser recortadas para preencher um quadro. `assets
 
 ## Compatibilidade de rotas no GitHub Pages
 
-O GitHub Pages não interpreta `_redirects` como Netlify/Vercel. Por isso, aliases antigos e variantes com barra final que chegam ao `404.html` passam por `assets/route-recovery.v1.js`. A recuperação é deliberadamente fechada: somente rotas conhecidas podem ser normalizadas, parâmetros e fragmentos são preservados e destinos arbitrários ou externos são rejeitados.
+O GitHub Pages não interpreta `_redirects` como Netlify/Vercel. Por isso, confiar apenas no `404.html` e em JavaScript deixava uma falha real no nível HTTP: a variante `/proposito-maior/`, por exemplo, continuava respondendo 404 antes da execução do navegador.
 
-O contrato é testado por `scripts/test-route-recovery.cjs` e pelo workflow `Route integrity`. URLs canônicas continuam sem barra final; a recuperação existe apenas para preservar tráfego antigo e links digitados em formatos compatíveis.
+A proteção agora tem duas camadas. `scripts/generate-route-shims.py` materializa de forma determinística páginas estáticas `index.html` para as variantes canônicas com barra final e aliases conhecidos. Cada shim retorna conteúdo HTML real pelo GitHub Pages, permanece `noindex,follow`, aponta `canonical` para a URL correta e redireciona para o destino esperado. `assets/route-recovery.v1.js` continua como fallback adicional para casos conhecidos que ainda alcancem o 404, preservando query string e fragmento.
+
+`route-shims.generated.json` registra caminho público, arquivo, destino e SHA-256 de cada shim. `Site integrity / validate` e `Route integrity` bloqueiam drift local; `Route production smoke` verifica os bytes no domínio publicado e também confirma que uma rota desconhecida continua retornando 404.
+
+URLs canônicas continuam sem barra final. As rotas de compatibilidade existem somente para recuperação e preservação de tráfego antigo.
 
 ## Estratégia de cache
 
@@ -75,7 +82,8 @@ GA4 e TikTok continuam condicionados ao consentimento correspondente. A V2.2.5 m
 7. Alterações de catálogo devem manter `site-data.generated.json`, HTML, `feed.xml` e sitemap coerentes.
 8. Não referenciar endpoints de outro provedor no HTML público.
 9. Não reutilizar o nome de um asset versionado para conteúdo diferente.
-10. Uma release só é considerada realmente publicada quando **Production smoke** passa.
+10. Alterações em aliases/canônicas devem regenerar os shims e manter `route-shims.generated.json` coerente.
+11. Uma release só é considerada realmente publicada quando **Production smoke** passa; mudanças de compatibilidade de rotas também exigem **Route production smoke** verde.
 
 ## Release
 

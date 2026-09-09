@@ -1,0 +1,109 @@
+name: Route production smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'route-shims.generated.json'
+      - 'scripts/generate-route-shims.py'
+      - '**/index.html'
+      - '_redirects'
+      - '404.html'
+      - '.github/workflows/route-production-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: freedom-book-route-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  route-production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout approved main
+        uses: actions/checkout@v5
+
+      - name: Wait for exact route manifest to reach production
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          matched=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 20 \
+              "$base/route-shims.generated.json?probe=$GITHUB_SHA-$attempt" -o /tmp/public-route-shims.json; then
+              if cmp -s route-shims.generated.json /tmp/public-route-shims.json; then
+                echo "Production route-shim manifest matches approved main on attempt $attempt."
+                matched=1
+                break
+              fi
+            fi
+            echo "Attempt $attempt/30: route-shim manifest has not converged yet."
+            sleep 20
+          done
+          test "$matched" -eq 1
+
+      - name: Verify every static route shim at the HTTP layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, pathlib, urllib.error, urllib.request
+
+          base='https://achadostube.com.br'
+          manifest=json.loads(pathlib.Path('route-shims.generated.json').read_text(encoding='utf-8'))
+          if manifest.get('schema')!='freedom-book-route-shims-v1':
+              raise SystemExit('route-shim schema mismatch')
+          entries=manifest.get('entries',[])
+          if len(entries)<20:
+              raise SystemExit(f'route-shim coverage unexpectedly small: {len(entries)}')
+
+          for entry in entries:
+              public_path=entry['publicPath']
+              destination=entry['destination']
+              expected_hash=entry['sha256']
+              req=urllib.request.Request(
+                  base+public_path,
+                  headers={'User-Agent':'FreedomBook-Route-Smoke/1.0'},
+              )
+              with urllib.request.urlopen(req,timeout=30) as response:
+                  body=response.read()
+                  status=response.getcode()
+                  ctype=(response.headers.get('Content-Type') or '').lower()
+              if status!=200:
+                  raise SystemExit(f'route shim did not return HTTP 200: {public_path} -> {status}')
+              if 'text/html' not in ctype:
+                  raise SystemExit(f'route shim bad content type: {public_path} -> {ctype}')
+              actual_hash=hashlib.sha256(body).hexdigest()
+              if actual_hash!=expected_hash:
+                  raise SystemExit(f'route shim byte drift: {public_path}: {actual_hash} != {expected_hash}')
+              text=body.decode('utf-8')
+              canonical=base+('/' if destination=='/' else destination)
+              if 'static-route-shim-v1' not in text:
+                  raise SystemExit(f'route shim marker missing: {public_path}')
+              if 'noindex,follow' not in text:
+                  raise SystemExit(f'route shim noindex missing: {public_path}')
+              if f'href="{canonical}"' not in text:
+                  raise SystemExit(f'route shim canonical mismatch: {public_path}')
+              if f'content="0;url={destination}"' not in text:
+                  raise SystemExit(f'route shim refresh mismatch: {public_path}')
+              print('OK',public_path,'->',destination)
+
+          missing=base+'/__route-integrity-definitely-missing__/'
+          try:
+              urllib.request.urlopen(
+                  urllib.request.Request(missing,headers={'User-Agent':'FreedomBook-Route-Smoke/1.0'}),
+                  timeout=30,
+              )
+          except urllib.error.HTTPError as exc:
+              if exc.code!=404:
+                  raise SystemExit(f'unknown route returned unexpected status: {exc.code}')
+          else:
+              raise SystemExit('unknown route unexpectedly stopped returning 404')
+
+          print(f'PASS: {len(entries)} route shims return deterministic HTTP 200; unknown route remains 404')
+          PY
