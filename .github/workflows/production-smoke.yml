@@ -40,6 +40,27 @@ jobs:
           done
           test "$matched" -eq 1
 
+      - name: Wait for maintenance campaign to reach production
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          test -s maintenance-marker.json
+          matched=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 20 \
+              "$base/maintenance-marker.json?probe=$GITHUB_SHA-$attempt" -o /tmp/public-maintenance.json; then
+              if cmp -s maintenance-marker.json /tmp/public-maintenance.json; then
+                echo "Production maintenance marker matches approved main on attempt $attempt."
+                matched=1
+                break
+              fi
+            fi
+            echo "Attempt $attempt/30: maintenance campaign has not converged yet."
+            sleep 20
+          done
+          test "$matched" -eq 1
+
       - name: Verify complete production artifact parity
         shell: bash
         run: |
@@ -113,6 +134,50 @@ jobs:
           ! grep -q '/assets/app.v2.2.3.js' /tmp/home.html
           ! grep -q '/assets/style.v2.2.css' /tmp/home.html
           ! grep -q '/assets/app.v2.2.js' /tmp/home.html
+
+      - name: Verify hardened legacy public surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+
+          curl --fail --silent --show-error "$base/leitor.html?probe=$GITHUB_SHA" -o /tmp/reader.html
+          grep -qi 'noindex' /tmp/reader.html
+          grep -q 'https://achadostube.com.br/o-cansaco-invisivel' /tmp/reader.html
+          grep -q 'url=/o-cansaco-invisivel' /tmp/reader.html
+          ! grep -q 'googletagmanager.com' /tmp/reader.html
+          ! grep -q 'analytics.tiktok.com' /tmp/reader.html
+          ! grep -q 'o_cansaco_invisivel.pdf' /tmp/reader.html
+
+          for slug in kit-3-pares kit-sandalias-infantil; do
+            curl --fail --silent --show-error "$base/$slug?probe=$GITHUB_SHA" -o "/tmp/$slug.html"
+            grep -q "https://achadostube.com.br/$slug" "/tmp/$slug.html"
+            grep -q '/assets/legacy-offer.v1.css' "/tmp/$slug.html"
+            grep -q '/assets/legacy-consent.v1.js' "/tmp/$slug.html"
+            grep -q 'sponsored noopener noreferrer' "/tmp/$slug.html"
+            ! grep -q 'googletagmanager.com/gtag/js' "/tmp/$slug.html"
+            ! grep -q 'analytics.tiktok.com' "/tmp/$slug.html"
+            ! grep -q 'R$' "/tmp/$slug.html"
+            ! grep -Eqi 'vendidos hoje|unidades restantes|estoque quase zerado|estão vendo esta oferta agora|mães reais|oferta relâmpago|últimas unidades|garantia 30 dias' "/tmp/$slug.html"
+          done
+
+          curl --fail --silent --show-error "$base/assets/legacy-consent.v1.js?probe=$GITHUB_SHA" -o /tmp/legacy-consent.js
+          grep -q 'freedom_book_consent_v2' /tmp/legacy-consent.js
+          grep -q 'affiliate_click' /tmp/legacy-consent.js
+          grep -q 'clearOptionalCookies' /tmp/legacy-consent.js
+          ! grep -q 'Purchase' /tmp/legacy-consent.js
+
+          curl --fail --silent --show-error "$base/kit-tenis-sandalia.html?probe=$GITHUB_SHA" -o /tmp/duplicate-kit.html
+          grep -qi 'noindex' /tmp/duplicate-kit.html
+          grep -q 'https://achadostube.com.br/kit-3-pares' /tmp/duplicate-kit.html
+          grep -q 'url=/kit-3-pares' /tmp/duplicate-kit.html
+
+          curl --fail --silent --show-error "$base/locked/the_select.html?probe=$GITHUB_SHA" -o /tmp/retired-select.html
+          grep -qi 'noindex,nofollow,noarchive' /tmp/retired-select.html
+          ! grep -q 'theselect.com.br' /tmp/retired-select.html
+          ! grep -q 'example.com' /tmp/retired-select.html
+          ! grep -q 'googletagmanager.com' /tmp/retired-select.html
+          ! grep -q 'analytics.tiktok.com' /tmp/retired-select.html
 
       - name: Verify optimized static media and PWA icons
         shell: bash
