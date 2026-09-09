@@ -1,0 +1,77 @@
+name: Apply contextual Freedom Book V2.2.4 visual upgrade
+
+on:
+  push:
+    branches:
+      - design/v2-2-4-premium-contextual
+    paths:
+      - .v224-visual-ready
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout design branch
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Build versioned visual assets and update editorial pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp assets/style.v2.2.3.css assets/style.v2.2.4.css
+          printf '\n' >> assets/style.v2.2.4.css
+          cat assets/visual-v224-overrides.css >> assets/style.v2.2.4.css
+          cp assets/app.v2.2.3.js assets/app.v2.2.4.js
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          old='2026.09.08-v2.2.3'
+          new='2026.09.08-v2.2.4'
+          htmls=[
+            'index.html','404.html','autor-arthur-magnus.html','privacidade.html','termos.html',
+            'codigo-da-vida-inabalavel.html','proposito-maior.html','recomecos-sao-escolhas.html',
+            'foco-que-gera-resultados.html','mente-forte-vida-leve.html','disciplina-e-liberdade.html',
+            'o-metodo-da-vida-mais-leve.html','o-cansaco-invisivel.html',
+            'quando-sua-vida-virou-sobrevivencia.html','a-vida-que-voce-adiou.html',
+            'o-peso-de-ser-forte-o-tempo-todo.html'
+          ]
+          for name in htmls:
+              p=Path(name)
+              s=p.read_text(encoding='utf-8')
+              s=s.replace(old,new).replace('/assets/style.v2.2.3.css','/assets/style.v2.2.4.css').replace('/assets/app.v2.2.3.js','/assets/app.v2.2.4.js')
+              p.write_text(s,encoding='utf-8')
+          p=Path('assets/app.v2.2.4.js')
+          p.write_text(p.read_text(encoding='utf-8').replace(old,new),encoding='utf-8')
+          for name in ['README.md','scripts/validate_site.py','site-data.generated.json']:
+              p=Path(name)
+              if p.exists():
+                  s=p.read_text(encoding='utf-8').replace(old,new).replace('/assets/style.v2.2.3.css','/assets/style.v2.2.4.css').replace('/assets/app.v2.2.3.js','/assets/app.v2.2.4.js')
+                  p.write_text(s,encoding='utf-8')
+          rp=Path('release.json')
+          data=json.loads(rp.read_text(encoding='utf-8'))
+          data['release']=new
+          arts=data.get('artifacts',{})
+          arts.pop('assets/style.v2.2.3.css',None)
+          arts.pop('assets/app.v2.2.3.js',None)
+          arts['assets/style.v2.2.4.css']=''
+          arts['assets/app.v2.2.4.js']=''
+          for key in list(arts):
+              f=Path(key)
+              if not f.exists():
+                  raise SystemExit(f'Missing release artifact: {key}')
+              arts[key]=hashlib.sha256(f.read_bytes()).hexdigest()
+          data['artifacts']=dict(sorted(arts.items()))
+          rp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          rm -f .v224-visual-ready assets/visual-v224-overrides.css
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A ':!.github/workflows/apply-v224-visual.yml'
+          git commit -m "feat: apply contextual premium visual system V2.2.4"
+          git push origin HEAD:design/v2-2-4-premium-contextual
