@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from seo_intelligence import analyze, number, resolve_columns
-from test_organic_control_plane import test_internal_links, test_live_repository_graph_contract, test_temporal
+from test_organic_control_plane import test_generative_visibility, test_internal_links, test_live_repository_graph_contract, test_temporal
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -52,10 +52,11 @@ def main() -> int:
     # V4 control-plane contracts are deliberately executed by the existing
     # Site Integrity entrypoint, so the new intelligence cannot silently rot.
     test_temporal()
+    test_generative_visibility()
     test_internal_links()
     test_live_repository_graph_contract()
 
-    print("PASS: Freedom Search Intelligence + temporal/link control-plane deterministic gates")
+    print("PASS: Freedom Search Intelligence + temporal/generative/link control-plane deterministic gates")
     return 0
 
 
