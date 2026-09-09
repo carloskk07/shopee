@@ -1,0 +1,36 @@
+name: Route integrity
+
+on:
+  pull_request:
+    paths:
+      - '404.html'
+      - '_redirects'
+      - 'assets/route-recovery.v1.js'
+      - 'scripts/test-route-recovery.cjs'
+      - 'release.json'
+      - '.github/workflows/route-integrity.yml'
+  push:
+    branches: [main]
+    paths:
+      - '404.html'
+      - '_redirects'
+      - 'assets/route-recovery.v1.js'
+      - 'scripts/test-route-recovery.cjs'
+      - 'release.json'
+      - '.github/workflows/route-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  route-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Validate route recovery syntax
+        run: node --check assets/route-recovery.v1.js
+      - name: Validate aliases and open-redirect safety
+        run: node scripts/test-route-recovery.cjs

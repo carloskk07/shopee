@@ -1,6 +1,6 @@
 {
   "artifacts": {
-    "404.html": "6d62c3b6b0639737f1515247aa66c7d86213eae37966af9d515dfb2a842b0c24",
+    "404.html": "8a252eb122e312a54c1950ed2c608009ff6e8e850851883bc176db1f8bc36674",
     "a-vida-que-voce-adiou.html": "ddeece9a9efcee4ea9201e4cbfb5ffd53095305e5c42eb64b2a1084570ca1468",
     "assets/app.v2.2.5.js": "0bd1a83a582c9719e8eaff2adfaecea2959e9fea8e8556815c671bbc0296e9ff",
     "assets/cover-integrity.v1.css": "0a288f23b92cb77bfd7fb6c78519f54c7936c26cc8fa7212a94ca70e4082c128",
@@ -19,6 +19,7 @@
     "assets/icons/icon-192.png": "92160236201b93148472d019089ea74d282763f2703708fdf206f9c42809886d",
     "assets/icons/icon-512.png": "e1ed192fb2ab3236651ed937c4cfba15da03fc9f82c9ea0d5fa4dc32af8b2567",
     "assets/icons/maskable-512.png": "d63e08ec77046ffab7a7fa92322c061529cf52842469383015dd45f2da592fb3",
+    "assets/route-recovery.v1.js": "fa328c80f41b0156f292abf756f31382f1a054f66dca991d09d236a5ba62ae2f",
     "assets/style.v2.2.5.css": "e409f2b0d1793ed82a92d653bddc8c59c665138f81bf8701319f45b5b11dc446",
     "autor-arthur-magnus.html": "24781e3e18f18431b122bb942706eb0e284d890c193a44582954d5b7a4a87c0e",
     "codigo-da-vida-inabalavel.html": "d08eec6769ff6d36660918f2bdb62a169e89e7a718c05178db8b1633377b6dc7",

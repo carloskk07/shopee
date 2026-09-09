@@ -19,6 +19,7 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `*.html` — páginas editoriais públicas e páginas legadas preservadas.
 - `assets/style.v2.2.5.css` — CSS ativo da release, versionado no próprio nome do arquivo.
 - `assets/app.v2.2.5.js` — runtime ativo, catálogo, consentimento, telemetria e funil editorial.
+- `assets/route-recovery.v1.js` — recuperação segura de aliases conhecidos quando o GitHub Pages cai no `404.html`.
 - `assets/covers/` — capas WebP estáticas otimizadas para GitHub Pages.
 - `assets/icons/` — ícones PWA/Apple otimizados.
 - `site-data.generated.json` — contrato de dados do catálogo.
@@ -30,7 +31,9 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 - `release.json` — hashes SHA-256 dos artefatos críticos esperados em produção.
 - `deploy-marker.json` — provenance da origem, branch e provedor de produção.
 - `robots.txt` — política de rastreamento e descoberta do sitemap.
+- `_redirects` — mapa declarativo de compatibilidade; o GitHub Pages não o executa como regra de servidor.
 - `.github/workflows/site-integrity.yml` — gate obrigatório antes do merge.
+- `.github/workflows/route-integrity.yml` — valida aliases, barras finais e proteção contra open redirect.
 - `.github/workflows/production-smoke.yml` — validação do domínio depois do deploy.
 - `product/`, `locked/` e páginas `kit-*` — legado AchadosTube/Shopee preservado para compatibilidade e tráfego existente.
 - `assets/legacy-offer.v1.css` + `assets/legacy-consent.v1.js` — superfície leve das páginas legadas de afiliado, com consentimento antes de métricas e sem urgência/estoque/preço simulados.
@@ -38,6 +41,12 @@ A branch `main` é protegida por ruleset ativo e aceita somente fluxo por Pull R
 ## Integridade visual das capas
 
 As capas editoriais nunca podem ser recortadas para preencher um quadro. `assets/cover-integrity.v1.css` preserva a proporção natural da arte com `object-fit: contain` e remove dependência de `aspect-ratio: 2/3` nas superfícies de catálogo, destaque e landing individual. Os HTMLs editoriais também não fixam `width`/`height` nas capas, evitando que metadados antigos imponham uma proporção incorreta.
+
+## Compatibilidade de rotas no GitHub Pages
+
+O GitHub Pages não interpreta `_redirects` como Netlify/Vercel. Por isso, aliases antigos e variantes com barra final que chegam ao `404.html` passam por `assets/route-recovery.v1.js`. A recuperação é deliberadamente fechada: somente rotas conhecidas podem ser normalizadas, parâmetros e fragmentos são preservados e destinos arbitrários ou externos são rejeitados.
+
+O contrato é testado por `scripts/test-route-recovery.cjs` e pelo workflow `Route integrity`. URLs canônicas continuam sem barra final; a recuperação existe apenas para preservar tráfego antigo e links digitados em formatos compatíveis.
 
 ## Estratégia de cache
 
