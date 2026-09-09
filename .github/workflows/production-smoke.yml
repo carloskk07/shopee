@@ -135,6 +135,27 @@ jobs:
           ! grep -q '/assets/style.v2.2.css' /tmp/home.html
           ! grep -q '/assets/app.v2.2.js' /tmp/home.html
 
+      - name: Verify Google SEO/indexation semantics
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          curl --fail --silent --show-error --location "$base/autor-arthur-magnus?probe=$GITHUB_SHA" -o /tmp/seo-author.html
+          curl --fail --silent --show-error --location "$base/proposito-maior?probe=$GITHUB_SHA" -o /tmp/seo-book.html
+          curl --fail --silent --show-error --location "$base/sitemap.xml?probe=$GITHUB_SHA" -o /tmp/seo-sitemap.xml
+          curl --fail --silent --show-error --location "$base/site-data.generated.json?probe=$GITHUB_SHA" -o /tmp/seo-data.json
+          grep -q '"@type":"ProfilePage"' /tmp/seo-author.html
+          grep -q '"@type":"BreadcrumbList"' /tmp/seo-author.html
+          grep -q '"mainEntity":{"@id":"https://achadostube.com.br/autor-arthur-magnus#person"}' /tmp/seo-author.html
+          grep -q 'href="/proposito-maior"' /tmp/seo-author.html
+          grep -q 'href="/o-peso-de-ser-forte-o-tempo-todo"' /tmp/seo-author.html
+          grep -q 'https://achadostube.com.br/assets/covers/capa-proposito-maior.webp' /tmp/seo-book.html
+          ! grep -q 'https://achadostube.com.br/imagens/capa-proposito-maior.png' /tmp/seo-book.html
+          ! grep -q 'https://achadostube.com.br/imagens/logo-freedom-book-redonda.png' /tmp/home.html
+          grep -q '2026-09-09' /tmp/seo-data.json
+          test "$(grep -o '<lastmod>2026-09-09</lastmod>' /tmp/seo-sitemap.xml | wc -l)" -eq 12
+          ! grep -q '<loc>https://achadostube.com.br/codigo-da-vida-inabalavel</loc>' /tmp/seo-sitemap.xml
+
       - name: Verify hardened legacy public surfaces
         shell: bash
         run: |
