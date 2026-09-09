@@ -68,6 +68,12 @@ if "COVER_CSS='/assets/cover-integrity.v1.css'" not in v:
     new="for required in ('index.html','autor-arthur-magnus.html','feed.xml','sitemap.xml','assets/style.v2.2.5.css','assets/cover-integrity.v1.css','assets/app.v2.2.5.js','deploy-marker.json'):"
     if old not in v: raise SystemExit('validator release-surface anchor not found')
     v=v.replace(old,new,1)
+old_maintenance="expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'legacy-surface-integrity','version':1,'source':'main','origin':CANON+'/'}"
+new_maintenance="expected_maintenance={'schema':'achadostube-maintenance-marker-v1','campaign':'cover-integrity-v1','version':2,'source':'main','origin':CANON+'/'}"
+if old_maintenance in v:
+    v=v.replace(old_maintenance,new_maintenance,1)
+elif new_maintenance not in v:
+    raise SystemExit('validator maintenance-marker anchor not found')
 vp.write_text(v,encoding='utf-8')
 
 # Update maintenance provenance so post-deploy smoke waits for this campaign too.
