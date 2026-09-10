@@ -34,7 +34,7 @@ jobs:
           done
           test "$matched" -eq 1
 
-      - name: Verify admin V2 byte parity and safety
+      - name: Verify admin V2.1 byte parity and Book Publisher safety
         shell: bash
         run: |
           set -euo pipefail
@@ -43,10 +43,10 @@ jobs:
           base='https://achadostube.com.br/admin/'
           release=json.loads(pathlib.Path('admin/release.json').read_text())
           assert release['schema']=='freedom-admin-release-v1'
-          assert release.get('version')=='2.0.0'
-          assert set(release['artifacts'])=={'index.html','style.css','app.js','control-plane.json'}
+          assert release.get('version')=='2.1.0'
+          assert set(release['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json'}
           for path,expected in release['artifacts'].items():
-              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/2.0'})
+              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/2.1'})
               with urllib.request.urlopen(req,timeout=45) as r: body=r.read()
               actual=hashlib.sha256(body).hexdigest()
               if actual!=expected: raise SystemExit(f'admin hash mismatch {path}: {actual} != {expected}')
@@ -57,22 +57,35 @@ jobs:
           grep -q 'noindex,nofollow,noarchive,nosnippet' /tmp/admin.html
           grep -q 'Content-Security-Policy' /tmp/admin.html
           grep -q 'commandDialog' /tmp/admin.html
+          grep -q 'bookPublisherDialog' /tmp/admin.html
+          grep -q '/admin/book-publisher.js' /tmp/admin.html
           curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/app.js' -o /tmp/admin.js
           grep -q 'opportunityEngine' /tmp/admin.js
           grep -q 'experimentModel' /tmp/admin.js
           grep -q 'freedom-change-set-v2' /tmp/admin.js
+          grep -q 'binaryStaged' /tmp/admin.js
+          grep -q '__FCC_PUBLISHER_API__' /tmp/admin.js
           grep -q '/git/refs' /tmp/admin.js
           grep -q '/git/trees' /tmp/admin.js
           grep -q '/pulls' /tmp/admin.js
           ! grep -q 'localStorage' /tmp/admin.js
+          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/book-publisher.js' -o /tmp/book-publisher.js
+          grep -q 'stageBook' /tmp/book-publisher.js
+          grep -q '%PDF-' /tmp/book-publisher.js
+          grep -q 'image/webp' /tmp/book-publisher.js
+          grep -q 'routeManifestWithBook' /tmp/book-publisher.js
           curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/control-plane.json' -o /tmp/control-plane.json
           python3 - <<'PY'
           import json
           cp=json.load(open('/tmp/control-plane.json',encoding='utf-8'))
           assert cp['schema']=='freedom-control-plane-v2'
-          assert cp['version']=='2.0.0'
+          assert cp['version']=='2.1.0'
           assert cp['publishing']['directMainWrites'] is False
           assert '.github/' in cp['security']['blockedPrefixes']
           assert cp['experiments']
-          print('Control plane V2 policy verified')
+          book=cp['bookPublishing']
+          assert book['enabled'] is True
+          assert book['binaryPersistence']=='memory-only'
+          assert book['bundleFiles'] <= cp['publishing']['maxFilesPerChangeSet']
+          print('Control plane V2.1 + Book Publisher policy verified')
           PY

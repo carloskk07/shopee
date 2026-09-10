@@ -72,6 +72,35 @@
     </div>
   </dialog>
 
+
+  <dialog id="bookPublisherDialog" class="dialog">
+    <div class="dialog-card book-publisher-card">
+      <div class="dialog-head"><div><span class="kicker">Book Publisher · lançamento seguro</span><h2>Novo livro</h2><p class="publisher-sub">Dados → arquivos → SEO → revisão → Change Set</p></div><button data-close="bookPublisherDialog" class="icon-btn" aria-label="Fechar">×</button></div>
+      <div class="publisher-steps" aria-label="Etapas"><button class="active" data-book-step-jump="0"><b>1</b><span>Dados</span></button><button data-book-step-jump="1"><b>2</b><span>Capa & PDF</span></button><button data-book-step-jump="2"><b>3</b><span>SEO</span></button><button data-book-step-jump="3"><b>4</b><span>Revisão</span></button></div>
+      <div class="book-step active" data-book-step="0">
+        <div class="form-grid two"><label>Título do livro<input id="bookTitle" maxlength="100" autocomplete="off" placeholder="Título completo"></label><label>Slug<input id="bookSlug" maxlength="80" autocomplete="off" spellcheck="false" placeholder="titulo-do-livro"></label></div>
+        <label>Descrição editorial<textarea id="bookDescription" rows="4" maxlength="420" placeholder="Explique claramente o que o leitor encontrará neste livro."></textarea></label>
+        <label>Momento / intenção do leitor<textarea id="bookIntent" rows="3" maxlength="300" placeholder="Para quem esta leitura é uma boa escolha?"></textarea></label>
+        <div class="form-grid three"><label>Linha editorial<select id="bookLine"><option value="reflexiva">Reflexiva</option><option value="pratica">Prática</option><option value="codigos">Códigos de Vida</option></select></label><label>Jornada na home<select id="bookPath"><option value="">Somente catálogo</option><option value="direcao">Sem direção</option><option value="foco">Voltar ao foco</option><option value="mente">Mente não desliga</option><option value="recomeco">Recomeçar</option><option value="peso">Rotina pesada</option></select></label><label>Badge<input id="bookBadge" maxlength="40" value="Novo lançamento"></label></div>
+        <label>Temas / palavras-chave<input id="bookTags" maxlength="220" placeholder="ex.: clareza, escolhas, direção"></label>
+        <label class="check-row"><input id="bookFeatured" type="checkbox"> <span>Marcar como destaque editorial</span></label>
+      </div>
+      <div class="book-step" data-book-step="1">
+        <div class="upload-grid"><label class="upload-card"><span class="upload-icon">▧</span><strong>Capa</strong><span>JPG, PNG ou WebP · será normalizada para WebP</span><input id="bookCover" type="file" accept="image/jpeg,image/png,image/webp" hidden><button type="button" class="btn ghost" data-pick-cover>Selecionar capa</button><small id="bookCoverStatus">Nenhum arquivo</small><img id="bookCoverPreview" class="publisher-cover" alt="Prévia da capa" hidden></label><label class="upload-card"><span class="upload-icon">PDF</span><strong>Livro em PDF</strong><span>Validação de assinatura %PDF- · até 25 MB</span><input id="bookPdf" type="file" accept="application/pdf,.pdf" hidden><button type="button" class="btn ghost" data-pick-pdf>Selecionar PDF</button><small id="bookPdfStatus">Nenhum arquivo</small></label></div>
+        <div class="callout warn"><strong>Arquivos sensíveis</strong><span>Capa e PDF ficam somente na memória desta aba até o Pull Request ser criado. Recarregar a página descarta o bundle inteiro e evita staging incompleto.</span></div>
+      </div>
+      <div class="book-step" data-book-step="2">
+        <label>SEO title<input id="bookSeoTitle" maxlength="72" placeholder="Gerado automaticamente a partir do título"></label>
+        <label>Meta description<textarea id="bookMeta" rows="3" maxlength="180" placeholder="Descrição para resultados de busca"></textarea></label>
+        <div class="publisher-seo-preview"><span>Prévia editorial</span><strong id="bookSeoPreviewTitle">Título do livro | Freedom Book</strong><small id="bookSeoPreviewUrl">achadostube.com.br/slug</small><p id="bookSeoPreviewMeta">Descrição da página.</p></div>
+        <div class="callout"><strong>Schema automático</strong><span>O publicador gera canonical, BreadcrumbList, WebPage, Book, autor Arthur Magnus, publisher Freedom Book, imagem WebP e MediaObject do PDF.</span></div>
+      </div>
+      <div class="book-step" data-book-step="3"><div id="bookReview"></div></div>
+      <div id="bookPublisherError" class="error"></div>
+      <div class="publisher-actions"><button type="button" class="btn ghost" data-book-prev>Voltar</button><div class="publisher-actions-right"><button type="button" class="btn ghost" data-close="bookPublisherDialog">Cancelar</button><button type="button" class="btn primary" data-book-next>Continuar</button><button type="button" class="btn primary" data-stage-book hidden>Adicionar ao Change Set</button></div></div>
+    </div>
+  </dialog>
+
   <dialog id="commandDialog" class="dialog command-dialog">
     <div class="dialog-card narrow">
       <div class="command-search"><span>⌕</span><input id="commandSearch" autocomplete="off" placeholder="Buscar comando…"></div>
@@ -88,5 +117,6 @@
   </dialog>
 
   <script src="/admin/app.js" defer></script>
+  <script src="/admin/book-publisher.js" defer></script>
 </body>
 </html>

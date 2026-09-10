@@ -1,6 +1,6 @@
 {
   "schema": "freedom-control-plane-v2",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "site": "https://achadostube.com.br",
   "repository": "carloskk07/shopee",
   "ownerLogin": "carloskk07",
@@ -13,16 +13,50 @@
   },
   "security": {
     "sessionOnlyCredentials": true,
-    "blockedPrefixes": [".github/", "admin/", ".git/"],
-    "blockedFiles": ["release.json"],
-    "editableExtensions": [".html", ".json", ".xml", ".txt", ".css", ".md"],
-    "criticalPaths": ["index.html", "404.html", "robots.txt", "sitemap.xml", "site-data.generated.json", "monetization.json"]
+    "blockedPrefixes": [
+      ".github/",
+      "admin/",
+      ".git/"
+    ],
+    "blockedFiles": [
+      "release.json"
+    ],
+    "editableExtensions": [
+      ".html",
+      ".json",
+      ".xml",
+      ".txt",
+      ".css",
+      ".md"
+    ],
+    "criticalPaths": [
+      "index.html",
+      "404.html",
+      "robots.txt",
+      "sitemap.xml",
+      "site-data.generated.json",
+      "monetization.json"
+    ]
   },
   "seo": {
-    "ctrOpportunity": {"minImpressions": 30, "maxPosition": 10, "maxCtrPct": 2},
-    "strikingDistance": {"minImpressions": 20, "minPosition": 8, "maxPosition": 20},
-    "newIntentReview": {"minImpressions": 50, "maxSimilarity": 0.25},
-    "cannibalization": {"minTotalImpressions": 20, "secondPageShare": 0.2}
+    "ctrOpportunity": {
+      "minImpressions": 30,
+      "maxPosition": 10,
+      "maxCtrPct": 2
+    },
+    "strikingDistance": {
+      "minImpressions": 20,
+      "minPosition": 8,
+      "maxPosition": 20
+    },
+    "newIntentReview": {
+      "minImpressions": 50,
+      "maxSimilarity": 0.25
+    },
+    "cannibalization": {
+      "minTotalImpressions": 20,
+      "secondPageShare": 0.2
+    }
   },
   "experiments": [
     {
@@ -33,8 +67,35 @@
       "minimumDecisionDate": "2026-09-16",
       "targetHtml": "https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",
       "targetPdf": "https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo.pdf",
-      "queryContains": ["o peso de ser forte", "o peso de ser tudo", "livro o peso"],
+      "queryContains": [
+        "o peso de ser forte",
+        "o peso de ser tudo",
+        "livro o peso"
+      ],
       "decisionRule": "Preserve attribution until finalized GSC includes the experiment window; prefer the HTML landing if it begins earning title-intent impressions without harming the PDF cluster."
     }
-  ]
+  ],
+  "bookPublishing": {
+    "enabled": true,
+    "templateSlug": "proposito-maior",
+    "author": "Arthur Magnus",
+    "requiredTags": 3,
+    "maxTags": 8,
+    "cover": {
+      "maxInputBytes": 8388608,
+      "maxOutputWidth": 1200,
+      "minWidth": 600,
+      "minHeight": 800,
+      "webpQuality": 0.9
+    },
+    "pdf": {
+      "maxBytes": 26214400
+    },
+    "paths": {
+      "coverPrefix": "assets/covers/capa-",
+      "pdfPrefix": "ebook/"
+    },
+    "bundleFiles": 10,
+    "binaryPersistence": "memory-only"
+  }
 }
