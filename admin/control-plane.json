@@ -1,0 +1,40 @@
+{
+  "schema": "freedom-control-plane-v2",
+  "version": "2.0.0",
+  "site": "https://achadostube.com.br",
+  "repository": "carloskk07/shopee",
+  "ownerLogin": "carloskk07",
+  "publishing": {
+    "branchPrefix": "control-center/",
+    "maxFilesPerChangeSet": 12,
+    "releaseHashing": "sha256",
+    "directMainWrites": false,
+    "requireSummary": true
+  },
+  "security": {
+    "sessionOnlyCredentials": true,
+    "blockedPrefixes": [".github/", "admin/", ".git/"],
+    "blockedFiles": ["release.json"],
+    "editableExtensions": [".html", ".json", ".xml", ".txt", ".css", ".md"],
+    "criticalPaths": ["index.html", "404.html", "robots.txt", "sitemap.xml", "site-data.generated.json", "monetization.json"]
+  },
+  "seo": {
+    "ctrOpportunity": {"minImpressions": 30, "maxPosition": 10, "maxCtrPct": 2},
+    "strikingDistance": {"minImpressions": 20, "minPosition": 8, "maxPosition": 20},
+    "newIntentReview": {"minImpressions": 50, "maxSimilarity": 0.25},
+    "cannibalization": {"minTotalImpressions": 20, "secondPageShare": 0.2}
+  },
+  "experiments": [
+    {
+      "id": "o-peso-html-vs-pdf-2026-09",
+      "name": "O Peso — HTML vs PDF",
+      "status": "OBSERVING",
+      "startedAt": "2026-09-09",
+      "minimumDecisionDate": "2026-09-16",
+      "targetHtml": "https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",
+      "targetPdf": "https://achadostube.com.br/ebook/o-peso-de-ser-forte-o-tempo-todo.pdf",
+      "queryContains": ["o peso de ser forte", "o peso de ser tudo", "livro o peso"],
+      "decisionRule": "Preserve attribution until finalized GSC includes the experiment window; prefer the HTML landing if it begins earning title-intent impressions without harming the PDF cluster."
+    }
+  ]
+}
