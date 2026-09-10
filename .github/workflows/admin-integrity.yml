@@ -50,11 +50,14 @@ jobs:
 
       - name: Verify no public-site mutation contract
         shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git fetch origin "${{ github.base_ref }}" --depth=1
-            changed="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+            git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
+            changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
             bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/validate_admin\.py$|^scripts/test_admin_v2\.js$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
             test -z "$bad" || { echo "Admin-only PR touched public-site files:"; echo "$bad"; exit 1; }
