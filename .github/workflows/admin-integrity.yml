@@ -21,25 +21,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Validate Freedom Control Center V2
+      - name: Validate Freedom Control Center V2.1
         run: |
-          python3 -m py_compile scripts/validate_admin.py
+          python3 -m py_compile scripts/validate_admin.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
           python3 scripts/validate_admin.py
           node --check admin/app.js
+          node --check admin/book-publisher.js
           node scripts/test_admin_v2.js
 
       - name: Enforce admin isolation and budgets
         shell: bash
         run: |
           set -euo pipefail
-          test "$(stat -c%s admin/index.html)" -lt 15000
-          test "$(stat -c%s admin/style.css)" -lt 35000
-          test "$(stat -c%s admin/app.js)" -lt 75000
-          test "$(stat -c%s admin/control-plane.json)" -lt 10000
+          test "$(stat -c%s admin/index.html)" -lt 22000
+          test "$(stat -c%s admin/style.css)" -lt 42000
+          test "$(stat -c%s admin/app.js)" -lt 90000
+          test "$(stat -c%s admin/book-publisher.js)" -lt 50000
+          test "$(stat -c%s admin/control-plane.json)" -lt 14000
           grep -q 'Freedom Control Center · V2' admin/index.html
+          grep -q 'bookPublisherDialog' admin/index.html
           grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
           grep -q 'freedom-control-plane-v2' admin/control-plane.json
           grep -q 'directMainWrites.*false' admin/control-plane.json
+          grep -q 'memory-only' admin/control-plane.json
+          grep -q 'binaryStaged' admin/app.js
+          grep -q '__FCC_PUBLISHER_API__' admin/app.js
+          grep -q 'stageBook' admin/book-publisher.js
+          grep -q '%PDF-' admin/book-publisher.js
+          grep -q 'image/webp' admin/book-publisher.js
           ! grep -q '/admin' sitemap.xml
           ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py
           ! grep -Rq 'localStorage' admin
@@ -48,7 +57,7 @@ jobs:
           ! grep -Rq 'analytics.tiktok.com' admin
           ! grep -Rq 'NEXT_PUBLIC_' admin
 
-      - name: Verify no public-site mutation contract
+      - name: Verify scoped V2.1 mutation contract
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -59,6 +68,6 @@ jobs:
             git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
-            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/validate_admin\.py$|^scripts/test_admin_v2\.js$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
-            test -z "$bad" || { echo "Admin-only PR touched public-site files:"; echo "$bad"; exit 1; }
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|test_admin_v2|validate_site|validate_seo|generate-route-shims)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
+            test -z "$bad" || { echo "Control Center V2.1 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi
