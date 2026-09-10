@@ -1,0 +1,43 @@
+name: Admin integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: admin-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate Freedom Control Center
+        run: |
+          python3 -m py_compile scripts/validate_admin.py
+          python3 scripts/validate_admin.py
+          node --check admin/app.js
+
+      - name: Enforce admin isolation and budgets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat -c%s admin/index.html)" -lt 20000
+          test "$(stat -c%s admin/style.css)" -lt 30000
+          test "$(stat -c%s admin/app.js)" -lt 50000
+          grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
+          ! grep -q '/admin' sitemap.xml
+          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py
+          ! grep -Rq 'localStorage' admin
+          ! grep -Rq 'document.cookie' admin
+          ! grep -Rq 'googletagmanager.com' admin
+          ! grep -Rq 'analytics.tiktok.com' admin

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://raw.githubusercontent.com https://avatars.githubusercontent.com; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="theme-color" content="#0b0d10">
+  <title>Freedom Control Center</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+  <div id="boot" class="boot-screen"><div class="boot-mark">FB</div><strong>Freedom Control Center</strong><span>Carregando estado operacional…</span></div>
+  <div id="app" class="shell" hidden>
+    <aside class="sidebar" aria-label="Navegação do painel">
+      <div class="brand"><div class="brand-mark">FB</div><div><strong>Freedom</strong><span>Control Center</span></div></div>
+      <nav id="nav" class="nav-list">
+        <button data-view="today" class="active"><span>◫</span>Hoje</button>
+        <button data-view="books"><span>▤</span>Livros</button>
+        <button data-view="guides"><span>✦</span>Guias</button>
+        <button data-view="seo"><span>⌁</span>SEO & GSC</button>
+        <button data-view="money"><span>◇</span>Monetização</button>
+        <button data-view="releases"><span>↻</span>Releases</button>
+        <button data-view="quality"><span>✓</span>Qualidade</button>
+        <button data-view="editor"><span>⌘</span>Editor</button>
+        <button data-view="settings"><span>⚙</span>Configurações</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="env-pill"><i id="envDot"></i><span id="envLabel">Conectando…</span></div>
+        <small>achadostube.com.br</small>
+      </div>
+    </aside>
+
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn mobile-only" aria-label="Abrir menu">☰</button>
+      <div class="top-title"><span id="eyebrow">Freedom Book</span><h1 id="viewTitle">Hoje</h1></div>
+      <div class="top-actions">
+        <button id="refreshBtn" class="icon-btn" title="Atualizar dados">↻</button>
+        <button id="sessionBtn" class="btn secondary">Modo leitura</button>
+        <button id="publishBtn" class="btn" disabled>Publicar <b id="stagedBadge">0</b></button>
+      </div>
+    </header>
+
+    <main id="main" class="main"></main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="sessionDialog" class="dialog">
+    <form method="dialog" class="dialog-card" id="sessionForm">
+      <div class="dialog-head"><div><span class="kicker">Sessão segura</span><h2>Conectar ao GitHub</h2></div><button value="cancel" class="icon-btn" aria-label="Fechar">×</button></div>
+      <p>Use um token fine-grained limitado ao repositório <strong>carloskk07/shopee</strong>. Ele fica somente na memória desta aba e é apagado ao recarregar ou fechar.</p>
+      <label>Token GitHub<input id="tokenInput" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"></label>
+      <div class="security-note"><strong>Permissões mínimas</strong><span>Contents: Read and write · Pull requests: Read and write. Workflows não é necessário porque o painel bloqueia edição de workflows.</span></div>
+      <div id="sessionError" class="form-error"></div>
+      <div class="dialog-actions"><button value="cancel" class="btn secondary">Cancelar</button><button id="connectBtn" type="button" class="btn">Validar e conectar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="publishDialog" class="dialog wide">
+    <div class="dialog-card">
+      <div class="dialog-head"><div><span class="kicker">Change set</span><h2>Publicar por Pull Request</h2></div><button id="publishClose" class="icon-btn" aria-label="Fechar">×</button></div>
+      <div id="publishSummary"></div>
+      <label>Título do PR<input id="prTitle" maxlength="90" value="Admin: atualização pelo Freedom Control Center"></label>
+      <label>Resumo<textarea id="prSummary" rows="4" maxlength="900" placeholder="Explique o objetivo desta alteração."></textarea></label>
+      <div class="security-note"><strong>Proteção</strong><span>O painel cria uma branch, um único commit e um PR. A main nunca é alterada diretamente. Arquivos controlados por release recebem SHA-256 atualizado automaticamente.</span></div>
+      <div id="publishError" class="form-error"></div>
+      <div class="dialog-actions"><button id="discardAll" class="btn danger secondary">Descartar alterações</button><button id="createPrBtn" class="btn">Criar PR</button></div>
+    </div>
+  </dialog>
+
+  <script src="/admin/app.js" defer></script>
+</body>
+</html>

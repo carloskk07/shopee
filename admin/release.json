@@ -1,0 +1,10 @@
+{
+  "schema": "freedom-admin-release-v1",
+  "surface": "/admin/",
+  "publishedFrom": "main",
+  "artifacts": {
+    "index.html": "fc8327ec72495b401ec7acc0b02b83b9cd5bb1d73685857d42225be57bc6cdf0",
+    "style.css": "4ee12c045e138f1ad4bd3507d223aa1ac27f9fe9c4a9dd997c74d34c03bfea8a",
+    "app.js": "9ddb2fedc12b5014c6b98596f7815cc98b81d41611a4e16dfc1f91c84648c519"
+  }
+}
