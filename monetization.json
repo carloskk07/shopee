@@ -1,0 +1,47 @@
+{
+  "schema": "freedom-book-monetization-v1",
+  "enabled": true,
+  "strategy": "support-first-progressive-enhancement",
+  "support": {
+    "enabled": true,
+    "provider": "LivePix",
+    "url": "https://livepix.gg/editorafreedombook",
+    "pageTypes": [
+      "home",
+      "book",
+      "guide",
+      "guides",
+      "author"
+    ],
+    "kicker": "Apoio opcional",
+    "title": "Ajude a manter a biblioteca gratuita",
+    "text": "Se este conteúdo foi útil, você pode apoiar a Freedom Book. O apoio é voluntário e nenhum livro, guia ou PDF depende de contribuição.",
+    "cta": "Apoiar a Freedom Book",
+    "note": "Apoio voluntário · sem conteúdo bloqueado",
+    "track": "support_open"
+  },
+  "premium": {
+    "enabled": false,
+    "offers": [],
+    "activationRule": "Ativar somente quando existir uma edição comercial real, URL final verificada e entrega definida."
+  },
+  "affiliates": {
+    "enabled": false,
+    "disclosure": "Alguns links de recursos podem ser afiliados. Se você comprar por eles, a Freedom Book pode receber uma comissão sem custo adicional para você.",
+    "offers": [],
+    "activationRule": "Ativar somente com URL afiliada real, recomendação editorial original e aderência direta ao conteúdo da página."
+  },
+  "guardrails": {
+    "progressiveEnhancement": true,
+    "maxInjectedBlocksPerPage": 2,
+    "neverBeforeMainContent": true,
+    "neverNearPdfDownloadControls": true,
+    "noPopups": true,
+    "noInterstitials": true,
+    "noCountdowns": true,
+    "noAutoplay": true,
+    "noThirdPartyScripts": true,
+    "affiliateRel": "sponsored noopener noreferrer",
+    "recommendOnlyWhenRelevant": true
+  }
+}

@@ -191,6 +191,27 @@ jobs:
           grep -q 'href="/foco-que-gera-resultados"' /tmp/article.html
           grep -q 'Guia editorial da Freedom Book' /tmp/article.html
 
+      - name: Verify monetization control plane in production
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://achadostube.com.br"
+          curl --fail --silent --show-error --location "$base/monetization.json?probe=$GITHUB_SHA" -o /tmp/monetization.json
+          curl --fail --silent --show-error --location "$base/assets/monetization.v1.js?probe=$GITHUB_SHA" -o /tmp/monetization.js
+          curl --fail --silent --show-error --location "$base/guias/como-melhorar-o-foco-e-reduzir-distracoes?probe=$GITHUB_SHA" -o /tmp/monetized-guide.html
+          python3 - <<'PYMON'
+          import json
+          cfg=json.load(open('/tmp/monetization.json',encoding='utf-8'))
+          assert cfg['schema']=='freedom-book-monetization-v1'
+          assert cfg['support']['enabled'] is True
+          assert cfg['support']['url']=='https://livepix.gg/editorafreedombook'
+          assert cfg['premium']['enabled'] is False and cfg['premium']['offers']==[]
+          assert cfg['affiliates']['enabled'] is False and cfg['affiliates']['offers']==[]
+          assert cfg['guardrails']['affiliateRel']=='sponsored noopener noreferrer'
+          PYMON
+          grep -q 'sponsored noopener noreferrer' /tmp/monetization.js
+          grep -q '/assets/monetization.v1.js' /tmp/monetized-guide.html
+
       - name: Verify hardened legacy public surfaces
         shell: bash
         run: |
