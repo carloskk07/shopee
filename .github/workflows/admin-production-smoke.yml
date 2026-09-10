@@ -1,0 +1,60 @@
+name: Admin production smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: freedom-admin-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout approved main
+        uses: actions/checkout@v5
+
+      - name: Wait for exact admin release
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://achadostube.com.br/admin'
+          matched=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 20 "$base/release.json?probe=$GITHUB_SHA-$attempt" -o /tmp/admin-release.json; then
+              if cmp -s admin/release.json /tmp/admin-release.json; then matched=1; break; fi
+            fi
+            sleep 20
+          done
+          test "$matched" -eq 1
+
+      - name: Verify admin byte parity and safety
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,pathlib,urllib.request
+          base='https://achadostube.com.br/admin/'
+          release=json.loads(pathlib.Path('admin/release.json').read_text())
+          for path,expected in release['artifacts'].items():
+              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/1.0'})
+              with urllib.request.urlopen(req,timeout=45) as r: body=r.read()
+              actual=hashlib.sha256(body).hexdigest()
+              if actual!=expected: raise SystemExit(f'admin hash mismatch {path}: {actual} != {expected}')
+              print('OK',path,len(body),actual)
+          PY
+          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/' -o /tmp/admin.html
+          grep -q 'Freedom Control Center' /tmp/admin.html
+          grep -q 'noindex,nofollow,noarchive,nosnippet' /tmp/admin.html
+          grep -q 'Content-Security-Policy' /tmp/admin.html
+          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/app.js' -o /tmp/admin.js
+          grep -q '/git/refs' /tmp/admin.js
+          grep -q '/git/trees' /tmp/admin.js
+          grep -q '/pulls' /tmp/admin.js
+          ! grep -q 'localStorage' /tmp/admin.js
