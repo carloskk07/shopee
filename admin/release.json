@@ -2,9 +2,11 @@
   "schema": "freedom-admin-release-v1",
   "surface": "/admin/",
   "publishedFrom": "main",
+  "version": "2.0.0",
   "artifacts": {
-    "index.html": "fc8327ec72495b401ec7acc0b02b83b9cd5bb1d73685857d42225be57bc6cdf0",
-    "style.css": "4ee12c045e138f1ad4bd3507d223aa1ac27f9fe9c4a9dd997c74d34c03bfea8a",
-    "app.js": "9ddb2fedc12b5014c6b98596f7815cc98b81d41611a4e16dfc1f91c84648c519"
+    "index.html": "ed26aa632ba59591cc71084de5e1ea0ea1b2af69b90556e273d6bf1e0dae32f5",
+    "style.css": "711421f42354e604e26f3065485251cacda0c00169691df46fe3f6f19514951c",
+    "app.js": "df41401a76f24447abd2b184d87756782413a62c375561886ad22739ea4dc1ce",
+    "control-plane.json": "f60c50573cc81c0e753b126da8b9168bc61024620e124e1b9f7688c1657f87ef"
   }
 }

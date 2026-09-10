@@ -16,28 +16,49 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Validate Freedom Control Center
+      - name: Validate Freedom Control Center V2
         run: |
           python3 -m py_compile scripts/validate_admin.py
           python3 scripts/validate_admin.py
           node --check admin/app.js
+          node scripts/test_admin_v2.js
 
       - name: Enforce admin isolation and budgets
         shell: bash
         run: |
           set -euo pipefail
-          test "$(stat -c%s admin/index.html)" -lt 20000
-          test "$(stat -c%s admin/style.css)" -lt 30000
-          test "$(stat -c%s admin/app.js)" -lt 50000
+          test "$(stat -c%s admin/index.html)" -lt 15000
+          test "$(stat -c%s admin/style.css)" -lt 35000
+          test "$(stat -c%s admin/app.js)" -lt 75000
+          test "$(stat -c%s admin/control-plane.json)" -lt 10000
+          grep -q 'Freedom Control Center · V2' admin/index.html
           grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
+          grep -q 'freedom-control-plane-v2' admin/control-plane.json
+          grep -q 'directMainWrites.*false' admin/control-plane.json
           ! grep -q '/admin' sitemap.xml
           ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py
           ! grep -Rq 'localStorage' admin
           ! grep -Rq 'document.cookie' admin
           ! grep -Rq 'googletagmanager.com' admin
           ! grep -Rq 'analytics.tiktok.com' admin
+          ! grep -Rq 'NEXT_PUBLIC_' admin
+
+      - name: Verify no public-site mutation contract
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
+            changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
+            echo "$changed"
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/validate_admin\.py$|^scripts/test_admin_v2\.js$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
+            test -z "$bad" || { echo "Admin-only PR touched public-site files:"; echo "$bad"; exit 1; }
+          fi

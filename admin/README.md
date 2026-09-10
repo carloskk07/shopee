@@ -1,17 +1,30 @@
-# Freedom Control Center
+# Freedom Control Center V2
 
-Painel operacional do site Freedom Book/AchadosTube. O shell é servido em `/admin/`, fica fora do sitemap e usa `noindex,nofollow,noarchive,nosnippet`.
+Console operacional privado-em-escrita e público-em-shell para a Freedom Book, entregue em `/admin/` sem alterar o hosting editorial em GitHub Pages.
 
-## Segurança operacional
+## Princípios
 
-O painel inicia em modo leitura. Para criar alterações, o operador fornece um GitHub fine-grained PAT limitado ao repositório `carloskk07/shopee`, com `Contents: Read and write` e `Pull requests: Read and write`. O token fica apenas em memória JavaScript e é removido ao atualizar/fechar a aba; não é salvo em cookies, `localStorage`, `sessionStorage` ou arquivos do repositório.
+- **PR only:** nenhuma escrita direta em `main`.
+- **Credencial efêmera:** token GitHub somente na memória da aba; nunca é persistido.
+- **Policy as code:** `control-plane.json` define escopo, caminhos bloqueados, budgets, thresholds SEO e experimentos ativos.
+- **Evidence first:** Search Console é importado localmente; atual e baseline podem ser comparados antes de sugerir ação.
+- **Causalidade:** experimentos registram início, data mínima de decisão, alvos e regra de promoção.
+- **Release truth:** arquivos editoriais alterados recebem SHA-256 atualizado em `release.json` automaticamente no Change Set publicado.
+- **Defense in depth:** Admin Integrity + Admin Production Smoke + CI público existente.
 
-A publicação nunca escreve diretamente na `main`: cria uma branch, gera um único commit via Git Data API, atualiza automaticamente SHA-256 de arquivos já controlados por `release.json` e abre um Pull Request. Workflows GitHub são bloqueados no editor.
+## Módulos V2
 
-## Search Console
+1. **Comando** — quality score, release parity, pipelines e fila de decisão por risco/ROI.
+2. **Conteúdo** — inventário de livros/guias, anomalias e editor contextual.
+3. **SEO Intelligence** — GSC atual/baseline, tendências, CTR opportunity, striking distance, canibalização e PDF × HTML.
+4. **Experimentos** — janela temporal e de dados para decisões com atribuição limpa.
+5. **Monetização** — estado, toggles guardados e edição avançada de `monetization.json`.
+6. **Deploy & Releases** — PRs, runs, hashes e produção.
+7. **Qualidade** — score ponderado por gates e diagnóstico exportável.
+8. **Editor seguro** — allowlist de extensões, bloqueio de workflows/admin/release e validação local.
+9. **Change Set** — staging recuperável na sessão, diff, backup, risco e preflight.
+10. **Command palette** — `Ctrl/Cmd + K` para ações frequentes.
 
-A V1 importa CSV do Google Search Console localmente no navegador. A integração OAuth direta é deliberadamente adiada até existir um backend autenticado; credenciais Google não devem ser incorporadas ao GitHub Pages.
+## Limite deliberado
 
-## Limite de segurança conhecido
-
-GitHub Pages é hospedagem pública. Portanto o shell HTML do painel não é uma área privada no sentido de controle de acesso no servidor; somente as ações de escrita são autenticadas. Uma futura V2 pode mover apenas o `/admin` para backend com autenticação server-side, mantendo o site público estático.
+O shell continua em GitHub Pages e portanto a URL `/admin/` não é uma fronteira de autenticação server-side. Ela é `noindex,nofollow,noarchive,nosnippet`, sem trackers e sem segredos. Escrita exige GitHub autenticado. A próxima camada correta é um backend privado para OAuth 2.0 do Search Console e autenticação server-side, sem migrar o site editorial.
