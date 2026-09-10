@@ -4,7 +4,11 @@ require('../admin/app.js');
 const t=global.__FCC_TEST__;
 if(!t)throw new Error('FCC test hook unavailable');
 
+const fs=require('fs');
 function assert(condition,message){if(!condition)throw new Error(message)}
+
+const css=fs.readFileSync(require('path').join(__dirname,'../admin/style.css'),'utf8');
+assert(css.includes('[hidden]{display:none!important}'),'hidden attribute must override component display');
 
 const localized=[
   'Consulta;Página;Cliques;Impressões;CTR;Posição;Data;Dispositivo',
