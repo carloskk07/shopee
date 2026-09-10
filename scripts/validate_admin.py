@@ -83,7 +83,7 @@ if book.get('binaryPersistence')!='memory-only': fail('binary uploads must remai
 if int(book.get('bundleFiles',0))>int(pub.get('maxFilesPerChangeSet',0)): fail('Book Publisher bundle exceeds change-set budget')
 for marker in ('Book Publisher','stageBook','buildBookRecord','buildShim','routeManifestWithBook','landingFromTemplate','homeWithBook','authorWithBook','%PDF-','image/webp'):
     if marker not in publisher: fail(f'Book Publisher contract missing: {marker}')
-for marker in ('binaryStaged','binaryPathAllowed',"encoding:x.encoding||'utf-8'",'__FCC_PUBLISHER_API__'):
+for marker in ('binaryStaged','binaryPathAllowed',"encoding:x.encoding||'utf-8'",'__FCC_PUBLISHER_API__','BOOK_BUNDLE_ATOMIC','bundleId'):
     if marker not in js: fail(f'binary publishing runtime missing: {marker}')
 if '[hidden]{display:none!important}' not in css: fail('hidden contract regression')
 

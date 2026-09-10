@@ -135,8 +135,10 @@ for b in books:
             if not (os.environ.get('ALLOW_MISSING_EBOOK_DIR')=='1' and not (ROOT/'ebook').exists()):fail(f'{slug}: PDF missing')
         elif local.stat().st_size<1024 or local.open('rb').read(5)!=b'%PDF-':fail(f'{slug}: invalid PDF')
         text=page.read_text('utf-8')
-        preload=f'<link href="/assets/covers/capa-{slug}.webp" rel="preload" as="image" type="image/webp" fetchpriority="high"/>'
-        if preload not in text:fail(f'{slug}: LCP preload missing')
+        cover_path=f'/assets/covers/capa-{slug}.webp'
+        preload_tags=re.findall(r'<link\b[^>]*>',text,re.I)
+        preload_ok=any(all(token in tag for token in (f'href="{cover_path}"','rel="preload"','as="image"','type="image/webp"','fetchpriority="high"')) for tag in preload_tags)
+        if not preload_ok:fail(f'{slug}: LCP preload missing')
         if 'autor-arthur-magnus#person' not in text:fail(f'{slug}: author entity link missing')
     elif b.get('pdfUrl'):fail(f'{slug}: unavailable book advertises PDF')
 

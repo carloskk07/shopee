@@ -68,3 +68,7 @@ assert(t.binaryPathAllowed('assets/covers/capa-novo-livro.webp'),'cover binary a
 assert(t.binaryPathAllowed('ebook/novo-livro.pdf'),'PDF binary allowlist');
 assert(!t.binaryPathAllowed('assets/app.js'),'binary allowlist blocks arbitrary path');
 console.log('PASS: Book Publisher V2.1 bundle contracts');
+
+assert(require('fs').readFileSync(require('path').join(__dirname,'../admin/app.js'),'utf8').includes('BOOK_BUNDLE_ATOMIC'),'atomic Book Publisher preflight missing');
+assert(require('fs').readFileSync(require('path').join(__dirname,'../admin/book-publisher.js'),'utf8').includes('bundleId:`book:${b.slug}`'),'Book Publisher bundle identity missing');
+console.log('PASS: Book Publisher V2.1 atomic bundle guard');
