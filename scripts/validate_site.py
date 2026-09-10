@@ -19,6 +19,9 @@ EXPECTED_HTML={
  'guias.html','guias/como-encontrar-proposito-na-vida.html','guias/como-melhorar-o-foco-e-reduzir-distracoes.html','guias/como-criar-disciplina-sem-depender-de-motivacao.html','guias/como-recomecar-com-mais-clareza.html','guias/como-simplificar-uma-rotina-que-ficou-pesada.html','guias/como-organizar-a-mente-quando-ha-excesso-de-estimulos.html'
 }
 
+CATALOG_DATA_EARLY=json.loads((ROOT/'site-data.generated.json').read_text('utf-8'))
+EXPECTED_HTML |= {f"{b['slug']}.html" for b in CATALOG_DATA_EARLY.get('books',[]) if b.get('slug')}
+
 class Parser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True); self.ids=[]; self.h1=0; self.canon=[]; self.scripts=[]; self.release=[]; self.handlers=[]
@@ -77,7 +80,7 @@ for name in sorted(EXPECTED_HTML):
         if not q.is_file() or q.stat().st_size==0:fail(f'{name}: missing image {src}')
 
 home=(ROOT/'index.html').read_text('utf-8')
-if home.count('data-book-card')!=11:fail('home must contain 11 catalog cards')
+if home.count('data-book-card')!=len(CATALOG_DATA_EARLY.get('books',[])):fail('home catalog card count must match site-data')
 if 'href="/autor-arthur-magnus"' not in home:fail('author internal discovery link missing')
 if 'href="/guias"' not in home:fail('guides internal discovery link missing')
 if 'autor-arthur-magnus#person' not in home:fail('home author entity missing')
@@ -106,17 +109,17 @@ if 'search?.addEventListener("change"' in js:fail('duplicate catalog search anal
 if 'clearOptionalCookies' not in js:fail('optional-cookie revocation cleanup missing')
 
 # Catalog and PDF truth.
-data=json.loads((ROOT/'site-data.generated.json').read_text('utf-8'))
+data=CATALOG_DATA_EARLY
 if data.get('site',{}).get('release')!=RELEASE:fail('site-data release mismatch')
 if data.get('site',{}).get('logo')!=CANON+'/assets/covers/logo-freedom-book-redonda.webp':fail('site-data optimized logo drift')
 books=data.get('books',[])
-if len(books)!=11:fail(f'expected 11 books, got {len(books)}')
+if len(books)<11:fail(f'catalog shrank below protected baseline: {len(books)} books')
 slugs=[b['slug'] for b in books]
 if len(slugs)!=len(set(slugs)):fail('duplicate book slug')
 available=[b for b in books if b.get('available')]
 guides=data.get('guides',[])
 if len(guides)!=6:fail(f'expected 6 editorial guides, got {len(guides)}')
-if len(available)!=10:fail(f'expected 10 available books, got {len(available)}')
+if len(available)<10:fail(f'published catalog shrank below protected baseline: {len(available)} books')
 for b in books:
     slug=b['slug']; page=ROOT/f'{slug}.html'
     if not page.is_file():fail(f'missing book page {slug}')

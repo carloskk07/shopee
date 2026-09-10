@@ -13,6 +13,7 @@ required={
     'admin/index.html':1000,
     'admin/style.css':5000,
     'admin/app.js':15000,
+    'admin/book-publisher.js':12000,
     'admin/control-plane.json':500,
     'admin/release.json':100,
     'admin/README.md':500,
@@ -22,14 +23,14 @@ for rel,minimum in required.items():
     p=ROOT/rel
     if not p.is_file() or p.stat().st_size<minimum: fail(f'missing/undersized admin asset: {rel}')
 
-html=read('admin/index.html'); js=read('admin/app.js'); css=read('admin/style.css')
+html=read('admin/index.html'); js=read('admin/app.js'); publisher=read('admin/book-publisher.js'); css=read('admin/style.css')
 cp=json.loads(read('admin/control-plane.json'))
 release=json.loads(read('admin/release.json'))
 
-for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/style.css','commandDialog','diffDialog'):
+for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/book-publisher.js','/admin/style.css','commandDialog','diffDialog','bookPublisherDialog'):
     if marker not in html: fail(f'admin HTML contract missing: {marker}')
 
-combined=html+js+css
+combined=html+js+publisher+css
 for banned in ('googletagmanager.com','analytics.tiktok.com','document.cookie','localStorage','github_pat_'):
     if banned in combined: fail(f'admin unsafe/persistence token: {banned}')
 
@@ -54,7 +55,7 @@ if '@media(max-width:760px)' not in css: fail('mobile contract missing')
 if '--sidebar' not in css or '.command-dialog' not in css or '.seo-opportunity' not in css: fail('V2 UI contracts missing')
 
 if cp.get('schema')!='freedom-control-plane-v2': fail('bad control plane schema')
-if cp.get('version')!='2.0.0': fail('unexpected control plane version')
+if cp.get('version')!='2.1.0': fail('unexpected control plane version')
 if cp.get('repository')!='carloskk07/shopee' or cp.get('ownerLogin')!='carloskk07': fail('control plane repository authority drift')
 pub=cp.get('publishing',{})
 if pub.get('directMainWrites') is not False: fail('direct main writes must remain false')
@@ -75,9 +76,20 @@ for exp in experiments:
         if not exp.get(k): fail(f'experiment missing {k}')
     if exp['minimumDecisionDate'] < exp['startedAt']: fail('experiment decision date precedes start')
 
+
+book=cp.get('bookPublishing',{})
+if book.get('enabled') is not True: fail('Book Publisher must be enabled')
+if book.get('binaryPersistence')!='memory-only': fail('binary uploads must remain memory-only')
+if int(book.get('bundleFiles',0))>int(pub.get('maxFilesPerChangeSet',0)): fail('Book Publisher bundle exceeds change-set budget')
+for marker in ('Book Publisher','stageBook','buildBookRecord','buildShim','routeManifestWithBook','landingFromTemplate','homeWithBook','authorWithBook','%PDF-','image/webp'):
+    if marker not in publisher: fail(f'Book Publisher contract missing: {marker}')
+for marker in ('binaryStaged','binaryPathAllowed',"encoding:x.encoding||'utf-8'",'__FCC_PUBLISHER_API__'):
+    if marker not in js: fail(f'binary publishing runtime missing: {marker}')
+if '[hidden]{display:none!important}' not in css: fail('hidden contract regression')
+
 if release.get('schema')!='freedom-admin-release-v1': fail('bad admin release schema')
 art=release.get('artifacts',{})
-for rel in ('index.html','style.css','app.js','control-plane.json'):
+for rel in ('index.html','style.css','app.js','book-publisher.js','control-plane.json'):
     p=ADMIN/rel
     if rel not in art: fail(f'admin asset not release-managed: {rel}')
     actual=hashlib.sha256(p.read_bytes()).hexdigest()
@@ -88,4 +100,4 @@ if '/admin' in sitemap: fail('admin must not enter sitemap')
 robots=read('robots.txt')
 if not robots.strip(): fail('robots.txt unexpectedly empty')
 
-print('PASS: Freedom Control Center V2 is policy-driven, noindex, mobile-first, session-only for credentials, evidence-first, experiment-aware, release-managed and PR-only')
+print('PASS: Freedom Control Center V2.1 adds a memory-only Book Publisher with binary-safe PR staging while preserving policy, SEO and release contracts')

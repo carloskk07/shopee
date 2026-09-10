@@ -34,8 +34,8 @@ available = [b for b in data.get('books', []) if b.get('available')]
 guides = data.get('guides', [])
 if len(guides) != 6:
     fail(f'expected 6 editorial guides, got {len(guides)}')
-if len(available) != 10:
-    fail(f'expected 10 available books, got {len(available)}')
+if len(available) < 10:
+    fail(f'published catalog shrank below protected baseline: {len(available)} books')
 
 # Home entity consistency.
 home = (ROOT / 'index.html').read_text(encoding='utf-8')

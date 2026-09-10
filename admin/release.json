@@ -2,11 +2,12 @@
   "schema": "freedom-admin-release-v1",
   "surface": "/admin/",
   "publishedFrom": "main",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "artifacts": {
-    "index.html": "ed26aa632ba59591cc71084de5e1ea0ea1b2af69b90556e273d6bf1e0dae32f5",
-    "style.css": "cf93ec791c9f770c43b09c56b211790490c3b9c3121d5c32b6d2f1f6ea2dbaa7",
-    "app.js": "df41401a76f24447abd2b184d87756782413a62c375561886ad22739ea4dc1ce",
-    "control-plane.json": "f60c50573cc81c0e753b126da8b9168bc61024620e124e1b9f7688c1657f87ef"
+    "index.html": "4573de2efff0a98bddf787db7a979e9d1e7d212a0248902532739fec902e6bdb",
+    "style.css": "2f80eeb4e7233d9b1e7876009b0d6b297573c00311526ffa5e015af71b456591",
+    "app.js": "b4babe58bfca5257fcd73bd6cfff44ba007f3511da7918ca0265ec68d9defdf7",
+    "control-plane.json": "20c466f1d96b2d3744a3a4f75e796f71d54e1951b583b96563f038e7f46909db",
+    "book-publisher.js": "87829861c2546bd164a766941d64e3e8c54da8eba71eb6420132daad33d4c160"
   }
 }

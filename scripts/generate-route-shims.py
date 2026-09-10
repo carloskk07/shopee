@@ -69,7 +69,10 @@ def expected_routes() -> dict[str, tuple[str, str]]:
     redirects = parse_redirects()
     routes: dict[str, tuple[str, str]] = {}
 
-    for path in CANONICAL_PATHS:
+    canonical_paths = set(CANONICAL_PATHS)
+    data = json.loads((ROOT / 'site-data.generated.json').read_text(encoding='utf-8'))
+    canonical_paths.update('/' + b['slug'] for b in data.get('books', []) if b.get('slug'))
+    for path in sorted(canonical_paths):
         file_path = f"{path.lstrip('/')}/index.html"
         routes[file_path] = (path + '/', path)
 
