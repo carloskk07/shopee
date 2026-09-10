@@ -1,0 +1,132 @@
+name: Monetization native v1
+
+on:
+  push:
+    branches: [monetization/native-control-plane-v1]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout campaign branch
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Build monetization control plane
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          config={
+            "schema":"freedom-book-monetization-v1",
+            "enabled":True,
+            "strategy":"support-first-progressive-enhancement",
+            "support":{
+              "enabled":True,
+              "provider":"LivePix",
+              "url":"https://livepix.gg/editorafreedombook",
+              "pageTypes":["home","book","guide","guides","author"],
+              "kicker":"Apoio opcional",
+              "title":"Ajude a manter a biblioteca gratuita",
+              "text":"Se este conteúdo foi útil, você pode apoiar a Freedom Book. O apoio é voluntário e nenhum livro, guia ou PDF depende de contribuição.",
+              "cta":"Apoiar a Freedom Book",
+              "note":"Apoio voluntário · sem conteúdo bloqueado",
+              "track":"support_open"
+            },
+            "premium":{"enabled":False,"offers":[],"activationRule":"Ativar somente quando existir uma edição comercial real, URL final verificada e entrega definida."},
+            "affiliates":{"enabled":False,"disclosure":"Alguns links de recursos podem ser afiliados. Se você comprar por eles, a Freedom Book pode receber uma comissão sem custo adicional para você.","offers":[],"activationRule":"Ativar somente com URL afiliada real, recomendação editorial original e aderência direta ao conteúdo da página."},
+            "guardrails":{"progressiveEnhancement":True,"maxInjectedBlocksPerPage":2,"neverBeforeMainContent":True,"neverNearPdfDownloadControls":True,"noPopups":True,"noInterstitials":True,"noCountdowns":True,"noAutoplay":True,"noThirdPartyScripts":True,"affiliateRel":"sponsored noopener noreferrer","recommendOnlyWhenRelevant":True}
+          }
+          Path('monetization.json').write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          js=r'''(() => {
+            "use strict";
+            const CONFIG_URL="/monetization.json";
+            const ELIGIBLE=new Set(["home","book","guide","guides","author"]);
+            const q=(s,r=document)=>r.querySelector(s);
+            const safeUrl=(value)=>{try{const u=new URL(value,location.origin);return u.protocol==="https:"?u:null}catch(_){return null}};
+            const pagePath=()=>{const p=location.pathname.replace(/\/$/,"");return p||"/"};
+            const pageType=()=>document.body?.dataset?.pageType||"";
+            const matches=(offer,type,path)=>{const types=Array.isArray(offer.pageTypes)?offer.pageTypes:[];const paths=Array.isArray(offer.paths)?offer.paths:[];return (!types.length||types.includes(type))&&(!paths.length||paths.includes(path));};
+            const text=(tag,value,cls)=>{const el=document.createElement(tag);if(cls)el.className=cls;el.textContent=value||"";return el};
+            const link=(label,url,track,placement,rel)=>{const u=safeUrl(url);if(!u)return null;const a=document.createElement("a");a.className="btn secondary";a.href=u.href;a.textContent=label;a.target="_blank";a.rel=rel||"noopener noreferrer";a.dataset.track=track;a.dataset.placement=placement;return a;};
+            const section=(kind,kicker,title,body,cta,note)=>{const s=document.createElement("section");s.className="section";s.dataset.monetizationSlot=kind;const c=document.createElement("div");c.className="container";const card=document.createElement("div");card.className="card channel";const copy=document.createElement("div");copy.append(text("span",kicker,"kicker"),text("h3",title),text("p",body));card.append(copy);if(cta)card.append(cta);if(note){const n=text("p",note,"support-note");n.dataset.monetizationNote=kind;card.append(n)}c.append(card);s.append(c);return s;};
+            const append=(node)=>{const main=q("main");if(!main||!node)return false;main.append(node);return true};
+            const existingSupport=()=>!!q('[data-monetization-slot="support"],a[href^="https://livepix.gg/"]');
+            const activeOffers=(group,type,path)=>Array.isArray(group?.offers)?group.offers.filter(o=>o&&o.enabled===true&&matches(o,type,path)):[];
+            async function boot(){
+              const type=pageType();if(!ELIGIBLE.has(type))return;
+              let cfg;try{const r=await fetch(CONFIG_URL,{credentials:"same-origin",cache:"no-cache"});if(!r.ok)return;cfg=await r.json()}catch(_){return}
+              if(!cfg||cfg.schema!=="freedom-book-monetization-v1"||cfg.enabled!==true)return;
+              const path=pagePath();let injected=0;const max=Math.max(0,Math.min(2,Number(cfg.guardrails?.maxInjectedBlocksPerPage)||2));
+              const premium=activeOffers(cfg.premium,type,path)[0];
+              if(cfg.premium?.enabled===true&&premium&&injected<max){const a=link(premium.cta||"Conhecer edição",premium.url,"premium_open","monetization_premium");if(a&&append(section("premium",premium.kicker||"Edição especial",premium.title,premium.text,a,premium.note||"O conteúdo gratuito continua disponível.")))injected++;}
+              const affiliate=activeOffers(cfg.affiliates,type,path)[0];
+              if(cfg.affiliates?.enabled===true&&affiliate&&injected<max){const a=link(affiliate.cta||"Ver recurso",affiliate.url,"affiliate_open","monetization_affiliate","sponsored noopener noreferrer");const disclosure=cfg.affiliates.disclosure||"Link de afiliado.";const body=[affiliate.text,affiliate.editorialReason].filter(Boolean).join(" ");if(a&&append(section("affiliate",affiliate.kicker||"Recomendação editorial",affiliate.title,body,a,disclosure)))injected++;}
+              const s=cfg.support;const allowed=Array.isArray(s?.pageTypes)?s.pageTypes.includes(type):true;
+              if(s?.enabled===true&&allowed&&!existingSupport()&&injected<max){const a=link(s.cta,s.url,s.track||"support_open","monetization_support");if(a&&append(section("support",s.kicker,s.title,s.text,a,s.note)))injected++;}
+            }
+            if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();
+          })();'''
+          Path('assets/monetization.v1.js').write_text(js+'\n',encoding='utf-8')
+
+          validator='''#!/usr/bin/env python3\nfrom pathlib import Path\nimport json,re\nROOT=Path(__file__).resolve().parents[1]\ndef fail(msg): raise SystemExit(msg)\ncfg=json.loads((ROOT/'monetization.json').read_text(encoding='utf-8'))\nif cfg.get('schema')!='freedom-book-monetization-v1': fail('bad monetization schema')\nif cfg.get('enabled') is not True: fail('monetization control plane unexpectedly disabled')\nsupport=cfg.get('support') or {}\nif support.get('enabled') is not True: fail('support must be active')\nif support.get('url')!='https://livepix.gg/editorafreedombook': fail('unapproved support URL')\nif set(support.get('pageTypes') or [])!={'home','book','guide','guides','author'}: fail('support page type contract drift')\naffiliates=cfg.get('affiliates') or {}; premium=cfg.get('premium') or {}\nif affiliates.get('enabled') is not False or affiliates.get('offers')!=[]: fail('affiliate offers must remain dormant until real URLs exist')\nif premium.get('enabled') is not False or premium.get('offers')!=[]: fail('premium offers must remain dormant until real products exist')\nif len(affiliates.get('disclosure',''))<80: fail('affiliate disclosure too weak')\nguards=cfg.get('guardrails') or {}\nrequired_true=('progressiveEnhancement','neverBeforeMainContent','neverNearPdfDownloadControls','noPopups','noInterstitials','noCountdowns','noAutoplay','noThirdPartyScripts','recommendOnlyWhenRelevant')\nif any(guards.get(k) is not True for k in required_true): fail('monetization guardrail disabled')\nif guards.get('affiliateRel')!='sponsored noopener noreferrer': fail('affiliate rel contract drift')\nif int(guards.get('maxInjectedBlocksPerPage',99))>2: fail('too many commercial blocks allowed')\njs=(ROOT/'assets/monetization.v1.js').read_text(encoding='utf-8')\nif len(js.encode())>12*1024: fail('monetization JS exceeds 12 KiB budget')\nfor banned in ('innerHTML','document.write','eval(','localStorage','document.cookie','googletagmanager.com','analytics.tiktok.com'):\n    if banned in js: fail(f'unsafe monetization JS token: {banned}')\nfor required in ('sponsored noopener noreferrer','data.monetizationSlot','fetch(CONFIG_URL','affiliate_open','premium_open','support_open'):\n    if required not in js: fail(f'monetization JS contract missing: {required}')\napp=(ROOT/'assets/app.v2.2.5.js').read_text(encoding='utf-8')\nif 'e.target.closest("[data-track]")' not in app: fail('delegated analytics contract missing')\nrelease=json.loads((ROOT/'release.json').read_text(encoding='utf-8')); artifacts=release.get('artifacts',{})\nfor public in ('assets/monetization.v1.js','monetization.json'):\n    if public not in artifacts: fail(f'monetization public artifact missing from release: {public}')\neditorial=0\nfor rel in artifacts:\n    if not rel.endswith('.html'): continue\n    html=(ROOT/rel).read_text(encoding='utf-8'); m=re.search(r'<body[^>]*data-page-type="([^"]+)"',html); ptype=m.group(1) if m else ''\n    if ptype in {'home','book','guide','guides','author'}:\n        editorial+=1\n        if html.count('/assets/monetization.v1.js')!=1: fail(f'monetization loader count invalid: {rel}')\nif editorial<10: fail(f'unexpectedly small monetizable editorial surface: {editorial}')\nprint(f'PASS: monetization control plane is support-first, progressive, policy-safe and loaded on {editorial} editorial pages')\n'''
+          Path('scripts/validate_monetization.py').write_text(validator,encoding='utf-8')
+          Path('MONETIZATION.md').write_text('# Freedom Book — Monetization Control Plane v1\n\nApoio LivePix está ativo. Premium e afiliados ficam inativos até existir produto/link real. A camada é progressiva, no máximo dois blocos, nunca antes do conteúdo, nunca perto de download de PDF, sem popups/interstitials/autoplay/scripts de terceiros. Links afiliados futuros exigem `rel="sponsored noopener noreferrer"`, disclosure e justificativa editorial original. Para ativar uma oferta, editar somente `monetization.json`, validar, atualizar hashes, abrir PR e aguardar CI + smoke.\n',encoding='utf-8')
+
+          release=json.loads(Path('release.json').read_text(encoding='utf-8'))
+          edited=[]
+          for rel in list(release.get('artifacts',{})):
+              if not rel.endswith('.html'): continue
+              p=Path(rel); html=p.read_text(encoding='utf-8'); m=re.search(r'<body[^>]*data-page-type="([^"]+)"',html); ptype=m.group(1) if m else ''
+              if ptype not in {'home','book','guide','guides','author'} or '/assets/monetization.v1.js' in html: continue
+              if '</body>' not in html: raise SystemExit(f'missing body close: {rel}')
+              p.write_text(html.replace('</body>','<script src="/assets/monetization.v1.js" defer></script></body>',1),encoding='utf-8'); edited.append(rel)
+          print('EDITORIAL HTML PATCHED',len(edited),edited)
+          release=json.loads(Path('release.json').read_text(encoding='utf-8')); release.setdefault('artifacts',{})['assets/monetization.v1.js']=''; release['artifacts']['monetization.json']=''; Path('release.json').write_text(json.dumps(release,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          ci=Path('.github/workflows/site-integrity.yml').read_text(encoding='utf-8')
+          needle='assets/route-recovery.v1.js scripts/validate_site.py'; repl='assets/route-recovery.v1.js assets/monetization.v1.js monetization.json MONETIZATION.md scripts/validate_site.py scripts/validate_monetization.py'
+          if needle not in ci: raise SystemExit('site-integrity required-files anchor not found')
+          ci=ci.replace(needle,repl,1)
+          anchor='      - name: Validate JavaScript syntax\n        run: node --check assets/app.v2.2.5.js\n'
+          addition='      - name: Validate monetization control plane\n        run: |\n          python3 -m py_compile scripts/validate_monetization.py\n          python3 scripts/validate_monetization.py\n          node --check assets/monetization.v1.js\n\n'
+          if anchor not in ci: raise SystemExit('site-integrity JS anchor not found')
+          Path('.github/workflows/site-integrity.yml').write_text(ci.replace(anchor,addition+anchor,1),encoding='utf-8')
+
+          smoke=Path('.github/workflows/production-smoke.yml').read_text(encoding='utf-8'); anchor='      - name: Verify hardened legacy public surfaces\n'
+          addition='''      - name: Verify monetization control plane in production\n        shell: bash\n        run: |\n          set -euo pipefail\n          base="https://achadostube.com.br"\n          curl --fail --silent --show-error --location "$base/monetization.json?probe=$GITHUB_SHA" -o /tmp/monetization.json\n          curl --fail --silent --show-error --location "$base/assets/monetization.v1.js?probe=$GITHUB_SHA" -o /tmp/monetization.js\n          curl --fail --silent --show-error --location "$base/guias/como-melhorar-o-foco-e-reduzir-distracoes?probe=$GITHUB_SHA" -o /tmp/monetized-guide.html\n          python3 - <<'PYMON'\n          import json\n          cfg=json.load(open('/tmp/monetization.json',encoding='utf-8'))\n          assert cfg['schema']=='freedom-book-monetization-v1'\n          assert cfg['support']['enabled'] is True\n          assert cfg['support']['url']=='https://livepix.gg/editorafreedombook'\n          assert cfg['premium']['enabled'] is False and cfg['premium']['offers']==[]\n          assert cfg['affiliates']['enabled'] is False and cfg['affiliates']['offers']==[]\n          assert cfg['guardrails']['affiliateRel']=='sponsored noopener noreferrer'\n          PYMON\n          grep -q 'sponsored noopener noreferrer' /tmp/monetization.js\n          grep -q '/assets/monetization.v1.js' /tmp/monetized-guide.html\n\n'''
+          if anchor not in smoke: raise SystemExit('production-smoke anchor not found')
+          Path('.github/workflows/production-smoke.yml').write_text(smoke.replace(anchor,addition+anchor,1),encoding='utf-8')
+          PY
+
+          python3 scripts/release_hashes.py --write
+          python3 scripts/validate_monetization.py
+          python3 scripts/validate_site.py
+          python3 scripts/validate_seo.py
+          python3 scripts/validate_guides.py
+          python3 scripts/test_seo_intelligence.py
+          node --check assets/app.v2.2.5.js
+          node --check assets/monetization.v1.js
+          node scripts/test-route-recovery.cjs
+          python3 scripts/generate-route-shims.py --check
+
+      - name: Commit validated campaign and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/monetization-native-v1.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: monetização nativa support-first"
+          git push origin HEAD:monetization/native-control-plane-v1
