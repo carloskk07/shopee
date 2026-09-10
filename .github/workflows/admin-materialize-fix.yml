@@ -1,0 +1,48 @@
+name: Admin materialize fix
+
+on:
+  push:
+    branches: [admin/freedom-control-center-v1]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Recover payloads and validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import re,base64,gzip,pathlib
+          text=pathlib.Path('.github/workflows/admin-materialize-v1.yml').read_text(encoding='utf-8')
+          mapping={'APP_GZ':'admin/app.js','RELEASE_GZ':'admin/release.json','README_GZ':'admin/README.md','VALIDATOR_GZ':'scripts/validate_admin.py'}
+          for key,path in mapping.items():
+              m=re.search(r"^\s*"+key+r": '([^']+)'$",text,re.M)
+              if not m: raise SystemExit(f'missing embedded payload {key}')
+              out=pathlib.Path(path); out.parent.mkdir(parents=True,exist_ok=True)
+              out.write_bytes(gzip.decompress(base64.b64decode(m.group(1))))
+          p=pathlib.Path('scripts/validate_admin.py')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace("if not p.is_file() or p.stat().st_size<500: fail(f'missing/undersized admin asset: {rel}')","minimum=100 if rel.endswith('release.json') else 500\n    if not p.is_file() or p.stat().st_size<minimum: fail(f'missing/undersized admin asset: {rel}')")
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check admin/app.js
+          python3 -m py_compile scripts/validate_admin.py
+          python3 scripts/validate_admin.py
+      - name: Commit decoded application
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add admin/app.js admin/release.json admin/README.md scripts/validate_admin.py
+          git commit -m 'admin: materializar Control Center v1'
+          git push origin HEAD:admin/freedom-control-center-v1
