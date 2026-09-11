@@ -1,6 +1,6 @@
 {
   "schema": "freedom-knowledge-layer-v1",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "adminVersion": "2.2.0",
   "updatedAt": "2026-09-11",
   "classification": "PUBLIC_OPERATIONAL",
@@ -45,8 +45,8 @@
     },
     {
       "rank": 5,
-      "name": "Canibalização real",
-      "rule": "Intervir somente quando duas ou mais URLs dividirem demanda de forma mensurável."
+      "name": "Monetização sob evidência",
+      "rule": "Separar demanda orgânica, interação consentida e receita confirmada; ausência de registro financeiro significa dado desconhecido, não receita zero."
     }
   ],
   "currentFocus": {
@@ -66,26 +66,36 @@
     "Closed-loop Decision Engine com janelas pré/pós equivalentes",
     "Decision Ledger privado com vínculo entre experimento e Pull Request",
     "Lifecycle editorial PUBLISHED, OBSERVING, DECISION_READY e OPTIMIZING",
-    "Monetização support-first com guardrails",
+    "Monetization Intelligence com portfólio SUPPORT, AFFILIATE, KDP, PREMIUM e ADS",
+    "Ledger financeiro privado com receita confirmada e histórico anulável",
+    "Triagem orgânica por página que separa ACQUISITION_FIRST de MONETIZATION_GAP",
     "Release hashes, CI, Production Smoke e diagnóstico exportável"
   ],
   "guardrails": [
-    "Não inventar URL de afiliado, identificador comercial ou receita.",
-    "Não publicar queries ou métricas privadas do Search Console no repositório público.",
+    "Não inventar URL de afiliado, identificador comercial, ASIN, preço, venda ou receita.",
+    "Não publicar queries, métricas privadas do Search Console ou dados financeiros no repositório público.",
     "Não considerar ausência temporária de GSC como falha técnica de release.",
+    "Não tratar ledger financeiro vazio como receita zero.",
+    "Não fazer conversão cambial implícita entre moedas diferentes.",
     "Não alterar main diretamente pelo Control Center.",
     "Não executar auto-merge ou mutação direta de produção.",
     "Não abrir decisão de experimento apenas porque a data do calendário chegou; o GSC finalizado precisa cobrir a data mínima.",
     "Não criar novas páginas SEO em massa ou por consulta isolada.",
     "Não quebrar acesso gratuito ao PDF para forçar monetização.",
-    "Não instalar AdSense ou scripts de terceiros sem credenciais e decisão explícita."
+    "Não instalar AdSense ou scripts de terceiros sem escala comprovada, consentimento compatível e decisão explícita."
   ],
   "monetization": {
     "supportProvider": "LivePix",
     "supportUrl": "https://livepix.gg/editorafreedombook",
+    "support": "ACTIVE",
     "premium": "DORMANT_UNTIL_REAL_OFFER",
     "affiliates": "DORMANT_UNTIL_VERIFIED_URLS",
-    "ads": "NOT_INSTALLED"
+    "kdp": "DORMANT_UNTIL_VERIFIED_AMAZON_URL",
+    "ads": "WAITING_EVIDENCE",
+    "demandTruth": "GSC_FINALIZED",
+    "interactionTruth": "CONSENT_GATED_ANALYTICS",
+    "revenueTruth": "PRIVATE_CONFIRMED_LEDGER_ONLY",
+    "missingRevenueSemantics": "UNKNOWN_NOT_ZERO"
   },
   "privateEvidence": {
     "searchConsole": {
@@ -101,6 +111,12 @@
       "classification": "PRIVATE_NETLIFY_BLOBS",
       "repositoryPersistence": false,
       "rule": "Decision records, evidence fingerprints and PR links persist privately and never become public SEO data."
+    },
+    "monetizationLedger": {
+      "classification": "PRIVATE_NETLIFY_BLOBS",
+      "repositoryPersistence": false,
+      "currencyPolicy": "NO_IMPLICIT_FX_CONVERSION",
+      "rule": "Revenue records remain private, are never inferred from traffic and can be voided without deleting audit history."
     }
   },
   "sourcePolicy": [
@@ -122,9 +138,15 @@
       "persistence": "private Netlify Blobs"
     },
     {
+      "source": "Monetization Ledger",
+      "trust": "AUTHORITATIVE_PRIVATE",
+      "use": "confirmed revenue by channel, currency, source and optional page attribution",
+      "persistence": "private Netlify Blobs"
+    },
+    {
       "source": "Freedom operational knowledge",
       "trust": "CURATED",
-      "use": "priorities, objectives, guardrails and experiment policy"
+      "use": "priorities, objectives, guardrails, experiment and monetization policy"
     }
   ]
 }
