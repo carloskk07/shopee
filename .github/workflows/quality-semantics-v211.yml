@@ -1,0 +1,152 @@
+name: Quality semantics v2.1.1
+
+on:
+  push:
+    branches: [admin/quality-semantics-v2.1.1]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Patch quality semantics
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re,hashlib
+
+          app=Path('admin/app.js')
+          s=app.read_text(encoding='utf-8')
+
+          quality_model=r'''  function qualityModel(){
+    const exact=stableEqual(state.release,state.prodRelease), currentSha=currentBranch(), qualityCfg=config().quality||{};
+    const required=qualityCfg.requiredWorkflows||['Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke','Route production smoke','pages build and deployment'];
+    const allRuns=state.runs||[], latestByName=new Map();
+    for(const r of allRuns){if(r.head_branch==='main'&&r.head_sha===currentSha&&required.includes(r.name)&&!latestByName.has(r.name))latestByName.set(r.name,r)}
+    const currentRuns=[...latestByName.values()], missingRuns=required.filter(name=>!latestByName.has(name));
+    const failed=currentRuns.filter(r=>r.status==='completed'&&r.conclusion&&!['success','skipped','neutral'].includes(r.conclusion));
+    const pending=currentRuns.filter(r=>r.status!=='completed');
+    const historicalFailed=allRuns.filter(r=>r.head_sha!==currentSha&&r.status==='completed'&&r.conclusion&&!['success','skipped','neutral'].includes(r.conclusion));
+    const ciStatus=failed.length?'FAIL':(pending.length||missingRuns.length)?'WARN':'PASS';
+    const ciDetail=failed.length?`${failed.length} workflow(s) do release atual falharam`:pending.length?`${pending.length} workflow(s) do release atual em execução`:missingRuns.length?`${currentRuns.length}/${required.length} workflows do release atual observados`:`${currentRuns.length}/${required.length} workflows do release atual aprovados`;
+    const books=state.siteData?.books||[], guides=state.siteData?.guides||[], slugs=books.map(b=>b.slug).filter(Boolean), dup=slugs.filter((x,i)=>slugs.indexOf(x)!==i);
+    const artifacts=Object.keys(state.release?.artifacts||{}), support=state.monetization?.support, aff=state.monetization?.affiliates;
+    const guideOk=guides.length>=6, catalogOk=books.length>0&&!dup.length&&books.filter(b=>b.available).every(b=>b.slug&&b.title), moneyOk=!!support?.url&&(aff?.enabled!==true||((aff?.offers||[]).length>0));
+    const expectedAdminVersion=config().version||null, adminOk=state.adminRelease?.schema==='freedom-admin-release-v1'&&(!expectedAdminVersion||state.adminRelease?.version===expectedAdminVersion);
+    const searchStatus=state.gsc.current?'AVAILABLE':'NOT_LOADED';
+    const gates=[
+      {name:'RELEASE_PARITY',status:exact?'PASS':'FAIL',weight:25,scorable:true,category:'technical',detail:exact?'repositório = produção':'release.json diverge da produção'},
+      {name:'CI_CURRENT_RELEASE',status:ciStatus,weight:20,scorable:true,category:'technical',detail:ciDetail},
+      {name:'CATALOG_TRUTH',status:catalogOk?'PASS':'FAIL',weight:15,scorable:true,category:'technical',detail:`${books.length} livros · ${dup.length} slugs duplicados`},
+      {name:'TOPICAL_GUIDES',status:guideOk?'PASS':'FAIL',weight:10,scorable:true,category:'technical',detail:`${guides.length} guias editoriais`},
+      {name:'MONETIZATION_GUARD',status:moneyOk?'PASS':'FAIL',weight:10,scorable:true,category:'technical',detail:aff?.enabled?'afiliados ativos com ofertas':'afiliados inativos ou controlados'},
+      {name:'ADMIN_RELEASE',status:adminOk?'PASS':'FAIL',weight:10,scorable:true,category:'technical',detail:adminOk?`admin release ${state.adminRelease?.version||'reconhecido'} em paridade`:'admin release/schema/versão não confirmados'},
+      {name:'SEARCH_EVIDENCE',status:searchStatus,weight:0,scorable:false,category:'evidence',detail:state.gsc.current?`${datasetLabel(state.gsc.current)}${state.gsc.baseline?' · baseline carregado':' · baseline não carregado'}`:'dataset GSC não carregado nesta sessão; isso não é falha técnica'}
+    ];
+    for(const g of gates)g.ok=g.status==='PASS';
+    const scored=gates.filter(g=>g.scorable), total=scored.reduce((a,g)=>a+g.weight,0), earned=scored.reduce((a,g)=>a+(g.status==='PASS'?g.weight:0),0);
+    const score=total?Math.round(earned/total*100):0;
+    const searchEvidence={status:searchStatus,current:datasetLabel(state.gsc.current),baseline:datasetLabel(state.gsc.baseline)};
+    const operationalReadiness=score===100&&exact&&ciStatus==='PASS'?'READY':failed.length||!exact?'BLOCKED':'ATTENTION';
+    return {score,gates,failed,pending,currentRuns,missingRuns,historicalFailed,ciStatus,exact,artifacts,books,guides,searchEvidence,operationalReadiness};
+  }'''
+          s,n=re.subn(r'  function qualityModel\(\)\{.*?\n  \}\n\n  function seoRows',quality_model+'\n\n  function seoRows',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('qualityModel patch failed')
+
+          quality_view=r'''  function qualityView(){const q=qualityModel(),statusMeta={PASS:['PASS','good'],FAIL:['FAIL','bad'],WARN:['WARN','warn'],AVAILABLE:['AVAILABLE','blue'],NOT_LOADED:['NOT_LOADED','warn']};const gates=q.gates.map(g=>{const m=statusMeta[g.status]||[g.status,''];return `<div class="gate"><div><strong>${esc(g.name)}</strong><span>${esc(g.detail)}</span></div>${pill(m[0],m[1])}</div>`}).join('');const diagnostics={technicalHealth:q.score,operationalReadiness:q.operationalReadiness,releaseExact:q.exact,ciCurrentRelease:q.ciStatus,currentReleaseRuns:q.currentRuns.length,missingCurrentRuns:q.missingRuns,historicalFailuresIgnored:q.historicalFailed.length,searchEvidence:q.searchEvidence,books:q.books.length,guides:q.guides.length,artifacts:q.artifacts.length,staged:stagedCount()};return `<div class="stack">${intro('Qualidade & gates','Saúde técnica, evidência SEO e prontidão operacional são avaliadas separadamente. Histórico antigo e dados não carregados permanecem visíveis, mas não fingem ser falha da produção atual.',`${pill(`Técnico ${q.score}/100`,q.score>=90?'good':q.score>=70?'warn':'bad')} ${pill(`Operação ${q.operationalReadiness}`,q.operationalReadiness==='READY'?'good':q.operationalReadiness==='BLOCKED'?'bad':'warn')} ${pill(`GSC ${q.searchEvidence.status}`,q.searchEvidence.status==='AVAILABLE'?'blue':'warn')}`)}<div class="grid-2">${card('Saúde técnica',`<div class="quality-summary"><div class="score-ring" style="--score:${q.score}"><div><strong>${q.score}</strong><span>de 100</span></div></div><div class="gate-list">${gates}</div></div>`,'gates técnicos normalizados + evidência não punitiva')}${card('Diagnóstico resumido',`<pre class="mono" style="white-space:pre-wrap;color:#9aa6b6;font-size:10px;line-height:1.55">${esc(JSON.stringify(diagnostics,null,2))}</pre><button class="btn ghost" data-export-diagnostics>Exportar diagnóstico JSON</button>`,'portable evidence')}</div></div>`}'''
+          s,n=re.subn(r'  function qualityView\(\)\{.*?\n\n  function editorView',quality_view+'\n\n  function editorView',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('qualityView patch failed')
+
+          old="if(globalThis.__FCC_TEST_MODE__){globalThis.__FCC_TEST__={parseGsc,opportunityEngine,cannibalization,pdfHtmlConflicts,experimentModel,validateContent,patchReleaseHash,state,config,gscStats,binaryPathAllowed,allStaged};return}"
+          new="if(globalThis.__FCC_TEST_MODE__){globalThis.__FCC_TEST__={parseGsc,opportunityEngine,cannibalization,pdfHtmlConflicts,experimentModel,qualityModel,validateContent,patchReleaseHash,state,config,gscStats,binaryPathAllowed,allStaged};return}"
+          if old not in s: raise SystemExit('test hook anchor missing')
+          s=s.replace(old,new,1)
+          s=s.replace("q.gates.filter(g=>g.ok).length+' de '+q.gates.length+' gates'","q.gates.filter(g=>g.scorable&&g.status==='PASS').length+' de '+q.gates.filter(g=>g.scorable).length+' gates técnicos'",1)
+          s=s.replace("'entre execuções recentes'","'no release atual'",1)
+          app.write_text(s,encoding='utf-8')
+
+          cp_path=Path('admin/control-plane.json'); cp=json.loads(cp_path.read_text(encoding='utf-8')); cp['version']='2.1.1'; cp['quality']={
+            'scoreModel':'technical-normalized-v1',
+            'searchEvidenceScoring':False,
+            'historicalRunsScoring':False,
+            'requiredWorkflows':['Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke','Route production smoke','pages build and deployment']
+          }; cp_path.write_text(json.dumps(cp,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          test_path=Path('scripts/test_admin_v2.js'); t=test_path.read_text(encoding='utf-8')
+          anchor="assert(broken.errors.length>0,'invalid JSON blocker');\n\nconsole.log('PASS: Freedom Control Center V2 behavior regression suite');"
+          block="""assert(broken.errors.length>0,'invalid JSON blocker');
+
+const requiredQualityRuns=['Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke','Route production smoke','pages build and deployment'];
+t.state.cp={version:'2.1.1',quality:{requiredWorkflows:requiredQualityRuns,searchEvidenceScoring:false,historicalRunsScoring:false}};
+t.state.release={artifacts:{'index.html':'x'}};t.state.prodRelease={artifacts:{'index.html':'x'}};
+t.state.siteData={books:[{slug:'a',title:'A',available:true}],guides:Array.from({length:6},(_,i)=>({slug:`g${i}`,title:`G${i}`}))};
+t.state.monetization={support:{url:'https://livepix.gg/editorafreedombook'},affiliates:{enabled:false,offers:[]},premium:{enabled:false,offers:[]}};
+t.state.adminRelease={schema:'freedom-admin-release-v1',version:'2.1.1'};t.state.commits=[{sha:'current-sha'}];
+t.state.runs=[{name:'obsolete builder',head_branch:'main',head_sha:'old-sha',status:'completed',conclusion:'failure'},...requiredQualityRuns.map(name=>({name,head_branch:'main',head_sha:'current-sha',status:'completed',conclusion:'success'}))];
+t.state.gsc.current=null;t.state.gsc.baseline=null;
+let qm=t.qualityModel();
+assert(qm.score===100,'historical CI failures must not reduce current technical health');
+assert(qm.failed.length===0,'historical failures must not appear as current release failures');
+assert(qm.historicalFailed.length===1,'historical failure remains auditable');
+assert(qm.gates.find(g=>g.name==='SEARCH_EVIDENCE').status==='NOT_LOADED','missing GSC must be NOT_LOADED');
+assert(qm.gates.find(g=>g.name==='SEARCH_EVIDENCE').scorable===false,'missing GSC must not reduce technical score');
+assert(qm.operationalReadiness==='READY','green current release should be READY without GSC import');
+t.state.runs=t.state.runs.map(r=>r.name==='Site integrity'&&r.head_sha==='current-sha'?{...r,conclusion:'failure'}:r);qm=t.qualityModel();
+assert(qm.score<100&&qm.failed.length===1,'current release CI failure must reduce technical health');
+assert(qm.gates.find(g=>g.name==='CI_CURRENT_RELEASE').status==='FAIL','current release CI failure must fail CI gate');
+
+console.log('PASS: Freedom Control Center V2.1.1 quality semantics regression suite');"""
+          if anchor not in t: raise SystemExit('test anchor missing')
+          test_path.write_text(t.replace(anchor,block,1),encoding='utf-8')
+
+          va=Path('scripts/validate_admin.py'); v=va.read_text(encoding='utf-8').replace("cp.get('version')!='2.1.0'","cp.get('version')!='2.1.1'",1)
+          extra="""\nquality=cp.get('quality',{})\nrequired_runs=quality.get('requiredWorkflows',[])\nif quality.get('searchEvidenceScoring') is not False: fail('Search evidence must not reduce technical health score')\nif quality.get('historicalRunsScoring') is not False: fail('Historical runs must not reduce current release health')\nfor name in ('Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke'):\n    if name not in required_runs: fail(f'quality current-release workflow missing: {name}')\nfor marker in ('CI_CURRENT_RELEASE','NOT_LOADED','historicalFailed','operationalReadiness','technicalHealth'):\n    if marker not in js: fail(f'quality semantics runtime missing: {marker}')\n"""
+          marker="experiments=cp.get('experiments',[])"
+          if marker not in v: raise SystemExit('validator quality anchor missing')
+          v=v.replace(marker,extra+'\n'+marker,1)
+          v=v.replace('PASS: Freedom Control Center V2.1 adds a memory-only Book Publisher with binary-safe PR staging while preserving policy, SEO and release contracts','PASS: Freedom Control Center V2.1.1 separates current technical health from historical CI and optional GSC evidence while preserving Book Publisher and release contracts')
+          va.write_text(v,encoding='utf-8')
+
+          rel_path=Path('admin/release.json'); rel=json.loads(rel_path.read_text(encoding='utf-8')); rel['version']='2.1.1'
+          for name in rel['artifacts']:
+              rel['artifacts'][name]=hashlib.sha256((Path('admin')/name).read_bytes()).hexdigest()
+          rel_path.write_text(json.dumps(rel,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+      - name: Validate complete product
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/validate_admin.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
+          python3 scripts/validate_admin.py
+          node --check admin/app.js
+          node --check admin/book-publisher.js
+          node scripts/test_admin_v2.js
+          python3 scripts/release_hashes.py --changed-only
+          python3 scripts/validate_site.py
+          python3 scripts/validate_seo.py
+          python3 scripts/validate_guides.py
+          python3 scripts/test_seo_intelligence.py
+          node scripts/test-route-recovery.cjs
+          python3 scripts/generate-route-shims.py --check
+
+      - name: Commit validated quality model
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add admin/app.js admin/control-plane.json admin/release.json scripts/test_admin_v2.js scripts/validate_admin.py
+          git commit -m "fix: tornar quality score semanticamente confiável"
+          git push origin HEAD:admin/quality-semantics-v2.1.1
