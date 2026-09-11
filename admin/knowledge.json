@@ -1,8 +1,8 @@
 {
   "schema": "freedom-knowledge-layer-v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "adminVersion": "2.2.0",
-  "updatedAt": "2026-09-10",
+  "updatedAt": "2026-09-11",
   "classification": "PUBLIC_OPERATIONAL",
   "identity": {
     "site": "https://achadostube.com.br",
@@ -10,40 +10,43 @@
     "author": "Arthur Magnus",
     "repository": "carloskk07/shopee",
     "productionBranch": "main",
-    "hosting": "GitHub Pages"
+    "hosting": "GitHub Pages",
+    "privateAdminHosting": "Netlify + team SSO"
   },
   "operatingModel": {
     "sourceOfTruth": "GitHub main + release.json",
-    "publishing": "branch -> Pull Request -> CI -> squash -> GitHub Pages -> Production Smoke",
+    "publishing": "evidence -> decision -> Change Set -> Pull Request -> CI -> squash -> deploy -> observation",
     "directMainWrites": false,
+    "autoMerge": false,
     "releaseAuthority": "SHA-256",
-    "mobileFirst": true
+    "mobileFirst": true,
+    "decisionMode": "human-approved"
   },
   "priorityPolicy": [
     {
       "rank": 1,
+      "name": "Release e CI",
+      "rule": "Qualquer divergência de release ou falha do SHA atual bloqueia novas decisões editoriais."
+    },
+    {
+      "rank": 2,
+      "name": "Experimento em janela de decisão",
+      "rule": "Decidir somente quando dados finalizados do Search Console alcançarem a data mínima e houver janela pré/pós comparável."
+    },
+    {
+      "rank": 3,
       "name": "Striking distance",
       "rule": "Priorizar páginas e consultas com evidência real próximas da primeira página antes de criar novas URLs."
     },
     {
-      "rank": 2,
+      "rank": 4,
       "name": "CTR na primeira página",
       "rule": "Quando uma página já aparece bem posicionada e tem CTR baixo, melhorar intenção, título e snippet antes de expandir arquitetura."
     },
     {
-      "rank": 3,
-      "name": "Crescimento comprovado",
-      "rule": "Direcionar esforço para clusters que estejam acelerando em dados finalizados."
-    },
-    {
-      "rank": 4,
+      "rank": 5,
       "name": "Canibalização real",
       "rule": "Intervir somente quando duas ou mais URLs dividirem demanda de forma mensurável."
-    },
-    {
-      "rank": 5,
-      "name": "Nova URL sob evidência",
-      "rule": "Criar conteúdo novo somente quando a intenção for distinta e sustentada por demanda suficiente."
     }
   ],
   "currentFocus": {
@@ -52,22 +55,27 @@
     "status": "OBSERVING",
     "startedAt": "2026-09-09",
     "minimumDecisionDate": "2026-09-16",
-    "rule": "Preservar atribuição causal até dados finalizados cobrirem a janela do experimento; evitar alteração SEO substantiva prematura."
+    "rule": "Preservar atribuição causal até o GSC finalizado alcançar a data mínima; comparar janelas diárias pré/pós equivalentes e registrar KEEP, ITERATE, REVERT ou INCONCLUSIVE."
   },
   "capabilities": [
     "Dashboard executivo e Quality Score por release atual",
     "Book Publisher com capa, PDF, landing, catálogo, sitemap, feed e rota",
     "Change Set com preflight e publicação PR-only",
-    "SEO Intelligence com comparação atual versus baseline quando evidência privada é carregada",
-    "Experiment Control com janela mínima de decisão",
-    "Monetização support-first com LivePix e afiliados desativados até URLs verificadas",
+    "SEO Intelligence com GSC privado sincronizado automaticamente",
+    "Operational Brain com fila causal e observabilidade de conectores",
+    "Closed-loop Decision Engine com janelas pré/pós equivalentes",
+    "Decision Ledger privado com vínculo entre experimento e Pull Request",
+    "Lifecycle editorial PUBLISHED, OBSERVING, DECISION_READY e OPTIMIZING",
+    "Monetização support-first com guardrails",
     "Release hashes, CI, Production Smoke e diagnóstico exportável"
   ],
   "guardrails": [
     "Não inventar URL de afiliado, identificador comercial ou receita.",
-    "Não publicar dados privados do Search Console no repositório público.",
-    "Não considerar ausência de GSC na sessão como falha técnica.",
+    "Não publicar queries ou métricas privadas do Search Console no repositório público.",
+    "Não considerar ausência temporária de GSC como falha técnica de release.",
     "Não alterar main diretamente pelo Control Center.",
+    "Não executar auto-merge ou mutação direta de produção.",
+    "Não abrir decisão de experimento apenas porque a data do calendário chegou; o GSC finalizado precisa cobrir a data mínima.",
     "Não criar novas páginas SEO em massa ou por consulta isolada.",
     "Não quebrar acesso gratuito ao PDF para forçar monetização.",
     "Não instalar AdSense ou scripts de terceiros sem credenciais e decisão explícita."
@@ -81,12 +89,18 @@
   },
   "privateEvidence": {
     "searchConsole": {
-      "classification": "PRIVATE_SESSION_ONLY",
+      "classification": "PRIVATE_NETLIFY_BLOBS",
       "repositoryPersistence": false,
-      "browserPersistence": "sessionStorage only",
-      "expectedSource": "Google Search Console authorized connection or user import",
+      "privateServerPersistence": "latest current + baseline snapshots in Netlify Blobs",
+      "browserPersistence": "sessionStorage hydration only",
+      "expectedSource": "Google Search Console OAuth readonly",
       "finalizationDelay": "approximately three days",
-      "rule": "Raw queries, pages and performance metrics must never be embedded in knowledge.json or committed to the public repository."
+      "rule": "Raw queries, pages and performance metrics remain outside the public repository; only public operational policy is versioned in knowledge.json."
+    },
+    "decisionLedger": {
+      "classification": "PRIVATE_NETLIFY_BLOBS",
+      "repositoryPersistence": false,
+      "rule": "Decision records, evidence fingerprints and PR links persist privately and never become public SEO data."
     }
   },
   "sourcePolicy": [
@@ -99,12 +113,18 @@
       "source": "Google Search Console",
       "trust": "AUTHORITATIVE_PRIVATE",
       "use": "search performance and SEO opportunity evidence",
-      "persistence": "session-only"
+      "persistence": "private Netlify Blobs; sessionStorage only for browser hydration"
+    },
+    {
+      "source": "Decision Ledger",
+      "trust": "AUTHORITATIVE_PRIVATE",
+      "use": "causal decisions, evidence fingerprint, PR linkage and lifecycle state",
+      "persistence": "private Netlify Blobs"
     },
     {
       "source": "Freedom operational knowledge",
       "trust": "CURATED",
-      "use": "priorities, guardrails and experiment policy"
+      "use": "priorities, objectives, guardrails and experiment policy"
     }
   ]
 }
