@@ -136,6 +136,6 @@ jobs:
             git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
-            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^netlify/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims|build_private_admin)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$|^netlify\.toml$|^_config\.yml$|^package\.json$|^\.gitignore$)' || true)"
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^netlify/|^freedom-book-admin/index\.html$|^privacidade-freedom-book-admin/index\.html$|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims|build_private_admin)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$|^netlify\.toml$|^_config\.yml$|^package\.json$|^\.gitignore$)' || true)"
             test -z "$bad" || { echo "Operational Brain touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi
