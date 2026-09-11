@@ -61,7 +61,7 @@ def main() -> None:
     index = re.sub(r"\n\s*<script src=\"/admin/knowledge-layer\.js\" defer></script>", "", index)
     app_tag = '  <script src="/admin/app.js" defer></script>'
     if app_tag not in index:
-        raise SystemExit("admin app script marker not found")
+        raise SystemExit("admin app script marker missing")
     private_scripts = (
         '  <script src="/admin/runtime-adapter.js" defer></script>\n'
         + app_tag
@@ -146,7 +146,7 @@ def main() -> None:
         if marker not in built_app:
             raise SystemExit(f"private runtime app patch missing: {marker}")
     money_js = (DIST_ADMIN / "monetization-intelligence.js").read_text(encoding="utf-8")
-    for marker in ('Monetization Intelligence V2','/api/monetization/ledger','UNKNOWN_NOT_ZERO' if False else 'SEM REGISTROS','ACQUISITION_FIRST','MONETIZATION_GAP'):
+    for marker in ('Monetization Intelligence V2','/api/monetization/ledger','SEM REGISTROS','ACQUISITION_FIRST','MONETIZATION_GAP'):
         if marker not in money_js:
             raise SystemExit(f"private monetization runtime marker missing: {marker}")
     print(f"Private admin runtime built: {len(artifact_names)} artifacts")
