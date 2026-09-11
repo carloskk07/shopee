@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Política de Privacidade — Freedom Book Admin</title>
+  <meta name="description" content="Política de privacidade do Freedom Book Admin e uso de dados do Google Search Console."/>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <meta name="theme-color" content="#050505"/>
+  <link rel="canonical" href="https://achadostube.com.br/privacidade-freedom-book-admin/"/>
+  <link rel="stylesheet" href="/assets/style.v2.2.5.css"/>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any"/>
+  <style>
+    .privacy-page{min-height:100vh;background:#050505;color:#f5f7fb}.privacy-wrap{max-width:980px;margin:0 auto;padding:72px 22px 96px}.privacy-brand{display:flex;align-items:center;gap:12px;margin-bottom:52px;color:inherit;text-decoration:none}.privacy-brand img{width:42px;height:42px;border-radius:50%}.privacy-card{background:#0d1119;border:1px solid #252b36;border-radius:24px;padding:clamp(24px,5vw,48px);box-shadow:0 24px 70px rgba(0,0,0,.28)}.privacy-kicker{display:inline-block;font-size:.76rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ff415d;margin-bottom:12px}.privacy-page h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.05;margin:.15em 0 .35em}.privacy-page h2{font-size:clamp(1.25rem,2.8vw,1.9rem);margin:2.2em 0 .6em}.privacy-page p,.privacy-page li{color:#c7cfdd;line-height:1.78}.privacy-page ul{padding-left:1.2rem}.privacy-callout{margin:26px 0;padding:18px 20px;border:1px solid #2b3544;background:#10151e;border-radius:14px}.privacy-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}.privacy-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;background:#f22846;color:white;text-decoration:none;font-weight:800}.privacy-btn.secondary{background:#151b25;border:1px solid #303846}.privacy-meta{margin-top:42px;padding-top:22px;border-top:1px solid #252b36;font-size:.92rem;color:#8f9aad}.privacy-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#f0f3f8}
+  </style>
+</head>
+<body class="privacy-page">
+  <main class="privacy-wrap">
+    <a class="privacy-brand" href="/freedom-book-admin/" aria-label="Freedom Book Admin">
+      <img src="/assets/covers/logo-freedom-book-redonda.webp" width="42" height="42" alt=""/>
+      <strong>Freedom Book Admin</strong>
+    </a>
+
+    <article class="privacy-card">
+      <span class="privacy-kicker">Privacidade e Google OAuth</span>
+      <h1>Política de Privacidade</h1>
+      <p>Esta política descreve como o Freedom Book Admin trata dados quando o proprietário do aplicativo autoriza acesso ao Google Search Console. O Freedom Book Admin é um console operacional privado da Freedom Book, usado para administrar e analisar o site <strong>achadostube.com.br</strong>.</p>
+
+      <h2>1. Dados acessados</h2>
+      <p>O aplicativo solicita exclusivamente o escopo Google Search Console de leitura <span class="privacy-code">webmasters.readonly</span>. A sincronização consulta dados de desempenho de propriedades do Search Console que a conta autorizada tem permissão para visualizar.</p>
+      <p>Os registros utilizados pelo painel podem incluir:</p>
+      <ul>
+        <li>data;</li>
+        <li>consulta de pesquisa;</li>
+        <li>URL/página;</li>
+        <li>cliques;</li>
+        <li>impressões;</li>
+        <li>CTR;</li>
+        <li>posição média.</li>
+      </ul>
+
+      <h2>2. Finalidade</h2>
+      <p>Esses dados são usados somente para análise interna de SEO e operação editorial, incluindo comparação de períodos, identificação de oportunidades, avaliação de experimentos, detecção de quedas ou crescimento e priorização das próximas ações no Freedom Book Admin.</p>
+      <p>O aplicativo não usa o acesso ao Search Console para publicar conteúdo, alterar propriedades, executar campanhas publicitárias ou modificar configurações da Conta Google.</p>
+
+      <h2>3. Armazenamento e segurança</h2>
+      <p>Os dados sincronizados ficam em infraestrutura privada do projeto administrativo no Netlify. O painel público da Freedom Book não recebe esses dados.</p>
+      <ul>
+        <li>Credenciais OAuth são mantidas como variáveis secretas do ambiente de produção e não são gravadas no repositório público.</li>
+        <li>O snapshot de Search Console armazenado pelo sistema contém apenas o período atual e o período-base mais recentes.</li>
+        <li>Uma nova sincronização substitui o snapshot anterior.</li>
+        <li>O audit trail registra metadados operacionais da sincronização, como data final e quantidade de linhas, e não armazena tokens OAuth.</li>
+        <li>O audit trail é limitado aos 200 eventos operacionais mais recentes.</li>
+      </ul>
+
+      <h2>4. Compartilhamento</h2>
+      <p>Os dados do Google Search Console não são vendidos, alugados ou usados para publicidade direcionada. Eles não são disponibilizados publicamente. O tratamento ocorre somente pelos serviços técnicos necessários ao funcionamento do aplicativo, como Google APIs e a infraestrutura privada de hospedagem/armazenamento do Netlify, além de eventual obrigação legal aplicável.</p>
+
+      <h2>5. Acesso e controle</h2>
+      <p>O console administrativo é restrito a usuários autorizados da equipe. O proprietário da Conta Google pode revogar a autorização do aplicativo a qualquer momento nas configurações de segurança/permissões da própria Conta Google. A remoção das credenciais do ambiente privado também interrompe novas sincronizações.</p>
+
+      <h2>6. Retenção</h2>
+      <p>O Freedom Book Admin mantém somente o snapshot mais recente de desempenho necessário ao funcionamento do painel. Esse snapshot é substituído a cada sincronização. Metadados do audit trail ficam limitados aos 200 eventos mais recentes. Credenciais permanecem configuradas somente enquanto o proprietário desejar manter a integração ativa.</p>
+
+      <h2>7. Uso de dados das APIs do Google</h2>
+      <div class="privacy-callout">
+        <p>O uso e a transferência de informações recebidas das APIs do Google pelo Freedom Book Admin obedecem à <strong>Google API Services User Data Policy</strong>, incluindo os requisitos de Limited Use quando aplicáveis.</p>
+      </div>
+
+      <h2>8. Alterações nesta política</h2>
+      <p>Esta política pode ser atualizada quando o comportamento real do aplicativo mudar, por exemplo se novos tipos de dados, novos provedores ou novos fluxos de armazenamento forem adicionados. Mudanças relevantes serão refletidas nesta página antes de serem consideradas parte do fluxo operacional.</p>
+
+      <h2>9. Contato</h2>
+      <p>Questões sobre o uso de dados do Google podem ser encaminhadas ao endereço de suporte informado na tela de consentimento OAuth do Freedom Book Admin.</p>
+
+      <div class="privacy-actions">
+        <a class="privacy-btn" href="/freedom-book-admin/">Sobre o aplicativo</a>
+        <a class="privacy-btn secondary" href="/">Freedom Book</a>
+      </div>
+
+      <div class="privacy-meta">Vigente desde 11 de setembro de 2026 · última atualização: 11 de setembro de 2026.</div>
+    </article>
+  </main>
+</body>
+</html>
