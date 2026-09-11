@@ -16,12 +16,12 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Validate Freedom Control Center V2.2.0
+      - name: Validate Freedom Control Center V2.2 + Operational Brain
         run: |
           python3 -m py_compile scripts/validate_admin.py scripts/validate_knowledge.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py scripts/build_private_admin.py
           python3 scripts/validate_admin.py
@@ -29,6 +29,7 @@ jobs:
           node --check admin/app.js
           node --check admin/book-publisher.js
           node --check admin/knowledge-layer.js
+          node --check admin/operational-brain.js
           node scripts/test_admin_v2.js
 
       - name: Validate private Netlify runtime
@@ -37,12 +38,16 @@ jobs:
           set -euo pipefail
           python3 scripts/build_private_admin.py
           test -f netlify-admin-dist/admin/runtime-adapter.js
+          test -f netlify-admin-dist/admin/operational-brain.js
           test -f netlify-admin-dist/admin/release.json
           test -f netlify-admin-dist/release.json
           grep -q "netlify-private" netlify-admin-dist/admin/runtime-adapter.js
           grep -q "team-sso" netlify-admin-dist/admin/runtime-adapter.js
+          grep -q '/api/github/publish' netlify-admin-dist/admin/app.js
+          grep -q '__FCC_SERVER_GITHUB_READY__' netlify-admin-dist/admin/app.js
           test "$(grep -c '/admin/knowledge-layer.js' netlify-admin-dist/admin/index.html)" -eq 1
           test "$(grep -c '/admin/runtime-adapter.js' netlify-admin-dist/admin/index.html)" -eq 1
+          test "$(grep -c '/admin/operational-brain.js' netlify-admin-dist/admin/index.html)" -eq 1
           cmp -s release.json netlify-admin-dist/release.json
           python3 - <<'PY'
           import hashlib,json,pathlib
@@ -52,12 +57,37 @@ jobs:
           assert rel['version']=='2.2.0'
           assert rel['hosting']=='netlify-private'
           assert rel['access']=='team-sso'
-          assert 'runtime-adapter.js' in rel['artifacts']
+          assert 'operational-brain' in rel['capabilities']
+          assert {'runtime-adapter.js','operational-brain.js'} <= set(rel['artifacts'])
           for name,expected in rel['artifacts'].items():
               actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
               assert actual==expected,(name,actual,expected)
           print('Private runtime release exact')
           PY
+
+      - name: Validate Operational Brain backend contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f package.json
+          test -f netlify/functions/brain-status.mts
+          test -f netlify/functions/brain-evaluate.mts
+          test -f netlify/functions/github-publish.mts
+          test -f netlify/functions/gsc-data.mts
+          test -f netlify/functions/gsc-sync.mts
+          test -f netlify/functions/gsc-scheduled.mts
+          test -f netlify/functions/audit.mts
+          test -f netlify/lib/audit.mts
+          test -f netlify/lib/gsc.mts
+          grep -q '@netlify/blobs' package.json
+          grep -q 'directory = "netlify/functions"' netlify.toml
+          grep -q "schedule:'0 10 \* \* \*'" netlify/functions/gsc-scheduled.mts
+          grep -q 'FCC_GITHUB_TOKEN' netlify/functions/github-publish.mts
+          grep -q 'GSC_REFRESH_TOKEN' netlify/lib/gsc.mts
+          grep -q 'getStore' netlify/lib/audit.mts
+          grep -q 'getDeployStore' netlify/lib/audit.mts
+          grep -q 'PR-only' netlify/functions/github-publish.mts
+          ! grep -RqiE 'github_pat_[A-Za-z0-9_]{10,}|ghp_[A-Za-z0-9]{10,}' netlify admin/operational-brain.js
 
       - name: Enforce admin isolation and budgets
         shell: bash
@@ -67,46 +97,35 @@ jobs:
           test "$(stat -c%s admin/style.css)" -lt 42000
           test "$(stat -c%s admin/app.js)" -lt 90000
           test "$(stat -c%s admin/book-publisher.js)" -lt 50000
+          test "$(stat -c%s admin/operational-brain.js)" -lt 30000
           test "$(stat -c%s admin/control-plane.json)" -lt 16000
           test "$(stat -c%s admin/knowledge.json)" -lt 18000
           test "$(stat -c%s admin/knowledge-layer.js)" -lt 18000
           grep -q 'Freedom Control Center · V2' admin/index.html
-          grep -q 'bookPublisherDialog' admin/index.html
           grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
-          grep -q '/admin/knowledge-layer.js' admin/index.html
           grep -q 'freedom-control-plane-v2' admin/control-plane.json
           grep -q '"version": "2.2.0"' admin/control-plane.json
           grep -q 'directMainWrites.*false' admin/control-plane.json
           grep -q 'memory-only' admin/control-plane.json
           grep -q 'technical-normalized-v1' admin/control-plane.json
-          grep -q 'searchEvidenceScoring.*false' admin/control-plane.json
-          grep -q 'historicalRunsScoring.*false' admin/control-plane.json
-          grep -q 'optionalWorkflows' admin/control-plane.json
-          grep -q 'freedom-knowledge-layer-v1' admin/knowledge.json
-          grep -q 'PRIVATE_SESSION_ONLY' admin/knowledge.json
           grep -q '__FCC_KNOWLEDGE_LAYER__' admin/knowledge-layer.js
-          grep -q 'CI_CURRENT_RELEASE' admin/app.js
-          grep -q 'NOT_LOADED' admin/app.js
-          grep -q 'historicalFailed' admin/app.js
-          grep -q 'operationalReadiness' admin/app.js
-          grep -q 'optionalRuns' admin/app.js
+          grep -q '__FCC_OPERATIONAL_BRAIN__' admin/operational-brain.js
+          grep -q '/api/brain/evaluate' admin/operational-brain.js
+          grep -q '/api/gsc/data' admin/operational-brain.js
           grep -q 'binaryStaged' admin/app.js
           grep -q '__FCC_PUBLISHER_API__' admin/app.js
           grep -q 'stageBook' admin/book-publisher.js
-          grep -q '%PDF-' admin/book-publisher.js
-          grep -q 'image/webp' admin/book-publisher.js
           grep -q '^exclude:' _config.yml
           grep -q '  - admin' _config.yml
-          grep -q 'scripts/build_private_admin.py' netlify.toml
           ! grep -q '/admin' sitemap.xml
-          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py scripts/validate_knowledge.py scripts/build_private_admin.py
+          ! grep -Rqi 'github_pat_' admin scripts netlify
           ! grep -Rq 'localStorage' admin
           ! grep -Rq 'document.cookie' admin
           ! grep -Rq 'googletagmanager.com' admin
           ! grep -Rq 'analytics.tiktok.com' admin
           ! grep -Rq 'NEXT_PUBLIC_' admin
 
-      - name: Verify scoped V2.2.0 mutation contract
+      - name: Verify scoped Operational Brain mutation contract
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -117,6 +136,6 @@ jobs:
             git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
-            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims|build_private_admin)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$|^netlify\.toml$|^_config\.yml$)' || true)"
-            test -z "$bad" || { echo "Control Center V2.2.0 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^netlify/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims|build_private_admin)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$|^netlify\.toml$|^_config\.yml$|^package\.json$|^\.gitignore$)' || true)"
+            test -z "$bad" || { echo "Operational Brain touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi

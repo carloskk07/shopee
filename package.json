@@ -1,0 +1,10 @@
+{
+  "name": "freedom-book-control-center",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.0.0"
+  }
+}
