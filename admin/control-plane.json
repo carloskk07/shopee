@@ -1,6 +1,6 @@
 {
   "schema": "freedom-control-plane-v2",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "site": "https://achadostube.com.br",
   "repository": "carloskk07/shopee",
   "ownerLogin": "carloskk07",
@@ -105,11 +105,13 @@
     "requiredWorkflows": [
       "Site integrity",
       "Admin integrity",
-      "Route integrity",
       "Production smoke",
       "Admin production smoke",
-      "Route production smoke",
       "pages build and deployment"
+    ],
+    "optionalWorkflows": [
+      "Route integrity",
+      "Route production smoke"
     ]
   }
 }

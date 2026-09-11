@@ -34,7 +34,7 @@ jobs:
           done
           test "$matched" -eq 1
 
-      - name: Verify admin V2.1.1 byte parity, quality semantics and Book Publisher safety
+      - name: Verify admin V2.1.2 byte parity, path-aware quality and Book Publisher safety
         shell: bash
         run: |
           set -euo pipefail
@@ -43,10 +43,10 @@ jobs:
           base='https://achadostube.com.br/admin/'
           release=json.loads(pathlib.Path('admin/release.json').read_text())
           assert release['schema']=='freedom-admin-release-v1'
-          assert release.get('version')=='2.1.1'
+          assert release.get('version')=='2.1.2'
           assert set(release['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json'}
           for path,expected in release['artifacts'].items():
-              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/2.1.1'})
+              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/2.1.2'})
               with urllib.request.urlopen(req,timeout=45) as r: body=r.read()
               actual=hashlib.sha256(body).hexdigest()
               if actual!=expected: raise SystemExit(f'admin hash mismatch {path}: {actual} != {expected}')
@@ -67,6 +67,7 @@ jobs:
           grep -q 'NOT_LOADED' /tmp/admin.js
           grep -q 'historicalFailed' /tmp/admin.js
           grep -q 'operationalReadiness' /tmp/admin.js
+          grep -q 'optionalRuns' /tmp/admin.js
           grep -q 'binaryStaged' /tmp/admin.js
           grep -q '__FCC_PUBLISHER_API__' /tmp/admin.js
           grep -q '/git/refs' /tmp/admin.js
@@ -83,7 +84,7 @@ jobs:
           import json
           cp=json.load(open('/tmp/control-plane.json',encoding='utf-8'))
           assert cp['schema']=='freedom-control-plane-v2'
-          assert cp['version']=='2.1.1'
+          assert cp['version']=='2.1.2'
           assert cp['publishing']['directMainWrites'] is False
           assert '.github/' in cp['security']['blockedPrefixes']
           assert cp['experiments']
@@ -91,10 +92,13 @@ jobs:
           assert quality['scoreModel']=='technical-normalized-v1'
           assert quality['searchEvidenceScoring'] is False
           assert quality['historicalRunsScoring'] is False
-          assert 'Production smoke' in quality['requiredWorkflows']
+          required=quality['requiredWorkflows']; optional=quality['optionalWorkflows']
+          assert 'Production smoke' in required and 'pages build and deployment' in required
+          assert 'Route integrity' in optional and 'Route production smoke' in optional
+          assert 'Route integrity' not in required and 'Route production smoke' not in required
           book=cp['bookPublishing']
           assert book['enabled'] is True
           assert book['binaryPersistence']=='memory-only'
           assert book['bundleFiles'] <= cp['publishing']['maxFilesPerChangeSet']
-          print('Control plane V2.1.1 quality semantics + Book Publisher policy verified')
+          print('Control plane V2.1.2 path-aware quality + Book Publisher policy verified')
           PY
