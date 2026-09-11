@@ -1,30 +1,36 @@
 # Freedom Control Center V2
 
-Console operacional privado-em-escrita e público-em-shell para a Freedom Book, entregue em `/admin/` sem alterar o hosting editorial em GitHub Pages.
+Console operacional privado da Freedom Book. O site editorial continua em GitHub Pages, enquanto o Control Center é entregue separadamente pelo Netlify em `freedom-book-admin.netlify.app/admin/` com Team SSO obrigatório. O antigo `/admin/` público foi retirado do GitHub Pages.
 
 ## Princípios
 
 - **PR only:** nenhuma escrita direta em `main`.
-- **Credencial efêmera:** token GitHub somente na memória da aba; nunca é persistido.
+- **Private by default:** interface e backend administrativo ficam atrás do acesso da equipe Netlify.
 - **Policy as code:** `control-plane.json` define escopo, caminhos bloqueados, budgets, thresholds SEO e experimentos ativos.
-- **Evidence first:** Search Console é importado localmente; atual e baseline podem ser comparados antes de sugerir ação.
-- **Causalidade:** experimentos registram início, data mínima de decisão, alvos e regra de promoção.
-- **Release truth:** arquivos editoriais alterados recebem SHA-256 atualizado em `release.json` automaticamente no Change Set publicado.
-- **Defense in depth:** Admin Integrity + Admin Production Smoke + CI público existente.
+- **Evidence first:** decisões usam release, CI, Search Console, experimentos e histórico; ausência de evidência não é tratada como falha técnica.
+- **Release truth:** alterações editoriais atualizam SHA-256 no `release.json`; o runtime privado também gera release criptográfico dos bytes servidos pelo Netlify.
+- **Defense in depth:** Admin Integrity + Admin Production Smoke + Site Integrity + Production Smoke + barreira anônima Netlify.
 
-## Módulos V2
+## Módulos
 
-1. **Comando** — quality score, release parity, pipelines e fila de decisão por risco/ROI.
-2. **Conteúdo** — inventário de livros/guias, anomalias e editor contextual.
-3. **SEO Intelligence** — GSC atual/baseline, tendências, CTR opportunity, striking distance, canibalização e PDF × HTML.
-4. **Experimentos** — janela temporal e de dados para decisões com atribuição limpa.
-5. **Monetização** — estado, toggles guardados e edição avançada de `monetization.json`.
+1. **Comando** — saúde técnica, pipelines e fila operacional.
+2. **Conteúdo / Book Publisher** — catálogo, novo livro, capa, PDF e bundle atômico.
+3. **SEO Intelligence** — GSC atual/baseline, tendências, CTR, striking distance, canibalização e PDF × HTML.
+4. **Experimentos** — janela temporal e regra explícita de decisão.
+5. **Monetização** — suporte, afiliados e premium sob guardrails.
 6. **Deploy & Releases** — PRs, runs, hashes e produção.
-7. **Qualidade** — score ponderado por gates e diagnóstico exportável.
-8. **Editor seguro** — allowlist de extensões, bloqueio de workflows/admin/release e validação local.
-9. **Change Set** — staging recuperável na sessão, diff, backup, risco e preflight.
-10. **Command palette** — `Ctrl/Cmd + K` para ações frequentes.
+7. **Qualidade** — gates técnicos normalizados e diagnóstico exportável.
+8. **Editor seguro / Change Set** — staging, diff, preflight, risco e PR-only.
+9. **Conhecimento** — memória operacional versionada, sem persistir métricas privadas do GSC no repositório.
+10. **Cérebro operacional** — backend privado que combina release, CI, GSC, experimentos e audit trail para produzir uma fila de ações priorizadas.
 
-## Limite deliberado
+## Backend privado
 
-O shell continua em GitHub Pages e portanto a URL `/admin/` não é uma fronteira de autenticação server-side. Ela é `noindex,nofollow,noarchive,nosnippet`, sem trackers e sem segredos. Escrita exige GitHub autenticado. A próxima camada correta é um backend privado para OAuth 2.0 do Search Console e autenticação server-side, sem migrar o site editorial.
+As Netlify Functions implementam quatro contratos independentes:
+
+- **Operational Brain:** avaliação determinística e priorização por evidência.
+- **Audit trail:** histórico persistente em Netlify Blobs, sem armazenar secrets.
+- **GSC Sync:** coleta privada automática diária quando OAuth do Search Console estiver configurado.
+- **GitHub Server Publish:** criação server-side de PRs para Change Sets textuais quando `FCC_GITHUB_TOKEN` estiver configurado. O fluxo manual de sessão GitHub permanece como fallback e continua obrigatório para bundles binários de livros.
+
+Secrets nunca pertencem ao repositório. Eles devem existir somente nas Environment Variables privadas do projeto Netlify.
