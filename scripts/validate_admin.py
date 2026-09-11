@@ -15,6 +15,8 @@ required={
     'admin/app.js':15000,
     'admin/book-publisher.js':12000,
     'admin/control-plane.json':500,
+    'admin/knowledge.json':1200,
+    'admin/knowledge-layer.js':1500,
     'admin/release.json':100,
     'admin/README.md':500,
     'scripts/test_admin_v2.js':500,
@@ -23,14 +25,14 @@ for rel,minimum in required.items():
     p=ROOT/rel
     if not p.is_file() or p.stat().st_size<minimum: fail(f'missing/undersized admin asset: {rel}')
 
-html=read('admin/index.html'); js=read('admin/app.js'); publisher=read('admin/book-publisher.js'); css=read('admin/style.css')
+html=read('admin/index.html'); js=read('admin/app.js'); publisher=read('admin/book-publisher.js'); knowledge_js=read('admin/knowledge-layer.js'); css=read('admin/style.css')
 cp=json.loads(read('admin/control-plane.json'))
 release=json.loads(read('admin/release.json'))
 
-for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/book-publisher.js','/admin/style.css','commandDialog','diffDialog','bookPublisherDialog'):
+for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/book-publisher.js','/admin/knowledge-layer.js','/admin/style.css','commandDialog','diffDialog','bookPublisherDialog'):
     if marker not in html: fail(f'admin HTML contract missing: {marker}')
 
-combined=html+js+publisher+css
+combined=html+js+publisher+knowledge_js+css
 for banned in ('googletagmanager.com','analytics.tiktok.com','document.cookie','localStorage','github_pat_'):
     if banned in combined: fail(f'admin unsafe/persistence token: {banned}')
 
@@ -55,7 +57,7 @@ if '@media(max-width:760px)' not in css: fail('mobile contract missing')
 if '--sidebar' not in css or '.command-dialog' not in css or '.seo-opportunity' not in css: fail('V2 UI contracts missing')
 
 if cp.get('schema')!='freedom-control-plane-v2': fail('bad control plane schema')
-if cp.get('version')!='2.1.2': fail('unexpected control plane version')
+if cp.get('version')!='2.2.0': fail('unexpected control plane version')
 if cp.get('repository')!='carloskk07/shopee' or cp.get('ownerLogin')!='carloskk07': fail('control plane repository authority drift')
 pub=cp.get('publishing',{})
 if pub.get('directMainWrites') is not False: fail('direct main writes must remain false')
@@ -66,6 +68,14 @@ for prefix in ('.github/','admin/','.git/'):
     if prefix not in sec.get('blockedPrefixes',[]): fail(f'missing blocked prefix: {prefix}')
 if 'release.json' not in sec.get('blockedFiles',[]): fail('release.json must be generated, not manually edited')
 if '.html' not in sec.get('editableExtensions',[]) or '.json' not in sec.get('editableExtensions',[]): fail('safe text extensions missing')
+knowledge=cp.get('knowledge',{})
+if knowledge.get('enabled') is not True: fail('knowledge layer must be enabled')
+if knowledge.get('schema')!='freedom-knowledge-layer-v1': fail('knowledge schema policy drift')
+if knowledge.get('privateSearchEvidence')!='session-only': fail('private Search Console evidence must remain session-only')
+if knowledge.get('repositoryPersistence') is not False: fail('private Search Console evidence cannot persist in repository')
+for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','PRIVATE_SESSION_ONLY','knowledgeNav'):
+    if marker not in knowledge_js: fail(f'knowledge runtime contract missing: {marker}')
+
 seo=cp.get('seo',{})
 if seo.get('ctrOpportunity',{}).get('minImpressions') != 30: fail('CTR evidence threshold drift')
 if seo.get('strikingDistance',{}).get('minImpressions') != 20: fail('striking-distance evidence threshold drift')
@@ -114,4 +124,4 @@ if '/admin' in sitemap: fail('admin must not enter sitemap')
 robots=read('robots.txt')
 if not robots.strip(): fail('robots.txt unexpectedly empty')
 
-print('PASS: Freedom Control Center V2.1.2 adds path-aware workflow semantics to current technical health while preserving historical CI and optional GSC evidence while preserving Book Publisher and release contracts')
+print('PASS: Freedom Control Center V2.2 adds curated Knowledge Layer with private Search Console boundary and path-aware workflow semantics to current technical health while preserving historical CI and optional GSC evidence while preserving Book Publisher and release contracts')
