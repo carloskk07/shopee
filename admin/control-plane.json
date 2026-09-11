@@ -1,6 +1,6 @@
 {
   "schema": "freedom-control-plane-v2",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "site": "https://achadostube.com.br",
   "repository": "carloskk07/shopee",
   "ownerLogin": "carloskk07",
@@ -97,5 +97,19 @@
     },
     "bundleFiles": 10,
     "binaryPersistence": "memory-only"
+  },
+  "quality": {
+    "scoreModel": "technical-normalized-v1",
+    "searchEvidenceScoring": false,
+    "historicalRunsScoring": false,
+    "requiredWorkflows": [
+      "Site integrity",
+      "Admin integrity",
+      "Route integrity",
+      "Production smoke",
+      "Admin production smoke",
+      "Route production smoke",
+      "pages build and deployment"
+    ]
   }
 }
