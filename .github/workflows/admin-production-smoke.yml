@@ -68,6 +68,9 @@ jobs:
           set -euo pipefail
           code="$(curl --silent --location --output /tmp/netlify-private.html --write-out '%{http_code}' --connect-timeout 10 --max-time 30 'https://freedom-book-admin.netlify.app/admin/' || true)"
           echo "Netlify anonymous HTTP $code"
+          if [ "$code" = "401" ] || [ "$code" = "403" ]; then
+            exit 0
+          fi
           grep -Eqi 'This site is private|Sign in to Netlify|invited Netlify account' /tmp/netlify-private.html
           ! grep -q 'Freedom Control Center · V2' /tmp/netlify-private.html
 
