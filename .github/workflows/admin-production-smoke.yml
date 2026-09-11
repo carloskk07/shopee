@@ -20,97 +20,62 @@ jobs:
       - name: Checkout approved main
         uses: actions/checkout@v5
 
-      - name: Wait for exact admin release
+      - name: Build exact private admin runtime
         shell: bash
         run: |
           set -euo pipefail
-          base='https://achadostube.com.br/admin'
-          matched=0
+          python3 scripts/build_private_admin.py
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('netlify-admin-dist/admin')
+          rel=json.loads((root/'release.json').read_text())
+          assert rel['schema']=='freedom-admin-release-v1'
+          assert rel['version']=='2.2.0'
+          assert rel['hosting']=='netlify-private'
+          assert rel['access']=='team-sso'
+          assert set(rel['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json','knowledge.json','knowledge-layer.js','runtime-adapter.js'}
+          for path,expected in rel['artifacts'].items():
+              body=(root/path).read_bytes()
+              actual=hashlib.sha256(body).hexdigest()
+              if actual!=expected: raise SystemExit(f'private runtime hash mismatch {path}: {actual} != {expected}')
+              print('OK',path,len(body),actual)
+          idx=(root/'index.html').read_text()
+          assert idx.count('/admin/knowledge-layer.js')==1
+          assert idx.count('/admin/runtime-adapter.js')==1
+          assert idx.index('/admin/runtime-adapter.js') < idx.index('/admin/app.js')
+          adapter=(root/'runtime-adapter.js').read_text()
+          assert 'netlify-private' in adapter and 'team-sso' in adapter
+          assert 'https://achadostube.com.br' in adapter
+          print('Private admin runtime exact')
+          PY
+
+      - name: Wait until public GitHub Pages admin is retired
+        shell: bash
+        run: |
+          set -euo pipefail
+          retired=0
           for attempt in $(seq 1 30); do
-            if curl --fail --silent --show-error --location --connect-timeout 10 --max-time 20 "$base/release.json?probe=$GITHUB_SHA-$attempt" -o /tmp/admin-release.json; then
-              if cmp -s admin/release.json /tmp/admin-release.json; then matched=1; break; fi
-            fi
+            code_html="$(curl --silent --location --output /tmp/public-admin.html --write-out '%{http_code}' --connect-timeout 10 --max-time 20 "https://achadostube.com.br/admin/?probe=$GITHUB_SHA-$attempt" || true)"
+            code_js="$(curl --silent --location --output /tmp/public-admin.js --write-out '%{http_code}' --connect-timeout 10 --max-time 20 "https://achadostube.com.br/admin/app.js?probe=$GITHUB_SHA-$attempt" || true)"
+            if [ "$code_html" = "404" ] && [ "$code_js" = "404" ]; then retired=1; break; fi
             sleep 20
           done
-          test "$matched" -eq 1
+          test "$retired" -eq 1
 
-      - name: Verify admin V2.2.0 byte parity, Knowledge Layer privacy and Book Publisher safety
+      - name: Verify Netlify anonymous barrier
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          import hashlib,json,pathlib,urllib.request
-          base='https://achadostube.com.br/admin/'
-          release=json.loads(pathlib.Path('admin/release.json').read_text())
-          assert release['schema']=='freedom-admin-release-v1'
-          assert release.get('version')=='2.2.0'
-          assert set(release['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json','knowledge.json','knowledge-layer.js'}
-          for path,expected in release['artifacts'].items():
-              req=urllib.request.Request(base+path,headers={'User-Agent':'FreedomAdmin-Smoke/2.2.0'})
-              with urllib.request.urlopen(req,timeout=45) as r: body=r.read()
-              actual=hashlib.sha256(body).hexdigest()
-              if actual!=expected: raise SystemExit(f'admin hash mismatch {path}: {actual} != {expected}')
-              print('OK',path,len(body),actual)
-          PY
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/' -o /tmp/admin.html
-          grep -q 'Freedom Control Center · V2' /tmp/admin.html
-          grep -q 'noindex,nofollow,noarchive,nosnippet' /tmp/admin.html
-          grep -q 'Content-Security-Policy' /tmp/admin.html
-          grep -q 'commandDialog' /tmp/admin.html
-          grep -q 'bookPublisherDialog' /tmp/admin.html
-          grep -q '/admin/book-publisher.js' /tmp/admin.html
-          grep -q '/admin/knowledge-layer.js' /tmp/admin.html
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/app.js' -o /tmp/admin.js
-          grep -q 'opportunityEngine' /tmp/admin.js
-          grep -q 'experimentModel' /tmp/admin.js
-          grep -q 'freedom-change-set-v2' /tmp/admin.js
-          grep -q 'CI_CURRENT_RELEASE' /tmp/admin.js
-          grep -q 'NOT_LOADED' /tmp/admin.js
-          grep -q 'historicalFailed' /tmp/admin.js
-          grep -q 'operationalReadiness' /tmp/admin.js
-          grep -q 'optionalRuns' /tmp/admin.js
-          grep -q 'binaryStaged' /tmp/admin.js
-          grep -q '__FCC_PUBLISHER_API__' /tmp/admin.js
-          grep -q '/git/refs' /tmp/admin.js
-          grep -q '/git/trees' /tmp/admin.js
-          grep -q '/pulls' /tmp/admin.js
-          ! grep -q 'localStorage' /tmp/admin.js
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/book-publisher.js' -o /tmp/book-publisher.js
-          grep -q 'stageBook' /tmp/book-publisher.js
-          grep -q '%PDF-' /tmp/book-publisher.js
-          grep -q 'image/webp' /tmp/book-publisher.js
-          grep -q 'routeManifestWithBook' /tmp/book-publisher.js
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/knowledge.json' -o /tmp/knowledge.json
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/knowledge-layer.js' -o /tmp/knowledge-layer.js
-          grep -q 'freedom-knowledge-layer-v1' /tmp/knowledge.json
-          grep -q 'PRIVATE_SESSION_ONLY' /tmp/knowledge.json
-          grep -q '__FCC_KNOWLEDGE_LAYER__' /tmp/knowledge-layer.js
-          ! grep -Eq '"(clicks|impressions|ctr|position|topQueries|topPages|queryPageRelationships)"[[:space:]]*:' /tmp/knowledge.json
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/admin/control-plane.json' -o /tmp/control-plane.json
-          python3 - <<'PY'
-          import json
-          cp=json.load(open('/tmp/control-plane.json',encoding='utf-8'))
-          assert cp['schema']=='freedom-control-plane-v2'
-          assert cp['version']=='2.2.0'
-          assert cp['publishing']['directMainWrites'] is False
-          assert '.github/' in cp['security']['blockedPrefixes']
-          assert cp['experiments']
-          quality=cp['quality']
-          assert quality['scoreModel']=='technical-normalized-v1'
-          assert quality['searchEvidenceScoring'] is False
-          assert quality['historicalRunsScoring'] is False
-          required=quality['requiredWorkflows']; optional=quality['optionalWorkflows']
-          assert 'Production smoke' in required and 'pages build and deployment' in required
-          assert 'Route integrity' in optional and 'Route production smoke' in optional
-          assert 'Route integrity' not in required and 'Route production smoke' not in required
-          knowledge=cp['knowledge']
-          assert knowledge['enabled'] is True
-          assert knowledge['schema']=='freedom-knowledge-layer-v1'
-          assert knowledge['privateSearchEvidence']=='session-only'
-          assert knowledge['repositoryPersistence'] is False
-          book=cp['bookPublishing']
-          assert book['enabled'] is True
-          assert book['binaryPersistence']=='memory-only'
-          assert book['bundleFiles'] <= cp['publishing']['maxFilesPerChangeSet']
-          print('Control plane V2.2 Knowledge Layer privacy + path-aware quality + Book Publisher policy verified')
-          PY
+          code="$(curl --silent --location --output /tmp/netlify-private.html --write-out '%{http_code}' --connect-timeout 10 --max-time 30 'https://freedom-book-admin.netlify.app/admin/' || true)"
+          echo "Netlify anonymous HTTP $code"
+          grep -Eqi 'This site is private|Sign in to Netlify|invited Netlify account' /tmp/netlify-private.html
+          ! grep -q 'Freedom Control Center · V2' /tmp/netlify-private.html
+
+      - name: Verify public site remains healthy
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location 'https://achadostube.com.br/' -o /tmp/home.html
+          grep -q 'Freedom Book' /tmp/home.html
+          curl --fail --silent --show-error --location 'https://achadostube.com.br/release.json' -o /tmp/public-release.json
+          cmp -s release.json /tmp/public-release.json
