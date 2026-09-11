@@ -46,26 +46,32 @@ assert(robots.warnings.length>0,'dangerous robots warning');
 const broken=t.validateContent('config.json','{"x":');
 assert(broken.errors.length>0,'invalid JSON blocker');
 
-const requiredQualityRuns=['Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke','Route production smoke','pages build and deployment'];
-t.state.cp={version:'2.1.1',quality:{requiredWorkflows:requiredQualityRuns,searchEvidenceScoring:false,historicalRunsScoring:false}};
+const requiredQualityRuns=['Site integrity','Admin integrity','Production smoke','Admin production smoke','pages build and deployment'];
+const optionalQualityRuns=['Route integrity','Route production smoke'];
+t.state.cp={version:'2.1.2',quality:{requiredWorkflows:requiredQualityRuns,optionalWorkflows:optionalQualityRuns,searchEvidenceScoring:false,historicalRunsScoring:false}};
 t.state.release={artifacts:{'index.html':'x'}};t.state.prodRelease={artifacts:{'index.html':'x'}};
 t.state.siteData={books:[{slug:'a',title:'A',available:true}],guides:Array.from({length:6},(_,i)=>({slug:`g${i}`,title:`G${i}`}))};
 t.state.monetization={support:{url:'https://livepix.gg/editorafreedombook'},affiliates:{enabled:false,offers:[]},premium:{enabled:false,offers:[]}};
-t.state.adminRelease={schema:'freedom-admin-release-v1',version:'2.1.1'};t.state.commits=[{sha:'current-sha'}];
+t.state.adminRelease={schema:'freedom-admin-release-v1',version:'2.1.2'};t.state.commits=[{sha:'current-sha'}];
 t.state.runs=[{name:'obsolete builder',head_branch:'main',head_sha:'old-sha',status:'completed',conclusion:'failure'},...requiredQualityRuns.map(name=>({name,head_branch:'main',head_sha:'current-sha',status:'completed',conclusion:'success'}))];
 t.state.gsc.current=null;t.state.gsc.baseline=null;
 let qm=t.qualityModel();
 assert(qm.score===100,'historical CI failures must not reduce current technical health');
 assert(qm.failed.length===0,'historical failures must not appear as current release failures');
 assert(qm.historicalFailed.length===1,'historical failure remains auditable');
+assert(qm.missingRuns.length===0,'conditional route workflows must not be required on admin-only commits');
+assert(qm.optionalRuns.length===0,'absent route workflows remain conditional');
 assert(qm.gates.find(g=>g.name==='SEARCH_EVIDENCE').status==='NOT_LOADED','missing GSC must be NOT_LOADED');
 assert(qm.gates.find(g=>g.name==='SEARCH_EVIDENCE').scorable===false,'missing GSC must not reduce technical score');
 assert(qm.operationalReadiness==='READY','green current release should be READY without GSC import');
+t.state.runs.push({name:'Route integrity',head_branch:'main',head_sha:'current-sha',status:'completed',conclusion:'failure'});qm=t.qualityModel();
+assert(qm.failed.length===1&&qm.gates.find(g=>g.name==='CI_CURRENT_RELEASE').status==='FAIL','conditional workflow must fail CI gate if it runs and fails');
+t.state.runs=t.state.runs.filter(r=>r.name!=='Route integrity');
 t.state.runs=t.state.runs.map(r=>r.name==='Site integrity'&&r.head_sha==='current-sha'?{...r,conclusion:'failure'}:r);qm=t.qualityModel();
-assert(qm.score<100&&qm.failed.length===1,'current release CI failure must reduce technical health');
+assert(qm.score<100&&qm.failed.length===1,'required current release CI failure must reduce technical health');
 assert(qm.gates.find(g=>g.name==='CI_CURRENT_RELEASE').status==='FAIL','current release CI failure must fail CI gate');
 
-console.log('PASS: Freedom Control Center V2.1.1 quality semantics regression suite');
+console.log('PASS: Freedom Control Center V2.1.2 path-aware quality workflow regression suite');
 
 
 global.__FCC_TEST_MODE__=true;

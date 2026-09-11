@@ -2,12 +2,12 @@
   "schema": "freedom-admin-release-v1",
   "surface": "/admin/",
   "publishedFrom": "main",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "artifacts": {
     "index.html": "4573de2efff0a98bddf787db7a979e9d1e7d212a0248902532739fec902e6bdb",
     "style.css": "2f80eeb4e7233d9b1e7876009b0d6b297573c00311526ffa5e015af71b456591",
-    "app.js": "2209a193364ef2f4bd33cdc4d79c1024251f58c38ef20cc9a461194e2e86c47f",
-    "control-plane.json": "17de7595ad76fcbe24ebae943d37b2e26ca41fe9d8387a194ea7a696dfc6da96",
+    "app.js": "94b2c483af98fca7204dc82884736589ffc446f58f7c1ae1ae307839a7315cae",
+    "control-plane.json": "c60ee78f80f695db92cebe737b98032e1bd81bceed090e715bab5758bbd2551f",
     "book-publisher.js": "178c0bdabce76a8a02d57d4417683dff6ac24fd2a6f78f2694812386d023be91"
   }
 }
