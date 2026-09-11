@@ -33,20 +33,21 @@ jobs:
           assert rel['version']=='2.2.0'
           assert rel['hosting']=='netlify-private'
           assert rel['access']=='team-sso'
-          assert set(rel['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json','knowledge.json','knowledge-layer.js','runtime-adapter.js'}
+          assert set(rel['artifacts'])=={'index.html','style.css','app.js','book-publisher.js','control-plane.json','knowledge.json','knowledge-layer.js','operational-brain.js','runtime-adapter.js'}
+          assert 'operational-brain' in rel['capabilities']
           for path,expected in rel['artifacts'].items():
-              body=(root/path).read_bytes()
-              actual=hashlib.sha256(body).hexdigest()
+              body=(root/path).read_bytes(); actual=hashlib.sha256(body).hexdigest()
               if actual!=expected: raise SystemExit(f'private runtime hash mismatch {path}: {actual} != {expected}')
               print('OK',path,len(body),actual)
           idx=(root/'index.html').read_text()
           assert idx.count('/admin/knowledge-layer.js')==1
           assert idx.count('/admin/runtime-adapter.js')==1
+          assert idx.count('/admin/operational-brain.js')==1
           assert idx.index('/admin/runtime-adapter.js') < idx.index('/admin/app.js')
-          adapter=(root/'runtime-adapter.js').read_text()
-          assert 'netlify-private' in adapter and 'team-sso' in adapter
-          assert 'https://achadostube.com.br' in adapter
-          print('Private admin runtime exact')
+          app=(root/'app.js').read_text(); brain=(root/'operational-brain.js').read_text()
+          assert '/api/github/publish' in app and '__FCC_SERVER_GITHUB_READY__' in app
+          assert '/api/brain/evaluate' in brain and '/api/gsc/data' in brain
+          print('Private admin runtime + Operational Brain exact')
           PY
 
       - name: Wait until public GitHub Pages admin is retired
@@ -62,17 +63,19 @@ jobs:
           done
           test "$retired" -eq 1
 
-      - name: Verify Netlify anonymous barrier
+      - name: Verify Netlify anonymous barrier including backend
         shell: bash
         run: |
           set -euo pipefail
-          code="$(curl --silent --location --output /tmp/netlify-private.html --write-out '%{http_code}' --connect-timeout 10 --max-time 30 'https://freedom-book-admin.netlify.app/admin/' || true)"
-          echo "Netlify anonymous HTTP $code"
-          if [ "$code" = "401" ] || [ "$code" = "403" ]; then
-            exit 0
-          fi
-          grep -Eqi 'This site is private|Sign in to Netlify|invited Netlify account' /tmp/netlify-private.html
-          ! grep -q 'Freedom Control Center · V2' /tmp/netlify-private.html
+          for url in 'https://freedom-book-admin.netlify.app/admin/' 'https://freedom-book-admin.netlify.app/api/brain/status' 'https://freedom-book-admin.netlify.app/api/audit'; do
+            code="$(curl --silent --location --output /tmp/netlify-private.html --write-out '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || true)"
+            echo "$url -> HTTP $code"
+            if [ "$code" = "401" ] || [ "$code" = "403" ]; then
+              continue
+            fi
+            grep -Eqi 'This site is private|Sign in to Netlify|invited Netlify account' /tmp/netlify-private.html
+            ! grep -q 'Freedom Control Center · V2' /tmp/netlify-private.html
+          done
 
       - name: Verify public site remains healthy
         shell: bash
