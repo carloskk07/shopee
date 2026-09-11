@@ -76,6 +76,14 @@ if knowledge.get('repositoryPersistence') is not False: fail('private Search Con
 for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','PRIVATE_SESSION_ONLY','knowledgeNav'):
     if marker not in knowledge_js: fail(f'knowledge runtime contract missing: {marker}')
 
+knowledge=cp.get('knowledge',{})
+if knowledge.get('enabled') is not True: fail('knowledge layer must be enabled')
+if knowledge.get('schema')!='freedom-knowledge-layer-v1': fail('knowledge schema policy drift')
+if knowledge.get('privateSearchEvidence')!='session-only': fail('private Search Console evidence must remain session-only')
+if knowledge.get('repositoryPersistence') is not False: fail('private Search Console evidence cannot persist in repository')
+for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','PRIVATE_SESSION_ONLY','knowledgeNav'):
+    if marker not in knowledge_js: fail(f'knowledge runtime contract missing: {marker}')
+
 seo=cp.get('seo',{})
 if seo.get('ctrOpportunity',{}).get('minImpressions') != 30: fail('CTR evidence threshold drift')
 if seo.get('strikingDistance',{}).get('minImpressions') != 20: fail('striking-distance evidence threshold drift')
