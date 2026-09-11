@@ -1,7 +1,6 @@
 {
   "name": "freedom-book-control-center",
   "private": true,
-  "type": "module",
   "engines": {
     "node": ">=20"
   },
