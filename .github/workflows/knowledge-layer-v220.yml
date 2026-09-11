@@ -40,12 +40,12 @@ jobs:
           node scripts/test-route-recovery.cjs
           python3 scripts/generate-route-shims.py --check
 
-      - name: Commit validated Knowledge Layer
+      - name: Commit validated product files
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add admin/index.html admin/control-plane.json admin/release.json admin/knowledge.json admin/knowledge-layer.js scripts/validate_admin.py scripts/validate_knowledge.py .github/workflows/admin-integrity.yml .github/workflows/admin-production-smoke.yml
+          git add admin/index.html admin/control-plane.json admin/release.json admin/knowledge.json admin/knowledge-layer.js scripts/validate_admin.py scripts/validate_knowledge.py
           git commit -m "feat: integrar Knowledge Layer V2.2"
           git push origin HEAD:admin/knowledge-layer-v2.2
