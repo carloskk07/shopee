@@ -23,13 +23,41 @@ jobs:
 
       - name: Validate Freedom Control Center V2.2.0
         run: |
-          python3 -m py_compile scripts/validate_admin.py scripts/validate_knowledge.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
+          python3 -m py_compile scripts/validate_admin.py scripts/validate_knowledge.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py scripts/build_private_admin.py
           python3 scripts/validate_admin.py
           python3 scripts/validate_knowledge.py
           node --check admin/app.js
           node --check admin/book-publisher.js
           node --check admin/knowledge-layer.js
           node scripts/test_admin_v2.js
+
+      - name: Validate private Netlify runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/build_private_admin.py
+          test -f netlify-admin-dist/admin/runtime-adapter.js
+          test -f netlify-admin-dist/admin/release.json
+          test -f netlify-admin-dist/release.json
+          grep -q "netlify-private" netlify-admin-dist/admin/runtime-adapter.js
+          grep -q "team-sso" netlify-admin-dist/admin/runtime-adapter.js
+          test "$(grep -c '/admin/knowledge-layer.js' netlify-admin-dist/admin/index.html)" -eq 1
+          test "$(grep -c '/admin/runtime-adapter.js' netlify-admin-dist/admin/index.html)" -eq 1
+          cmp -s release.json netlify-admin-dist/release.json
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('netlify-admin-dist/admin')
+          rel=json.loads((root/'release.json').read_text())
+          assert rel['schema']=='freedom-admin-release-v1'
+          assert rel['version']=='2.2.0'
+          assert rel['hosting']=='netlify-private'
+          assert rel['access']=='team-sso'
+          assert 'runtime-adapter.js' in rel['artifacts']
+          for name,expected in rel['artifacts'].items():
+              actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
+              assert actual==expected,(name,actual,expected)
+          print('Private runtime release exact')
+          PY
 
       - name: Enforce admin isolation and budgets
         shell: bash
@@ -67,8 +95,11 @@ jobs:
           grep -q 'stageBook' admin/book-publisher.js
           grep -q '%PDF-' admin/book-publisher.js
           grep -q 'image/webp' admin/book-publisher.js
+          grep -q '^exclude:' _config.yml
+          grep -q '  - admin' _config.yml
+          grep -q 'scripts/build_private_admin.py' netlify.toml
           ! grep -q '/admin' sitemap.xml
-          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py scripts/validate_knowledge.py
+          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py scripts/validate_knowledge.py scripts/build_private_admin.py
           ! grep -Rq 'localStorage' admin
           ! grep -Rq 'document.cookie' admin
           ! grep -Rq 'googletagmanager.com' admin
@@ -86,6 +117,6 @@ jobs:
             git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
-            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims|build_private_admin)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$|^netlify\.toml$|^_config\.yml$)' || true)"
             test -z "$bad" || { echo "Control Center V2.2.0 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi
