@@ -55,7 +55,7 @@ if '@media(max-width:760px)' not in css: fail('mobile contract missing')
 if '--sidebar' not in css or '.command-dialog' not in css or '.seo-opportunity' not in css: fail('V2 UI contracts missing')
 
 if cp.get('schema')!='freedom-control-plane-v2': fail('bad control plane schema')
-if cp.get('version')!='2.1.0': fail('unexpected control plane version')
+if cp.get('version')!='2.1.1': fail('unexpected control plane version')
 if cp.get('repository')!='carloskk07/shopee' or cp.get('ownerLogin')!='carloskk07': fail('control plane repository authority drift')
 pub=cp.get('publishing',{})
 if pub.get('directMainWrites') is not False: fail('direct main writes must remain false')
@@ -69,6 +69,16 @@ if '.html' not in sec.get('editableExtensions',[]) or '.json' not in sec.get('ed
 seo=cp.get('seo',{})
 if seo.get('ctrOpportunity',{}).get('minImpressions') != 30: fail('CTR evidence threshold drift')
 if seo.get('strikingDistance',{}).get('minImpressions') != 20: fail('striking-distance evidence threshold drift')
+
+quality=cp.get('quality',{})
+required_runs=quality.get('requiredWorkflows',[])
+if quality.get('searchEvidenceScoring') is not False: fail('Search evidence must not reduce technical health score')
+if quality.get('historicalRunsScoring') is not False: fail('Historical runs must not reduce current release health')
+for name in ('Site integrity','Admin integrity','Route integrity','Production smoke','Admin production smoke'):
+    if name not in required_runs: fail(f'quality current-release workflow missing: {name}')
+for marker in ('CI_CURRENT_RELEASE','NOT_LOADED','historicalFailed','operationalReadiness','technicalHealth'):
+    if marker not in js: fail(f'quality semantics runtime missing: {marker}')
+
 experiments=cp.get('experiments',[])
 if not experiments: fail('V2 must carry at least the currently active causal experiment')
 for exp in experiments:
@@ -100,4 +110,4 @@ if '/admin' in sitemap: fail('admin must not enter sitemap')
 robots=read('robots.txt')
 if not robots.strip(): fail('robots.txt unexpectedly empty')
 
-print('PASS: Freedom Control Center V2.1 adds a memory-only Book Publisher with binary-safe PR staging while preserving policy, SEO and release contracts')
+print('PASS: Freedom Control Center V2.1.1 separates current technical health from historical CI and optional GSC evidence while preserving Book Publisher and release contracts')
