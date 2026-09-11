@@ -15,18 +15,23 @@ data=json.loads(P.read_text(encoding='utf-8'))
 if data.get('schema')!='freedom-knowledge-layer-v1': fail('knowledge schema')
 if data.get('classification')!='PUBLIC_OPERATIONAL': fail('knowledge classification')
 if data.get('adminVersion')!='2.2.0': fail('admin version mismatch')
-if data.get('version')!='1.1.0': fail('knowledge version mismatch')
+if data.get('version')!='1.2.0': fail('knowledge version mismatch')
 pe=data.get('privateEvidence',{}).get('searchConsole',{})
 if pe.get('classification')!='PRIVATE_NETLIFY_BLOBS': fail('GSC private classification')
 if pe.get('repositoryPersistence') is not False: fail('GSC repository persistence must be false')
 if pe.get('browserPersistence')!='sessionStorage hydration only': fail('GSC browser hydration contract')
 if 'Netlify Blobs' not in pe.get('privateServerPersistence',''): fail('GSC private server persistence contract')
-ledger=data.get('privateEvidence',{}).get('decisionLedger',{})
-if ledger.get('classification')!='PRIVATE_NETLIFY_BLOBS': fail('decision ledger private classification')
-if ledger.get('repositoryPersistence') is not False: fail('decision ledger repository persistence must be false')
+decision=data.get('privateEvidence',{}).get('decisionLedger',{})
+if decision.get('classification')!='PRIVATE_NETLIFY_BLOBS': fail('decision ledger private classification')
+if decision.get('repositoryPersistence') is not False: fail('decision ledger repository persistence must be false')
+money=data.get('privateEvidence',{}).get('monetizationLedger',{})
+if money.get('classification')!='PRIVATE_NETLIFY_BLOBS': fail('monetization ledger private classification')
+if money.get('repositoryPersistence') is not False: fail('monetization ledger repository persistence must be false')
+if money.get('currencyPolicy')!='NO_IMPLICIT_FX_CONVERSION': fail('monetization FX truth contract drift')
+if data.get('monetization',{}).get('missingRevenueSemantics')!='UNKNOWN_NOT_ZERO': fail('missing revenue semantics drift')
 
-# Public operational knowledge may describe policy, but never carry raw private metrics or OAuth material.
-forbidden_keys={'clicks','impressions','ctr','position','topQueries','topPages','queryPageRelationships','risingKeywords','fallingKeywords','refreshToken','accessToken','clientSecret'}
+# Public operational knowledge may describe policy, but never carry raw private metrics, financial rows or OAuth material.
+forbidden_keys={'clicks','impressions','ctr','position','topQueries','topPages','queryPageRelationships','risingKeywords','fallingKeywords','refreshToken','accessToken','clientSecret','amount','revenueRecords'}
 def walk(v,path='root'):
     if isinstance(v,dict):
         for k,x in v.items():
@@ -46,4 +51,4 @@ for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','Decision 
 
 html=I.read_text(encoding='utf-8')
 if '/admin/knowledge-layer.js' not in html: fail('knowledge layer script not loaded by admin index')
-print('PASS: Freedom Knowledge Layer public/private boundary matches private Netlify GSC snapshots and decision ledger without leaking metrics or secrets')
+print('PASS: Freedom Knowledge Layer keeps GSC, decision and monetization evidence private while publishing only operational policy')

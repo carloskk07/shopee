@@ -53,14 +53,22 @@ def main() -> None:
     DIST_ADMIN.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(SRC_ADMIN, DIST_ADMIN)
     shutil.copy2(ROOT / "release.json", DIST / "release.json")
+    shutil.copy2(ROOT / "monetization.json", DIST / "monetization.json")
+    shutil.copy2(ROOT / "site-data.generated.json", DIST / "site-data.generated.json")
 
     index_path = DIST_ADMIN / "index.html"
     index = index_path.read_text(encoding="utf-8")
     index = re.sub(r"\n\s*<script src=\"/admin/knowledge-layer\.js\" defer></script>", "", index)
     app_tag = '  <script src="/admin/app.js" defer></script>'
     if app_tag not in index:
-        raise SystemExit("admin app script marker not found")
-    index = index.replace(app_tag, '  <script src="/admin/runtime-adapter.js" defer></script>\n' + app_tag + '\n  <script src="/admin/operational-brain.js" defer></script>', 1)
+        raise SystemExit("admin app script marker missing")
+    private_scripts = (
+        '  <script src="/admin/runtime-adapter.js" defer></script>\n'
+        + app_tag
+        + '\n  <script src="/admin/operational-brain.js" defer></script>'
+        + '\n  <script src="/admin/monetization-intelligence.js" defer></script>'
+    )
+    index = index.replace(app_tag, private_scripts, 1)
     index = index.replace("</body>", '  <script src="/admin/knowledge-layer.js" defer></script>\n</body>', 1)
     index_path.write_text(index, encoding="utf-8")
     (DIST_ADMIN / "runtime-adapter.js").write_text(PRIVATE_RUNTIME_ADAPTER, encoding="utf-8")
@@ -88,7 +96,8 @@ def main() -> None:
     source_release = json.loads((SRC_ADMIN / "release.json").read_text(encoding="utf-8"))
     artifact_names = [
         "index.html", "style.css", "app.js", "book-publisher.js", "control-plane.json",
-        "knowledge.json", "knowledge-layer.js", "operational-brain.js", "runtime-adapter.js",
+        "knowledge.json", "knowledge-layer.js", "operational-brain.js", "monetization-intelligence.js",
+        "runtime-adapter.js",
     ]
     runtime_release = {
         "schema": source_release["schema"],
@@ -102,6 +111,8 @@ def main() -> None:
             "closed-loop-decisions",
             "causal-experiment-windows",
             "decision-ledger",
+            "monetization-intelligence",
+            "private-monetization-ledger",
             "audit-trail",
             "gsc-auto-ready",
             "github-server-publish-ready"
@@ -123,12 +134,21 @@ def main() -> None:
         raise SystemExit("knowledge layer script count must be exactly one")
     if built_index.count('/admin/runtime-adapter.js') != 1 or built_index.count('/admin/operational-brain.js') != 1:
         raise SystemExit("private runtime scripts must be loaded exactly once")
+    if built_index.count('/admin/monetization-intelligence.js') != 1:
+        raise SystemExit("monetization intelligence script must be loaded exactly once")
     if built_index.index('/admin/runtime-adapter.js') > built_index.index('/admin/app.js'):
         raise SystemExit("runtime adapter must load before app.js")
+    for public_copy in ('monetization.json','site-data.generated.json'):
+        if not (DIST / public_copy).is_file():
+            raise SystemExit(f"private runtime source copy missing: {public_copy}")
     built_app = app_path.read_text(encoding="utf-8")
     for marker in ('__FCC_SERVER_GITHUB_READY__', '/api/github/publish', 'backend privado', 'freedom-decision-context-v1', 'decisionContext', 'WAITING_FINALIZED_GSC'):
         if marker not in built_app:
             raise SystemExit(f"private runtime app patch missing: {marker}")
+    money_js = (DIST_ADMIN / "monetization-intelligence.js").read_text(encoding="utf-8")
+    for marker in ('Monetization Intelligence V2','/api/monetization/ledger','SEM REGISTROS','ACQUISITION_FIRST','MONETIZATION_GAP'):
+        if marker not in money_js:
+            raise SystemExit(f"private monetization runtime marker missing: {marker}")
     print(f"Private admin runtime built: {len(artifact_names)} artifacts")
 
 

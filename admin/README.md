@@ -6,9 +6,10 @@ Console operacional privado da Freedom Book. O site editorial continua em GitHub
 
 - **PR only:** nenhuma escrita direta em `main`.
 - **Human approved:** o Cérebro pode calcular, preparar e acompanhar decisões, mas não faz auto-merge nem mutação direta de produção.
-- **Private by default:** interface, GSC, decision ledger, audit trail e backend administrativo ficam atrás do acesso da equipe Netlify.
-- **Policy as code:** `control-plane.json` define escopo, caminhos bloqueados, budgets, thresholds SEO, objetivos, guardrails e experimentos ativos.
+- **Private by default:** interface, GSC, decision ledger, monetization ledger, audit trail e backend administrativo ficam atrás do acesso da equipe Netlify.
+- **Policy as code:** `control-plane.json` define escopo, caminhos bloqueados, budgets, thresholds SEO, objetivos, guardrails, experimentos e política de monetização.
 - **Evidence first:** decisões usam release, CI, Search Console finalizado, experimentos, inventário e histórico; ausência de evidência não é tratada como falha técnica.
+- **Economic truth:** demanda orgânica, interação consentida e receita confirmada são fontes distintas; tráfego nunca é convertido automaticamente em receita estimada.
 - **Causalidade temporal:** um experimento só entra em janela de decisão quando o GSC finalizado alcança a data mínima, usando comparação pré/pós de mesmo tamanho.
 - **Release truth:** alterações editoriais atualizam SHA-256 no `release.json`; o runtime privado também gera release criptográfico dos bytes servidos pelo Netlify.
 - **Defense in depth:** Admin Integrity + Admin Production Smoke + Site Integrity + Production Smoke + barreira anônima Netlify.
@@ -19,11 +20,11 @@ Console operacional privado da Freedom Book. O site editorial continua em GitHub
 2. **Conteúdo / Book Publisher** — catálogo, novo livro, capa, PDF e bundle atômico.
 3. **SEO Intelligence** — GSC atual/baseline, tendências, CTR, striking distance, canibalização e PDF × HTML.
 4. **Experimentos** — janela temporal e regra explícita de decisão.
-5. **Monetização** — suporte, afiliados e premium sob guardrails.
+5. **Monetization Intelligence V2** — portfólio SUPPORT/AFFILIATE/KDP/PREMIUM/ADS, triagem orgânica por página e ledger financeiro privado.
 6. **Deploy & Releases** — PRs, runs, hashes e produção.
 7. **Qualidade** — gates técnicos normalizados e diagnóstico exportável.
 8. **Editor seguro / Change Set** — staging, diff, preflight, risco e PR-only.
-9. **Conhecimento** — política operacional versionada sem persistir métricas privadas no repositório público.
+9. **Conhecimento** — política operacional versionada sem persistir métricas privadas ou dados financeiros no repositório público.
 10. **Cérebro operacional V2** — closed-loop decision engine, observabilidade, lifecycle editorial, decision ledger e vínculo experimento → Change Set → PR → observação.
 
 ## Closed-loop Decision Engine
@@ -36,12 +37,25 @@ O motor usa linhas diárias do Search Console para montar uma janela pós-interv
 
 Decisões ficam no **Decision Ledger privado** em Netlify Blobs. Quando `ITERATE` ou `REVERT` prepara uma mudança, o contexto causal é mantido em `sessionStorage` apenas durante a sessão e anexado ao PR server-side. O PR recebe um marcador estruturado com `decisionId`, `experimentId`, verdict e fingerprint da evidência, permitindo rastrear o ciclo sem colocar métricas do GSC no GitHub.
 
+## Monetization Intelligence V2
+
+A monetização usa três autoridades separadas:
+
+`GSC finalizado → demanda`  
+`analytics consentido → interação`  
+`Monetization Ledger privado → receita confirmada`
+
+O painel nunca interpreta ausência de registro financeiro como receita zero e nunca converte moedas implicitamente. Receitas podem ser registradas por SUPPORT, AFFILIATE, KDP, PREMIUM, ADS ou OTHER e anuladas sem apagar o histórico. A triagem por página separa `ACQUISITION_FIRST` (há descoberta, mas ainda não há clique), `MONETIZATION_GAP` (há clique orgânico confirmado sem oferta específica ativa), `MEASURE` e `OBSERVE`.
+
+SUPPORT permanece ativo via LivePix. AFFILIATE, KDP e PREMIUM só podem sair de `DORMANT/READY` quando houver oferta e URL reais; ADS permanece `WAITING_EVIDENCE` até existir escala comprovada, consentimento compatível e decisão explícita. Nenhum novo tracker comercial foi instalado para habilitar o módulo.
+
 ## Backend privado
 
 As Netlify Functions e libs implementam contratos separados:
 
 - **Operational Brain V2:** avaliação determinística, fila causal, observabilidade, lifecycle editorial e reconciliação do decision loop.
 - **Decision Engine / Ledger:** janelas pré/pós equivalentes, gates de GSC finalizado, recomendações e registros privados.
+- **Monetization Ledger:** receita confirmada por canal/moeda/origem, persistência privada em Netlify Blobs e anulação auditável sem delete destrutivo.
 - **Audit trail:** histórico persistente em Netlify Blobs, sem armazenar secrets.
 - **GSC Sync:** coleta privada automática diária via OAuth readonly e persistência do snapshot atual + baseline em Netlify Blobs.
 - **GitHub Server Publish:** criação server-side de PRs para Change Sets textuais e vínculo opcional ao Decision Ledger. O fluxo manual de sessão GitHub permanece como fallback e continua obrigatório para bundles binários de livros.
