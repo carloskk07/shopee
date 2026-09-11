@@ -2,6 +2,31 @@
   "schema": "freedom-book-monetization-v1",
   "enabled": true,
   "strategy": "support-first-progressive-enhancement",
+  "intelligence": {
+    "version": "2.0.0",
+    "demandTruth": "GSC_FINALIZED",
+    "interactionTruth": "CONSENT_GATED_ANALYTICS",
+    "revenueTruth": "PRIVATE_CONFIRMED_LEDGER_ONLY",
+    "missingRevenueSemantics": "UNKNOWN_NOT_ZERO",
+    "currencyPolicy": "NO_IMPLICIT_FX_CONVERSION",
+    "channelStates": [
+      "DORMANT",
+      "READY",
+      "ACTIVE",
+      "PAUSED",
+      "WAITING_EVIDENCE"
+    ]
+  },
+  "measurement": {
+    "publicAnalytics": "consent-gated",
+    "trackedClicks": [
+      "support_open",
+      "affiliate_open",
+      "premium_open"
+    ],
+    "privateRevenueLedger": "netlify-blobs",
+    "repositoryPersistence": false
+  },
   "support": {
     "enabled": true,
     "provider": "LivePix",
@@ -30,6 +55,18 @@
     "disclosure": "Alguns links de recursos podem ser afiliados. Se você comprar por eles, a Freedom Book pode receber uma comissão sem custo adicional para você.",
     "offers": [],
     "activationRule": "Ativar somente com URL afiliada real, recomendação editorial original e aderência direta ao conteúdo da página."
+  },
+  "kdp": {
+    "enabled": false,
+    "offers": [],
+    "publicDelivery": "DORMANT_UNTIL_VERIFIED_AMAZON_URL",
+    "activationRule": "Ativar por livro e marketplace somente depois de existir URL Amazon/KDP real e verificada; nunca inventar ASIN, preço, disponibilidade ou royalties."
+  },
+  "ads": {
+    "enabled": false,
+    "provider": "",
+    "publicDelivery": "WAITING_EVIDENCE",
+    "activationRule": "Publicidade exige escala comprovada, impacto de UX/performance avaliado, política de consentimento compatível e decisão explícita antes de qualquer script de terceiro."
   },
   "guardrails": {
     "progressiveEnhancement": true,
