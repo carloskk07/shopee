@@ -2,5 +2,9 @@
   command = "python3 scripts/build_private_admin.py"
   publish = "netlify-admin-dist"
 
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   PYTHON_VERSION = "3.13"
+  NODE_VERSION = "22"
