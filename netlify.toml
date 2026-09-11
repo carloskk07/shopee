@@ -1,0 +1,6 @@
+[build]
+  command = "python3 scripts/build_private_admin.py"
+  publish = "netlify-admin-dist"
+
+[build.environment]
+  PYTHON_VERSION = "3.13"
