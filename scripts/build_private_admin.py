@@ -65,8 +65,7 @@ def main() -> None:
     index_path.write_text(index, encoding="utf-8")
     (DIST_ADMIN / "runtime-adapter.js").write_text(PRIVATE_RUNTIME_ADAPTER, encoding="utf-8")
 
-    # Private-only patch: prefer the server-side GitHub publisher for textual Change Sets.
-    # Decision context stays in sessionStorage and is attached only to the private PR request/body.
+    # Private-only patches: server-side publishing and strict experiment timing.
     app_path = DIST_ADMIN / "app.js"
     app = app_path.read_text(encoding="utf-8")
     app = replace_once(app,
@@ -77,6 +76,9 @@ def main() -> None:
         "async function showPublish(){if(!state.token)return showSession();",
         "async function showPublish(){if(!state.token&&!window.__FCC_SERVER_GITHUB_READY__)return showSession();",
         "showPublish server readiness")
+    old_exp = "    const today=new Date(),min=new Date(`${exp.minimumDecisionDate}T12:00:00`),dateReady=today>=min;const dataEnd=latestDatasetDate(state.gsc.current);const evidenceReady=!!dataEnd&&dataEnd>=exp.startedAt;\n    let status='WAITING_DATA';if(dateReady&&evidenceReady&&cs.imp>=10)status='DECISION_WINDOW';else if(evidenceReady)status='OBSERVING';"
+    new_exp = "    const today=new Date(),min=new Date(`${exp.minimumDecisionDate}T12:00:00`),dateReady=today>=min;const dataEnd=latestDatasetDate(state.gsc.current);const evidenceReady=!!dataEnd&&dataEnd>=exp.startedAt;const finalizedDecisionReady=!!dataEnd&&dataEnd>=exp.minimumDecisionDate;\n    let status='WAITING_DATA';if(dateReady&&!finalizedDecisionReady)status='WAITING_FINALIZED_GSC';else if(finalizedDecisionReady&&cs.imp>=10)status='DECISION_WINDOW';else if(evidenceReady)status='OBSERVING';"
+    app = replace_once(app, old_exp, new_exp, "experiment finalized GSC gate")
     app = replace_once(app,
         "if(!state.token)throw new Error('Sessão expirada');const files=await preparedFiles();if(files.size>",
         "const files=await preparedFiles();if(window.__FCC_SERVER_GITHUB_READY__&&!state.token){if([...files.values()].some(x=>x.encoding==='base64'))throw new Error('Publicação server-side ainda não aceita binários; conecte uma sessão GitHub para publicar livros.');const decisionContext=(()=>{try{return JSON.parse(sessionStorage.getItem('freedom-decision-context-v1')||'null')}catch(_){return null}})();const rsp=await fetch('/api/github/publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,summary,files:[...files.values()].map(x=>({path:x.path,content:x.content,encoding:x.encoding||'utf-8'})),branchPrefix:config().publishing?.branchPrefix||'control-center/',decisionContext})});const out=await rsp.json().catch(()=>({}));if(!rsp.ok)throw new Error(out.error||`Backend GitHub ${rsp.status}`);sessionStorage.removeItem('freedom-decision-context-v1');clearStaged();$('#publishDialog').close();toast(`PR #${out.number} criado pelo backend privado`);openUrl(out.html_url);await sleep(900);await loadAll();setView('deploy');return;}if(!state.token)throw new Error('Sessão expirada');if(files.size>",
@@ -124,7 +126,7 @@ def main() -> None:
     if built_index.index('/admin/runtime-adapter.js') > built_index.index('/admin/app.js'):
         raise SystemExit("runtime adapter must load before app.js")
     built_app = app_path.read_text(encoding="utf-8")
-    for marker in ('__FCC_SERVER_GITHUB_READY__', '/api/github/publish', 'backend privado', 'freedom-decision-context-v1', 'decisionContext'):
+    for marker in ('__FCC_SERVER_GITHUB_READY__', '/api/github/publish', 'backend privado', 'freedom-decision-context-v1', 'decisionContext', 'WAITING_FINALIZED_GSC'):
         if marker not in built_app:
             raise SystemExit(f"private runtime app patch missing: {marker}")
     print(f"Private admin runtime built: {len(artifact_names)} artifacts")
