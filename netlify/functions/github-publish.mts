@@ -1,4 +1,5 @@
 import { appendAudit } from '../lib/audit.mts';
+import { linkDecisionPr } from '../lib/decision-engine.mts';
 
 const REPO='carloskk07/shopee';
 const API='https://api.github.com/repos/'+REPO;
@@ -18,6 +19,11 @@ async function gh(path:string,opts:any={}){
   return j;
 }
 function slug(s:string){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,38)||'update'}
+function cleanDecisionContext(value:any){
+  if(!value||typeof value!=='object')return null;
+  const out={decisionId:String(value.decisionId||'').slice(0,80),experimentId:String(value.experimentId||'').slice(0,120),verdict:String(value.verdict||'').slice(0,20),evidenceFingerprint:String(value.evidenceFingerprint||'').slice(0,80),targetPath:String(value.targetPath||'').slice(0,240)};
+  return out.decisionId&&out.experimentId?out:null;
+}
 
 export default async (req:Request)=>{
   if(req.method!=='POST')return new Response('Method not allowed',{status:405});
@@ -26,7 +32,7 @@ export default async (req:Request)=>{
   if(origin&&origin!==new URL(req.url).origin)return Response.json({error:'Origin rejeitada'},{status:403});
   try{
     const body=await req.json();
-    const title=String(body.title||'').trim(), summary=String(body.summary||'').trim(), files=Array.isArray(body.files)?body.files:[];
+    const title=String(body.title||'').trim(), summary=String(body.summary||'').trim(), files=Array.isArray(body.files)?body.files:[], decision=cleanDecisionContext(body.decisionContext);
     if(title.length<4||title.length>90||summary.length<8||summary.length>1200)throw new Error('Título ou resumo inválido');
     if(!files.length||files.length>13)throw new Error('Change Set fora do limite server-side');
     let bytes=0;
@@ -45,12 +51,14 @@ export default async (req:Request)=>{
     const tree=[];
     for(const f of files){const blob=await gh('/git/blobs',{method:'POST',body:JSON.stringify({content:f.content,encoding:'utf-8'})});tree.push({path:f.path,mode:'100644',type:'blob',sha:blob.sha})}
     const newTree=await gh('/git/trees',{method:'POST',body:JSON.stringify({base_tree:baseTree,tree})});
-    const prBody=`${summary}\n\nChange Set criado pelo Freedom Control Center via backend privado Netlify.\n\nArquivos:\n${files.map((f:any)=>`- \`${f.path}\``).join('\n')}\n\nGuardrails: PR-only · main protegida · backend privado.`;
+    const decisionBlock=decision?`\n\nDecision loop:\n- Decision ID: \`${decision.decisionId}\`\n- Experiment: \`${decision.experimentId}\`\n- Verdict: \`${decision.verdict||'—'}\`\n- Evidence: \`${decision.evidenceFingerprint||'—'}\`\n\n<!-- FCC_DECISION_CONTEXT ${JSON.stringify(decision)} -->`:'';
+    const prBody=`${summary}\n\nChange Set criado pelo Freedom Control Center via backend privado Netlify.${decisionBlock}\n\nArquivos:\n${files.map((f:any)=>`- \`${f.path}\``).join('\n')}\n\nGuardrails: PR-only · main protegida · backend privado · sem auto-merge.`;
     const newCommit=await gh('/git/commits',{method:'POST',body:JSON.stringify({message:title,tree:newTree.sha,parents:[baseSha]})});
     await gh(`/git/refs/heads/${branch.split('/').map(encodeURIComponent).join('/')}`,{method:'PATCH',body:JSON.stringify({sha:newCommit.sha,force:false})});
     const pr=await gh('/pulls',{method:'POST',body:JSON.stringify({title,head:branch,base:'main',body:prBody})});
-    await appendAudit('github_pr_created',{number:pr.number,branch,files:files.map((f:any)=>f.path),baseSha});
-    return Response.json({ok:true,number:pr.number,html_url:pr.html_url,branch,baseSha});
+    if(decision)await linkDecisionPr(decision,{number:pr.number,html_url:pr.html_url,branch,baseSha}).catch(()=>null);
+    await appendAudit('github_pr_created',{number:pr.number,branch,files:files.map((f:any)=>f.path),baseSha,decisionId:decision?.decisionId||null,experimentId:decision?.experimentId||null});
+    return Response.json({ok:true,number:pr.number,html_url:pr.html_url,branch,baseSha,decisionId:decision?.decisionId||null});
   }catch(e:any){
     await appendAudit('github_publish_failed',{error:e?.message||String(e)}).catch(()=>{});
     return Response.json({error:e?.message||String(e)},{status:400});

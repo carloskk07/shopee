@@ -45,6 +45,8 @@ jobs:
           grep -q "team-sso" netlify-admin-dist/admin/runtime-adapter.js
           grep -q '/api/github/publish' netlify-admin-dist/admin/app.js
           grep -q '__FCC_SERVER_GITHUB_READY__' netlify-admin-dist/admin/app.js
+          grep -q 'freedom-decision-context-v1' netlify-admin-dist/admin/app.js
+          grep -q 'WAITING_FINALIZED_GSC' netlify-admin-dist/admin/app.js
           test "$(grep -c '/admin/knowledge-layer.js' netlify-admin-dist/admin/index.html)" -eq 1
           test "$(grep -c '/admin/runtime-adapter.js' netlify-admin-dist/admin/index.html)" -eq 1
           test "$(grep -c '/admin/operational-brain.js' netlify-admin-dist/admin/index.html)" -eq 1
@@ -57,7 +59,8 @@ jobs:
           assert rel['version']=='2.2.0'
           assert rel['hosting']=='netlify-private'
           assert rel['access']=='team-sso'
-          assert 'operational-brain' in rel['capabilities']
+          for cap in ('operational-brain','closed-loop-decisions','causal-experiment-windows','decision-ledger','audit-trail','gsc-auto-ready','github-server-publish-ready'):
+              assert cap in rel['capabilities'],cap
           assert {'runtime-adapter.js','operational-brain.js'} <= set(rel['artifacts'])
           for name,expected in rel['artifacts'].items():
               actual=hashlib.sha256((root/name).read_bytes()).hexdigest()
@@ -72,6 +75,7 @@ jobs:
           test -f package.json
           test -f netlify/functions/brain-status.mts
           test -f netlify/functions/brain-evaluate.mts
+          test -f netlify/functions/decision-ledger.mts
           test -f netlify/functions/github-publish.mts
           test -f netlify/functions/gsc-data.mts
           test -f netlify/functions/gsc-sync.mts
@@ -79,6 +83,7 @@ jobs:
           test -f netlify/functions/audit.mts
           test -f netlify/lib/audit.mts
           test -f netlify/lib/gsc.mts
+          test -f netlify/lib/decision-engine.mts
           grep -q '@netlify/blobs' package.json
           grep -q 'directory = "netlify/functions"' netlify.toml
           grep -q "schedule:'0 10 \* \* \*'" netlify/functions/gsc-scheduled.mts
@@ -86,6 +91,11 @@ jobs:
           grep -q 'GSC_REFRESH_TOKEN' netlify/lib/gsc.mts
           grep -q 'getStore' netlify/lib/audit.mts
           grep -q 'getDeployStore' netlify/lib/audit.mts
+          grep -q 'getStore' netlify/lib/decision-engine.mts
+          grep -q 'getDeployStore' netlify/lib/decision-engine.mts
+          grep -q 'finalizedDecisionReached' netlify/lib/decision-engine.mts
+          grep -q 'recordDecision' netlify/functions/decision-ledger.mts
+          grep -q 'FCC_DECISION_CONTEXT' netlify/functions/github-publish.mts
           grep -q 'PR-only' netlify/functions/github-publish.mts
           ! grep -RqiE 'github_pat_[A-Za-z0-9_]{10,}|ghp_[A-Za-z0-9]{10,}' netlify admin/operational-brain.js
 
@@ -108,10 +118,15 @@ jobs:
           grep -q 'directMainWrites.*false' admin/control-plane.json
           grep -q 'memory-only' admin/control-plane.json
           grep -q 'technical-normalized-v1' admin/control-plane.json
+          grep -q 'freedom-closed-loop-policy-v1' admin/control-plane.json
+          grep -q 'requireFinalizedDataThroughDecisionDate' admin/control-plane.json
+          grep -q 'netlify-private-blobs' admin/control-plane.json
           grep -q '__FCC_KNOWLEDGE_LAYER__' admin/knowledge-layer.js
           grep -q '__FCC_OPERATIONAL_BRAIN__' admin/operational-brain.js
           grep -q '/api/brain/evaluate' admin/operational-brain.js
           grep -q '/api/gsc/data' admin/operational-brain.js
+          grep -q '/api/decision/ledger' admin/operational-brain.js
+          grep -q 'Operational Brain V2' admin/operational-brain.js
           grep -q 'binaryStaged' admin/app.js
           grep -q '__FCC_PUBLISHER_API__' admin/app.js
           grep -q 'stageBook' admin/book-publisher.js

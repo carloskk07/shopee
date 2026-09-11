@@ -58,11 +58,46 @@
       "secondPageShare": 0.2
     }
   },
+  "decisionPolicy": {
+    "schema": "freedom-closed-loop-policy-v1",
+    "mode": "human-approved",
+    "objectives": [
+      {
+        "id": "qualified-organic-discovery",
+        "weight": 50,
+        "label": "Descoberta orgânica qualificada"
+      },
+      {
+        "id": "book-discovery",
+        "weight": 30,
+        "label": "Descoberta dos livros e páginas editoriais"
+      },
+      {
+        "id": "conversion-without-dark-patterns",
+        "weight": 20,
+        "label": "Conversão sem padrões artificiais de atenção"
+      }
+    ],
+    "minimumClusterImpressions": 10,
+    "maxConcurrentSeoExperiments": 1,
+    "requireFinalizedDataThroughDecisionDate": true,
+    "requireEqualPrePostWindows": true,
+    "onePrimaryHypothesisPerChangeSet": true,
+    "autoMerge": false,
+    "directProductionMutation": false,
+    "verdicts": [
+      "KEEP",
+      "ITERATE",
+      "REVERT",
+      "INCONCLUSIVE"
+    ]
+  },
   "experiments": [
     {
       "id": "o-peso-html-vs-pdf-2026-09",
       "name": "O Peso — HTML vs PDF",
       "status": "OBSERVING",
+      "objective": "SHIFT_DISCOVERY_TO_HTML_WITHOUT_CLUSTER_HARM",
       "startedAt": "2026-09-09",
       "minimumDecisionDate": "2026-09-16",
       "targetHtml": "https://achadostube.com.br/o-peso-de-ser-forte-o-tempo-todo",
@@ -72,7 +107,14 @@
         "o peso de ser tudo",
         "livro o peso"
       ],
-      "decisionRule": "Preserve attribution until finalized GSC includes the experiment window; prefer the HTML landing if it begins earning title-intent impressions without harming the PDF cluster."
+      "successCriteria": {
+        "minClusterImpressions": 10,
+        "htmlImpressionsMin": 3,
+        "minTrafficRatio": 0.65,
+        "hardTrafficRatio": 0.5,
+        "maxPositionRegression": 2
+      },
+      "decisionRule": "Preserve attribution until finalized GSC includes the full minimum decision date; compare equal pre/post daily windows and prefer the HTML landing only when it earns title-intent impressions without material cluster harm."
     }
   ],
   "bookPublishing": {
@@ -119,7 +161,9 @@
     "schema": "freedom-knowledge-layer-v1",
     "publicArtifact": "admin/knowledge.json",
     "runtime": "admin/knowledge-layer.js",
-    "privateSearchEvidence": "session-only",
+    "privateSearchEvidence": "netlify-private-blobs",
+    "browserHydration": "session-only",
+    "scheduledSync": "daily",
     "repositoryPersistence": false
   }
 }
