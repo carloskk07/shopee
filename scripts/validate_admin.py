@@ -37,19 +37,10 @@ cp=json.loads(read('admin/control-plane.json')); knowledge_json=json.loads(read(
 
 for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/book-publisher.js','/admin/knowledge-layer.js','/admin/style.css','commandDialog','diffDialog','bookPublisherDialog'):
     if marker not in html: fail(f'admin HTML contract missing: {marker}')
-
 combined=html+js+publisher+knowledge_js+brain+css
 for banned in ('googletagmanager.com','analytics.tiktok.com','document.cookie','localStorage','github_pat_'):
     if banned in combined: fail(f'admin unsafe/persistence token: {banned}')
-
-for marker in (
-    'token:null','state.token=token','state.token=null','sessionStorage',
-    '/git/refs','/git/trees','/git/commits','/pulls',
-    'crypto.subtle.digest','preparedFiles','patchReleaseHash','preflight',
-    'freedom-gsc-current-v2','freedom-gsc-baseline-v2','cannibalization',
-    'pdfHtmlConflicts','experimentModel','opportunityEngine','qualityModel',
-    'freedom-change-set-v2','ctrlKey','commandDialog','__FCC_TEST_MODE__'
-):
+for marker in ('token:null','state.token=token','state.token=null','sessionStorage','/git/refs','/git/trees','/git/commits','/pulls','crypto.subtle.digest','preparedFiles','patchReleaseHash','preflight','freedom-gsc-current-v2','freedom-gsc-baseline-v2','cannibalization','pdfHtmlConflicts','experimentModel','opportunityEngine','qualityModel','freedom-change-set-v2','ctrlKey','commandDialog','__FCC_TEST_MODE__'):
     if marker not in js: fail(f'admin V2 runtime contract missing: {marker}')
 if "base:'main'" not in js or "head:branch" not in js: fail('PR-only publication contract missing')
 if '/git/ref/heads/main' not in js: fail('main reference read contract missing')
@@ -73,7 +64,6 @@ for prefix in ('.github/','admin/','.git/'):
     if prefix not in sec.get('blockedPrefixes',[]): fail(f'missing blocked prefix: {prefix}')
 if 'release.json' not in sec.get('blockedFiles',[]): fail('release.json must be generated, not manually edited')
 if '.html' not in sec.get('editableExtensions',[]) or '.json' not in sec.get('editableExtensions',[]): fail('safe text extensions missing')
-
 seo=cp.get('seo',{})
 if seo.get('ctrOpportunity',{}).get('minImpressions') != 30: fail('CTR evidence threshold drift')
 if seo.get('strikingDistance',{}).get('minImpressions') != 20: fail('striking-distance evidence threshold drift')
@@ -88,7 +78,6 @@ if policy.get('onePrimaryHypothesisPerChangeSet') is not True: fail('one-primary
 if int(policy.get('maxConcurrentSeoExperiments',0))!=1: fail('SEO experiment concurrency must remain one')
 if sum(int(x.get('weight',0)) for x in policy.get('objectives',[]))!=100: fail('decision objective weights must total 100')
 if set(policy.get('verdicts',[]))!={'KEEP','ITERATE','REVERT','INCONCLUSIVE'}: fail('decision verdict contract drift')
-
 experiments=cp.get('experiments',[])
 if not experiments: fail('must carry the currently active causal experiment')
 if len([x for x in experiments if x.get('status') in ('OBSERVING','ACTIVE','DECISION_WINDOW')])>int(policy.get('maxConcurrentSeoExperiments',1)): fail('too many concurrent SEO experiments')
@@ -106,8 +95,7 @@ if knowledge.get('privateSearchEvidence')!='netlify-private-blobs': fail('Search
 if knowledge.get('browserHydration')!='session-only': fail('browser GSC hydration must remain session-only')
 if knowledge.get('repositoryPersistence') is not False: fail('private Search Console evidence cannot persist in repository')
 if knowledge_json.get('version')!='1.1.0': fail('knowledge layer version not advanced')
-gsc_contract=knowledge_json.get('privateEvidence',{}).get('searchConsole',{})
-ledger_contract=knowledge_json.get('privateEvidence',{}).get('decisionLedger',{})
+gsc_contract=knowledge_json.get('privateEvidence',{}).get('searchConsole',{}); ledger_contract=knowledge_json.get('privateEvidence',{}).get('decisionLedger',{})
 if gsc_contract.get('classification')!='PRIVATE_NETLIFY_BLOBS' or gsc_contract.get('repositoryPersistence') is not False: fail('knowledge GSC privacy contract drift')
 if ledger_contract.get('classification')!='PRIVATE_NETLIFY_BLOBS' or ledger_contract.get('repositoryPersistence') is not False: fail('knowledge decision ledger privacy contract drift')
 for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','PRIVATE','Decision Ledger','Persistência privada'):
@@ -125,7 +113,7 @@ for marker in ('CI_CURRENT_RELEASE','NOT_LOADED','historicalFailed','operational
 
 for marker in ('Operational Brain V2','Closed Loop','/api/decision/ledger','WAITING_FINALIZED_GSC','Decision ledger','lifecycle editorial','Preparar ITERATE','Preparar REVERT'):
     if marker not in brain: fail(f'Operational Brain V2 contract missing: {marker}')
-for marker in ('evaluateExperiment','finalizedDecisionReached','preStart','postDays','fnv1a32','recordDecision','linkDecisionPr','PRIVATE'):
+for marker in ('evaluateExperiment','finalizedDecisionReached','preStart','postDays','fnv1a32','recordDecision','linkDecisionPr','freedom-control-center-decisions'):
     if marker not in engine: fail(f'decision engine contract missing: {marker}')
 for marker in ('/api/decision/ledger','DECIDE','PREPARE','Janela causal ainda não está elegível'):
     if marker not in ledger_fn and marker not in engine: fail(f'decision ledger function contract missing: {marker}')
@@ -155,9 +143,7 @@ for rel in ('index.html','style.css','app.js','book-publisher.js','control-plane
     if rel not in art: fail(f'admin asset not release-managed: {rel}')
     actual=hashlib.sha256(p.read_bytes()).hexdigest()
     if actual!=art[rel]: fail(f'admin release hash mismatch: {rel}')
-
-sitemap=read('sitemap.xml')
-if '/admin' in sitemap: fail('admin must not enter sitemap')
+if '/admin' in read('sitemap.xml'): fail('admin must not enter sitemap')
 if not read('robots.txt').strip(): fail('robots.txt unexpectedly empty')
 
 print('PASS: Freedom Control Center keeps PR-only publishing and technical health semantics while adding a private closed-loop causal decision engine, equal pre/post windows, finalized-GSC gates, decision ledger, PR linkage, observability and accurate private-evidence documentation')
