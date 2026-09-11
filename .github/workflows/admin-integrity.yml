@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Validate Freedom Control Center V2.1.1
+      - name: Validate Freedom Control Center V2.1.2
         run: |
           python3 -m py_compile scripts/validate_admin.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
           python3 scripts/validate_admin.py
@@ -42,16 +42,18 @@ jobs:
           grep -q 'bookPublisherDialog' admin/index.html
           grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
           grep -q 'freedom-control-plane-v2' admin/control-plane.json
-          grep -q '"version": "2.1.1"' admin/control-plane.json
+          grep -q '"version": "2.1.2"' admin/control-plane.json
           grep -q 'directMainWrites.*false' admin/control-plane.json
           grep -q 'memory-only' admin/control-plane.json
           grep -q 'technical-normalized-v1' admin/control-plane.json
           grep -q 'searchEvidenceScoring.*false' admin/control-plane.json
           grep -q 'historicalRunsScoring.*false' admin/control-plane.json
+          grep -q 'optionalWorkflows' admin/control-plane.json
           grep -q 'CI_CURRENT_RELEASE' admin/app.js
           grep -q 'NOT_LOADED' admin/app.js
           grep -q 'historicalFailed' admin/app.js
           grep -q 'operationalReadiness' admin/app.js
+          grep -q 'optionalRuns' admin/app.js
           grep -q 'binaryStaged' admin/app.js
           grep -q '__FCC_PUBLISHER_API__' admin/app.js
           grep -q 'stageBook' admin/book-publisher.js
@@ -65,7 +67,7 @@ jobs:
           ! grep -Rq 'analytics.tiktok.com' admin
           ! grep -Rq 'NEXT_PUBLIC_' admin
 
-      - name: Verify scoped V2.1.1 mutation contract
+      - name: Verify scoped V2.1.2 mutation contract
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -77,5 +79,5 @@ jobs:
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
             bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|test_admin_v2|validate_site|validate_seo|generate-route-shims)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
-            test -z "$bad" || { echo "Control Center V2.1.1 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
+            test -z "$bad" || { echo "Control Center V2.1.2 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi
