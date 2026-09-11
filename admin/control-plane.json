@@ -92,6 +92,26 @@
       "INCONCLUSIVE"
     ]
   },
+  "monetizationPolicy": {
+    "schema": "freedom-monetization-intelligence-policy-v1",
+    "mode": "human-approved-progressive",
+    "demandAuthority": "gsc-finalized",
+    "interactionAuthority": "consent-gated-analytics",
+    "revenueAuthority": "netlify-private-ledger",
+    "missingRevenueSemantics": "UNKNOWN_NOT_ZERO",
+    "noImplicitFxConversion": true,
+    "acquisitionFirstWhenNoClicks": true,
+    "maxActiveSpecificOffersPerPage": 1,
+    "autoChannelActivation": false,
+    "adsRequireExplicitApproval": true,
+    "channels": [
+      "SUPPORT",
+      "AFFILIATE",
+      "KDP",
+      "PREMIUM",
+      "ADS"
+    ]
+  },
   "experiments": [
     {
       "id": "o-peso-html-vs-pdf-2026-09",
