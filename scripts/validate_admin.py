@@ -123,7 +123,7 @@ for name in ('Route integrity','Route production smoke'):
 for marker in ('CI_CURRENT_RELEASE','NOT_LOADED','historicalFailed','operationalReadiness','technicalHealth'):
     if marker not in js: fail(f'quality semantics runtime missing: {marker}')
 
-for marker in ('Operational Brain V2','Closed Loop','/api/decision/ledger','WAITING_FINALIZED_GSC','Decision ledger','Lifecycle editorial','Preparar ITERATE','Preparar REVERT'):
+for marker in ('Operational Brain V2','Closed Loop','/api/decision/ledger','WAITING_FINALIZED_GSC','Decision ledger','lifecycle editorial','Preparar ITERATE','Preparar REVERT'):
     if marker not in brain: fail(f'Operational Brain V2 contract missing: {marker}')
 for marker in ('evaluateExperiment','finalizedDecisionReached','preStart','postDays','fnv1a32','recordDecision','linkDecisionPr','PRIVATE'):
     if marker not in engine: fail(f'decision engine contract missing: {marker}')
