@@ -1,0 +1,49 @@
+name: Quality workflow scope v2.1.2
+
+on:
+  push:
+    branches: [admin/quality-workflow-scope-v2.1.2]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Apply path-aware quality patch
+        run: python3 tmp/patch_quality_v212.py
+
+      - name: Validate complete product
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/validate_admin.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
+          python3 scripts/validate_admin.py
+          node --check admin/app.js
+          node --check admin/book-publisher.js
+          node scripts/test_admin_v2.js
+          python3 scripts/release_hashes.py --changed-only
+          python3 scripts/validate_site.py
+          python3 scripts/validate_seo.py
+          python3 scripts/validate_guides.py
+          python3 scripts/test_seo_intelligence.py
+          node scripts/test-route-recovery.cjs
+          python3 scripts/generate-route-shims.py --check
+
+      - name: Commit validated scope model
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add admin/app.js admin/control-plane.json admin/release.json scripts/test_admin_v2.js scripts/validate_admin.py
+          git commit -m "fix: tornar workflows de qualidade path-aware"
+          git push origin HEAD:admin/quality-workflow-scope-v2.1.2
