@@ -161,7 +161,9 @@
     "schema": "freedom-knowledge-layer-v1",
     "publicArtifact": "admin/knowledge.json",
     "runtime": "admin/knowledge-layer.js",
-    "privateSearchEvidence": "session-only",
+    "privateSearchEvidence": "netlify-private-blobs",
+    "browserHydration": "session-only",
+    "scheduledSync": "daily",
     "repositoryPersistence": false
   }
 }
