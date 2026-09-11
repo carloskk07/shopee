@@ -1,0 +1,110 @@
+{
+  "schema": "freedom-knowledge-layer-v1",
+  "version": "1.0.0",
+  "adminVersion": "2.2.0",
+  "updatedAt": "2026-09-10",
+  "classification": "PUBLIC_OPERATIONAL",
+  "identity": {
+    "site": "https://achadostube.com.br",
+    "brand": "Freedom Book",
+    "author": "Arthur Magnus",
+    "repository": "carloskk07/shopee",
+    "productionBranch": "main",
+    "hosting": "GitHub Pages"
+  },
+  "operatingModel": {
+    "sourceOfTruth": "GitHub main + release.json",
+    "publishing": "branch -> Pull Request -> CI -> squash -> GitHub Pages -> Production Smoke",
+    "directMainWrites": false,
+    "releaseAuthority": "SHA-256",
+    "mobileFirst": true
+  },
+  "priorityPolicy": [
+    {
+      "rank": 1,
+      "name": "Striking distance",
+      "rule": "Priorizar páginas e consultas com evidência real próximas da primeira página antes de criar novas URLs."
+    },
+    {
+      "rank": 2,
+      "name": "CTR na primeira página",
+      "rule": "Quando uma página já aparece bem posicionada e tem CTR baixo, melhorar intenção, título e snippet antes de expandir arquitetura."
+    },
+    {
+      "rank": 3,
+      "name": "Crescimento comprovado",
+      "rule": "Direcionar esforço para clusters que estejam acelerando em dados finalizados."
+    },
+    {
+      "rank": 4,
+      "name": "Canibalização real",
+      "rule": "Intervir somente quando duas ou mais URLs dividirem demanda de forma mensurável."
+    },
+    {
+      "rank": 5,
+      "name": "Nova URL sob evidência",
+      "rule": "Criar conteúdo novo somente quando a intenção for distinta e sustentada por demanda suficiente."
+    }
+  ],
+  "currentFocus": {
+    "id": "o-peso-html-vs-pdf-2026-09",
+    "name": "O Peso — HTML vs PDF",
+    "status": "OBSERVING",
+    "startedAt": "2026-09-09",
+    "minimumDecisionDate": "2026-09-16",
+    "rule": "Preservar atribuição causal até dados finalizados cobrirem a janela do experimento; evitar alteração SEO substantiva prematura."
+  },
+  "capabilities": [
+    "Dashboard executivo e Quality Score por release atual",
+    "Book Publisher com capa, PDF, landing, catálogo, sitemap, feed e rota",
+    "Change Set com preflight e publicação PR-only",
+    "SEO Intelligence com comparação atual versus baseline quando evidência privada é carregada",
+    "Experiment Control com janela mínima de decisão",
+    "Monetização support-first com LivePix e afiliados desativados até URLs verificadas",
+    "Release hashes, CI, Production Smoke e diagnóstico exportável"
+  ],
+  "guardrails": [
+    "Não inventar URL de afiliado, identificador comercial ou receita.",
+    "Não publicar dados privados do Search Console no repositório público.",
+    "Não considerar ausência de GSC na sessão como falha técnica.",
+    "Não alterar main diretamente pelo Control Center.",
+    "Não criar novas páginas SEO em massa ou por consulta isolada.",
+    "Não quebrar acesso gratuito ao PDF para forçar monetização.",
+    "Não instalar AdSense ou scripts de terceiros sem credenciais e decisão explícita."
+  ],
+  "monetization": {
+    "supportProvider": "LivePix",
+    "supportUrl": "https://livepix.gg/editorafreedombook",
+    "premium": "DORMANT_UNTIL_REAL_OFFER",
+    "affiliates": "DORMANT_UNTIL_VERIFIED_URLS",
+    "ads": "NOT_INSTALLED"
+  },
+  "privateEvidence": {
+    "searchConsole": {
+      "classification": "PRIVATE_SESSION_ONLY",
+      "repositoryPersistence": false,
+      "browserPersistence": "sessionStorage only",
+      "expectedSource": "Google Search Console authorized connection or user import",
+      "finalizationDelay": "approximately three days",
+      "rule": "Raw queries, pages and performance metrics must never be embedded in knowledge.json or committed to the public repository."
+    }
+  },
+  "sourcePolicy": [
+    {
+      "source": "GitHub + production artifacts",
+      "trust": "AUTHORITATIVE",
+      "use": "release, deploy, content inventory, CI, configuration"
+    },
+    {
+      "source": "Google Search Console",
+      "trust": "AUTHORITATIVE_PRIVATE",
+      "use": "search performance and SEO opportunity evidence",
+      "persistence": "session-only"
+    },
+    {
+      "source": "Freedom operational knowledge",
+      "trust": "CURATED",
+      "use": "priorities, guardrails and experiment policy"
+    }
+  ]
+}

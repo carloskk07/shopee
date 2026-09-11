@@ -21,12 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Validate Freedom Control Center V2.1.2
+      - name: Validate Freedom Control Center V2.2.0
         run: |
-          python3 -m py_compile scripts/validate_admin.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
+          python3 -m py_compile scripts/validate_admin.py scripts/validate_knowledge.py scripts/validate_site.py scripts/validate_seo.py scripts/generate-route-shims.py
           python3 scripts/validate_admin.py
+          python3 scripts/validate_knowledge.py
           node --check admin/app.js
           node --check admin/book-publisher.js
+          node --check admin/knowledge-layer.js
           node scripts/test_admin_v2.js
 
       - name: Enforce admin isolation and budgets
@@ -37,18 +39,24 @@ jobs:
           test "$(stat -c%s admin/style.css)" -lt 42000
           test "$(stat -c%s admin/app.js)" -lt 90000
           test "$(stat -c%s admin/book-publisher.js)" -lt 50000
-          test "$(stat -c%s admin/control-plane.json)" -lt 14000
+          test "$(stat -c%s admin/control-plane.json)" -lt 16000
+          test "$(stat -c%s admin/knowledge.json)" -lt 18000
+          test "$(stat -c%s admin/knowledge-layer.js)" -lt 18000
           grep -q 'Freedom Control Center · V2' admin/index.html
           grep -q 'bookPublisherDialog' admin/index.html
           grep -q 'noindex,nofollow,noarchive,nosnippet' admin/index.html
+          grep -q '/admin/knowledge-layer.js' admin/index.html
           grep -q 'freedom-control-plane-v2' admin/control-plane.json
-          grep -q '"version": "2.1.2"' admin/control-plane.json
+          grep -q '"version": "2.2.0"' admin/control-plane.json
           grep -q 'directMainWrites.*false' admin/control-plane.json
           grep -q 'memory-only' admin/control-plane.json
           grep -q 'technical-normalized-v1' admin/control-plane.json
           grep -q 'searchEvidenceScoring.*false' admin/control-plane.json
           grep -q 'historicalRunsScoring.*false' admin/control-plane.json
           grep -q 'optionalWorkflows' admin/control-plane.json
+          grep -q 'freedom-knowledge-layer-v1' admin/knowledge.json
+          grep -q 'PRIVATE_SESSION_ONLY' admin/knowledge.json
+          grep -q '__FCC_KNOWLEDGE_LAYER__' admin/knowledge-layer.js
           grep -q 'CI_CURRENT_RELEASE' admin/app.js
           grep -q 'NOT_LOADED' admin/app.js
           grep -q 'historicalFailed' admin/app.js
@@ -60,14 +68,14 @@ jobs:
           grep -q '%PDF-' admin/book-publisher.js
           grep -q 'image/webp' admin/book-publisher.js
           ! grep -q '/admin' sitemap.xml
-          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py
+          ! grep -Rqi 'github_pat_' admin scripts/validate_admin.py scripts/validate_knowledge.py
           ! grep -Rq 'localStorage' admin
           ! grep -Rq 'document.cookie' admin
           ! grep -Rq 'googletagmanager.com' admin
           ! grep -Rq 'analytics.tiktok.com' admin
           ! grep -Rq 'NEXT_PUBLIC_' admin
 
-      - name: Verify scoped V2.1.2 mutation contract
+      - name: Verify scoped V2.2.0 mutation contract
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -78,6 +86,6 @@ jobs:
             git fetch --no-tags --depth=1 origin "$BASE_SHA" "$HEAD_SHA"
             changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")"
             echo "$changed"
-            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|test_admin_v2|validate_site|validate_seo|generate-route-shims)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
-            test -z "$bad" || { echo "Control Center V2.1.2 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
+            bad="$(printf '%s\n' "$changed" | grep -Ev '(^admin/|^scripts/(validate_admin|validate_knowledge|test_admin_v2|validate_site|validate_seo|generate-route-shims)\.(py|js)$|^\.github/workflows/admin-(integrity|production-smoke)\.yml$)' || true)"
+            test -z "$bad" || { echo "Control Center V2.2.0 touched files outside its approved dependency surface:"; echo "$bad"; exit 1; }
           fi

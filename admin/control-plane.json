@@ -1,6 +1,6 @@
 {
   "schema": "freedom-control-plane-v2",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "site": "https://achadostube.com.br",
   "repository": "carloskk07/shopee",
   "ownerLogin": "carloskk07",
@@ -113,5 +113,13 @@
       "Route integrity",
       "Route production smoke"
     ]
+  },
+  "knowledge": {
+    "enabled": true,
+    "schema": "freedom-knowledge-layer-v1",
+    "publicArtifact": "admin/knowledge.json",
+    "runtime": "admin/knowledge-layer.js",
+    "privateSearchEvidence": "session-only",
+    "repositoryPersistence": false
   }
 }
