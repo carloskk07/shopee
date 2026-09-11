@@ -85,11 +85,20 @@ jobs:
             ! grep -q 'Freedom Control Center · V2' /tmp/netlify-private.html
           done
 
-      - name: Verify public site remains healthy
+      - name: Wait for exact public release and verify site health
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/' -o /tmp/home.html
-          grep -q 'Freedom Book' /tmp/home.html
-          curl --fail --silent --show-error --location 'https://achadostube.com.br/release.json' -o /tmp/public-release.json
-          cmp -s release.json /tmp/public-release.json
+          exact=0
+          for attempt in $(seq 1 30); do
+            curl --fail --silent --show-error --location "https://achadostube.com.br/?probe=$GITHUB_SHA-$attempt" -o /tmp/home.html || true
+            curl --fail --silent --show-error --location "https://achadostube.com.br/release.json?probe=$GITHUB_SHA-$attempt" -o /tmp/public-release.json || true
+            if grep -q 'Freedom Book' /tmp/home.html 2>/dev/null && cmp -s release.json /tmp/public-release.json; then
+              exact=1
+              echo "Public release exact on attempt $attempt"
+              break
+            fi
+            echo "Waiting for GitHub Pages release propagation: attempt $attempt"
+            sleep 10
+          done
+          test "$exact" -eq 1
