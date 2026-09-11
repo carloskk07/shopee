@@ -17,11 +17,14 @@ required={
     'admin/knowledge.json':1800,
     'admin/knowledge-layer.js':1800,
     'admin/operational-brain.js':6000,
+    'admin/monetization-intelligence.js':7000,
     'admin/release.json':100,
     'admin/README.md':500,
     'scripts/test_admin_v2.js':500,
     'netlify/lib/decision-engine.mts':4000,
+    'netlify/lib/monetization-ledger.mts':1800,
     'netlify/functions/decision-ledger.mts':1200,
+    'netlify/functions/monetization-ledger.mts':2200,
     'netlify/functions/brain-evaluate.mts':5000,
     'netlify/functions/brain-status.mts':1200,
     'netlify/functions/github-publish.mts':3000,
@@ -31,13 +34,13 @@ for rel,minimum in required.items():
     p=ROOT/rel
     if not p.is_file() or p.stat().st_size<minimum: fail(f'missing/undersized admin asset: {rel}')
 
-html=read('admin/index.html'); js=read('admin/app.js'); publisher=read('admin/book-publisher.js'); knowledge_js=read('admin/knowledge-layer.js'); brain=read('admin/operational-brain.js'); css=read('admin/style.css')
-engine=read('netlify/lib/decision-engine.mts'); ledger_fn=read('netlify/functions/decision-ledger.mts'); brain_fn=read('netlify/functions/brain-evaluate.mts'); status_fn=read('netlify/functions/brain-status.mts'); publish_fn=read('netlify/functions/github-publish.mts'); private_builder=read('scripts/build_private_admin.py')
+html=read('admin/index.html'); js=read('admin/app.js'); publisher=read('admin/book-publisher.js'); knowledge_js=read('admin/knowledge-layer.js'); brain=read('admin/operational-brain.js'); money_js=read('admin/monetization-intelligence.js'); css=read('admin/style.css')
+engine=read('netlify/lib/decision-engine.mts'); money_lib=read('netlify/lib/monetization-ledger.mts'); ledger_fn=read('netlify/functions/decision-ledger.mts'); money_fn=read('netlify/functions/monetization-ledger.mts'); brain_fn=read('netlify/functions/brain-evaluate.mts'); status_fn=read('netlify/functions/brain-status.mts'); publish_fn=read('netlify/functions/github-publish.mts'); private_builder=read('scripts/build_private_admin.py')
 cp=json.loads(read('admin/control-plane.json')); knowledge_json=json.loads(read('admin/knowledge.json')); release=json.loads(read('admin/release.json'))
 
 for marker in ('Freedom Control Center · V2','noindex,nofollow,noarchive,nosnippet','Content-Security-Policy','/admin/app.js','/admin/book-publisher.js','/admin/knowledge-layer.js','/admin/style.css','commandDialog','diffDialog','bookPublisherDialog'):
     if marker not in html: fail(f'admin HTML contract missing: {marker}')
-combined=html+js+publisher+knowledge_js+brain+css
+combined=html+js+publisher+knowledge_js+brain+money_js+css
 for banned in ('googletagmanager.com','analytics.tiktok.com','document.cookie','localStorage','github_pat_'):
     if banned in combined: fail(f'admin unsafe/persistence token: {banned}')
 for marker in ('token:null','state.token=token','state.token=null','sessionStorage','/git/refs','/git/trees','/git/commits','/pulls','crypto.subtle.digest','preparedFiles','patchReleaseHash','preflight','freedom-gsc-current-v2','freedom-gsc-baseline-v2','cannibalization','pdfHtmlConflicts','experimentModel','opportunityEngine','qualityModel','freedom-change-set-v2','ctrlKey','commandDialog','__FCC_TEST_MODE__'):
@@ -78,6 +81,19 @@ if policy.get('onePrimaryHypothesisPerChangeSet') is not True: fail('one-primary
 if int(policy.get('maxConcurrentSeoExperiments',0))!=1: fail('SEO experiment concurrency must remain one')
 if sum(int(x.get('weight',0)) for x in policy.get('objectives',[]))!=100: fail('decision objective weights must total 100')
 if set(policy.get('verdicts',[]))!={'KEEP','ITERATE','REVERT','INCONCLUSIVE'}: fail('decision verdict contract drift')
+
+money_policy=cp.get('monetizationPolicy',{})
+if money_policy.get('schema')!='freedom-monetization-intelligence-policy-v1': fail('monetization intelligence policy missing')
+if money_policy.get('mode')!='human-approved-progressive': fail('monetization must remain human-approved')
+if money_policy.get('demandAuthority')!='gsc-finalized': fail('monetization demand authority drift')
+if money_policy.get('revenueAuthority')!='netlify-private-ledger': fail('monetization revenue authority drift')
+if money_policy.get('missingRevenueSemantics')!='UNKNOWN_NOT_ZERO': fail('missing revenue semantics drift')
+if money_policy.get('noImplicitFxConversion') is not True: fail('implicit FX conversion forbidden')
+if money_policy.get('acquisitionFirstWhenNoClicks') is not True: fail('acquisition-first guard missing')
+if int(money_policy.get('maxActiveSpecificOffersPerPage',0))!=1: fail('specific offer concurrency drift')
+if money_policy.get('autoChannelActivation') is not False or money_policy.get('adsRequireExplicitApproval') is not True: fail('commercial auto-activation forbidden')
+if set(money_policy.get('channels',[]))!={'SUPPORT','AFFILIATE','KDP','PREMIUM','ADS'}: fail('monetization channel portfolio drift')
+
 experiments=cp.get('experiments',[])
 if not experiments: fail('must carry the currently active causal experiment')
 if len([x for x in experiments if x.get('status') in ('OBSERVING','ACTIVE','DECISION_WINDOW')])>int(policy.get('maxConcurrentSeoExperiments',1)): fail('too many concurrent SEO experiments')
@@ -94,10 +110,11 @@ if knowledge.get('enabled') is not True or knowledge.get('schema')!='freedom-kno
 if knowledge.get('privateSearchEvidence')!='netlify-private-blobs': fail('Search Console evidence must reflect private Netlify persistence')
 if knowledge.get('browserHydration')!='session-only': fail('browser GSC hydration must remain session-only')
 if knowledge.get('repositoryPersistence') is not False: fail('private Search Console evidence cannot persist in repository')
-if knowledge_json.get('version')!='1.1.0': fail('knowledge layer version not advanced')
-gsc_contract=knowledge_json.get('privateEvidence',{}).get('searchConsole',{}); ledger_contract=knowledge_json.get('privateEvidence',{}).get('decisionLedger',{})
+if knowledge_json.get('version')!='1.2.0': fail('knowledge layer version not advanced')
+gsc_contract=knowledge_json.get('privateEvidence',{}).get('searchConsole',{}); ledger_contract=knowledge_json.get('privateEvidence',{}).get('decisionLedger',{}); money_contract=knowledge_json.get('privateEvidence',{}).get('monetizationLedger',{})
 if gsc_contract.get('classification')!='PRIVATE_NETLIFY_BLOBS' or gsc_contract.get('repositoryPersistence') is not False: fail('knowledge GSC privacy contract drift')
 if ledger_contract.get('classification')!='PRIVATE_NETLIFY_BLOBS' or ledger_contract.get('repositoryPersistence') is not False: fail('knowledge decision ledger privacy contract drift')
+if money_contract.get('classification')!='PRIVATE_NETLIFY_BLOBS' or money_contract.get('repositoryPersistence') is not False: fail('knowledge monetization ledger privacy contract drift')
 for marker in ('freedom-knowledge-layer-v1','__FCC_KNOWLEDGE_LAYER__','PRIVATE','Decision Ledger','Persistência privada'):
     if marker not in knowledge_js: fail(f'knowledge runtime contract missing: {marker}')
 
@@ -113,8 +130,14 @@ for marker in ('CI_CURRENT_RELEASE','NOT_LOADED','historicalFailed','operational
 
 for marker in ('Operational Brain V2','Closed Loop','/api/decision/ledger','WAITING_FINALIZED_GSC','Decision ledger','lifecycle editorial','Preparar ITERATE','Preparar REVERT'):
     if marker not in brain: fail(f'Operational Brain V2 contract missing: {marker}')
+for marker in ('Monetization Intelligence V2','PRIVATE ECONOMIC LAYER','/api/monetization/ledger','ACQUISITION_FIRST','MONETIZATION_GAP','SEM REGISTROS','Registrar receita'):
+    if marker not in money_js: fail(f'Monetization Intelligence runtime missing: {marker}')
 for marker in ('evaluateExperiment','finalizedDecisionReached','preStart','postDays','fnv1a32','recordDecision','linkDecisionPr','freedom-control-center-decisions'):
     if marker not in engine: fail(f'decision engine contract missing: {marker}')
+for marker in ('freedom-monetization-ledger','getStore','getDeployStore','summarizeMonetization','voidedAt'):
+    if marker not in money_lib: fail(f'monetization ledger storage contract missing: {marker}')
+for marker in ('/api/monetization/ledger','RECORD','VOID','sameOrigin','monetization_revenue_recorded'):
+    if marker not in money_fn: fail(f'monetization ledger API contract missing: {marker}')
 for marker in ('/api/decision/ledger','DECIDE','PREPARE','Janela causal ainda não está elegível'):
     if marker not in ledger_fn and marker not in engine: fail(f'decision ledger function contract missing: {marker}')
 for marker in ('freedom-operational-brain-v2','decisionLoop','observability','WAITING_FINALIZED_GSC','inventoryModel','readDecisionLedger'):
@@ -123,8 +146,8 @@ for marker in ('freedom-operational-brain-status-v2','dataLagDays','decisionLoop
     if marker not in status_fn: fail(f'brain status V2 contract missing: {marker}')
 for marker in ('FCC_DECISION_CONTEXT','decisionContext','linkDecisionPr','sem auto-merge'):
     if marker not in publish_fn: fail(f'GitHub decision linkage contract missing: {marker}')
-for marker in ('freedom-decision-context-v1','WAITING_FINALIZED_GSC','closed-loop-decisions','causal-experiment-windows','decision-ledger'):
-    if marker not in private_builder: fail(f'private build closed-loop contract missing: {marker}')
+for marker in ('freedom-decision-context-v1','WAITING_FINALIZED_GSC','closed-loop-decisions','causal-experiment-windows','decision-ledger','monetization-intelligence','private-monetization-ledger','site-data.generated.json'):
+    if marker not in private_builder: fail(f'private build advanced contract missing: {marker}')
 
 book=cp.get('bookPublishing',{})
 if book.get('enabled') is not True: fail('Book Publisher must be enabled')
@@ -146,4 +169,4 @@ for rel in ('index.html','style.css','app.js','book-publisher.js','control-plane
 if '/admin' in read('sitemap.xml'): fail('admin must not enter sitemap')
 if not read('robots.txt').strip(): fail('robots.txt unexpectedly empty')
 
-print('PASS: Freedom Control Center keeps PR-only publishing and technical health semantics while adding a private closed-loop causal decision engine, equal pre/post windows, finalized-GSC gates, decision ledger, PR linkage, observability and accurate private-evidence documentation')
+print('PASS: Freedom Control Center preserves PR-only closed-loop decisions while adding private Monetization Intelligence with finalized demand, consented interactions, confirmed revenue truth, multi-channel policy and financial auditability')
