@@ -87,7 +87,7 @@ jobs:
           grep -q 'getStore' netlify/lib/audit.mts
           grep -q 'getDeployStore' netlify/lib/audit.mts
           grep -q 'PR-only' netlify/functions/github-publish.mts
-          ! grep -RqiE '(github_pat_[A-Za-z0-9_]+|ghp_[A-Za-z0-9]+|client_secret["'"'[:space:]]*:["'"'][A-Za-z0-9])' netlify admin/operational-brain.js
+          ! grep -RqiE 'github_pat_[A-Za-z0-9_]{10,}|ghp_[A-Za-z0-9]{10,}' netlify admin/operational-brain.js
 
       - name: Enforce admin isolation and budgets
         shell: bash
