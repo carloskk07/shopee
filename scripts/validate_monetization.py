@@ -51,4 +51,9 @@ for rel in artifacts:
         editorial+=1
         if html.count('/assets/monetization.v1.js')!=1: fail(f'monetization loader count invalid: {rel}')
 if editorial<10: fail(f'unexpectedly small monetizable editorial surface: {editorial}')
+backend=(ROOT/'netlify/functions/monetization-ledger.mts').read_text(encoding='utf-8')
+for required in ('Date.UTC(year,month-1,day)','d.getUTCFullYear()!==year','d.getUTCMonth()!==month-1','d.getUTCDate()!==day','/^[A-Z]{3}$/.test(x)','const curr=currency(body.currency'):
+    if required not in backend: fail(f'monetization backend validation contract missing: {required}')
+for forbidden in ("replace(/[^A-Z]/g,'').slice(0,3)","new Date(`${v}T00:00:00Z`).getTime()"):
+    if forbidden in backend: fail(f'monetization backend must not silently normalize invalid input: {forbidden}')
 print(f'PASS: Monetization Intelligence uses finalized demand, consented interactions and private confirmed revenue while commercial channels remain safely dormant on {editorial} editorial pages')
