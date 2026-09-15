@@ -6,14 +6,22 @@ function sameOrigin(req:Request){
   return !origin||origin===new URL(req.url).origin;
 }
 function validDate(v:string){
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;
-  const t=new Date(`${v}T00:00:00Z`).getTime();
-  const floor=new Date('2020-01-01T00:00:00Z').getTime();
-  return Number.isFinite(t)&&t>=floor&&t<=Date.now()+86400000;
+  const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+  if(!m)return false;
+  const year=Number(m[1]),month=Number(m[2]),day=Number(m[3]);
+  const t=Date.UTC(year,month-1,day), d=new Date(t);
+  if(d.getUTCFullYear()!==year||d.getUTCMonth()!==month-1||d.getUTCDate()!==day)return false;
+  const floor=Date.UTC(2020,0,1);
+  const now=new Date(), today=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
+  return t>=floor&&t<=today+86400000;
 }
 function channel(v:any):MonetizationChannel|null{
   const x=String(v||'').toUpperCase() as MonetizationChannel;
   return ['SUPPORT','AFFILIATE','KDP','PREMIUM','ADS','OTHER'].includes(x)?x:null;
+}
+function currency(v:any){
+  const x=String(v||'').trim().toUpperCase();
+  return /^[A-Z]{3}$/.test(x)?x:null;
 }
 
 export default async (req:Request)=>{
@@ -32,8 +40,8 @@ export default async (req:Request)=>{
       if(!ch)throw new Error('Canal inválido');
       if(!validDate(date))throw new Error('Data inválida');
       if(!Number.isFinite(amount)||amount<=0||amount>10_000_000)throw new Error('Valor inválido');
-      const currency=String(body.currency||'BRL').toUpperCase().replace(/[^A-Z]/g,'').slice(0,3);
-      if(currency.length!==3)throw new Error('Moeda inválida');
+      const curr=currency(body.currency||'BRL');
+      if(!curr)throw new Error('Moeda inválida');
       const pagePath=String(body.pagePath||'').trim();
       if(pagePath&&(!pagePath.startsWith('/')||pagePath.length>240))throw new Error('Caminho de página inválido');
       const record={
@@ -41,7 +49,7 @@ export default async (req:Request)=>{
         date,
         channel:ch,
         amount:Math.round(amount*100)/100,
-        currency,
+        currency:curr,
         source:String(body.source||'manual').trim().slice(0,80)||'manual',
         pagePath:pagePath||null,
         note:String(body.note||'').trim().slice(0,320),
